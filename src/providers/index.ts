@@ -4,6 +4,6 @@
  * the dependency.
  */
 export { default as UserSettingsProvider } from './user-settings.provider';
-export { default as TokenListProvider } from '../beethovenx/providers/token-lists.provider';
+export { default as TokenListProvider } from '../embr/providers/token-lists.provider';
 export { default as TokensProvider } from './tokens.provider';
 export { default as AppProvider } from './app.provider';

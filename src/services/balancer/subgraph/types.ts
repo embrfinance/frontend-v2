@@ -1,4 +1,4 @@
-import { DecoratedFarm } from '@/beethovenx/services/subgraph/subgraph-types';
+import { DecoratedFarm } from '@/embr/services/subgraph/subgraph-types';
 
 export type QueryArgs = Record<string, any>;
 export type QueryAttrs = Record<string, any>;

@@ -1,0 +1,40 @@
+<script setup lang="ts">
+import BalCard from '@/components/_global/BalCard/BalCard.vue';
+import BalIcon from '@/components/_global/BalIcon/BalIcon.vue';
+import FarmWithdrawForm from '@/embr/components/pages/farm/FarmWithdrawForm.vue';
+import useWeb3 from '@/services/web3/useWeb3';
+import useFarmUserQuery from '@/embr/composables/farms/useFarmUserQuery';
+
+const { appNetworkConfig } = useWeb3();
+
+const farmUserQuery = useFarmUserQuery(appNetworkConfig.cEmbr.oldFarmId);
+
+function handleFarmWithdrawal(txReceipt): void {
+  //CharredEmbrQuery.refetch.value();
+  farmUserQuery.refetch.value();
+}
+</script>
+
+<template>
+  <div class="flex justify-center mb-6">
+    <div class="w-full lg:max-w-3xl">
+      <BalCard>
+        <div class="flex mb-4">
+          <BalIcon name="alert-circle" size="xl" class="text-yellow-500" />
+          <div class="flex-1 text-black ml-2 text-yellow-500">
+            You have Fidelio Duetto BPTs staked in the old farm. Unstake your
+            BPTs to get started with fBEETS.
+          </div>
+        </div>
+        <FarmWithdrawForm
+          :farm-id="appNetworkConfig.cEmbr.oldFarmId"
+          :token-address="appNetworkConfig.cEmbr.poolAddress"
+          @success="handleFarmWithdrawal($event)"
+        />
+      </BalCard>
+    </div>
+    <div
+      class="hidden w-full max-w-xl mx-auto md:mx-0 md:ml-6 lg:block md:w-72"
+    />
+  </div>
+</template>

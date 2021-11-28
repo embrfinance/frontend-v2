@@ -2,7 +2,7 @@ import { inject } from 'vue';
 import {
   TokenListsProviderResponse,
   TokenListsProviderSymbol
-} from '@/beethovenx/providers/token-lists.provider';
+} from '@/embr/providers/token-lists.provider';
 
 const defaultProviderResponse = {} as TokenListsProviderResponse;
 

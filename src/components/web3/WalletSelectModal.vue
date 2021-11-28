@@ -10,7 +10,7 @@
     >
       <h6>New to Fantom?</h6>
       <p class="text-sm">
-        Beethoven X is a DeFi app on Fantom. To invest and trade here, you'll
+        Embr is a DeFi app on Fantom. To invest and trade here, you'll
         first need to set up an Fantom Opera compatible wallet.
         <BalLink :href="EXTERNAL_LINKS.Ethereum.Wallets" external>
           Learn More

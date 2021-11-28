@@ -45,7 +45,7 @@ import useBreakpoints from '@/composables/useBreakpoints';
 import AppNavSettings from './AppNavSettings.vue';
 import Avatar from '@/components/images/Avatar.vue';
 import useWeb3 from '@/services/web3/useWeb3';
-import useNftQuery from '@/beethovenx/composables/nft/useNftQuery';
+import useNftQuery from '@/embr/composables/nft/useNftQuery';
 
 export default defineComponent({
   name: 'AppNavAccountBtn',

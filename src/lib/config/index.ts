@@ -1,9 +1,9 @@
 import homestead from './homestead.json';
 import kovan from './kovan.json';
-import rinkeby from '../../beethovenx/config/rinkeby.json';
+import rinkeby from '../../embr/config/rinkeby.json';
 import polygon from './polygon.json';
 import arbitrum from './arbitrum.json';
-import fantom from '../../beethovenx/config/fantom.json';
+import fantom from '../../embr/config/fantom.json';
 import docker from './docker.json';
 import test from './test.json';
 import { Network } from '@/composables/useNetwork';
@@ -50,13 +50,13 @@ export interface Config {
     wstETH: string;
     lidoRelayer: string;
     balancerHelpers: string;
-    beethovenxToken: string;
+    embrToken: string;
     hndRewarder: string;
     masterChef: string;
     earlyLudwigNft: string;
     hnd: string;
-    beetsUsdcReferencePricePool: string;
-    beets: string;
+    embrUsdcReferencePricePool: string;
+    embr: string;
     usdc: string;
     defaultPoolOwner: string;
   };
@@ -76,7 +76,7 @@ export interface Config {
   blockSubgraph: string;
   farmSubgraph: string;
   tokenListSanityUrl: string;
-  fBeets: {
+  cEmbr: {
     address: string;
     poolId: string;
     poolAddress: string;

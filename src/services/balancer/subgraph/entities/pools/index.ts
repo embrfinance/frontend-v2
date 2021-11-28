@@ -97,7 +97,7 @@ export default class Pools {
         pool.id ===
           '0xe2fd25b84aa76486e0cbc2c2ca383c3587abb942000100000000000000000028'
       ) {
-        pool.name = `*DEPRECATED* ${pool.name} - Please migrate to the Beethoven-X pool`;
+        pool.name = `*DEPRECATED* ${pool.name} - Please migrate to the Embr pool`;
       }
       if (
         pool.id ===

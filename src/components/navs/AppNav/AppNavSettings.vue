@@ -198,7 +198,7 @@ import { TradeInterface } from '@/store/modules/app';
 import useEthereumTxType from '@/composables/useEthereumTxType';
 import { ENABLE_LEGACY_TRADE_INTERFACE } from '@/composables/trade/constants';
 import { Network } from '@/composables/useNetwork';
-import useNftQuery from '@/beethovenx/composables/nft/useNftQuery';
+import useNftQuery from '@/embr/composables/nft/useNftQuery';
 
 const locales = {
   'en-US': 'English',

@@ -431,7 +431,7 @@ export default defineComponent({
     }
 
     function getPoolLink(id: string): string {
-      return `https://app.beets.fi/#/pool/${id}`;
+      return `https://app.embr.fi/#/pool/${id}`;
     }
 
     return {

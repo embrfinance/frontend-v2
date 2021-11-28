@@ -4,10 +4,10 @@ import { flatten } from 'lodash';
 
 import usePoolsQuery from '@/composables/queries/usePoolsQuery';
 import useUserPoolsQuery from '@/composables/queries/useUserPoolsQuery';
-import useFarms from '@/beethovenx/composables/farms/useFarms';
-import { decorateFarms, getPoolApr } from '@/beethovenx/utils/farmHelper';
-import useAverageBlockTime from '@/beethovenx/composables/blocks/useAverageBlockTime';
-import useProtocolDataQuery from '@/beethovenx/composables/queries/useProtocolDataQuery';
+import useFarms from '@/embr/composables/farms/useFarms';
+import { decorateFarms, getPoolApr } from '@/embr/utils/farmHelper';
+import useAverageBlockTime from '@/embr/composables/blocks/useAverageBlockTime';
+import useProtocolDataQuery from '@/embr/composables/queries/useProtocolDataQuery';
 import { DecoratedPoolWithShares } from '@/services/balancer/subgraph/types';
 import { uniqBy } from 'lodash';
 import useTokens from '@/composables/useTokens';
@@ -16,7 +16,7 @@ import {
   DecoratedPoolWithFarm,
   DecoratedPoolWithRequiredFarm,
   Farm
-} from '@/beethovenx/services/subgraph/subgraph-types';
+} from '@/embr/services/subgraph/subgraph-types';
 
 export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
   // COMPOSABLES
@@ -25,8 +25,8 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
   const protocolDataQuery = useProtocolDataQuery();
   const { priceFor, dynamicDataLoaded } = useTokens();
   const { appNetworkConfig } = useWeb3();
-  const beetsPrice = computed(
-    () => protocolDataQuery.data?.value?.beetsPrice || 0
+  const embrPrice = computed(
+    () => protocolDataQuery.data?.value?.embrPrice || 0
   );
   const rewardTokenPrice = computed(() =>
     dynamicDataLoaded.value ? priceFor(appNetworkConfig.addresses.hnd) : 0
@@ -56,15 +56,15 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
   });
 
   const decoratedFarms = computed(() => {
-    //here we replace the old farm with the fbeets farm on fidellio duetto.
+    //here we replace the old farm with the cembr farm on fidellio duetto.
     const mappedFarms = farms.value
-      .filter(farm => farm.id !== appNetworkConfig.fBeets.oldFarmId)
+      .filter(farm => farm.id !== appNetworkConfig.cEmbr.oldFarmId)
       .map(
         (farm): Farm =>
-          farm.id === appNetworkConfig.fBeets.farmId
+          farm.id === appNetworkConfig.cEmbr.farmId
             ? {
                 ...farm,
-                pair: appNetworkConfig.fBeets.poolAddress.toLowerCase()
+                pair: appNetworkConfig.cEmbr.poolAddress.toLowerCase()
               }
             : farm
       );
@@ -75,7 +75,7 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
       allFarmsForUser.value,
       blocksPerYear.value,
       blocksPerDay.value,
-      beetsPrice.value,
+      embrPrice.value,
       rewardTokenPrice.value
     );
   });
@@ -97,7 +97,7 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
                 pool,
                 farm,
                 blocksPerYear.value,
-                beetsPrice.value,
+                embrPrice.value,
                 rewardTokenPrice.value
               )
             : pool.dynamic.apr
@@ -142,7 +142,7 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
                 pool,
                 farm,
                 blocksPerYear.value,
-                beetsPrice.value,
+                embrPrice.value,
                 rewardTokenPrice.value
               )
             : pool.dynamic.apr

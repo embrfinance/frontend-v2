@@ -35,11 +35,11 @@ export function calculateTvl(farm: Farm, pool: DecoratedPool) {
 }
 
 export function calculateRewardsPerDay(farm: Farm, blocksPerDay: number) {
-  const totalBeetsPerDay = new BigNumber(
+  const totalEmbrPerDay = new BigNumber(
     farm.masterChef.embrPerBlock
   ).multipliedBy(blocksPerDay);
 
-  return totalBeetsPerDay
+  return totalEmbrPerDay
     .multipliedBy(farm.allocPoint / farm.masterChef.totalAllocPoint)
     .dividedBy(1e18)
     .toNumber();
@@ -59,7 +59,7 @@ export function calculateApr(
   const embrPerBlock =
     Number(parseInt(farm.masterChef.embrPerBlock) / 1e18) * 0.872;
   const embrPerYear = embrPerBlock * blocksPerYear;
-  const farmBeetsPerYear =
+  const farmEmbrPerYear =
     (farm.allocPoint / farm.masterChef.totalAllocPoint) * embrPerYear;
   const rewardTokenPerYear =
     Number(parseInt(farm.rewarder?.rewardPerSecond || '0') / 1e18) *
@@ -67,7 +67,7 @@ export function calculateApr(
     365;
 
   const valuePerYear =
-    embrPrice * farmBeetsPerYear + rewardTokenPrice * rewardTokenPerYear;
+    embrPrice * farmEmbrPerYear + rewardTokenPrice * rewardTokenPerYear;
 
   return valuePerYear / tvl;
 }
@@ -121,8 +121,8 @@ export function decorateFarm(
     rewards: calculateRewardsPerDay(farm, blocksPerDay),
     apr,
     stake: tvl * userShare,
-    pendingBeets: farmUser?.pendingBeets || 0,
-    pendingBeetsValue: (farmUser?.pendingBeets || 0) * embrPrice,
+    pendingEmbr: farmUser?.pendingEmbr || 0,
+    pendingEmbrValue: (farmUser?.pendingEmbr || 0) * embrPrice,
     share: userShare,
     pendingRewardToken: farmUser?.pendingRewardToken || 0,
     pendingRewardTokenValue: farmUser?.pendingRewardTokenValue || 0,

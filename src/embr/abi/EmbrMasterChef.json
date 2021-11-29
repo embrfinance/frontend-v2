@@ -198,7 +198,7 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "accBeetsPerShare",
+        "name": "accEmbrPerShare",
         "type": "uint256"
       }
     ],
@@ -503,7 +503,7 @@
         "type": "address"
       }
     ],
-    "name": "pendingBeets",
+    "name": "pendingEmbr",
     "outputs": [
       {
         "internalType": "uint256",
@@ -536,7 +536,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "accBeetsPerShare",
+        "name": "accEmbrPerShare",
         "type": "uint256"
       }
     ],
@@ -712,7 +712,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "accBeetsPerShare",
+            "name": "accEmbrPerShare",
             "type": "uint256"
           }
         ],

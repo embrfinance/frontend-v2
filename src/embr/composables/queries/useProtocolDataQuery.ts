@@ -30,7 +30,7 @@ export default function useProtocolDataQuery(
     }
 
     const balancerData = await balancerSubgraphService.balancers.get();
-    const embrPrice = await getBeetsPrice(
+    const embrPrice = await getEmbrPrice(
       appNetworkConfig.addresses.embrUsdcReferencePricePool,
       appNetworkConfig.addresses.embr,
       appNetworkConfig.addresses.usdc
@@ -57,7 +57,7 @@ export default function useProtocolDataQuery(
   );
 }
 
-export async function getBeetsPrice(
+export async function getEmbrPrice(
   poolId: string,
   embrAddress: string,
   usdcAddress: string

@@ -18,7 +18,8 @@
     "tailwind:view": "tailwind-config-viewer -o"
   },
   "dependencies": {
-    "@types/feather-icons": "^4.7.0"
+    "@types/feather-icons": "^4.7.0",
+    "rollup": "^2.60.1"
   },
   "devDependencies": {
     "@babel/core": "^7.13.8",
@@ -26,7 +27,7 @@
     "@balancer-labs/assets": "github:balancer-labs/assets#master",
     "@balancer-labs/balancer-js": "^1.0.1",
     "@balancer-labs/sor": "^1.1.0",
-    "@balancer-labs/sor2": "github:embrfinance/balancer-sor#embr-master",
+    "@balancer-labs/sor2": "github:beethovenxfi/balancer-sor#beethovenx-master",
     "@balancer-labs/typechain": "^1.0.0",
     "@ensdomains/content-hash": "^2.5.3",
     "ethereumjs-abi": "github:ethereumjs/ethereumjs-abi",

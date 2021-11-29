@@ -37,7 +37,7 @@
     "exchangeProxy": "",
     "merkleRedeem": "",
     "merkleOrchard": "",
-    "multicall": "0x53FE8639203D5dfDF735C6f8949BD340Ed6800d5",
+    "multicall": "0x98c23524db6852e04327e8021391e1715e0eace7",
     "authorizer": "0xa0Ced6679037b5477E2060eDE1EFe123860931C2",
     "vault": "0x9aed52F3074ba468c6ad17822b8833210868c31b",
     "weightedPoolFactory": "0xE81e09eE1EFe1d4e37975D55DA9a97A5b1CF6282",

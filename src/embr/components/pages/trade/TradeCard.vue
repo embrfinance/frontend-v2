@@ -62,7 +62,6 @@
       @close="tradeSuccess = false"
     />
   </BalCard>
-  <TradeRatesCard v-if="sorManagerInitialized" :sor-manager="sorManagerRef" />
   <teleport to="#modal">
     <TradePreviewModal
       v-if="modalTradePreviewIsOpen"
@@ -108,11 +107,9 @@ import { configService } from '@/services/config/config.service';
 import { getWrapAction, WrapType } from '@/lib/utils/balancer/wrapper';
 import { useTradeState } from '@/composables/trade/useTradeState';
 import useUserSettings from '@/composables/useUserSettings';
-import TradeRatesCard from '@/embr/components/pages/trade/TradeRatesCard.vue';
 
 export default defineComponent({
   components: {
-    TradeRatesCard,
     SuccessOverlay,
     TradePair,
     TradePreviewModal,

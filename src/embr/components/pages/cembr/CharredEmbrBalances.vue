@@ -18,7 +18,7 @@ const { fNum } = useNumbers();
 
 const {
   userStakedFtmBalance,
-  userStakedBeetsBalance,
+  userStakedEmbrBalance,
   userStakedBptBalance,
   userFembrBalance,
   currentExchangeRate,
@@ -40,7 +40,7 @@ const {
     <div
       class="border-green-500 bg-green-900 border-2 rounded-xl px-3 py-1 text-center justify-center mb-2 flex items-center text-sm"
     >
-      1 fBEETS =
+      1 cEMBR =
       <BalLoadingBlock v-if="cEmbrLoading" class="h-5 w-4 mx-0.5" white />{{
         !cEmbrLoading ? fNum(currentExchangeRate, 'token') : ''
       }}
@@ -53,7 +53,7 @@ const {
       <BalLoadingBlock v-if="cEmbrLoading" class="h-5 w-4 mx-0.5" white />{{
         !cEmbrLoading ? numeral(embrPerShare).format('0.[00]') : ''
       }}
-      BEETS /
+      Embr /
       <BalLoadingBlock v-if="cEmbrLoading" class="h-5 w-4 mx-0.5" white />{{
         !cEmbrLoading ? numeral(ftmPerShare).format('0.[00]') : ''
       }}
@@ -66,13 +66,13 @@ const {
         My Stake
       </div>
       <div class="flex items-center space-x-4">
-        <img src="~@/embr/assets/images/fBEETS.png" width="52" />
+        <img src="~@/embr/assets/images/cEMBR.png" width="52" />
         <div class="flex flex-col justify-center">
           <BalLoadingBlock v-if="props.loading" class="h-6 w-24 mb-1" white />
           <p v-else class="text-sm font-bold md:text-lg">
             {{ fNum(userFembrBalance.toString(), 'token') }}
           </p>
-          <p class="text-sm md:text-base text-primary">fBEETS</p>
+          <p class="text-sm md:text-base text-primary">cEMBR</p>
         </div>
       </div>
     </div>
@@ -83,10 +83,7 @@ const {
     </div>
     <div class="flex flex-col flex-grow">
       <div class="flex items-center space-x-4">
-        <img
-          src="~@/embr/assets/images/fidellio-duetto-bpt.png"
-          width="52"
-        />
+        <img src="~@/embr/assets/images/fidellio-duetto-bpt.png" width="52" />
         <div class="flex flex-col justify-center">
           <BalLoadingBlock v-if="props.loading" class="h-6 w-24 mb-1" white />
           <p v-else class="text-sm font-bold md:text-lg">
@@ -106,17 +103,14 @@ const {
     </div>
     <div class="flex flex-col flex-grow">
       <div class="flex items-center space-x-4">
-        <img
-          src="~@/embr/assets/images/embr-icon-large.png"
-          width="52"
-        />
+        <img src="~@/embr/assets/images/embr-icon-large.png" width="52" />
         <div class="flex flex-col justify-center">
           <BalLoadingBlock v-if="props.loading" class="h-6 w-24 mb-1" white />
           <p v-else class="text-sm font-bold md:text-lg">
-            {{ fNum(userStakedBeetsBalance.toString(), 'token') }}
+            {{ fNum(userStakedEmbrBalance.toString(), 'token') }}
           </p>
           <p class="text-sm md:text-base text-primary">
-            BEETS
+            Embr
           </p>
         </div>
       </div>

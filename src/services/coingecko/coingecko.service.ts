@@ -9,7 +9,7 @@ export const getNativeAssetId = (chainId: string): string => {
     '137': 'matic-network',
     '42161': 'ethereum',
     '250': 'fantom',
-    '43113': 'fuji',
+    '43113': 'avalanche',
     '43114': 'avalanche'
   };
 
@@ -23,7 +23,7 @@ export const getPlatformId = (chainId: string): string => {
     '137': 'polygon-pos',
     '42161': 'arbitrum-one',
     '250': 'fantom',
-    '43113': 'fuji',
+    '43113': 'avalanche',
     '43114': 'avalanche'
   };
 

@@ -4,7 +4,7 @@
       My Pending Rewards
     </div>
     <div class="text-xl font-medium truncate flex items-center">
-      {{ fNum(pendingBeets, 'token_fixed') }} BEETS
+      {{ fNum(pendingEmbr, 'token_fixed') }} Embr
     </div>
     <div
       v-if="pendingRewardToken > 0"
@@ -13,14 +13,14 @@
       {{ fNum(pendingRewardToken, 'token_fixed') }} HND
     </div>
     <div class="truncate flex items-center pb-8">
-      {{ fNum(pendingBeetsValue + pendingRewardTokenValue, 'usd') }}
+      {{ fNum(pendingEmbrValue + pendingRewardTokenValue, 'usd') }}
     </div>
 
     <BalBtn
       label="Harvest"
       block
       color="gradient"
-      :disabled="pendingBeets <= 0 && pendingRewardToken <= 0"
+      :disabled="pendingEmbr <= 0 && pendingRewardToken <= 0"
       :loading="harvesting"
       @click.prevent="harvestRewards"
     />
@@ -40,7 +40,7 @@ export default defineComponent({
   components: {},
 
   props: {
-    pendingBeets: {
+    pendingEmbr: {
       type: Number,
       required: true
     },
@@ -48,7 +48,7 @@ export default defineComponent({
       type: Number,
       required: true
     },
-    pendingBeetsValue: {
+    pendingEmbrValue: {
       type: Number,
       required: true
     },

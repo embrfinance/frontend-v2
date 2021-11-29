@@ -19,8 +19,8 @@ export interface Farm {
 
 export interface FarmUser {
   id: string;
-  pendingBeets: number;
-  pendingBeetsValue: number;
+  pendingEmbr: number;
+  pendingEmbrValue: number;
   amount: number;
   rewardDebt: number;
   embrHarvested: number;
@@ -35,8 +35,8 @@ export interface DecoratedFarm extends Farm {
   tvl: number;
   rewards: number;
   stake: number;
-  pendingBeets: number;
-  pendingBeetsValue: number;
+  pendingEmbr: number;
+  pendingEmbrValue: number;
   apr: number;
   share: number;
   userBpt: number;

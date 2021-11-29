@@ -1,10 +1,6 @@
 <template>
   <img
-    v-if="
-      iconSRC &&
-        !error &&
-        !iconSRC.startsWith('https://raw.githubusercontent.com/')
-    "
+    v-if="iconSRC && !error"
     :src="iconSRC"
     :style="{
       width: `${size}px`,

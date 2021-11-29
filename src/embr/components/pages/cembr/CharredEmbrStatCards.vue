@@ -15,7 +15,7 @@ const {
   cembrDecoratedFarm,
   totalBptStaked,
   totalSupply,
-  totalBeetsStaked,
+  totalEmbrStaked,
   pool,
   cEmbrLoading,
   swapApr,
@@ -41,7 +41,7 @@ const {
       </BalCard>
       <BalCard>
         <div class="text-sm text-gray-500 font-medium mb-2">
-          fBEETS Minted
+          cEMBR Minted
         </div>
         <div class="text-xl font-medium truncate flex items-center">
           {{ fNum(totalSupply?.toString() || '0', 'token_lg') }}
@@ -49,10 +49,10 @@ const {
       </BalCard>
       <BalCard>
         <div class="text-sm text-gray-500 font-medium mb-2">
-          BEETS Staked
+          Embr Staked
         </div>
         <div class="text-xl font-medium truncate flex items-center">
-          {{ fNum(totalBeetsStaked, 'token_lg') }}
+          {{ fNum(totalEmbrStaked, 'token_lg') }}
         </div>
       </BalCard>
 
@@ -72,7 +72,7 @@ const {
     </template>
     <!--    </template>-->
   </div>
-  <h4 class="px-4 lg:px-0 mb-4">Fresh BEETS Farm</h4>
+  <h4 class="px-4 lg:px-0 mb-4">Fresh Embr Farm</h4>
   <FarmStatCardsLoading v-if="cEmbrLoading" />
   <div v-else class="grid grid-cols-1 sm:grid-cols-1 xl:grid-cols-2 gap-4">
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-4">
@@ -86,7 +86,7 @@ const {
       </BalCard>
       <BalCard>
         <div class="text-sm text-gray-500 font-medium mb-2">
-          BEETS
+          Embr
         </div>
         <div class="text-xl font-medium truncate flex items-center">
           {{ fNum(cembrDecoratedFarm?.rewards || '0', 'token_lg') }} / day
@@ -112,8 +112,8 @@ const {
     <FarmHarvestRewardsCard
       :farm-id="appNetworkConfig.cEmbr.farmId"
       :token-address="appNetworkConfig.cEmbr.poolAddress"
-      :pending-embr="cembrDecoratedFarm?.pendingBeets || 0"
-      :pending-embr-value="cembrDecoratedFarm?.pendingBeetsValue || 0"
+      :pending-embr="cembrDecoratedFarm?.pendingEmbr || 0"
+      :pending-embr-value="cembrDecoratedFarm?.pendingEmbrValue || 0"
       :pending-reward-token-value="0"
       :pending-reward-token="0"
     />

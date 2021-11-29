@@ -36,7 +36,7 @@
         </BalCard>
         <BalCard>
           <div class="text-sm text-gray-500 font-medium mb-2 text-left">
-            BEETS
+            Embr
           </div>
           <div class="text-xl font-medium truncate flex items-center">
             {{ fNum(embrPrice, 'usd') }}
@@ -79,7 +79,7 @@ import { useCharredEmbr } from '@/embr/composables/stake/useCharredEmbr';
 import useProtocolDataQuery from '@/embr/composables/queries/useProtocolDataQuery';
 
 export default defineComponent({
-  name: 'AppNavBeets',
+  name: 'AppNavEmbr',
 
   props: {
     alert: { type: Object as PropType<Alert>, required: true }

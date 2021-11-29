@@ -6,7 +6,7 @@ export const DEFAULT_TOKEN_DECIMALS = 18;
 
 export const TOKENS = {
   Popular: {
-    Symbols: ['DAI.e', 'USDC.e', 'EMBR','WAVAX']
+    Symbols: ['DAI.e', 'USDC.e', 'EMBR', 'WAVAX']
   },
   AddressMap: {
     '1': {

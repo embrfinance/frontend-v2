@@ -77,9 +77,9 @@
       <div v-if="joined" class="mt-6 mb-2">
         <p class="text-yellow-500">
           We're still looking for the magic recipe that allows us to verify
-          factory created contracts through the snowtrace API. Until then, please
-          reach out to us on discord and someone from the team will manually
-          verify your contract.
+          factory created contracts through the snowtrace API. Until then,
+          please reach out to us on discord and someone from the team will
+          manually verify your contract.
         </p>
       </div>
     </div>

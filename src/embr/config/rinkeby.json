@@ -73,7 +73,7 @@
   "lbp": {
     "poolId": "0x49096affb047f312a3def632c07b962f6b2276da000200000000000000000029",
     "tokenAddress": "0x76227eFa96fF24738c28dEf07208E704a92cD31A",
-    "tokenSymbol": "BEETS",
+    "tokenSymbol": "Embr",
     "startingAmount": 5000000,
     "usdcAddress": "0x70b55Af71B29c5Ca7e67bD1995250364C4bE5554",
     "startTime": "2021-10-07T06:18:00+0000",

@@ -22,13 +22,13 @@
             Pending Rewards
           </div>
           <div class="text-xl font-medium truncate flex items-center">
-            <div>{{ farmData.pendingBeets }}&nbsp;</div>
+            <div>{{ farmData.pendingEmbr }}&nbsp;</div>
             <div class="text-sm text-gray-500 font-medium mt-1 text-left">
-              BEETS
+              Embr
             </div>
           </div>
           <div class="text-sm text-gray-500 font-medium mt-1 text-left">
-            {{ farmData.pendingBeetsValue }}
+            {{ farmData.pendingEmbrValue }}
           </div>
         </BalCard>
         <BalCard class="md:w-48">
@@ -39,7 +39,7 @@
             {{ farmData.apr }}
           </div>
           <div class="text-sm text-gray-500 font-medium mt-1 text-left">
-            {{ farmData.dailyBeets }} BEETS / day
+            {{ farmData.dailyEmbr }} Embr / day
           </div>
         </BalCard>
       </template>
@@ -54,7 +54,7 @@
     </BalCard>-->
     <!--    <BalCard class="mr-2 w-48">
       <div class="text-sm text-gray-500 font-medium mb-2">
-        BEETS Price
+        Embr Price
       </div>
       <div class="text-xl font-medium truncate flex items-center">
         $1.48
@@ -71,7 +71,7 @@
         7,724,530
       </div>
       <div class="text-sm text-gray-500 font-medium mt-1">
-        5.05 BEETS/block
+        5.05 Embr/block
       </div>
     </BalCard>-->
   </div>
@@ -127,16 +127,16 @@ export default defineComponent({
       return {
         numFarms: farms.filter(farm => farm.stake > 0).length,
         totalBalance: fNum(totalBalance, 'usd'),
-        pendingBeets: numeral(sumBy(farms, farm => farm.pendingBeets)).format(
+        pendingEmbr: numeral(sumBy(farms, farm => farm.pendingEmbr)).format(
           '0,0.[0000]'
         ),
-        pendingBeetsValue: fNum(
-          sumBy(farms, farm => farm.pendingBeetsValue),
+        pendingEmbrValue: fNum(
+          sumBy(farms, farm => farm.pendingEmbrValue),
           'usd'
         ),
         apr: fNum(averageApr, 'percent'),
         dailyApr: fNum(dailyApr, 'percent'),
-        dailyBeets: embrPrice.value
+        dailyEmbr: embrPrice.value
           ? fNum((dailyApr * totalBalance) / embrPrice.value)
           : 0
       };

@@ -51,7 +51,7 @@ export default defineComponent({
     const activeClasses = 'bg-black text-green-500 dark:bg-gray-800';
     const isTradePage = computed(() => route.name === 'trade');
     const isFarmPage = computed(() => String(route.name).startsWith('farm'));
-    const isBeetsPage = computed(() => route.name === 'embr');
+    const isEmbrPage = computed(() => route.name === 'embr');
     const isPortfolioPage = computed(() => route.name === 'my-portfolio');
     const isStakePage = computed(() => route.name === 'stake');
     const isInvestPage = computed(
@@ -61,7 +61,7 @@ export default defineComponent({
       () =>
         !isTradePage.value &&
         !isFarmPage.value &&
-        !isBeetsPage.value &&
+        !isEmbrPage.value &&
         !isInvestPage.value
     );
     const { trackGoal, Goals } = useFathom();

@@ -63,15 +63,15 @@ const activeTab = ref(tabs[0].value);
     <BalAlert
       v-if="!loading && props.hasUnstakedBpt && !isOldFembrFarm"
       title="You have unstaked BPT in your wallet"
-      description="If you deposit your BPT into the farm, you will earn additional rewards paid out in BEETS."
+      description="If you deposit your BPT into the farm, you will earn additional rewards paid out in Embr."
       type="warning"
       size="sm"
       class="mb-3"
     />
     <BalAlert
       v-if="!loading && isOldFembrFarm"
-      title="Incentives for the Fidelio Duetto have moved to fBEETS"
-      description="To receive BEETS rewards for this pool, you need to stake your BPT for fBEETS. Click on the 'Stake' tab to get started."
+      title="Incentives for the Fidelio Duetto have moved to cEMBR"
+      description="To receive Embr rewards for this pool, you need to stake your BPT for cEMBR. Click on the 'Stake' tab to get started."
       type="warning"
       size="sm"
       class="mb-3"
@@ -79,7 +79,7 @@ const activeTab = ref(tabs[0].value);
     <BalLoadingBlock v-if="loading || dynamicDataLoading" class="h-96" />
     <BalCard v-else-if="!isOldFembrFarm">
       <div class="text-gray-500 text-sm">
-        Stake your BPTs to earn BEETS
+        Stake your BPTs to earn Embr
       </div>
       <h5 class="mb-1">Farm</h5>
 

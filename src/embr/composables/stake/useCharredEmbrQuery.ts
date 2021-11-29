@@ -18,7 +18,7 @@ export default function useCharredEmbrQuery() {
   const { appLoading } = useApp();
   const { isWalletReady, account } = useWeb3();
   const enabled = computed(() => !appLoading.value && isWalletReady.value);
-  const queryKey = reactive(QUERY_KEYS.FBeets.all);
+  const queryKey = reactive(QUERY_KEYS.cEMBR.all);
 
   const queryFn = async () => {
     const data = await governanceContractsService.cembr.getData(account.value);

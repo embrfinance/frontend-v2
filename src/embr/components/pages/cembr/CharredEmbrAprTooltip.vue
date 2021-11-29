@@ -20,7 +20,7 @@
         <div class="whitespace-nowrap flex items-center mb-1">
           {{ fNum(cembrApr, 'percent') }}
           <span class="ml-1 text-gray-500 text-xs">
-            fBEETS APR
+            cEMBR APR
           </span>
         </div>
         <div class="whitespace-nowrap flex items-center mb-1">

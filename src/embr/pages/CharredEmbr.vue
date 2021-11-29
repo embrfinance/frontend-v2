@@ -98,15 +98,15 @@ const activeTab = ref(tabs[0].value);
         <BalAlert
           v-if="userBptTokenBalance.gt(0)"
           title="You have unstaked BPT in your wallet"
-          description="If you stake your BPT, you will receive fBEETS and be eligible to earn a portion of Embr Protocol Revenue."
+          description="If you stake your BPT, you will receive cEMBR and be eligible to earn a portion of Embr Protocol Revenue."
           type="warning"
           size="md"
           class="mb-4"
         />
         <BalAlert
           v-if="userBptTokenBalance.eq(0) && userUnstakedFembrBalance.gt(0)"
-          title="You have unstaked fBEETS in your wallet"
-          description="If you deposit your fBEETS into the farm, you will earn additional rewards paid out in BEETS."
+          title="You have unstaked cEMBR in your wallet"
+          description="If you deposit your cEMBR into the farm, you will earn additional rewards paid out in Embr."
           type="warning"
           size="md"
           class="mb-4"

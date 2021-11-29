@@ -6,9 +6,7 @@ export default function useEmbrConfig() {
   const embrConfigQuery = useEmbrConfigQuery();
 
   const embrConfigLoading = computed(
-    () =>
-      embrConfigQuery.isLoading.value ||
-      embrConfigQuery.isIdle.value
+    () => embrConfigQuery.isLoading.value || embrConfigQuery.isIdle.value
   );
 
   const embrConfig = computed(

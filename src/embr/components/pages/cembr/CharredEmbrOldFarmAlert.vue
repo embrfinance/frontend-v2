@@ -23,7 +23,7 @@ function handleFarmWithdrawal(txReceipt): void {
           <BalIcon name="alert-circle" size="xl" class="text-yellow-500" />
           <div class="flex-1 text-black ml-2 text-yellow-500">
             You have Fidelio Duetto BPTs staked in the old farm. Unstake your
-            BPTs to get started with fBEETS.
+            BPTs to get started with cEMBR.
           </div>
         </div>
         <FarmWithdrawForm

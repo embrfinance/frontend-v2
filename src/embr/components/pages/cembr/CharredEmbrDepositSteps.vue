@@ -29,7 +29,7 @@ function handleFarmDeposit(txReceipt): void {
 <template>
   <StepContainer
     :step-number="1"
-    title="Invest your BEETS into the Fidelio Duetto pool"
+    title="Invest your Embr into the Fidelio Duetto pool"
     :complete="props.hasBpt || props.hasUnstakedFembr || props.hasStakedFembr"
   >
     <template v-slot:right>
@@ -46,7 +46,7 @@ function handleFarmDeposit(txReceipt): void {
   </StepContainer>
   <StepContainer
     :step-number="2"
-    title="Stake your Fidelio Duetto BPTs and receive fBEETS"
+    title="Stake your Fidelio Duetto BPTs and receive cEMBR"
     :complete="props.hasUnstakedFembr || props.hasStakedFembr"
   >
     <template v-slot:content>
@@ -55,14 +55,14 @@ function handleFarmDeposit(txReceipt): void {
   </StepContainer>
   <StepContainer
     :step-number="3"
-    title="Stake your fBEETS into the fBEETS farm"
+    title="Stake your cEMBR into the cEMBR farm"
     :complete="props.hasStakedFembr"
   >
     <template v-slot:content>
       <FarmDepositForm
         :farm-id="appNetworkConfig.cEmbr.farmId"
         :token-address="appNetworkConfig.cEmbr.address"
-        token-name="fBEETS"
+        token-name="cEMBR"
         :data-loading="props.loading"
         @success="handleFarmDeposit($event)"
       />

@@ -132,9 +132,9 @@ export class PriceService {
     const requests: Promise<HistoricalPriceResponse>[] = [];
 
     addresses.forEach(address => {
-      const endpoint = `/coins/${
-        this.platformId
-      }/contract/${address.toLowerCase()}/market_chart/range?vs_currency=${
+      const endpoint = `/coins/${this.platformId}/contract/${this.swapAddress(
+        address.toLowerCase()
+      )}/market_chart/range?vs_currency=${
         this.fiatParam
       }&from=${start}&to=${end}`;
       const request = retryPromiseWithDelay(
@@ -153,6 +153,23 @@ export class PriceService {
       aggregateBy
     );
     return results;
+  }
+
+  private swapAddress(address: string): string {
+    switch (address) {
+      case '0xcbb327140e91039a3f4e8ecf144b0f12238d6fdd':
+        return '0x78ea17559b3d2cf85a7f9c2c704eda119db5e6de';
+      case '0xfb8fa9f5f0bd47591ba6f7c75fe519e3e8fde429':
+        return '0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664';
+      case '0x4b20b17bdb9991a8549f5ceb8bd813419e537209':
+        return '0xd586e7f844cea2f87f50152665bcbc2c279d8d70';
+      case '0xd00ae08403b9bbb9124bb305c09058e32c39a48c':
+        return '0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7';
+      case '0xe7a282da986f01de6677250c90ce22a819ce9a9d':
+        return '0x78ea17559b3d2cf85a7f9c2c704eda119db5e6de';
+      default:
+        return address;
+    }
   }
 
   private parsePaginatedTokens(paginatedResults: TokenPrices[]): TokenPrices {

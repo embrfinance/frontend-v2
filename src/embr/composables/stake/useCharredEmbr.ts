@@ -107,8 +107,7 @@ export function useCharredEmbr() {
 
   const embrPerShare = computed(() => {
     return embr.value && pool.value
-      ? `${parseFloat(embr.value.balance) /
-          parseFloat(pool.value.totalShares)}`
+      ? `${parseFloat(embr.value.balance) / parseFloat(pool.value.totalShares)}`
       : '0';
   });
 
@@ -118,14 +117,14 @@ export function useCharredEmbr() {
       : '0';
   });
 
-  const userStakedBeetsBalance = computed(() =>
+  const userStakedEmbrBalance = computed(() =>
     userBptShare.value.times(embr.value?.balance || '0')
   );
   const userStakedFtmBalance = computed(() =>
     userBptShare.value.times(ftm.value?.balance || '0')
   );
 
-  const totalBeetsStaked = computed(() => {
+  const totalEmbrStaked = computed(() => {
     if (!pool.value) {
       return '0';
     }
@@ -193,7 +192,7 @@ export function useCharredEmbr() {
       id: tx.hash,
       type: 'tx',
       action: 'deposit',
-      summary: 'Stake LP tokens for fBEETS',
+      summary: 'Stake LP tokens for cEMBR',
       details: {
         contractAddress: governanceContractsService.cembr.bptTokenAddress,
         spender: governanceContractsService.cembr.cembrAddress
@@ -213,7 +212,7 @@ export function useCharredEmbr() {
       id: tx.hash,
       type: 'tx',
       action: 'claim',
-      summary: 'Burn fBEETS and withdraw LP tokens',
+      summary: 'Burn cEMBR and withdraw LP tokens',
       details: {
         contractAddress: governanceContractsService.cembr.bptTokenAddress,
         spender: governanceContractsService.cembr.cembrAddress
@@ -236,9 +235,9 @@ export function useCharredEmbr() {
     pool,
     farmUser,
     totalBptStaked,
-    totalBeetsStaked,
+    totalEmbrStaked,
     userStakedBptBalance,
-    userStakedBeetsBalance,
+    userStakedEmbrBalance,
     userStakedFtmBalance,
     embrPerShare,
     ftmPerShare,

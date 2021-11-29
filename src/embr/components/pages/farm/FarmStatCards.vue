@@ -14,8 +14,8 @@
     <FarmHarvestRewardsCard
       :farm-id="pool.farm.id"
       :token-address="pool.address"
-      :pending-embr="pool.farm.pendingBeets"
-      :pending-embr-value="pool.farm.pendingBeetsValue"
+      :pending-embr="pool.farm.pendingEmbr"
+      :pending-embr-value="pool.farm.pendingEmbrValue"
       :pending-reward-token="pool.farm.pendingRewardToken"
       :pending-reward-token-value="pool.farm.pendingRewardTokenValue"
     />
@@ -93,7 +93,7 @@ export default defineComponent({
         },
         {
           id: 'embr',
-          label: 'BEETS',
+          label: 'Embr',
           value: `${fNum(farm.rewards, 'token_lg')} / day`
         },
         {
@@ -111,8 +111,8 @@ export default defineComponent({
 
     const pendingRewards = computed(() => {
       return {
-        count: farmUser.value?.pendingBeets || 0,
-        value: farmUser.value?.pendingBeetsValue || 0
+        count: farmUser.value?.pendingEmbr || 0,
+        value: farmUser.value?.pendingEmbrValue || 0
       };
     });
 

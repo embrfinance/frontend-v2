@@ -38,7 +38,7 @@ export default function useAllFarmsForUserQuery(
       const decoratedUserFarms: FarmUser[] = [];
 
       for (const userFarm of userFarms) {
-        const pendingBeets = await masterChefContractsService.masterChef.getPendingBeetsForFarm(
+        const pendingEmbr = await masterChefContractsService.masterChef.getPendingEmbrForFarm(
           userFarm.pool.id,
           account.value
         );
@@ -52,8 +52,8 @@ export default function useAllFarmsForUserQuery(
 
         decoratedUserFarms.push({
           ...userFarm,
-          pendingBeets,
-          pendingBeetsValue: pendingBeets * embrPrice.value,
+          pendingEmbr,
+          pendingEmbrValue: pendingEmbr * embrPrice.value,
           pendingRewardToken,
           pendingRewardTokenValue: pendingRewardToken * hndPrice
         });

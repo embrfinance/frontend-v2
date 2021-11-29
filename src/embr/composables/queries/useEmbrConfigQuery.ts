@@ -3,10 +3,7 @@ import { useQuery } from 'vue-query';
 import { UseQueryOptions } from 'react-query/types';
 import QUERY_KEYS from '@/embr/constants/queryKeys';
 import { FETCH_ONCE_OPTIONS } from '@/constants/vue-query';
-import {
-  EmbrConfig,
-  embrService
-} from '@/embr/services/embr/embr.service';
+import { EmbrConfig, embrService } from '@/embr/services/embr/embr.service';
 
 /**
  * Fetch all token lists, should only happen once.

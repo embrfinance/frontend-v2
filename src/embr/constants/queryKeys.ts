@@ -111,8 +111,8 @@ const QUERY_KEYS = {
   Dexes: {
     GetAmountsOut: ['Dexes', 'GetAmountsOut', 'all']
   },
-  FBeets: {
-    all: ['FBeets', 'all']
+  cEMBR: {
+    all: ['cEMBR', 'all']
   }
 };
 

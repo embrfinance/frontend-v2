@@ -29,14 +29,14 @@ function handleFarmWithdrawal(txReceipt): void {
 <template>
   <StepContainer
     :step-number="1"
-    title="Withdraw your fBEETS from the fBEETS farm"
+    title="Withdraw your cEMBR from the cEMBR farm"
     :complete="props.hasUnstakedFembr || props.hasBpt"
   >
     <template v-slot:content>
       <FarmWithdrawForm
         :farm-id="appNetworkConfig.cEmbr.farmId"
         :token-address="appNetworkConfig.cEmbr.address"
-        token-name="fBEETS"
+        token-name="cEMBR"
         @success="handleFarmWithdrawal($event)"
         :data-loading="props.loading"
       />
@@ -44,7 +44,7 @@ function handleFarmWithdrawal(txReceipt): void {
   </StepContainer>
   <StepContainer
     :step-number="2"
-    title="Burn your fBEETS and receive Fidelio Duetto BPTs"
+    title="Burn your cEMBR and receive Fidelio Duetto BPTs"
     :complete="props.hasBpt"
   >
     <template v-slot:content>
@@ -53,7 +53,7 @@ function handleFarmWithdrawal(txReceipt): void {
   </StepContainer>
   <StepContainer
     :step-number="3"
-    title="Withdraw your BEETS/FTM from the Fidelio Duetto pool"
+    title="Withdraw your Embr/FTM from the Fidelio Duetto pool"
     :complete="false"
   >
     <template v-slot:right>

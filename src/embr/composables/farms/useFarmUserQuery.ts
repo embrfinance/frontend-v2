@@ -40,7 +40,7 @@ export default function useFarmUserQuery(
         farmId,
         address
       );
-      const pendingBeets = await masterChefContractsService.masterChef.getPendingBeetsForFarm(
+      const pendingEmbr = await masterChefContractsService.masterChef.getPendingEmbrForFarm(
         farmId,
         address
       );
@@ -54,8 +54,8 @@ export default function useFarmUserQuery(
 
       return {
         ...userData,
-        pendingBeets,
-        pendingBeetsValue: pendingBeets * embrPrice.value,
+        pendingEmbr,
+        pendingEmbrValue: pendingEmbr * embrPrice.value,
         pendingRewardToken,
         pendingRewardTokenValue: hndPrice * pendingRewardToken
       };

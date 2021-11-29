@@ -57,7 +57,7 @@
           block
           @click="trackGoal(Goals.ClickFarmWithdraw)"
         >
-          Burn fBEETS
+          Burn cEMBR
         </BalBtn>
       </template>
     </div>

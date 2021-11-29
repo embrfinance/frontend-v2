@@ -145,9 +145,9 @@
               This is a Liquidity Bootstrapping Pool (LBP)
             </div>
             <div class="mb-4 text-sm">
-              LBPs are usually used for token fair launch auctions (FLAs).
-              Embr will soon support a fully permissionless interface to
-              allow anyone to create a FLA.
+              LBPs are usually used for token fair launch auctions (FLAs). Embr
+              will soon support a fully permissionless interface to allow anyone
+              to create a FLA.
             </div>
             <div class="italic mb-4 text-sm">
               Only the pool creator has permission to add or remove liquidity

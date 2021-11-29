@@ -7,12 +7,12 @@
         Maximize your Yield
       </h2>
       <h2 class="text-lg font-light mb-4">
-        Stake your Fidelio Duetto BPTs for fBEETS
+        Stake your Fidelio Duetto BPTs for cEMBR
       </h2>
       <p>
-        30% of Embr protocol revenue is used to reward fBEETS holders.
-        When you stake your Fidelio Duetto BPTs, you receive fBEETS in return.
-        fBEETS holders earn triple yield:
+        30% of Embr protocol revenue is used to reward cEMBR holders. When you
+        stake your Fidelio Duetto BPTs, you receive cEMBR in return. cEMBR
+        holders earn triple yield:
       </p>
       <ol class="list-decimal list-inside ml-2 mt-2">
         <li>Swap fees earned as a Liquidity Provider (LP)</li>

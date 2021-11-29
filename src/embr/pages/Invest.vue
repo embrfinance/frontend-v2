@@ -6,7 +6,7 @@
         <BalAlert
           v-if="hasUnstakedBpt"
           title="You have unstaked BPT in your wallet"
-          description="If you deposit your BPT into the farm, you will earn additional rewards paid out in BEETS."
+          description="If you deposit your BPT into the farm, you will earn additional rewards paid out in Embr."
           type="warning"
           size="sm"
           class=""
@@ -162,7 +162,7 @@ export default defineComponent({
         return [
           {
             ...cembrPool,
-            name: cembrPool.name + ' (fBEETS)',
+            name: cembrPool.name + ' (cEMBR)',
             hasLiquidityMiningRewards: true,
             farm: cembrDecoratedFarm.value,
             tokens: [

@@ -29,12 +29,7 @@ export default class CharredEmbr {
       CharredEmbrAbi
     );
 
-    multicaller.call(
-      'totalFembrSupply',
-      this.cembrAddress,
-      'totalSupply',
-      []
-    );
+    multicaller.call('totalFembrSupply', this.cembrAddress, 'totalSupply', []);
     multicaller.call('totalBptStaked', this.bptTokenAddress, 'balanceOf', [
       this.cembrAddress
     ]);

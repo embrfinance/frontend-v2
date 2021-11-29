@@ -17,6 +17,7 @@ import {
   DecoratedPoolWithRequiredFarm,
   Farm
 } from '@/embr/services/subgraph/subgraph-types';
+import useEmbrConfig from '@/embr/composables/useEmbrConfig';
 
 export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
   // COMPOSABLES
@@ -25,6 +26,7 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
   const protocolDataQuery = useProtocolDataQuery();
   const { priceFor, dynamicDataLoaded } = useTokens();
   const { appNetworkConfig } = useWeb3();
+  const { embrConfig } = useEmbrConfig();
   const embrPrice = computed(
     () => protocolDataQuery.data?.value?.embrPrice || 0
   );
@@ -53,7 +55,7 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
   });
 
   const decoratedFarms = computed(() => {
-    //here we replace the old farm with the cembr farm on fidellio duetto.
+    //here we replace the old farm with the fembr farm on fidellio duetto.
     const mappedFarms = farms.value
       .filter(farm => farm.id !== appNetworkConfig.cEmbr.oldFarmId)
       .map(
@@ -89,7 +91,12 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
         dynamic: {
           ...pool.dynamic,
           apr: farm
-            ? getPoolApr(pool, farm, blocksPerYear.value, embrPrice.value)
+            ? getPoolApr(
+                pool,
+                farm,
+                blocksPerYear.value,
+                embrPrice.value
+              )
             : pool.dynamic.apr
         }
       };
@@ -128,7 +135,12 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
         dynamic: {
           ...pool.dynamic,
           apr: farm
-            ? getPoolApr(pool, farm, blocksPerYear.value, embrPrice.value)
+            ? getPoolApr(
+                pool,
+                farm,
+                blocksPerYear.value,
+                embrPrice.value
+              )
             : pool.dynamic.apr
         }
       };
@@ -152,6 +164,26 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
     () => poolsQuery.isFetchingNextPage?.value
   );
 
+  const communityPools = computed(() =>
+    poolsWithFarms.value?.filter(
+      pool => !embrConfig.value.incentivizedPools.includes(pool.id)
+    )
+  );
+
+  const embrPools = computed(() => {
+    return poolsTokenList.value.length > 0
+      ? poolsWithFarms.value?.filter(pool => {
+          return (
+            poolsTokenList.value.every((selectedToken: string) =>
+              pool.tokenAddresses.includes(selectedToken)
+            ) && embrConfig.value.incentivizedPools.includes(pool.id)
+          );
+        })
+      : poolsWithFarms?.value.filter(pool =>
+          embrConfig.value.incentivizedPools.includes(pool.id)
+        );
+  });
+
   // METHODS
   function loadMorePools() {
     poolsQuery.fetchNextPage.value();
@@ -164,6 +196,8 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
   return {
     // computed
     pools,
+    communityPools,
+    embrPools,
     tokens,
     userPools,
     totalInvestedAmount,

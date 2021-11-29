@@ -6,7 +6,7 @@ export const DEFAULT_TOKEN_DECIMALS = 18;
 
 export const TOKENS = {
   Popular: {
-    Symbols: ['WBTC', 'DAI', 'USDC', 'BAL', 'AAVE', 'WETH']
+    Symbols: ['DAI.e', 'USDC.e', 'EMBR','WAVAX']
   },
   AddressMap: {
     '1': {
@@ -34,6 +34,11 @@ export const TOKENS = {
       ETH: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
       WETH: '0x80dD2B80FbcFB06505A301d732322e987380EcD6',
       BAL: '0xba100000625a3754423978a60c9317c58a424e3d'
+    },
+    '43113': {
+      ETH: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+      WETH: '0xd00ae08403B9bbb9124bB305C09058E32C39A48c',
+      BAL: '0xEE67880A6aaBa39c5eAf833B68Ea5fd908dC008D'
     }
   },
   Prices: {

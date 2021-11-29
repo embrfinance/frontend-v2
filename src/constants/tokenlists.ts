@@ -84,5 +84,16 @@ export const TOKEN_LIST_MAP: TokenListMapByNetwork = {
     External: [
       'https://beethoven-assets.s3.eu-central-1.amazonaws.com/beethoven-fantom.tokenlist.json'
     ]
+  },
+  '43113': {
+    Balancer: {
+      Default:
+        'https://raw.githubusercontent.com/l0rdicon/offical-token-lists/main/tokens.fuji.json',
+      Vetted:
+        'https://raw.githubusercontent.com/l0rdicon/offical-token-lists/main/tokens.fuji.json'
+    },
+    External: [
+      'https://raw.githubusercontent.com/l0rdicon/offical-token-lists/main/tokens.fuji.json'
+    ]
   }
 };

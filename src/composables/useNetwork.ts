@@ -8,7 +8,9 @@ export enum Network {
   KOVAN = 42,
   POLYGON = 137,
   ARBITRUM = 42161,
-  FANTOM = 250
+  FANTOM = 250,
+  FUJI = 43113,
+  AVALANCHE = 43114
 }
 
 const DEFAULT_NETWORK_ID =

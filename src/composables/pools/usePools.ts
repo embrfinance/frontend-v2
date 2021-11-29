@@ -91,12 +91,7 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
         dynamic: {
           ...pool.dynamic,
           apr: farm
-            ? getPoolApr(
-                pool,
-                farm,
-                blocksPerYear.value,
-                embrPrice.value
-              )
+            ? getPoolApr(pool, farm, blocksPerYear.value, embrPrice.value)
             : pool.dynamic.apr
         }
       };
@@ -135,12 +130,7 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
         dynamic: {
           ...pool.dynamic,
           apr: farm
-            ? getPoolApr(
-                pool,
-                farm,
-                blocksPerYear.value,
-                embrPrice.value
-              )
+            ? getPoolApr(pool, farm, blocksPerYear.value, embrPrice.value)
             : pool.dynamic.apr
         }
       };

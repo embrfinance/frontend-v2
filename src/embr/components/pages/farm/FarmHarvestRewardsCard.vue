@@ -6,21 +6,15 @@
     <div class="text-xl font-medium truncate flex items-center">
       {{ fNum(pendingEmbr, 'token_fixed') }} Embr
     </div>
-    <div
-      v-if="pendingRewardToken > 0"
-      class="text-xl font-medium truncate flex items-center"
-    >
-      {{ fNum(pendingRewardToken, 'token_fixed') }} HND
-    </div>
     <div class="truncate flex items-center pb-8">
-      {{ fNum(pendingEmbrValue + pendingRewardTokenValue, 'usd') }}
+      {{ fNum(pendingEmbrValue, 'usd') }}
     </div>
 
     <BalBtn
       label="Harvest"
       block
       color="gradient"
-      :disabled="pendingEmbr <= 0 && pendingRewardToken <= 0"
+      :disabled="pendingEmbr <= 0"
       :loading="harvesting"
       @click.prevent="harvestRewards"
     />
@@ -44,15 +38,7 @@ export default defineComponent({
       type: Number,
       required: true
     },
-    pendingRewardToken: {
-      type: Number,
-      required: true
-    },
     pendingEmbrValue: {
-      type: Number,
-      required: true
-    },
-    pendingRewardTokenValue: {
       type: Number,
       required: true
     },

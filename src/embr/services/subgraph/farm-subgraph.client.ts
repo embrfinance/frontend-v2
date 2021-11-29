@@ -26,11 +26,6 @@ export default class FarmSubgraphClient {
           totalAllocPoint
           embrPerBlock
         }
-        rewarder {
-          id
-          rewardToken
-          rewardPerSecond
-        }
       }
     }
     `;
@@ -50,11 +45,6 @@ export default class FarmSubgraphClient {
           id
           totalAllocPoint
           embrPerBlock
-        }
-        rewarder {
-          id
-          rewardToken
-          rewardPerSecond
         }
       }
     }

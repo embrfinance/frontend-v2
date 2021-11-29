@@ -34,15 +34,6 @@
         <div class="text-xl font-medium truncate flex items-center">
           {{ data.pendingEmbr }}
         </div>
-        <div
-          v-if="data.hasPendingRewardToken"
-          class="text-xl font-medium truncate flex items-center"
-        >
-          {{ data.pendingRewardToken }}
-        </div>
-        <div class="text-sm text-gray-500 font-medium mt-1 text-left">
-          {{ data.pendingRewardValue }}
-        </div>
       </BalCard>
       <div class="grid grid-cols-2 gap-x-2 gap-y-2 px-2">
         <BalCard class="">
@@ -125,11 +116,6 @@ export default defineComponent({
         farms.push(cembrDecoratedFarm.value);
       }
 
-      const pendingRewardToken = sumBy(farms, farm => farm.pendingRewardToken);
-      const pendingRewardTokenValue = sumBy(
-        farms,
-        farm => farm.pendingRewardTokenValue
-      );
       const pendingEmbrValue = sumBy(farms, farm => farm.pendingEmbrValue);
 
       const averageApr =
@@ -145,11 +131,8 @@ export default defineComponent({
         pendingEmbr:
           numeral(sumBy(farms, farm => farm.pendingEmbr)).format('0,0.[0000]') +
           ' Embr',
-        hasPendingRewardToken: pendingRewardToken > 0,
-        pendingRewardToken:
-          numeral(pendingRewardToken).format('0,0.[0000]') + ' HND',
         pendingRewardValue: fNum(
-          pendingEmbrValue + pendingRewardTokenValue,
+          pendingEmbrValue,
           'usd'
         ),
         apr: fNum(averageApr, 'percent'),

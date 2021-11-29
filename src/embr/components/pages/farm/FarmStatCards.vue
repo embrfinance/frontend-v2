@@ -16,8 +16,6 @@
       :token-address="pool.address"
       :pending-embr="pool.farm.pendingEmbr"
       :pending-embr-value="pool.farm.pendingEmbrValue"
-      :pending-reward-token="pool.farm.pendingRewardToken"
-      :pending-reward-token-value="pool.farm.pendingRewardTokenValue"
     />
   </div>
 </template>

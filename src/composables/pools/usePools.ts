@@ -28,9 +28,6 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
   const embrPrice = computed(
     () => protocolDataQuery.data?.value?.embrPrice || 0
   );
-  const rewardTokenPrice = computed(() =>
-    dynamicDataLoaded.value ? priceFor(appNetworkConfig.addresses.hnd) : 0
-  );
 
   const {
     farms,
@@ -75,8 +72,7 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
       allFarmsForUser.value,
       blocksPerYear.value,
       blocksPerDay.value,
-      embrPrice.value,
-      rewardTokenPrice.value
+      embrPrice.value
     );
   });
 
@@ -97,8 +93,7 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
                 pool,
                 farm,
                 blocksPerYear.value,
-                embrPrice.value,
-                rewardTokenPrice.value
+                embrPrice.value
               )
             : pool.dynamic.apr
         }
@@ -142,8 +137,7 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
                 pool,
                 farm,
                 blocksPerYear.value,
-                embrPrice.value,
-                rewardTokenPrice.value
+                embrPrice.value
               )
             : pool.dynamic.apr
         }

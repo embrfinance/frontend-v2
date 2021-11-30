@@ -32,7 +32,7 @@ const farmInvestmentSuccess = ref(false);
 const farmWithdrawalSuccess = ref(false);
 const txHash = ref('');
 
-const isOldFembrFarm = computed(
+const isOldCembrFarm = computed(
   () => props.farmId === appNetworkConfig.cEmbr.farmId
 );
 
@@ -61,7 +61,7 @@ const activeTab = ref(tabs[0].value);
 <template>
   <div class="mt-4 relative">
     <BalAlert
-      v-if="!loading && props.hasUnstakedBpt && !isOldFembrFarm"
+      v-if="!loading && props.hasUnstakedBpt && !isOldCembrFarm"
       title="You have unstaked BPT in your wallet"
       description="If you deposit your BPT into the farm, you will earn additional rewards paid out in Embr."
       type="warning"
@@ -69,7 +69,7 @@ const activeTab = ref(tabs[0].value);
       class="mb-3"
     />
     <BalAlert
-      v-if="!loading && isOldFembrFarm"
+      v-if="!loading && isOldCembrFarm"
       title="Incentives for the Fidelio Duetto have moved to cEMBR"
       description="To receive Embr rewards for this pool, you need to stake your BPT for cEMBR. Click on the 'Stake' tab to get started."
       type="warning"
@@ -77,7 +77,7 @@ const activeTab = ref(tabs[0].value);
       class="mb-3"
     />
     <BalLoadingBlock v-if="loading || dynamicDataLoading" class="h-96" />
-    <BalCard v-else-if="!isOldFembrFarm">
+    <BalCard v-else-if="!isOldCembrFarm">
       <div class="text-gray-500 text-sm">
         Stake your BPTs to earn Embr
       </div>

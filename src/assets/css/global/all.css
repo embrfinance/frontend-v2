@@ -8,7 +8,23 @@ body {
   @apply font-body;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+	display: block;
+	z-index:0;
+	color: white;
+	background:#000000 !important;
 }
+
+#copr {
+  color:gold;
+  position:absolute;
+  left:1%;
+  padding-right:1vw;
+  transition: all 5s linear 0s;
+  }
+  
+  #copr:hover {
+      filter: drop-shadow(1px 0px 0px black) drop-shadow(-1px 0px 0px black) drop-shadow(0px 2px 0px black) drop-shadow(0px 1px 0px black) drop-shadow(0px 1px 3px darkred) drop-shadow(0px -2px 5px yellow);
+  }
 
 @media only screen and (max-width: 600px) {
   html {
@@ -24,22 +40,58 @@ input {
   caret-color: theme('colors.pink.500');
 }
 
+input, .input-group, .custom-input {
+  caret-color: gold;
+  background: black !important;
+  color: white;
+  /*border: 2px inset #111111;*/
+}
+
 
 #app {
-  background-image: linear-gradient(to bottom,
-    #08061F,
-    #1B1464,
-    #00395E,
-    #00544E,
-    #000000
-  );
-  /*@apply bg-white dark:bg-gray-900;*/
+  background-color: #000000;
+  background-image: linear-gradient(to bottom, #000000 0%, #140202, #451000, #4d3510 200%, #000000 );
+  z-index:9;
+  width:-webkit-fill-available;
+  height:-webkit-fill-available;
+  /*
+  @apply bg-white dark:bg-gray-900;
   @apply text-gray-900 dark:text-gray-50;
   min-height: calc(100vh + 1px);
+  */
 }
 
 #storybook-app {
   @apply text-gray-900 dark:text-gray-50;
+}
+
+#app-nav{
+  min-height: 7vh !important;
+  --tw-bg-opacity: 1;
+  background-color: #111111;
+  border-bottom: 1px solid #b26422;
+}
+
+.dark #app-nav {
+opacity: 1;
+  background-image: linear-gradient(0deg, #000000 0%, #111111 74%);
+  animation: borderglow 60s ease-out;
+animation-iteration-count: infinite;
+animation-fill-mode: both;
+}
+
+.dark #app-nav:hover {
+opacity: 1;
+  background-image: linear-gradient(0deg, #000000 0%, #111111 74%);
+  /*border-bottom: 1px solid #333333;*/
+}
+
+
+
+
+.app-nav-toggle {
+background-image: none;
+background-color: none;
 }
 
 a {

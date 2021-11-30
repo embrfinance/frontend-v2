@@ -7,7 +7,7 @@ import { governanceContractsService } from '@/embr/services/governance/governanc
 import BigNumber from 'bignumber.js';
 
 interface QueryResponse {
-  totalFembrSupply: BigNumber;
+  totalCembrSupply: BigNumber;
   totalBptStaked: BigNumber;
   userBalance: BigNumber;
   userBptTokenBalance: BigNumber;
@@ -24,7 +24,7 @@ export default function useCharredEmbrQuery() {
     const data = await governanceContractsService.cembr.getData(account.value);
 
     return {
-      totalFembrSupply: new BigNumber(data.totalFembrSupply.toString()),
+      totalCembrSupply: new BigNumber(data.totalCembrSupply.toString()),
       totalBptStaked: new BigNumber(data.totalBptStaked.toString()),
       userBalance: new BigNumber(data.userBalance.toString()),
       userBptTokenBalance: new BigNumber(data.userBptTokenBalance.toString()),

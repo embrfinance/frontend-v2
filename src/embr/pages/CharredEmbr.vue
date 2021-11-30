@@ -22,9 +22,9 @@ import BalAlert from '@/components/_global/BalAlert/BalAlert.vue';
 const { appNetworkConfig, isLoadingProfile } = useWeb3();
 const {
   cEmbrLoading,
-  userFembrBalance,
+  userCembrBalance,
   userBptTokenBalance,
-  userUnstakedFembrBalance
+  userUnstakedCembrBalance
 } = useCharredEmbr();
 const {
   balanceFor,
@@ -53,7 +53,7 @@ const bptBalance = computed(() => {
   );
 });
 
-const hasUnstakedFembr = computed(() => userUnstakedFembrBalance.value.gt(0));
+const hasUnstakedCembr = computed(() => userUnstakedCembrBalance.value.gt(0));
 const hasBpt = computed(() => userBptTokenBalance.value.gt(0));
 
 const embrBalance = computed(() =>
@@ -104,7 +104,7 @@ const activeTab = ref(tabs[0].value);
           class="mb-4"
         />
         <BalAlert
-          v-if="userBptTokenBalance.eq(0) && userUnstakedFembrBalance.gt(0)"
+          v-if="userBptTokenBalance.eq(0) && userUnstakedCembrBalance.gt(0)"
           title="You have unstaked cEMBR in your wallet"
           description="If you deposit your cEMBR into the farm, you will earn additional rewards paid out in Embr."
           type="warning"
@@ -128,22 +128,22 @@ const activeTab = ref(tabs[0].value);
         <CharredEmbrDepositSteps
           v-if="activeTab === 'deposit'"
           :hasBpt="hasBpt"
-          :hasUnstakedFembr="hasUnstakedFembr"
-          :hasStakedFembr="cembrDeposited.gt(0)"
+          :hasUnstakedCembr="hasUnstakedCembr"
+          :hasStakedCembr="cembrDeposited.gt(0)"
           :loading="dataLoading"
         />
         <CharredEmbrWithdrawSteps
           v-if="activeTab === 'withdraw'"
           :hasBpt="hasBpt"
-          :hasUnstakedFembr="hasUnstakedFembr"
-          :hasStakedFembr="cembrDeposited.gt(0)"
+          :hasUnstakedCembr="hasUnstakedCembr"
+          :hasStakedCembr="cembrDeposited.gt(0)"
           :loading="dataLoading"
         />
       </div>
       <div class="w-full lg:max-w-xl mx-auto md:mx-0 lg:ml-6 md:block lg:w-72">
         <CharredEmbrBalances
           :loading="dataLoading"
-          :f-embr-balance="userFembrBalance"
+          :f-embr-balance="userCembrBalance"
           :bpt-balance="bptBalance"
           :embr-balance="embrBalance"
         />

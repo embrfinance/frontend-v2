@@ -75,7 +75,7 @@ import useEthers from '@/composables/useEthers';
 import useWeb3 from '@/services/web3/useWeb3';
 import useBreakpoints from '@/composables/useBreakpoints';
 import { Alert } from '@/composables/useAlerts';
-import { useCharredEmbr } from '@/embr/composables/stake/useCharredEmbr';
+//import { useCharredEmbr } from '@/embr/composables/stake/useCharredEmbr';
 import useProtocolDataQuery from '@/embr/composables/queries/useProtocolDataQuery';
 
 export default defineComponent({

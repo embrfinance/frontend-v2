@@ -20,7 +20,7 @@ const {
   userStakedFtmBalance,
   userStakedEmbrBalance,
   userStakedBptBalance,
-  userFembrBalance,
+  userCembrBalance,
   currentExchangeRate,
   embrPerShare,
   ftmPerShare,
@@ -70,7 +70,7 @@ const {
         <div class="flex flex-col justify-center">
           <BalLoadingBlock v-if="props.loading" class="h-6 w-24 mb-1" white />
           <p v-else class="text-sm font-bold md:text-lg">
-            {{ fNum(userFembrBalance.toString(), 'token') }}
+            {{ fNum(userCembrBalance.toString(), 'token') }}
           </p>
           <p class="text-sm md:text-base text-primary">cEMBR</p>
         </div>

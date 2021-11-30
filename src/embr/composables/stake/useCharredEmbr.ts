@@ -38,24 +38,24 @@ export function useCharredEmbr() {
     );
   });
 
-  const userFembrFarm = computed(() =>
+  const userCembrFarm = computed(() =>
     allFarmsForUser.value?.find(
       userFarm => userFarm.pool.id === appNetworkConfig.cEmbr.farmId
     )
   );
   const totalSupply = computed(
-    () => data.value?.totalFembrSupply.div(1e18) ?? bn(0)
+    () => data.value?.totalCembrSupply.div(1e18) ?? bn(0)
   );
   const totalBptStaked = computed(() => {
     return data.value?.totalBptStaked.div(1e18) ?? bn(0);
   });
-  const userUnstakedFembrBalance = computed(() => {
+  const userUnstakedCembrBalance = computed(() => {
     return data.value?.userBalance?.div(1e18) ?? bn(0);
   });
-  const userFembrBalance = computed(() => {
-    const userFembrInFarm = bn(userFembrFarm.value?.amount || 0).div(1e18);
+  const userCembrBalance = computed(() => {
+    const userCembrInFarm = bn(userCembrFarm.value?.amount || 0).div(1e18);
 
-    return userUnstakedFembrBalance.value.plus(userFembrInFarm);
+    return userUnstakedCembrBalance.value.plus(userCembrInFarm);
   });
   const userBptTokenBalance = computed(
     () => data.value?.userBptTokenBalance?.div(1e18) ?? bn(0)
@@ -94,7 +94,7 @@ export function useCharredEmbr() {
   );
 
   const userStakedBptBalance = computed(() =>
-    userFembrBalance.value.times(currentExchangeRate.value)
+    userCembrBalance.value.times(currentExchangeRate.value)
   );
 
   const userBptShare = computed(() => {
@@ -225,7 +225,7 @@ export function useCharredEmbr() {
   return {
     cEmbrLoading,
     totalSupply,
-    userFembrBalance,
+    userCembrBalance,
     userBptTokenBalance,
     userAllowance,
     CharredEmbrQuery,
@@ -241,7 +241,7 @@ export function useCharredEmbr() {
     userStakedFtmBalance,
     embrPerShare,
     ftmPerShare,
-    userUnstakedFembrBalance,
+    userUnstakedCembrBalance,
     swapApr,
     farmApr,
     cembrApr,

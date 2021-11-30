@@ -44,7 +44,7 @@ const isHomePage = computed(() => route.path === '/');
     </div>
     <AppFooterNav v-if="upToLargeBreakpoint" />
     <div class="flex flex-1 items-end relative">
-      <img src="~@/embr/assets/images/community-image.png" />
+      <!-- <img src="~@/embr/assets/images/community-image.png" /> -->
       <div
         class="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex justify-center pb-6 ml-8"
       >
@@ -55,7 +55,7 @@ const isHomePage = computed(() => route.path === '/');
             class="mx-auto"
           />
         </a>
-        <a href="https://embrio.medium.com/" class="mr-12">
+        <a href="https://embrfinance.medium.com/" class="mr-12">
           <img
             src="~@/embr/assets/images/medium-icon.png"
             width="40"
@@ -69,7 +69,7 @@ const isHomePage = computed(() => route.path === '/');
             class="mx-auto"
           />
         </a>
-        <a href="https://docs.embr.io/" class="mr-12">
+        <a href="https://docs.embr.finance/" class="mr-12">
           <img
             src="~@/embr/assets/images/gitbook-logo.png"
             width="40"

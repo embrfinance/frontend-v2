@@ -48,7 +48,7 @@ export default function useFarmUserQuery(
       return {
         ...userData,
         pendingEmbr,
-        pendingEmbrValue: pendingEmbr * embrPrice.value,
+        pendingEmbrValue: pendingEmbr * embrPrice.value
       };
     } catch (e) {
       console.log('ERROR', e);

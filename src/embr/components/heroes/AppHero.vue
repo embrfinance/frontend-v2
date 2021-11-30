@@ -5,8 +5,8 @@
         <div class="flex justify-center mt-4">
           <img
             v-if="darkMode"
-            src="~@/embr/assets/images/investments-headline.svg"
-            width="400"
+            src="~@/embr/assets/images/investments-headline.png"
+            width="600"
           />
         </div>
         <BalLoadingBlock
@@ -36,7 +36,7 @@
           </BalBtn>
           <BalBtn
             tag="a"
-            href="https://docs.embr.io/"
+            href="https://docs.embr.finance/"
             target="_blank"
             rel="noreferrer"
             color="white"

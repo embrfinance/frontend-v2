@@ -9,8 +9,8 @@ import useFarmUserQuery from '@/embr/composables/farms/useFarmUserQuery';
 
 type Props = {
   hasBpt: boolean;
-  hasUnstakedFembr: boolean;
-  hasStakedFembr: boolean;
+  hasUnstakedCembr: boolean;
+  hasStakedCembr: boolean;
   loading: boolean;
 };
 
@@ -30,7 +30,7 @@ function handleFarmDeposit(txReceipt): void {
   <StepContainer
     :step-number="1"
     title="Invest your Embr into the Fidelio Duetto pool"
-    :complete="props.hasBpt || props.hasUnstakedFembr || props.hasStakedFembr"
+    :complete="props.hasBpt || props.hasUnstakedCembr || props.hasStakedCembr"
   >
     <template v-slot:right>
       <BalBtn
@@ -47,7 +47,7 @@ function handleFarmDeposit(txReceipt): void {
   <StepContainer
     :step-number="2"
     title="Stake your Fidelio Duetto BPTs and receive cEMBR"
-    :complete="props.hasUnstakedFembr || props.hasStakedFembr"
+    :complete="props.hasUnstakedCembr || props.hasStakedCembr"
   >
     <template v-slot:content>
       <CharredEmbrDepositForm :loading="props.loading" />
@@ -56,7 +56,7 @@ function handleFarmDeposit(txReceipt): void {
   <StepContainer
     :step-number="3"
     title="Stake your cEMBR into the cEMBR farm"
-    :complete="props.hasStakedFembr"
+    :complete="props.hasStakedCembr"
   >
     <template v-slot:content>
       <FarmDepositForm

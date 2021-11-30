@@ -122,7 +122,7 @@ export default defineComponent({
     });
 
     const {
-      userUnstakedFembrBalance,
+      userUnstakedCembrBalance,
       unStake,
       CharredEmbrQuery
     } = useCharredEmbr();
@@ -143,7 +143,7 @@ export default defineComponent({
     const { farmUserRefetch } = useFarmUser(appNetworkConfig.cEmbr.farmId);
 
     const bptDeposited = computed(() => {
-      return userUnstakedFembrBalance.value.toString();
+      return userUnstakedCembrBalance.value.toString();
     });
 
     function amountRules() {

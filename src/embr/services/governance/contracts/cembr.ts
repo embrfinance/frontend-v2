@@ -17,7 +17,7 @@ export default class CharredEmbr {
   public async getData(
     account: string
   ): Promise<{
-    totalFembrSupply: BigNumber;
+    totalCembrSupply: BigNumber;
     totalBptStaked: BigNumber;
     userBalance: BigNumber;
     userBptTokenBalance: BigNumber;
@@ -29,7 +29,7 @@ export default class CharredEmbr {
       CharredEmbrAbi
     );
 
-    multicaller.call('totalFembrSupply', this.cembrAddress, 'totalSupply', []);
+    multicaller.call('totalCembrSupply', this.cembrAddress, 'totalSupply', []);
     multicaller.call('totalBptStaked', this.bptTokenAddress, 'balanceOf', [
       this.cembrAddress
     ]);

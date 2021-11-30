@@ -9,8 +9,8 @@ import useFarmUserQuery from '@/embr/composables/farms/useFarmUserQuery';
 
 type Props = {
   hasBpt: boolean;
-  hasUnstakedFembr: boolean;
-  hasStakedFembr: boolean;
+  hasUnstakedCembr: boolean;
+  hasStakedCembr: boolean;
   loading: boolean;
 };
 
@@ -30,7 +30,7 @@ function handleFarmWithdrawal(txReceipt): void {
   <StepContainer
     :step-number="1"
     title="Withdraw your cEMBR from the cEMBR farm"
-    :complete="props.hasUnstakedFembr || props.hasBpt"
+    :complete="props.hasUnstakedCembr || props.hasBpt"
   >
     <template v-slot:content>
       <FarmWithdrawForm

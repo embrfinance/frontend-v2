@@ -46,7 +46,7 @@ export default function useAllFarmsForUserQuery(
         decoratedUserFarms.push({
           ...userFarm,
           pendingEmbr,
-          pendingEmbrValue: pendingEmbr * embrPrice.value,
+          pendingEmbrValue: pendingEmbr * embrPrice.value
         });
       }
 

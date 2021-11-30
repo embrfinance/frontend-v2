@@ -146,7 +146,7 @@ export default defineComponent({
       userPools.value.find(pool => pool.farm && parseFloat(pool.shares) > 0)
     );
 
-    /*const userPoolsWithFembr = computed(() => {
+    /*const userPoolsWithCembr = computed(() => {
       const cembrPool = pools.value?.find(pool => {
         return (
           pool.address.toLowerCase() ===

@@ -131,10 +131,7 @@ export default defineComponent({
         pendingEmbr:
           numeral(sumBy(farms, farm => farm.pendingEmbr)).format('0,0.[0000]') +
           ' Embr',
-        pendingRewardValue: fNum(
-          pendingEmbrValue,
-          'usd'
-        ),
+        pendingRewardValue: fNum(pendingEmbrValue, 'usd'),
         apr: fNum(averageApr, 'percent'),
         dailyApr: fNum(averageApr / 365, 'percent')
       };

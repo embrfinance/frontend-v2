@@ -12,13 +12,7 @@
       <div class="flex mt-1">
         <div class="flex">
           <div class="relative">
-            <img
-              v-if="nftImage !== null"
-              :src="nftImage"
-              width="44"
-              class="rounded-full"
-            />
-            <Avatar v-else :address="account" size="44" />
+            <Avatar :address="account" size="44" />
             <div class="connector-icon-wrapper">
               <img
                 :src="connectorLogo"
@@ -198,7 +192,6 @@ import { TradeInterface } from '@/store/modules/app';
 import useEthereumTxType from '@/composables/useEthereumTxType';
 import { ENABLE_LEGACY_TRADE_INTERFACE } from '@/composables/trade/constants';
 import { Network } from '@/composables/useNetwork';
-import useNftQuery from '@/embr/composables/nft/useNftQuery';
 
 const locales = {
   'en-US': 'English',
@@ -236,11 +229,6 @@ export default defineComponent({
       isUnsupportedNetwork
     } = useWeb3();
     const { ethereumTxType, setEthereumTxType } = useEthereumTxType();
-    const nftQuery = useNftQuery();
-
-    const nftImage = computed(() => {
-      return nftQuery.data.value || null;
-    });
 
     // DATA
     const data = reactive({
@@ -337,8 +325,7 @@ export default defineComponent({
       explorer: explorerLinks,
       ethereumTxType,
       setEthereumTxType,
-      ethereumTxTypeOptions,
-      nftImage
+      ethereumTxTypeOptions
     };
   }
 });

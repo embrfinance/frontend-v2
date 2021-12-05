@@ -24,7 +24,7 @@ export default class FarmSubgraphClient {
         masterChef {
           id
           totalAllocPoint
-          embrPerBlock
+          embrPerSec
         }
       }
     }
@@ -44,7 +44,7 @@ export default class FarmSubgraphClient {
         masterChef {
           id
           totalAllocPoint
-          embrPerBlock
+          embrPerSec
         }
       }
     }

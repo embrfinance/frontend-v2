@@ -38,7 +38,8 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
     harvestAllFarms,
     refetchFarmsForUser
   } = useFarms();
-  const { blocksPerYear, blocksPerDay } = useAverageBlockTime();
+  const secPerYear = 31540000;
+  const secPerDay = 86400;
 
   // COMPUTED
 
@@ -72,8 +73,8 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
       pools.value,
       mappedFarms,
       allFarmsForUser.value,
-      blocksPerYear.value,
-      blocksPerDay.value,
+      secPerYear,
+      secPerDay,
       embrPrice.value
     );
   });
@@ -91,7 +92,7 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
         dynamic: {
           ...pool.dynamic,
           apr: farm
-            ? getPoolApr(pool, farm, blocksPerYear.value, embrPrice.value)
+            ? getPoolApr(pool, farm, secPerYear, embrPrice.value)
             : pool.dynamic.apr
         }
       };
@@ -130,7 +131,7 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
         dynamic: {
           ...pool.dynamic,
           apr: farm
-            ? getPoolApr(pool, farm, blocksPerYear.value, embrPrice.value)
+            ? getPoolApr(pool, farm, secPerYear, embrPrice.value)
             : pool.dynamic.apr
         }
       };

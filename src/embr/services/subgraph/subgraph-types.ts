@@ -8,7 +8,7 @@ export interface Farm {
   masterChef: {
     id: string;
     totalAllocPoint: number;
-    embrPerBlock: string;
+    embrPerSec: string;
   };
 }
 

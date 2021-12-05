@@ -34,10 +34,10 @@ export function calculateTvl(farm: Farm, pool: DecoratedPool) {
   return 0;
 }
 
-export function calculateRewardsPerDay(farm: Farm, blocksPerDay: number) {
+export function calculateRewardsPerDay(farm: Farm, secondsPerDay: number) {
   const totalEmbrPerDay = new BigNumber(
-    farm.masterChef.embrPerBlock
-  ).multipliedBy(blocksPerDay);
+    farm.masterChef.embrPerSec
+  ).multipliedBy(secondsPerDay);
 
   return totalEmbrPerDay
     .multipliedBy(farm.allocPoint / farm.masterChef.totalAllocPoint)
@@ -48,16 +48,15 @@ export function calculateRewardsPerDay(farm: Farm, blocksPerDay: number) {
 export function calculateApr(
   farm: Farm,
   tvl: number,
-  blocksPerYear: number,
+  secPerYear: number,
   embrPrice: number
 ) {
   if (tvl === 0) {
     return 0;
   }
 
-  const embrPerBlock =
-    Number(parseInt(farm.masterChef.embrPerBlock) / 1e18) * 0.872;
-  const embrPerYear = embrPerBlock * blocksPerYear;
+  const embrPerSec = Number(parseInt(farm.masterChef.embrPerSec) / 1e18) * 0.9;
+  const embrPerYear = embrPerSec * secPerYear; //31540000;
   const farmEmbrPerYear =
     (farm.allocPoint / farm.masterChef.totalAllocPoint) * embrPerYear;
 
@@ -69,12 +68,12 @@ export function calculateApr(
 export function getPoolApr(
   pool: DecoratedPool,
   farm: DecoratedFarm,
-  blocksPerYear: number,
+  secsPerYear: number,
   embrPrice: number
 ): PoolApr {
   const tvl = calculateTvl(farm, pool);
   const liquidityMiningApr = farm
-    ? `${calculateApr(farm, tvl, blocksPerYear, embrPrice)}`
+    ? `${calculateApr(farm, tvl, secsPerYear, embrPrice)}`
     : '0';
 
   return {
@@ -90,13 +89,13 @@ export function getPoolApr(
 export function decorateFarm(
   farm: Farm,
   pool: DecoratedPool,
-  blocksPerYear: number,
-  blocksPerDay: number,
+  secsPerYear: number,
+  secsPerDay: number,
   embrPrice: number,
   farmUser?: FarmUser
 ): DecoratedFarm {
   const tvl = calculateTvl(farm, pool);
-  const apr = calculateApr(farm, tvl, blocksPerYear, embrPrice);
+  const apr = calculateApr(farm, tvl, secsPerYear, embrPrice);
   const userShare = new BigNumber(farmUser?.amount || 0)
     .div(farm.slpBalance)
     .toNumber();
@@ -104,7 +103,7 @@ export function decorateFarm(
   return {
     ...farm,
     tvl,
-    rewards: calculateRewardsPerDay(farm, blocksPerDay),
+    rewards: calculateRewardsPerDay(farm, secsPerDay),
     apr,
     stake: tvl * userShare,
     pendingEmbr: farmUser?.pendingEmbr || 0,
@@ -118,8 +117,8 @@ export function decorateFarms(
   pools: DecoratedPool[],
   farms: Farm[],
   allFarmsForUser: FarmUser[],
-  blocksPerYear: number,
-  blocksPerDay: number,
+  secsPerYear: number,
+  secsPerDay: number,
   embrPrice: number
 ) {
   if (farms.length === 0 || pools.length === 0) {
@@ -138,14 +137,7 @@ export function decorateFarms(
 
     if (pool) {
       decorated.push(
-        decorateFarm(
-          farm,
-          pool,
-          blocksPerYear,
-          blocksPerDay,
-          embrPrice,
-          farmUser
-        )
+        decorateFarm(farm, pool, secsPerYear, secsPerDay, embrPrice, farmUser)
       );
     }
   }

@@ -8,11 +8,11 @@
         :size="upToLargeBreakpoint ? 'md' : 'sm'"
         :circle="upToLargeBreakpoint"
       >
-        <StarsIcon
+        <img
+          src="~@/embr/assets/images/farmAPR.png"
+          width="28"
           :class="{ 'mr-2': !upToLargeBreakpoint }"
-          v-if="
-            upToLargeBreakpoint ? !(isLoadingPools && isLoadingFarms) : true
-          "
+          v-if="upToLargeBreakpoint ? !loading : true"
         />
         <BalLoadingIcon
           size="sm"
@@ -85,7 +85,7 @@ import useEthers from '@/composables/useEthers';
 import useWeb3 from '@/services/web3/useWeb3';
 import useBreakpoints from '@/composables/useBreakpoints';
 import { Alert } from '@/composables/useAlerts';
-import { useCharredEmbr } from '@/embr/composables/stake/useCharredEmbr';
+//import { useCharredEmbr } from '@/embr/composables/stake/useCharredEmbr';
 
 export default defineComponent({
   name: 'AppNavClaimBtn',
@@ -107,14 +107,14 @@ export default defineComponent({
     } = usePools();
     const harvesting = ref(false);
     const { upToLargeBreakpoint } = useBreakpoints();
-    const { cembrDecoratedFarm } = useCharredEmbr();
+    //const { cembrDecoratedFarm } = useCharredEmbr();
 
     const data = computed(() => {
       const farms = onlyPoolsWithFarms.value.map(pool => pool.farm);
 
-      if (cembrDecoratedFarm.value) {
-        farms.push(cembrDecoratedFarm.value);
-      }
+      //if (cembrDecoratedFarm.value) {
+      //  farms.push(cembrDecoratedFarm.value);
+      // }
 
       const pendingEmbrValue = sumBy(farms, farm => farm.pendingEmbrValue);
 

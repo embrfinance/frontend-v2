@@ -47,7 +47,11 @@ function handleFarmWithdrawal(txReceipt): void {
 }
 
 onMounted(() => {
-  injectTokens([route.params.tokenAddress as string]);
+  // get the token address from the id if it doesn't exist
+  const tokenAddress = route.params.tokenAddress
+    ? route.params.tokenAddress
+    : route.params.id.slice(0, 42);
+  injectTokens([tokenAddress as string]);
 });
 
 const tabs = [
@@ -62,8 +66,8 @@ const activeTab = ref(tabs[0].value);
   <div class="mt-4 relative">
     <BalAlert
       v-if="!loading && props.hasUnstakedBpt && !isOldCembrFarm"
-      title="You have unstaked BPT in your wallet"
-      description="If you deposit your BPT into the farm, you will earn additional rewards paid out in Embr."
+      title="You have unstaked EPT in your wallet"
+      description="If you deposit your EPT into the farm, you will earn additional rewards paid out in Embr."
       type="warning"
       size="sm"
       class="mb-3"
@@ -71,7 +75,7 @@ const activeTab = ref(tabs[0].value);
     <BalAlert
       v-if="!loading && isOldCembrFarm"
       title="Incentives for the Fidelio Duetto have moved to cEMBR"
-      description="To receive Embr rewards for this pool, you need to stake your BPT for cEMBR. Click on the 'Stake' tab to get started."
+      description="To receive Embr rewards for this pool, you need to stake your EPT for cEMBR. Click on the 'Stake' tab to get started."
       type="warning"
       size="sm"
       class="mb-3"
@@ -79,7 +83,7 @@ const activeTab = ref(tabs[0].value);
     <BalLoadingBlock v-if="loading || dynamicDataLoading" class="h-96" />
     <BalCard v-else-if="!isOldCembrFarm">
       <div class="text-gray-500 text-sm">
-        Stake your BPTs to earn Embr
+        Stake your EPTs to earn Embr
       </div>
       <h5 class="mb-1">Farm</h5>
 

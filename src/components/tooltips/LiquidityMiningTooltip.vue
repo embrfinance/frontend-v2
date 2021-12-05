@@ -2,10 +2,10 @@
   <BalTooltip v-if="pool.hasLiquidityMiningRewards" width="auto" noPad>
     <template v-slot:activator>
       <div class="ml-1">
-        <StarsIcon
-          class="h-5 text-yellow-300"
+        <img
+          src="~@/embr/assets/images/farmAPR.png"
+          width="28"
           v-if="pool.hasLiquidityMiningRewards"
-          v-bind="$attrs"
         />
       </div>
     </template>
@@ -38,7 +38,11 @@
             {{ fNum(pool.dynamic.apr.liquidityMining, 'percent') }}
             <span class="ml-1 text-gray-500 text-xs flex items-center">
               {{ $t('liquidityMiningAPR') }}
-              <StarsIcon class="h-4 text-yellow-300" />
+              <img
+                src="~@/embr/assets/images/farmAPR.png"
+                width="28"
+                v-if="pool.hasLiquidityMiningRewards"
+              />
             </span>
           </div>
           <template v-if="multiRewardPool" #item="{ item }">

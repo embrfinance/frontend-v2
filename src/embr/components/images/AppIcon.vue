@@ -1,5 +1,9 @@
 <template>
-  <img src="~@/embr/assets/images/embrlong.png" width="125" class="-ml-4" />
+  <img
+    src="~@/embr/assets/images/embrlong.png"
+    width="125"
+    class="-ml-4 logoshit"
+  />
 </template>
 
 <script lang="ts">

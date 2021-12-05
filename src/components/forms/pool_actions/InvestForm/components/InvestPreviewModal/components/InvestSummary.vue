@@ -152,7 +152,7 @@ function weeklyYieldForAPR(apr: string): string {
                   <span class="ml-1 text-gray-500">
                     {{ $t('liquidityMining') }}
                   </span>
-                  <StarsIcon class="h-4 text-yellow-300" />
+                  <img src="~@/embr/assets/images/farmAPR.png" width="28" />
                 </div>
                 <template v-if="multiRewardPool" v-slot:item="{ item }">
                   {{ fNum(weeklyYieldForAPR(item[1]), currency) }}

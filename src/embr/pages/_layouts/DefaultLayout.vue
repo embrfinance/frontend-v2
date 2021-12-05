@@ -44,7 +44,7 @@ const isHomePage = computed(() => route.path === '/');
     </div>
     <AppFooterNav v-if="upToXLargeBreakpoint" />
     <div class="flex flex-1 items-end relative">
-      <!-- <img src="~@/embr/assets/images/community-image.png" /> -->
+      <img src="~@/embr/assets/images/footer-bg7.png" />
       <div
         class="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex justify-center pb-6 ml-8"
       >
@@ -83,6 +83,12 @@ const isHomePage = computed(() => route.path === '/');
             class="mx-auto"
           />
         </a>
+      </div>
+      <div
+        class="absolute bottom-0"
+        style="padding-bottom:10px;padding-right:15px"
+      >
+        <img src="~@/embr/assets/images/EmbrPoweredbyAve4.png" width="196" />
       </div>
     </div>
   </div>

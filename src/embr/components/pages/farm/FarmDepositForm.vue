@@ -41,7 +41,7 @@
       <template v-else>
         <BalBtn
           v-if="approvalRequired"
-          :label="`Approve ${tokenName ? tokenName : 'BPT'}`"
+          :label="`Approve ${tokenName ? tokenName : 'EPT'}`"
           :loading="approving"
           :loading-label="$t('approving')"
           :disabled="!validInput || parseFloat(amount) === 0 || amount === ''"
@@ -58,7 +58,7 @@
             block
             @click="trackGoal(Goals.ClickFarmDeposit)"
           >
-            Deposit {{ tokenName ? tokenName : 'BPT' }}
+            Deposit {{ tokenName ? tokenName : 'EPT' }}
           </BalBtn>
         </template>
       </template>

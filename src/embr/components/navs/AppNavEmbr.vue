@@ -9,7 +9,7 @@
         :circle="upToLargeBreakpoint"
       >
         <img
-          src="~@/embr/assets/images/embr-icon-large.png"
+          src="~@/embr/assets/images/embr.png"
           width="28"
           :class="{ 'mr-2': !upToLargeBreakpoint }"
           v-if="upToLargeBreakpoint ? !loading : true"

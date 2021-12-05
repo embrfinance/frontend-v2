@@ -18,11 +18,7 @@ export default defineComponent({
 
 <style>
 .app-header-bg {
-  position: absolute;
-  width: 100%;
-  height: 350px;
-  @apply bg-cover bg-center;
-  transition: all 0.3s ease-in-out;
-  background-image: url('/images/backgrounds/banner-medium.svg');
+  display: none;
+  /*background-image: url('/images/backgrounds/banner-medium.svg');*/
 }
 </style>

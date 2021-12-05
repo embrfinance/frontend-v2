@@ -145,7 +145,7 @@
     "highPriceImpactDetailed": "This trade is significantly moving the market price.",
     "home": "Home",
     "hourAbbrev": "h",
-    "initialBPT": "Initial BPT",
+    "initialBPT": "Initial EPT",
     "insufficientBalance": "Not enough funds",
     "insufficientBalanceDetailed": "This trade requires more funds than you have in your wallet.",
     "insufficientData": "Not enough data.",

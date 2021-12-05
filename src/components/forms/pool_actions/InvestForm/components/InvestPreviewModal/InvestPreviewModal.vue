@@ -113,7 +113,7 @@ function handleClose(): void {
 </script>
 
 <template>
-  <BalModal show :fireworks="investmentConfirmed" @close="handleClose">
+  <BalModal show @close="handleClose">
     <template v-slot:header>
       <div class="flex items-center">
         <BalCircle

@@ -2,7 +2,7 @@
   <BalModal show @close="onClose">
     <div class="-mx-4 p-4 items-center">
       <div class="mx-2">
-        <img src="~@/embr/assets/images/ludwig-says-2.svg" />
+        <img src="~@/embr/assets/images/embrsays.png" />
       </div>
       <BalBtn
         class="mt-8"

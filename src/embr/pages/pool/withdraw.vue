@@ -35,8 +35,8 @@ const hasBptStaked = computed(
           </div>
           <BalAlert
             v-if="hasBptStaked"
-            title="You have BPT staked in the farm"
-            description="To withdraw your funds, you need to first unstake your BPT from the farm."
+            title="You have EPT staked in the farm"
+            description="To withdraw your funds, you need to first unstake your EPT from the farm."
             type="warning"
             size="sm"
             class="mt-2 mb-2"

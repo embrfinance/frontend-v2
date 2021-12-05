@@ -8,7 +8,11 @@
         class="mr-2 p-1 relative"
         :circle="upToLargeBreakpoint"
       >
-        <ActivityIcon v-if="pendingTransactions.length === 0" />
+        <img
+          src="~@/embr/assets/images/Notifications2.png"
+          width="28"
+          v-if="pendingTransactions.length === 0"
+        />
         <ActivityCounter v-else :count="pendingTransactions.length" />
       </BalBtn>
     </template>

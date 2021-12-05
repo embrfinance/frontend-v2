@@ -52,7 +52,7 @@
           block
           @click="trackGoal(Goals.ClickFarmWithdraw)"
         >
-          Withdraw {{ tokenName ? tokenName : 'BPT' }}
+          Withdraw {{ tokenName ? tokenName : 'EPT' }}
         </BalBtn>
       </template>
     </div>

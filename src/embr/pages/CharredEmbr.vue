@@ -97,8 +97,8 @@ const activeTab = ref(tabs[0].value);
       <div class="w-full max-w-3xl">
         <BalAlert
           v-if="userBptTokenBalance.gt(0)"
-          title="You have unstaked BPT in your wallet"
-          description="If you stake your BPT, you will receive cEMBR and be eligible to earn a portion of Embr Protocol Revenue."
+          title="You have unstaked EBT in your wallet"
+          description="If you stake your EPT, you will receive cEMBR and be eligible to earn a portion of Embr Protocol Revenue."
           type="warning"
           size="md"
           class="mb-4"

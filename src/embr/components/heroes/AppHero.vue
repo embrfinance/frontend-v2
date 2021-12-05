@@ -19,13 +19,6 @@
         </span>
       </template>
       <template v-else>
-        <div class="flex justify-center mt-2">
-          <img
-            v-if="darkMode"
-            src="~@/embr/assets/images/headline.svg"
-            width="400"
-          />
-        </div>
         <div class="flex justify-center mt-4">
           <BalBtn
             :color="darkMode ? 'gray' : 'white'"

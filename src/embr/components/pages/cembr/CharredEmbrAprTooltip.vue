@@ -2,7 +2,11 @@
   <BalTooltip width="auto" noPad>
     <template v-slot:activator>
       <div>
-        <StarsIcon class="h-5 text-yellow-300" v-bind="$attrs" />
+        <img
+          src="~@/embr/assets/images/farmAPR.png"
+          width="28"
+          v-if="pool.hasLiquidityMiningRewards"
+        />
       </div>
     </template>
     <div class="text-sm divide-y dark:divide-gray-900">

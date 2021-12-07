@@ -7,6 +7,8 @@ import LiquidityMiningPage from '@/pages/liquidity-mining.vue';
 import TradePage from '@/embr/pages/trade.vue';
 import PoolCreate from '@/embr/pages/PoolCreate.vue';
 import Portfolio from '@/embr/pages/Portfolio.vue';
+import CreatePoolPage from '@/embr/pages/pool/create.vue';
+
 //mport CharredEmbr from '@/embr/pages/CharredEmbr.vue';
 
 const routes: RouteRecordRaw[] = [
@@ -45,6 +47,13 @@ const routes: RouteRecordRaw[] = [
     component: LiquidityMiningPage
   },
   { path: '/pools', name: 'pools', component: HomePage },
+
+  {
+    path: '/pool/create',
+    name: 'create-pool',
+    component: CreatePoolPage
+  },
+
   { path: '/pool-create', name: 'pool-create', component: PoolCreate },
   { path: '/my-portfolio', name: 'my-portfolio', component: Portfolio },
   //{ path: '/stake', name: 'stake', component: CharredEmbr },

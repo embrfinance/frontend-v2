@@ -20,6 +20,7 @@ type PoolsQueryResponse = {
 
 type FilterOptions = {
   poolIds?: Ref<string[]>;
+  isExactTokensList?: boolean;
   pageSize?: number;
 };
 

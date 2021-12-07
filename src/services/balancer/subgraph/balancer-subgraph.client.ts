@@ -11,13 +11,18 @@ export default class BalancerSubgraphClient {
 
   public async get(query) {
     try {
+      const payload = this.toPayload(query);
       const {
         data: { data }
-      } = await axios.post(this.url, { query: jsonToGraphQLQuery({ query }) });
+      } = await axios.post(this.url, payload);
       return data;
     } catch (error) {
       console.error(error);
     }
+  }
+
+  public toPayload(query) {
+    return JSON.stringify({ query: jsonToGraphQLQuery({ query }) });
   }
 }
 

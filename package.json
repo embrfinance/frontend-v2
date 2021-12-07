@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@types/feather-icons": "^4.7.0",
+    "color.js": "^1.2.0",
     "rollup": "^2.60.1"
   },
   "devDependencies": {

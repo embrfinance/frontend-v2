@@ -45,3 +45,29 @@ export function isEmail() {
 export function isValidAddress() {
   return v => !v || isAddress(v) || i18n.global.t('mustBeValidAddress');
 }
+
+export const isPoolNameCheck = name => {
+  return true;
+};
+
+export const isSymbolNameCheck = symbol => {
+  const regex = /^[0-9A-Z-]+$/;
+  if (symbol.length > 7) return false;
+  return regex.test(symbol);
+};
+
+export function isValidPoolName() {
+  return v => !v || isPoolNameCheck(v) || i18n.global.t('mustBeValidPoolName');
+}
+
+export function isSymbol() {
+  const regex = /^[0-9A-Z-]+$/;
+  return v => !v || regex.test(v) || 'Must be valid symbol';
+}
+
+export function maxChar(maxLength: number, field = '') {
+  const _field = field ? `${field} ` : '';
+  return v =>
+    (v || '').length <= maxLength ||
+    `${_field}${i18n.global.t('mustBeLessThanChars', [maxLength])}`;
+}

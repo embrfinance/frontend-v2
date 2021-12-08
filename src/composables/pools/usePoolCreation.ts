@@ -32,7 +32,7 @@ type FeeType = 'fixed' | 'dynamic';
 type FeeController = 'self' | 'other';
 
 const emptyPoolCreationState = {
-  name: 'MyPool',
+  name: '',
   seedTokens: [] as PoolSeedToken[],
   activeStep: 0,
   initialFee: '0.003',
@@ -82,9 +82,12 @@ export default function usePoolCreation() {
       poolCreationState.tokensList = poolCreationState.seedTokens.map(
         w => w.tokenAddress
       );
-
-      poolCreationState.name = getPoolSymbol();
-      poolCreationState.symbol = getPoolSymbol();
+      if (poolCreationState.name === '') {
+        poolCreationState.name = getPoolSymbol();
+      }
+      if (poolCreationState.symbol === '') {
+        poolCreationState.symbol = getPoolSymbol();
+      }
     },
     {
       deep: true
@@ -269,6 +272,14 @@ export default function usePoolCreation() {
     }
   }
 
+  function setPoolName(name: string) {
+    poolCreationState.name = name;
+  }
+
+  function setPoolSymbol(symbol: string) {
+    poolCreationState.symbol = 'EPT' + symbol;
+  }
+
   function updateTokenWeights(weights: PoolSeedToken[]) {
     poolCreationState.seedTokens = weights;
   }
@@ -372,7 +383,7 @@ export default function usePoolCreation() {
     return scaledAmounts;
   }
 
-  function getPoolSymbol() {
+  function getDefaultPoolSymbol() {
     const tokenSymbols = poolCreationState.seedTokens.map(
       (token: PoolSeedToken) => {
         const weightRounded = Math.round(token.weight);
@@ -380,8 +391,11 @@ export default function usePoolCreation() {
         return `${Math.round(weightRounded)}${tokenInfo?.symbol || 'N/A'}`;
       }
     );
-
     return tokenSymbols.join('-');
+  }
+
+  function getPoolSymbol() {
+    return poolCreationState.symbol;
   }
 
   async function createPool(): Promise<TransactionResponse> {

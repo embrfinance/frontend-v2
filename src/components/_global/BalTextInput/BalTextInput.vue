@@ -112,7 +112,7 @@ const inputAttrs = computed(() => omit(attrs, 'class'));
             @keydown="onKeydown"
             :class="['input', inputClasses]"
           />
-          <div v-if="$slots.info" class="info absolute -bottom-1.5">
+          <div v-if="$slots.info" class="info">
             <slot name="info">
               {{ info }}
             </slot>

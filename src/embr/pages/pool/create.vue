@@ -3,6 +3,7 @@ import { computed, onMounted, ref, watch } from 'vue';
 
 import ChooseWeights from '@/components/cards/CreatePool/ChooseWeights.vue';
 import PoolSummary from '@/components/cards/CreatePool/PoolSummary.vue';
+import PoolName from '@/components/cards/CreatePool/PoolName.vue';
 import PoolFees from '@/components/cards/CreatePool/PoolFees.vue';
 import SimilarPools from '@/components/cards/CreatePool/SimilarPools.vue';
 import InitialLiquidity from '@/components/cards/CreatePool/InitialLiquidity.vue';
@@ -83,24 +84,29 @@ const steps = computed(() => [
     label: 1
   },
   {
-    tooltip: 'Set pool fees',
+    tooltip: 'Set pool name / symbol',
     state: getStepState(1),
     label: 2
   },
   {
-    tooltip: 'Similar pools',
-    state: StepState.Warning,
-    isVisible: doSimilarPoolsExist.value && activeStep.value === 2
-  },
-  {
-    tooltip: 'Set initial liquidity',
-    state: getStepState(3),
+    tooltip: 'Set pool fees',
+    state: getStepState(2),
     label: 3
   },
   {
-    tooltip: 'Confirm pool creation',
+    tooltip: 'Similar pools',
+    state: StepState.Warning,
+    isVisible: doSimilarPoolsExist.value && activeStep.value === 3
+  },
+  {
+    tooltip: 'Set initial liquidity',
     state: getStepState(4),
     label: 4
+  },
+  {
+    tooltip: 'Confirm pool creation',
+    state: getStepState(5),
+    label: 5
   }
 ]);
 
@@ -198,10 +204,19 @@ watch([hasInjectedToken, totalLiquidity], () => {
         :exit="exitAnimateProps"
         @update-dimensions="setWrapperHeight"
       >
+        <PoolName />
+      </AnimatePresence>
+      <AnimatePresence
+        :isVisible="!appLoading && activeStep === 2"
+        :initial="initialAnimateProps"
+        :animate="entryAnimateProps"
+        :exit="exitAnimateProps"
+        @update-dimensions="setWrapperHeight"
+      >
         <PoolFees />
       </AnimatePresence>
       <AnimatePresence
-        :isVisible="!appLoading && activeStep === 2 && similarPools.length > 0"
+        :isVisible="!appLoading && activeStep === 3 && similarPools.length > 0"
         :initial="initialAnimateProps"
         :animate="entryAnimateProps"
         :exit="exitAnimateProps"
@@ -210,7 +225,7 @@ watch([hasInjectedToken, totalLiquidity], () => {
         <SimilarPools />
       </AnimatePresence>
       <AnimatePresence
-        :isVisible="!appLoading && activeStep === 3"
+        :isVisible="!appLoading && activeStep === 4"
         :initial="initialAnimateProps"
         :animate="entryAnimateProps"
         :exit="exitAnimateProps"
@@ -219,7 +234,7 @@ watch([hasInjectedToken, totalLiquidity], () => {
         <InitialLiquidity />
       </AnimatePresence>
       <AnimatePresence
-        :isVisible="!appLoading && activeStep === 4"
+        :isVisible="!appLoading && activeStep === 5"
         :initial="initialAnimateProps"
         :animate="entryAnimateProps"
         :exit="exitAnimateProps"

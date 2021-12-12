@@ -42,7 +42,7 @@ export default defineComponent({
   name: 'AppNavOtherItems',
 
   props: {
-    alert: { type: Object as PropType<Alert>, required: true }
+    Alert: { type: Object as PropType<Alert>, required: true }
   },
 
   setup() {

@@ -82,7 +82,7 @@ export default defineComponent({
   name: 'AppNavEmbr',
 
   props: {
-    alert: { type: Object as PropType<Alert>, required: true }
+    Alert: { type: Object as PropType<Alert>, required: true }
   },
 
   setup() {
@@ -112,7 +112,8 @@ export default defineComponent({
       tvl,
       circulatingSupply,
       marketCap,
-      loading
+      loading,
+      Alert
     };
   }
 });

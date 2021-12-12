@@ -167,8 +167,12 @@ export default function useSor({
   });
 
   useIntervalFn(async () => {
-    if (sorConfig.refetchPools && sorManager) {
-      fetchPools();
+    try{
+      if (sorConfig.refetchPools && sorManager) {
+        fetchPools();
+      }
+    }catch(se){
+      console.log(se);
     }
   }, 30 * 1e3);
 

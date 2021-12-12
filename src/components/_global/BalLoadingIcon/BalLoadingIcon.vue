@@ -93,8 +93,8 @@ export default defineComponent({
   position: absolute;
   top: 0;
   left: 0;
-  -webkit-animation: sk-bounce 1s infinite ease-in-out;
-  animation: sk-bounce 1s infinite ease-in-out;
+  -webkit-animation: sk-bounce 2s infinite ease-in-out;
+  animation: sk-bounce 2s infinite ease-in-out;
   background: green !important;
 }
 .double-bounce2 {

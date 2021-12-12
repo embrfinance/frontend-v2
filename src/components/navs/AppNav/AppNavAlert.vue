@@ -24,7 +24,7 @@ import useAlerts, { Alert, AlertType } from '@/composables/useAlerts';
 import { computed, defineComponent, PropType } from 'vue';
 
 export default defineComponent({
-  name: 'NavAlert',
+  name: 'AppNavAlert',
 
   props: {
     alert: { type: Object as PropType<Alert>, required: true }

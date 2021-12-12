@@ -11,6 +11,7 @@ body {
 	display: block;
 	z-index:0;
 	color: white;
+  background: black;
 }
 
 .layout-container {
@@ -21,7 +22,7 @@ z-index: 25;
 z-index:9999;
 }
 
-#app {    
+#app {
 /*z-index:9;
 width:100vw;
 height:100vh;*/
@@ -73,14 +74,14 @@ z-index: 222;
 }
 
 .particles-js-canvas-el {
-  z-index:-1; 
+  z-index:-1;
   vertical-align: bottom;
-   position:fixed; 
+   position:fixed;
    top:0;
    min-height:100vh;
    background-image: linear-gradient(to bottom, #000000 0%, #140202, #451000, #451000 200%, #000000 );
- } 
- 
+ }
+
 #particles-js-canvas-el {
 position: relative;
 width: 100%;
@@ -91,6 +92,30 @@ background: #000;
 }
 
 .modal {z-index:999;}
+
+.unselected, .selected{
+
+    position: relative;
+    white-space: nowrap;
+    display: inline-block;
+    padding: 10px;
+    cursor: pointer;
+    color: #FFF;
+    letter-spacing: 1px;
+    text-shadow: 0 1px 2px rgb(0 0 0 / 90%);
+    background: #000000 none repeat scroll 0% 0% !important;
+    border: 1px solid #242424;
+    border-radius: 45px !important;
+    box-shadow: 0 1px 0 rgb(255 255 255 / 25%), 0 1px 0 rgb(255 255 255 / 25%) inset, 0 0 0 rgb(0 0 0 / 50%) inset, 0 1.25rem 0 rgb(255 255 255 / 8%) inset, 0 -1.25rem 1.25rem rgb(0 0 0 / 30%) inset, 0 1.25rem 1.25rem rgb(255 255 255 / 10%) inset;
+    transition: all 0.2s linear 0s;
+    text-align: center;
+    text-decoration: none;
+    margin: 0.5rem;
+    font-size: large;
+    /* font-weight: 900; */
+    /* font-variant: unicase; */
+    width: -webkit-fill-available;
+}
 
 
 .bottom-0 {
@@ -115,7 +140,7 @@ input {
 
 input, .input-group, .custom-input {
   caret-color: gold;
-  background: black !important;
+  background: black;
   color: white;
 }
 
@@ -175,19 +200,19 @@ input[type=number] {
 }
 
 button {
-position: relative; 
-display: inline-block; 
-cursor: pointer; 
-color: #FFF; 
-letter-spacing: 1px; 
-text-shadow: 0 1px 2px rgb(0 0 0 / 90%); 
+position: relative;
+display: inline-block;
+cursor: pointer;
+color: #FFF;
+letter-spacing: 1px;
+text-shadow: 0 1px 2px rgb(0 0 0 / 90%);
 /*border: 1px solid #242424; */
-border-radius: 4px; 
-transition: all 0.2s linear 0s; 
-text-align: center; 
-text-decoration: none; 
-font-size: larger; 
-font-weight: 900; /* z-index: 99999999; */ 
+border-radius: 4px;
+transition: all 0.2s linear 0s;
+text-align: center;
+text-decoration: none;
+font-size: larger;
+font-weight: 900; /* z-index: 99999999; */
 
 /*
 background: -moz-linear-gradient(top,  #ffffff 0%, #45484d 2%, #45484d 2%, #121314 8%, #34363a 49%, #000000 100%);
@@ -239,7 +264,21 @@ text-shadow: -1px 0px 0px #000, 1px 0px 0px #000, 0px -1px 0px #000, 0px 1px 0px
 .text-base{
   color:white;
    text-shadow: -1px 0px 0px #000, 1px 0px 0px #000, 0px -1px 0px #000, 0px 1px 0px #000;
-} 
+}
+
+.vue-slider-dot-handle .vue-slider-dot-handle-focus {
+  background-image: linear-gradient(to right top, gold, rgb(255 0 0));
+}
+
+.vue-slider-process {
+  height: 100%;
+top: 0px;
+left: 0%;
+width: 100%;
+transition-property: width, left;
+transition-duration: 0.5s;
+background-image: linear-gradient(to right top, gold, rgb(255 0 0));
+}
 
 bal-card {
     z-index: 10;
@@ -300,8 +339,13 @@ display: revert !important;
     color: #FFF;
     letter-spacing: 1px;
     text-shadow: 0 1px 2px rgb(0 0 0 / 90%);
+<<<<<<< Updated upstream
     
     background: #000000 none repeat scroll 0% 0% !important;
+=======
+
+    /*background: #000000 none repeat scroll 0% 0% !important;
+>>>>>>> Stashed changes
     border: 1px solid #242424;
     border-radius: 45px !important;
 
@@ -327,12 +371,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 min-width: max-content;
     font-size: 1.2em;*/
     }
-    
+
 .bal-btn:hover {
 color:gold;
  box-shadow: 0 1px 0 rgb(255 255 255 / 25%), 0 1px 0 rgb(255 255 255 / 25%) inset, 0 0 0 rgb(0 0 0 / 50%) inset, 0 1.25rem 0>;
 }
-    
+
 svg {
 filter: drop-shadow(0 px 0 px 1.3 px yellow) drop-shadow(0 px 0 px 3 px black) drop-shadow(0 px 0 px 0 px red);
 }
@@ -412,7 +456,7 @@ max-height: fit-content;
     height: 5vh;
     line-height: 5vh;
     min-width: 100vw;
-    background-image: linear-gradient( 
+    background-image: linear-gradient(
 180deg, #111111 0%, #000000 42%);
     -webkit-animation: footglow 60s ease-out;
     animation: footglow 60s ease-out;
@@ -511,5 +555,5 @@ max-height: fit-content;
 
 .logoshit:hover {
     filter: drop-shadow(1px 0px 0px black) drop-shadow(-1px 0px 0px black) drop-shadow(0px 2px 0px black) drop-shadow(0px 1px 0px black) drop-shadow(0px 1px 3px darkred) drop-shadow(0px -2px 5px yellow);
- 
+
 }

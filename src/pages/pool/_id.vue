@@ -346,6 +346,7 @@ export default defineComponent({
       ...toRefs(data),
       EXTERNAL_LINKS,
       // computed
+      useAlerts,
       appLoading,
       pool,
       noInitLiquidity,

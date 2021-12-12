@@ -160,7 +160,7 @@ function tokenFor(option: string): TokenInfo {
 }
 
 .selectable {
-  @apply cursor-pointer hover:shadow-none transition-shadow;
+  @apply cursor-pointer transition-shadow;
 }
 
 .unselected {

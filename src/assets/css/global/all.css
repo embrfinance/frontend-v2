@@ -93,29 +93,7 @@ body {
 
 .modal {z-index:999;}
 
-.unselected, .selected{
 
-  position: relative;
-  white-space: nowrap;
-  display: inline-block;
-  padding: 10px;
-  cursor: pointer;
-  color: #FFF;
-  letter-spacing: 1px;
-  text-shadow: 0 1px 2px rgb(0 0 0 / 90%);
-  background: #000000 none repeat scroll 0% 0% !important;
-  border: 1px solid #242424;
-  border-radius: 45px !important;
-  box-shadow: 0 1px 0 rgb(255 255 255 / 25%), 0 1px 0 rgb(255 255 255 / 25%) inset, 0 0 0 rgb(0 0 0 / 50%) inset, 0 1.25rem 0 rgb(255 255 255 / 8%) inset, 0 -1.25rem 1.25rem rgb(0 0 0 / 30%) inset, 0 1.25rem 1.25rem rgb(255 255 255 / 10%) inset;
-  transition: all 0.2s linear 0s;
-  text-align: center;
-  text-decoration: none;
-  margin: 0.5rem;
-  font-size: large;
-  /* font-weight: 900; */
-  /* font-variant: unicase; */
-  width: -webkit-fill-available;
-}
 
 
 .bottom-0 {

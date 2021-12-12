@@ -118,14 +118,13 @@ export default defineComponent({
 }
 
 .spinner {
-  display: inline-block;
   position: relative;
   width: 1.5rem;
   height: 1.5rem;
 }
 .spinner div {
   position: absolute;
-  border: 4px solid #fff;
+  border: 1px solid #fff;
   opacity: 1;
   border-radius: 50%;
   animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
@@ -140,6 +139,7 @@ export default defineComponent({
     width: 0.1rem;
     height: 0.1rem;
     opacity: 1;
+    border: 1px solid #fff;
   }
   100% {
     top: 0px;
@@ -147,6 +147,7 @@ export default defineComponent({
     width: 1.5rem;
     height: 1.5rem;
     opacity: 0;
+    border: 3px solid green;
   }
 }
 

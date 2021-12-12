@@ -1,12 +1,1 @@
-export const chartColors: string[] = [
-  '#DD0462',
-  '#2278B9',
-  '#25f2a6',
-  '#9e4cf1',
-  '#00b7f2',
-  '#C6F2C4',
-  '#22F2A6',
-  '#9F4BF2',
-  '#03658C',
-  '#028E72'
-];
+export const chartColors: string[] = ["#03071e","#370617","#6a040f","#9d0208","#d00000","#dc2f02","#e85d04","#f48c06","#faa307","#ffba08"]

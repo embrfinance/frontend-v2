@@ -1,11 +1,5 @@
-<!--<template>
-  <div :class="['spinner', sizeClasses]">
-    <div :class="`double-bounce1`" />
-    <div :class="`double-bounce2`" />
-  </div>
-</template>-->
-<templat>
-  <div class="lds-ripple"><div></div><div></div></div>
+<template>
+  <div :class="lds-ripple"><div></div><div></div></div>
 </template>
 <script>
 import { defineComponent, computed } from 'vue';

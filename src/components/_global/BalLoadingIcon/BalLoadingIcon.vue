@@ -1,5 +1,5 @@
 <template>
-  <div :class="ripple"><div></div><div></div></div>
+  <div :class="['spinner', sizeClasses]"><div></div><div></div></div>
 </template>
 <script>
 import { defineComponent, computed } from 'vue';
@@ -77,7 +77,7 @@ export default defineComponent({
   width: 32px;
   height: 32px;
 }
-/*
+
 .double-bounce1,
 .double-bounce2 {
   width: 100%;
@@ -115,25 +115,25 @@ export default defineComponent({
     transform: scale(1);
     -webkit-transform: scale(1);
   }
-}*/
+}
 
-.ripple {
+.spinner {
   display: inline-block;
   position: relative;
   width: 80px;
   height: 80px;
 }
-.ripple div {
+.spinner div {
   position: absolute;
   border: 4px solid #fff;
   opacity: 1;
   border-radius: 50%;
-  animation: ripples 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
-.ripple div:nth-child(2) {
+.spinner div:nth-child(2) {
   animation-delay: -0.5s;
 }
-@keyframes ripples {
+@keyframes lds-ripple {
   0% {
     top: 36px;
     left: 36px;

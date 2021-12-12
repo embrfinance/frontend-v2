@@ -120,8 +120,8 @@ export default defineComponent({
 .spinner {
   display: inline-block;
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 .spinner div {
   position: absolute;
@@ -137,15 +137,15 @@ export default defineComponent({
   0% {
     top: 36px;
     left: 36px;
-    width: 0%;
-    height: 0%;
+    width: 0.1rem;
+    height: 0.1rem;
     opacity: 1;
   }
   100% {
     top: 0px;
     left: 0px;
-    width: 100%;
-    height: 100%;
+    width: 1.5rem;
+    height: 1.5rem;
     opacity: 0;
   }
 }

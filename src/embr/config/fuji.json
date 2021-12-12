@@ -6,7 +6,7 @@
   "shortName": "Fuji",
   "network": "fuji",
   "unknown": false,
-  "rpc": "https://api.avax-test.network/ext/bc/C/rpc",
+  "rpc": "http://185.130.44.72:9650/ext/bc/C/rpc",
   "ws": "wss://api.avax-test.network/ext/bc/C/ws",
   "loggingRpc": "",
   "explorer": "https://testnet.snowtrace.io",

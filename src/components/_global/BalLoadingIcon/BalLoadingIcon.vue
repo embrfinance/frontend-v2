@@ -77,7 +77,7 @@ export default defineComponent({
   width: 32px;
   height: 32px;
 }
-
+/*
 .double-bounce1,
 .double-bounce2 {
   width: 100%;
@@ -115,7 +115,7 @@ export default defineComponent({
     transform: scale(1);
     -webkit-transform: scale(1);
   }
-}
+}*/
 
 .lds-ripple {
   display: inline-block;

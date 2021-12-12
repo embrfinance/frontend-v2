@@ -112,8 +112,7 @@ export default defineComponent({
       tvl,
       circulatingSupply,
       marketCap,
-      loading,
-      Alert
+      loading
     };
   }
 });

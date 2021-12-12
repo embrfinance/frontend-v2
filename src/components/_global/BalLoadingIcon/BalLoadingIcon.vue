@@ -1,7 +1,7 @@
 <template>
   <div :class="['spinner', sizeClasses]">
-    <div :class="`double-bounce1 ${colorClasses}`" />
-    <div :class="`double-bounce2 ${colorClasses}`" />
+    <div :class="`double-bounce1`" />
+    <div :class="`double-bounce2`" />
   </div>
 </template>
 

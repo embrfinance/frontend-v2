@@ -36,6 +36,10 @@
     "approvingGnosisRelayer": "Approving Gnosis relayer",
     "approvingLidoRelayer": "Approving Lido relayer",
     "apr": "APR",
+    "autoOptimiseLiquidityToggle": {
+        "label": "Auto optimize liquidity",
+        "tooltip": "Optimise token values automatically to match the token weights you specified."
+    },
     "availableToClaim": "Available to claim:",
     "balance": "Balance",
     "balances": "Balances",
@@ -280,6 +284,7 @@
     "mustBeValidAddress": "This is not a valid Avalance address",
     "mustBeValidPoolName": "This is not a valid pool name",
     "mustBeValidPoolSymbol": "This is not a valid pool symbol",
+    "mustBeLessThanChars": "Max 7 Characters For Symbol",
     "mustBeGreaterThan": "must be greater than {0}",
     "myBalance": "My balance",
     "myInvestments": "My V2 Balancer investments",
@@ -297,6 +302,7 @@
     "newInvestment": "New investment",
     "newTrade": "New Trade",
     "newWithdrawal": "New withdrawal",
+    "next": "Next",
     "noContent": "No content",
     "noData": "No data available",
     "noInitLiquidity": "This pool has no initial liquidity",
@@ -443,6 +449,7 @@
         }
     },
     "total": "Total",
+    "totalAllocated": "Total allocated",
     "totalAPR": "Total APR",
     "totalSupply": "Total supply",
     "totalValue": "Total value",
@@ -521,7 +528,8 @@
         }
     },
     "transactionAction": {
-        "approve": "Approve",
+        "create": "Create",
+	"approve": "Approve",
         "claim": "Claim",
         "createPool": "Create pool",
         "fundPool": "Fund pool",

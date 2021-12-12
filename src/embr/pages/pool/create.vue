@@ -207,7 +207,7 @@ watch([hasInjectedToken, totalLiquidity], () => {
         <PoolName />
       </AnimatePresence>
       <AnimatePresence
-        :isVisible="!appLoading && activeStep === 2"
+        :isVisible="!appLoading && activeStep === 3"
         :initial="initialAnimateProps"
         :animate="entryAnimateProps"
         :exit="exitAnimateProps"
@@ -216,7 +216,7 @@ watch([hasInjectedToken, totalLiquidity], () => {
         <PoolFees />
       </AnimatePresence>
       <AnimatePresence
-        :isVisible="!appLoading && activeStep === 3 && similarPools.length > 0"
+        :isVisible="!appLoading && activeStep === 4 && similarPools.length > 0"
         :initial="initialAnimateProps"
         :animate="entryAnimateProps"
         :exit="exitAnimateProps"

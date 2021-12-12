@@ -82,12 +82,6 @@ export default function usePoolCreation() {
       poolCreationState.tokensList = poolCreationState.seedTokens.map(
         w => w.tokenAddress
       );
-      if (poolCreationState.name === '') {
-        poolCreationState.name = getPoolSymbol();
-      }
-      if (poolCreationState.symbol === '') {
-        poolCreationState.symbol = getPoolSymbol();
-      }
     },
     {
       deep: true
@@ -277,6 +271,7 @@ export default function usePoolCreation() {
   }
 
   function setPoolSymbol(symbol: string) {
+    console.log('xploited set pool symbol', symbol);
     poolCreationState.symbol = 'EPT' + symbol;
   }
 
@@ -296,6 +291,7 @@ export default function usePoolCreation() {
     } else {
       poolCreationState.activeStep += 1;
     }
+    console.log('proceed', poolCreationState.activeStep);
   }
 
   function goBack() {

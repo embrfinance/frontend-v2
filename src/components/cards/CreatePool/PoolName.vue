@@ -10,7 +10,8 @@ import {
   isRequired,
   maxChar,
   isPoolNameCheck,
-  isSymbolNameCheck
+  isSymbolNameCheck,
+  isSymbol
 } from '@/lib/utils/validations';
 
 import { isAddress } from 'ethers/lib/utils';
@@ -70,21 +71,13 @@ const isProceedDisabled = computed(() => {
 /**
  * FUNCTIONS
  */
-function isValidName(val: string): boolean {
-  return true;
-}
-
-function isValidSymbol(val: string): boolean {
-  return true;
-}
-
 function onNameInput(val: string): void {
   name.value = val;
   isInvalidName.value = false;
 }
 
-function onSymbolInput(val: string): void {
-  symbol.value = val;
+function onSymbolInput(): void {
+  symbol.value = symbol.value.toUpperCase();
   isInvalidSymbol.value = false;
 }
 </script>
@@ -140,10 +133,13 @@ function onSymbolInput(val: string): void {
             validateOn="blur"
             :rules="[isRequired($t('A pool symbol')), maxChar(7), isSymbol()]"
             name="symbolName"
-            @input="onSymbolInput"
+            @keydown="onSymbolInput"
+            @keyup="onSymbolInput"
           >
             <template v-slot:prepend>
-              EPT-
+              <div style="padding-top:4px;">
+                EPT-
+              </div>
             </template>
           </BalTextInput>
         </BalStack>

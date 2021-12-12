@@ -4,7 +4,7 @@
       <BalTabs v-model="activeTab" :tabs="tabs" no-pad class="-mb-px mr-8" />
       <div class="flex-1 flex justify-end">
         <BalBtn
-          class="hidden lg:block"
+          class="hidden lg:block createpool"
           label="Compose a pool"
           @click="goToPoolCreate"
         />
@@ -41,7 +41,7 @@
     <template v-if="isWalletReady">
       <div class="px-4 lg:px-0">
         <BalAlert
-          v-if="hasUnstakedBpt"
+          v-if="hasUnstakedBpt && activeTab === 'my-investments'"
           title="You have unstaked EPT in your wallet"
           description="If you deposit your EPT into the farm, you will earn additional rewards paid out in EMBR."
           type="warning"
@@ -125,7 +125,7 @@ export default defineComponent({
     );
 
     function goToPoolCreate() {
-      router.push({ name: 'pool-create' });
+      router.push({ name: 'create-pool' });
     }
 
     watch(poolsQuery.error, () => {

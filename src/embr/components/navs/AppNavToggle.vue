@@ -5,7 +5,7 @@
       :class="['toggle-link px-6', { [activeClasses]: isTradePage }]"
       @click="trackGoal(Goals.ClickNavTrade)"
     >
-      Swap
+      Trade
     </router-link>
     <router-link
       :to="{ name: 'pools' }"

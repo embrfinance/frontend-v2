@@ -39,6 +39,29 @@ padding-right: 1vw;
 transition: all 5s linear 0s;
 }
 
+.unselected, .selected{
+
+    position: relative;
+    white-space: nowrap;
+    display: inline-block;
+    padding: 10px;
+    cursor: pointer;
+    color: #FFF;
+    letter-spacing: 1px;
+    text-shadow: 0 1px 2px rgb(0 0 0 / 90%);
+    background: #000000 none repeat scroll 0% 0% !important;
+    border: 1px solid #242424;
+    border-radius: 45px !important;
+    box-shadow: 0 1px 0 rgb(255 255 255 / 25%), 0 1px 0 rgb(255 255 255 / 25%) inset, 0 0 0 rgb(0 0 0 / 50%) inset, 0 1.25rem 0 rgb(255 255 255 / 8%) inset, 0 -1.25rem 1.25rem rgb(0 0 0 / 30%) inset, 0 1.25rem 1.25rem rgb(255 255 255 / 10%) inset;
+    transition: all 0.2s linear 0s;
+    text-align: center;
+    text-decoration: none;
+    font-size: large;
+    /* font-weight: 900; */
+    /* font-variant: unicase; */
+    width: -webkit-fill-available;
+}
+
 #copr:hover {
     filter: drop-shadow(1px 0px 0px black) drop-shadow(-1px 0px 0px black) drop-shadow(0px 2px 0px black) drop-shadow(0px 1px 0px black) drop-shadow(0px 1px 3px darkred) drop-shadow(0px -2px 5px yellow);
 }
@@ -105,6 +128,10 @@ input, .input-group, .custom-input {
   --tw-bg-opacity: 1;
   background-color: #111111;
   border-bottom: 1px solid #b26422;
+}
+
+.createpool {
+max-width:max-content !important;
 }
 
 .dark #app-nav {
@@ -260,6 +287,10 @@ color: white !important;
     color: #000000;
 }
 
+.bal-alert-container {
+display: revert !important;
+}
+
 .bal-btn {
     position: relative;
     white-space: nowrap;
@@ -270,18 +301,19 @@ color: white !important;
     letter-spacing: 1px;
     text-shadow: 0 1px 2px rgb(0 0 0 / 90%);
     
-    /*background: #000000 none repeat scroll 0% 0% !important;
+    background: #000000 none repeat scroll 0% 0% !important;
     border: 1px solid #242424;
     border-radius: 45px !important;
-box-shadow: 0 1px 0 rgb(255 255 255 / 25%), 0 1px 0 rgb(255 255 255 / 25%) inset, 0 0 0 rgb(0 0 0 / 50%) inset, 0 1.25rem 0 rgb(255 255 255 / 8%) inset, 0 -1.25rem 1.25rem rgb(0 0 0 / 30%) inset, 0 1.25rem 1.25rem rgb(255 255 255 / 10%) inset;*/
+
+   box-shadow: 0 1px 0 rgb(255 255 255 / 25%), 0 1px 0 rgb(255 255 255 / 25%) inset, 0 0 0 rgb(0 0 0 / 50%) inset, 0 1.25rem 0 rgb(255 255 255 / 8%) inset, 0 -1.25rem 1.25rem rgb(0 0 0 / 30%) inset, 0 1.25rem 1.25rem rgb(255 255 255 / 10%) inset;
     transition: all 0.2s linear 0s;
     text-align: center;
     text-decoration: none;
     margin: 0.5rem;
     font-size: large;
     /* font-weight: 900; */
-    font-variant: unicase;
-    /*width: -webkit-fill-available;*/
+    /*font-variant: unicase;*/
+    width: -webkit-fill-available;
     /*font-size: 1em;
     text-align: center;
     align-items: center;
@@ -298,6 +330,7 @@ min-width: max-content;
     
 .bal-btn:hover {
 color:gold;
+ box-shadow: 0 1px 0 rgb(255 255 255 / 25%), 0 1px 0 rgb(255 255 255 / 25%) inset, 0 0 0 rgb(0 0 0 / 50%) inset, 0 1.25rem 0>;
 }
     
 svg {
@@ -341,7 +374,7 @@ background: none !important;
     margin: 0.5 rem;
     font-size: large;
     /* font-weight: 900; */
-    font-variant: unicase;
+    /*font-variant: unicase;*/
     width: fit-content;
         margin: 0.5vw !important;
 /*
@@ -392,7 +425,7 @@ max-height: fit-content;
     z-index: 5;
     align-items: center;
     color: gold;
-    font-variant: unicase;
+    /*font-variant: unicase;*/
     bottom: 0;
     position: absolute !important;
     float: left;

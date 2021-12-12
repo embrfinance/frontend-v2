@@ -22,3 +22,6 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+src\embr\assets\images\FarmAPR.png
+src\embr\assets\images\farmAPR.png

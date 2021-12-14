@@ -44,10 +44,11 @@ const isHomePage = computed(() => route.path === '/');
     </div>
     <AppFooterNav v-if="upToXLargeBreakpoint" />
     <div class="flex flex-1 items-end relative">
-      <img src="~@/embr/assets/images/footer-bg7.png" />
+
       <div
         class="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex justify-center pb-6 ml-8"
       >
+            <img id="embryfooter" src="~@/embr/assets/images/footer-bg7.png" />
         <a href="https://twitter.com/embrfinance" class="mr-12">
           <img
             src="~@/embr/assets/images/twitter-icon.png"

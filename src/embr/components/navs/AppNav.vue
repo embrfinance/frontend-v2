@@ -25,7 +25,7 @@
 import { computed, defineComponent, onMounted, onUnmounted, ref } from 'vue';
 import useBreakpoints from '@/composables/useBreakpoints';
 import AppIcon from '@/embr/components/images/AppIcon.vue';
-import AppNavAlert from '@/components/navs/AppNav/AppNavAlert';
+import AppNavAlert from '@/components/navs/AppNav/AppNavAlert.vue';
 import AppNavToggle from '@/embr/components/navs/AppNavToggle.vue';
 import AppNavOtherItems from '@/embr/components/navs/AppNavOtherItems.vue';
 import AppNavActions from '@/embr/components/navs/AppNavActions.vue';

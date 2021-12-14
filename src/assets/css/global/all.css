@@ -427,6 +427,10 @@ table, tbody, td, tr {
   color: gold !important;
 }
 
+#embryfooter {
+  z-index: 1;
+}
+
 .footerthing {
   max-height: fit-content;
   height: 5vh;

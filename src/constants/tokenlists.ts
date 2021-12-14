@@ -95,5 +95,16 @@ export const TOKEN_LIST_MAP: TokenListMapByNetwork = {
     External: [
       'https://raw.githubusercontent.com/l0rdicon/offical-token-lists/main/tokens.fuji.json'
     ]
+  },
+  '43114': {
+    Balancer: {
+      Default:
+        'https://raw.githubusercontent.com/embrfinance/tokenlist/main/tokens.avalanche.json',
+      Vetted:
+        'https://raw.githubusercontent.com/embrfinance/tokenlist/main/tokens.avalanche.json'
+    },
+    External: [
+      'https://raw.githubusercontent.com/embrfinance/tokenlist/main/tokens.avalanche.json'
+    ]
   }
 };

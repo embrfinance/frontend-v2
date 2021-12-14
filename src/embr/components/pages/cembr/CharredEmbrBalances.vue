@@ -23,7 +23,7 @@ const {
   userCembrBalance,
   currentExchangeRate,
   embrPerShare,
-  ftmPerShare,
+  embrPerShare,
   cEmbrLoading
 } = useCharredEmbr();
 
@@ -55,7 +55,7 @@ const {
       }}
       Embr /
       <BalLoadingBlock v-if="cEmbrLoading" class="h-5 w-4 mx-0.5" white />{{
-        !cEmbrLoading ? numeral(ftmPerShare).format('0.[00]') : ''
+        !cEmbrLoading ? numeral(embrPerShare).format('0.[00]') : ''
       }}
       FTM
     </div>

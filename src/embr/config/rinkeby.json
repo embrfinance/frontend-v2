@@ -14,7 +14,7 @@
   "subgraph": "https://api.studio.thegraph.com/query/8788/embr-rinkeby/v0.0.4",
   "farmSubgraph": "https://api.studio.thegraph.com/query/8788/embr-farms-rinkeby/v0.0.6",
   "blockSubgraph": "https://api.studio.thegraph.com/query/8788/rinkeby-blocks/v0.0.2",
-  "backendUrl": "https://backend.embr-ftm-node.com/graphql",
+  "backendUrl": "https://backend.embr-embr-node.com/graphql",
   "poolsUrlV1": "https://storageapi.fleek.co/balancer-bucket/balancer-exchange-rinkeby/pools",
   "poolsUrlV2": "https://storageapi.fleek.co/johngrantuk-team-bucket/poolsRc02.json",
   "nativeAsset": {

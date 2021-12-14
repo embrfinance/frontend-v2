@@ -1,0 +1,179 @@
+<template>
+  <div class="lg:container lg:mx-auto pt-10 md:pt-12">
+    <div class="mb-8 flex">
+      <BalTabs v-model="activeTab" :tabs="tabs" no-pad class="-mb-px mr-8" />
+      <div class="flex-1 flex justify-end">
+        <BalBtn
+          class="hidden lg:block createpool"
+          label="Compose a pool"
+          @click="goToPoolCreate"
+        />
+      </div>
+    </div>
+    <TokenSearchInput
+      v-model="selectedTokens"
+      :loading="isLoadingPools"
+      @add="addSelectedToken"
+      @remove="removeSelectedToken"
+    />
+    <PoolsTable
+      v-if="activeTab === 'embr-pools'"
+      :isLoading="isLoadingPools"
+      :data="embrPools"
+      :noPoolsLabel="$t('noPoolsFound')"
+      :isPaginated="false"
+      :isLoadingMore="false"
+      @loadMore="() => {}"
+    />
+    <p class="px-4 lg:px-0 mb-3 mt-4" v-if="activeTab === 'community-pools'">
+      Investment pools created by the community. Please DYOR before investing in
+      any community pool.
+    </p>
+    <PoolsTable
+      v-if="activeTab === 'community-pools'"
+      :isLoading="isLoadingPools"
+      :data="communityPools"
+      :noPoolsLabel="$t('noPoolsFound')"
+      :isPaginated="true"
+      :isLoadingMore="false"
+      :sort-externally="true"
+    />
+    <template v-if="isWalletReady">
+      <div class="px-4 lg:px-0">
+        <BalAlert
+          v-if="hasUnstakedBpt"
+          title="You have unstaked EPT in your wallet"
+          description="If you deposit your EPT into the farm, you will earn additional rewards paid out in EMBR."
+          type="warning"
+          size="sm"
+          class=""
+        />
+      </div>
+      <PoolsTable
+        v-if="activeTab === 'my-investments'"
+        :isLoading="isLoadingUserPools || isLoadingFarms"
+        :data="userPools"
+        :noPoolsLabel="$t('noInvestments')"
+        showPoolShares
+        :selectedTokens="selectedTokens"
+        class="mb-8"
+      />
+    </template>
+  </div>
+</template>
+
+<script lang="ts">
+import { computed, defineComponent, ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
+
+import { EXTERNAL_LINKS } from '@/constants/links';
+import TokenSearchInput from '@/components/inputs/TokenSearchInput.vue';
+import PoolsTable from '@/components/tables/PoolsTable/PoolsTable.vue';
+import usePools from '@/composables/pools/usePools';
+import useWeb3 from '@/services/web3/useWeb3';
+import usePoolFilters from '@/composables/pools/usePoolFilters';
+import useAlerts, { AlertPriority, AlertType } from '@/composables/useAlerts';
+import BalTabs from '@/components/_global/BalTabs/BalTabs.vue';
+
+export default defineComponent({
+  components: {
+    TokenSearchInput,
+    PoolsTable,
+    BalTabs
+    //FeaturedPools
+  },
+
+  setup() {
+    // COMPOSABLES
+    const router = useRouter();
+    const { t } = useI18n();
+    const { isWalletReady, isV1Supported, appNetworkConfig } = useWeb3();
+    const isElementSupported = appNetworkConfig.supportsElementPools;
+    const {
+      selectedTokens,
+      addSelectedToken,
+      removeSelectedToken
+    } = usePoolFilters();
+
+    const {
+      userPools,
+      isLoadingPools,
+      isLoadingUserPools,
+      loadMorePools,
+      poolsHasNextPage,
+      poolsIsFetchingNextPage,
+      poolsQuery,
+      isLoadingFarms,
+      communityPools,
+      embrPools
+    } = usePools(selectedTokens);
+    const { addAlert, removeAlert } = useAlerts();
+
+    const tabs = [
+      { value: 'embr-pools', label: 'Embr Pools' },
+      { value: 'community-pools', label: 'Community Pools' },
+      { value: 'my-investments', label: 'My Investments' }
+    ];
+
+    const activeTab = ref(tabs[0].value);
+
+    const hideV1Links = computed(() => !isV1Supported);
+
+    const hasUnstakedBpt = computed(() =>
+      userPools.value.find(pool => pool.farm && parseFloat(pool.shares) > 0)
+    );
+
+    function goToPoolCreate() {
+      router.push({ name: 'pool-create' });
+    }
+
+    watch(poolsQuery.error, () => {
+      if (poolsQuery.error.value) {
+        addAlert({
+          id: 'pools-fetch-error',
+          label: t('alerts.pools-fetch-error'),
+          type: AlertType.ERROR,
+          persistent: true,
+          action: poolsQuery.refetch.value,
+          actionLabel: t('alerts.retry-label'),
+          priority: AlertPriority.MEDIUM
+        });
+      } else {
+        removeAlert('pools-fetch-error');
+      }
+    });
+
+    return {
+      // data
+      embrPools,
+      userPools,
+      isLoadingPools,
+      isLoadingUserPools,
+
+      // computed
+      isWalletReady,
+      hideV1Links,
+      poolsHasNextPage,
+      poolsIsFetchingNextPage,
+      selectedTokens,
+      isElementSupported,
+
+      //methods
+      router,
+      loadMorePools,
+      addSelectedToken,
+      removeSelectedToken,
+      goToPoolCreate,
+      hasUnstakedBpt,
+      communityPools,
+      isLoadingFarms,
+      tabs,
+      activeTab,
+
+      // constants
+      EXTERNAL_LINKS
+    };
+  }
+});
+</script>

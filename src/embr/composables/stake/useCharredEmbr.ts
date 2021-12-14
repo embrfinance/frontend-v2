@@ -85,7 +85,7 @@ export function useCharredEmbr() {
     )
   );
 
-  const ftm = computed(() =>
+  const embr = computed(() =>
     pool.value?.tokens.find(
       token =>
         token.address.toLowerCase() ===
@@ -111,9 +111,9 @@ export function useCharredEmbr() {
       : '0';
   });
 
-  const ftmPerShare = computed(() => {
-    return ftm.value && pool.value
-      ? `${parseFloat(ftm.value.balance) / parseFloat(pool.value.totalShares)}`
+  const embrPerShare = computed(() => {
+    return embr.value && pool.value
+      ? `${parseFloat(embr.value.balance) / parseFloat(pool.value.totalShares)}`
       : '0';
   });
 
@@ -121,7 +121,7 @@ export function useCharredEmbr() {
     userBptShare.value.times(embr.value?.balance || '0')
   );
   const userStakedFtmBalance = computed(() =>
-    userBptShare.value.times(ftm.value?.balance || '0')
+    userBptShare.value.times(embr.value?.balance || '0')
   );
 
   const totalEmbrStaked = computed(() => {
@@ -240,7 +240,7 @@ export function useCharredEmbr() {
     userStakedEmbrBalance,
     userStakedFtmBalance,
     embrPerShare,
-    ftmPerShare,
+    embrPerShare,
     userUnstakedCembrBalance,
     swapApr,
     farmApr,

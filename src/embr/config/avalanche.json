@@ -1,0 +1,107 @@
+{
+    "key": "43114",
+    "chainId": 43114,
+    "chainName": "Avalanche C-Chain",
+    "name": "Avalanche",
+    "shortName": "Avalanche",
+    "network": "avalanche",
+    "unknown": false,
+    "rpc": "https://api.network/ext/bc/C/rpc",
+    "ws": "wss://speedy-nodes-nyc.moralis.io/f7eaee720c05a3b9bb0ddefd/avalanche/mainnet/ws",
+    "loggingRpc": "",
+    "explorer": "https://snowtrace.io",
+    "explorerName": "Snowtrace",
+    "subgraph": "https://api.thegraph.com/subgraphs/name/embrfinance/embr-avalanche-v2",
+    "farmSubgraph": "https://api.thegraph.com/subgraphs/name/embrfinance/embr-token",
+    "blockSubgraph": "https://api.thegraph.com/subgraphs/name/embrfinance/avalanche-blocks",
+    "poolsUrlV1": "",
+    "poolsUrlV2": "",
+    "backendUrl": "https://graph.embr.finance/graphql",
+    "etherscan": {
+      "apiKey": "",
+      "apiUrl": "https://api.snowtrace.io/api"
+    },
+    "nativeAsset": {
+      "name": "Avalanche",
+      "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+      "symbol": "AVAX",
+      "decimals": 18,
+      "deeplinkId": "avax",
+      "logoURI": "https://cdn.discordapp.com/emojis/902638084779278356.png",
+      "minTransactionBuffer": "0.5"
+    },
+    "addresses": {
+      "bFactory": "",
+      "bActions": "",
+      "dsProxyRegistry": "",
+      "exchangeProxy": "",
+      "merkleRedeem": "",
+      "merkleOrchard": "",
+      "multicall": "0x653f3e6c7e2ae666c22e063d87a012c2f13ea416",
+      "authorizer": "0x4AE25dA80784C051554C8cEE32E4Aa0922082799",
+      "vault": "0xad68ea482860cd7077a5D0684313dD3a9BC70fbB",
+      "weightedPoolFactory": "0x4250Cd9F2B02Ef0F9d8253dE5A2daC9174d9b620",
+      "stablePoolFactory": "0x62B5fa3bA999277a421174E70A47a7e677433368",
+      "tokenFactory": "0x5bBF66875eA87E9cB80A9E13D03b1a29f5798eBc",
+      "weth": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7",
+      "stETH": "",
+      "wstETH": "",
+      "usdc": "0xA7D7079b0FEaD91F3e65f86E8915Cb59c1a4C664",
+      "embr": "0x9FBA6AacB11010999355E60675A734278345B13C",
+      "lidoRelayer": "",
+      "balancerHelpers": "0xe44Bd462A1c3d8b957DdACeA0DcF20AFC5138e3D",
+      "masterChef": "0xa5C23E56f7e673Fd741903656b79c4c6ef9De000",
+      "embrUsdcReferencePricePool": "",
+      "embrToken": "0x9FBA6AacB11010999355E60675A734278345B13C",
+      "cembrVestingToken":"",
+      "cembrToken":"",
+      "defaultPoolOwner": "0x60d78090D54582245C40C7E0059c257CF39949B3",
+      "earlyLudwigNft": "",
+      "hnd": "",
+      "hndRewarder": ""
+    },
+    "strategies": {
+      "0": {
+        "type": "0",
+        "name": "stablePool"
+      },
+      "1": {
+        "type": "1",
+        "name": "weightedPool"
+      },
+      "2": {
+        "type": "2",
+        "name": "weightedPool"
+      }
+    },
+    "lbp": {
+      "poolId": "",
+      "tokenAddress": "0x9FBA6AacB11010999355E60675A734278345B13C",
+      "tokenSymbol": "EMBR",
+      "startingAmount": 500000,
+      "usdcAddress": "0x783C08b5F26E3daf8C4681F3bf49844e425b6393",
+      "startTime": "2021-12-15T11:00:00+0000",
+      "endTime": "2021-12-16T11:00:00+0000",
+      "weightStep":  0.00625,
+      "timeStep": 3600
+    },
+    "keys": {
+      "infura": "",
+      "alchemy": ""
+    },
+    "supportsEIP1559": false,
+    "supportsElementPools": false,
+    "tokenListSanityUrl": "https://raw.githubusercontent.com/embrfinance/tokenlist/main/tokens.avalanche.json",
+    "configSanityUrl": "https://raw.githubusercontent.com/embrfinance/poolconfig/main/pools.avalanche.json",
+    "cEmbr": {
+      "address": "",
+      "poolId": "",
+      "poolAddress": "",
+      "farmId": "",
+      "oldFarmId": ""
+    },
+    "incentivizedPools": [
+      ""
+    ]
+  }
+  

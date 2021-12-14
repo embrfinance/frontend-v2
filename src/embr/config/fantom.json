@@ -6,15 +6,15 @@
   "shortName": "Fantom",
   "network": "fantom",
   "unknown": false,
-  "rpc": "https://graph-node.embr-ftm-node.com/rpc",
-  "ws": "wss://graph-node.embr-ftm-node.com/ws",
+  "rpc": "https://graph-node.embr-embr-node.com/rpc",
+  "ws": "wss://graph-node.embr-embr-node.com/ws",
   "loggingRpc": "",
-  "explorer": "https://ftmscan.com",
+  "explorer": "https://embrscan.com",
   "explorerName": "Ftmscan",
-  "subgraph": "https://graph-node.embr-ftm-node.com/subgraphs/name/embr",
-  "blockSubgraph": "https://graph-node.embr-ftm-node.com/subgraphs/name/fantom-blocks",
-  "farmSubgraph": "https://graph-node.embr-ftm-node.com/subgraphs/name/masterchef",
-  "backendUrl": "https://backend.embr-ftm-node.com/graphql",
+  "subgraph": "https://graph-node.embr-embr-node.com/subgraphs/name/embr",
+  "blockSubgraph": "https://graph-node.embr-embr-node.com/subgraphs/name/fantom-blocks",
+  "farmSubgraph": "https://graph-node.embr-embr-node.com/subgraphs/name/masterchef",
+  "backendUrl": "https://backend.embr-embr-node.com/graphql",
   "poolsUrlV1": "https://storageapi.fleek.co/balancer-bucket/balancer-exchange-rinkeby/pools",
   "poolsUrlV2": "https://storageapi.fleek.co/johngrantuk-team-bucket/poolsRc02.json",
   "nativeAsset": {
@@ -83,7 +83,7 @@
   },
   "etherscan": {
     "apiKey": "PKKV6JBSI4B1251AXR1PCDZBPWQBXBFERB",
-    "apiUrl": "https://api.ftmscan.com/api"
+    "apiUrl": "https://api.embrscan.com/api"
   },
   "tokenListSanityUrl": "https://1g2ag2hb.apicdn.sanity.io/v1/data/query/production?query=%7B%0A%20%20%22name%22%3A%20%22Beethoven%20X%22%2C%0A%20%20%22timestamp%22%3A%20%222021-10-06T18%3A18%3A18.181Z%22%2C%0A%20%20%22version%22%3A%20%7B%0A%20%20%20%20%22major%22%3A%201%2C%0A%20%20%20%20%22minor%22%3A%200%2C%0A%20%20%20%20%22patch%22%3A%202%0A%20%20%7D%2C%0A%20%20%22tags%22%3A%20%7B%7D%2C%0A%20%20%22logoURI%22%3A%20%22https%3A%2F%2Fstorageapi.fleek.co%2Cembrfinance-team-bucket%2Fbethovenx-icon.png%22%2C%0A%20%20%22keywords%22%3A%20%5B%0A%20%20%20%20%22beethoven%22%2C%0A%20%20%20%20%22default%22%2C%0A%20%20%20%20%22fantom%22%0A%20%20%5D%2C%0A%20%20%22tokens%22%3A%20*%5B_type%20%3D%3D%20%22fantomToken%22%5D%7B%0A%20%20%20%20%20%20name%2C%0A%20%20%20%20%20%20address%2C%0A%20%20%20%20%20%20symbol%2C%0A%20%20%20%20%20%20decimals%2C%0A%20%20%20%20%20%20%22chainId%22%3A%20250%2C%0A%20%20%20%20%20%20logoURI%0A%20%20%20%7D%0A%7D",
   "configSanityUrl": "https://1g2ag2hb.apicdn.sanity.io/v1/data/query/production?query=*%5B_type%20%3D%3D%20%22config%22%20%26%26%20chainId%20%3D%3D%20250%5D%5B0%5D%7B%0A%20%20...%2C%0A%20%20%22incentivizedPools%22%3A%20select(%0A%20%20%20%20%20%20defined(incentivizedPools)%20%3D%3E%20incentivizedPools%2C%0A%20%20%20%20%20%20%5B%5D%0A%20%20)%2C%0A%20%20%22pausedPools%22%3A%20select(%0A%20%20%20%20%20%20defined(pausedPools)%20%3D%3E%20pausedPools%2C%0A%20%20%20%20%20%20%5B%5D%0A%20%20)%2C%0A%20%20%22blacklistedPools%22%3A%20select(%0A%20%20%20%20%20%20defined(blacklistedPools)%20%3D%3E%20blacklistedPools%2C%0A%20%20%20%20%20%20%5B%5D%0A%20%20)%2C%0A%7D",

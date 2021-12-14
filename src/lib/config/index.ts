@@ -4,6 +4,7 @@ import rinkeby from '../../embr/config/rinkeby.json';
 import polygon from './polygon.json';
 import arbitrum from './arbitrum.json';
 import fuji from '../../embr/config/fuji.json';
+import avalanche from '../../embr/config/avalanche.json';
 import docker from './docker.json';
 import test from './test.json';
 import { Network } from '@/composables/useNetwork';
@@ -92,6 +93,7 @@ const config: Record<Config['chainId'], Config> = {
   //[Network.POLYGON]: polygon,
   //[Network.ARBITRUM]: arbitrum,
   [Network.FUJI]: fuji,
+  [Network.AVALANCHE]: avalanche,
   //12345: test,
   // @ts-ignore
   17: docker

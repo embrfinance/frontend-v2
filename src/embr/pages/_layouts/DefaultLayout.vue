@@ -88,9 +88,9 @@ const isHomePage = computed(() => route.path === '/');
         class="absolute bottom-0"
         style="padding-bottom:10px;padding-right:15px"
       >
-                  <img id="embryfooter" src="~@/embr/assets/images/footer-bg7.png" />
         <img src="~@/embr/assets/images/EmbrPoweredbyAve4.png" width="196" />
       </div>
+      <span><img id="embryfooter" src="~@/embr/assets/images/footer-bg7.png" /></span>
     </div>
   </div>
 </template>

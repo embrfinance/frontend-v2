@@ -12,7 +12,7 @@
       :class="['toggle-link px-6', { [activeClasses]: isInvestPage }]"
       @click="trackGoal(Goals.ClickNavInvest)"
     >
-      {{ $t('invest') }}<span class="hidden lg:inline">&nbsp;/&nbsp;Farm</span>
+      Pools<!--{{ $t('invest') }}--><!--<span class="hidden lg:inline">&nbsp;/&nbsp;Farm</span></span>-->
     </router-link>
 
     <!-- <router-link

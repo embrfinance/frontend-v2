@@ -16,7 +16,7 @@
     },
     "allow": "Allow",
     "allowing": "Allowing...",
-    "allPools": "All pools",    
+    "allPools": "All pools",
     "allTokens": "All tokens",
     "ammPlatform": "Automated portfolio manager and trading platform",
     "amount": "Amount",
@@ -77,6 +77,7 @@
         "poweredByBalancer": "Copper is built on Balancer V2 and uses Liquidity Bootstrapping Pools to power its FLAs",
         "title": "A Copper fair launch auction pool (FLA)"
     },
+    "continueAnyway" : "Continue",
     "copyAddress": "Copy address",
     "create": "Create",
     "createAPool": {
@@ -98,7 +99,7 @@
         "poolNameInfo": "Pool names should .. etc",
         "symbolNameTitle": "Enter an symbol name",
         "symbolNameInfo": "Symbols must be 11 characters or less",
-        "setPoolFees": "Set pool fees",    
+        "setPoolFees": "Set pool fees",
         "bestFeeOption": "0.30% is best for most weighted pools with established tokens. Go higher for more exotic tokens.",
         "alternativeFeeManagement": "Alternative fee management options",
         "chooseTokenWeights": "Choose tokens & weights",

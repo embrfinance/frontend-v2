@@ -60,6 +60,7 @@
     "connecting": "Conectando",
     "copied": "Copiado!",
     "copperLaunchPromo": {"title":"Um pool de leilão de lançamento justo de cobre (FLA)", "description":"O cobre é a plataforma para FLAs - um mecanismo simples de crowdfunding que permite que projetos e ideias de todo o mundo arrecadem dinheiro de indivíduos sem barreiras de entrada.", "poweredByBalancer":"O cobre é construído no Balancer V2 e usa Pools de Bootstapping de Liquidez para alimentar seus FLAs", "buttonLabel":"Veja este leilão no cobre"},
+    "continueAnyway" : "Continue",
     "copyAddress": "Copiar endereço",
     "create": "Crio",
     "createPool": "Crie uma pool",

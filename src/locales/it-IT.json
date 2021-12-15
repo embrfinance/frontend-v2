@@ -60,6 +60,7 @@
     "connecting": "Collegamento",
     "copied": "Copiato!",
     "copperLaunchPromo": {"title":"Un pool di aste di lancio della fiera del rame (FLA)", "description":"Il rame è la piattaforma per i FLA, un semplice meccanismo di crowdfunding che consente a progetti e idee di tutto il mondo di raccogliere fondi da individui senza barriere all'ingresso.", "poweredByBalancer":"Il rame è basato su Balancer V2 e utilizza Liquidity Bootstapping Pools per alimentare i suoi FLA", "buttonLabel":"Guarda questa asta su Copper"},
+    "continueAnyway" : "Continue",
     "copyAddress": "Copia indirizzo",
     "create": "Creare",
     "createPool": "Crea un pool",

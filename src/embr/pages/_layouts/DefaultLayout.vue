@@ -48,7 +48,6 @@ const isHomePage = computed(() => route.path === '/');
       <div
         class="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex justify-center pb-6 ml-8"
       >
-            <img id="embryfooter" src="~@/embr/assets/images/footer-bg7.png" />
         <a href="https://twitter.com/embrfinance" class="mr-12">
           <img
             src="~@/embr/assets/images/twitter-icon.png"
@@ -89,6 +88,7 @@ const isHomePage = computed(() => route.path === '/');
         class="absolute bottom-0"
         style="padding-bottom:10px;padding-right:15px"
       >
+                  <img id="embryfooter" src="~@/embr/assets/images/footer-bg7.png" />
         <img src="~@/embr/assets/images/EmbrPoweredbyAve4.png" width="196" />
       </div>
     </div>

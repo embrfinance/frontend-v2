@@ -60,6 +60,7 @@
     "connecting": "De liaison...",
     "copied": "Copié!",
     "copperLaunchPromo": {"title":"Un pool d'enchères de lancement du salon du cuivre (FLA)", "description":"Copper est la plate-forme des FLA, un mécanisme de financement participatif simple qui permet à des projets et des idées du monde entier de collecter des fonds auprès d'individus sans barrières à l'entrée.", "poweredByBalancer":"Copper est construit sur Balancer V2 et utilise des pools d'amorçage de liquidité pour alimenter ses FLA", "buttonLabel":"Voir cette enchère sur le cuivre"},
+    "continueAnyway" : "Continue",
     "copyAddress": "Copier l'adresse",
     "create": "Créer une pool",
     "createPool": "Créer une pool",

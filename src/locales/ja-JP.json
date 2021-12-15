@@ -60,6 +60,7 @@
     "connecting": "接続しています...",
     "copied": "コピーしました！",
     "copperLaunchPromo": {"title":"コッパーフェアローンチオークションプール（FLA）", "description":"銅はFLAのプラットフォームです。これは、世界中のプロジェクトやアイデアが参入の障壁なしに個人から資金を調達できるようにするシンプルなクラウドファンディングメカニズムです。", "poweredByBalancer":"CopperはBalancerV2上に構築されており、Liquidity BootstappingPoolsを使用してFLAに電力を供給します", "buttonLabel":"銅でこのオークションを見る"},
+    "continueAnyway" : "Continue",
     "copyAddress": "コピーアドレス",
     "create": "作成する",
     "createPool": "プールを作成する",

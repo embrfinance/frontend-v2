@@ -60,6 +60,7 @@
     "connecting": "Conectando",
     "copied": "¡Copiado!",
     "copperLaunchPromo": {"title":"Un pool de subastas de lanzamiento de la feria del cobre (FLA)", "description":"El cobre es la plataforma para los FLA, un mecanismo simple de financiación colectiva que permite que proyectos e ideas de todo el mundo recauden dinero de personas sin barreras de entrada.", "poweredByBalancer":"El cobre se basa en Balancer V2 y utiliza pools de arranque de liquidez para alimentar sus FLA", "buttonLabel":"Ver esta subasta de cobre"},
+    "continueAnyway" : "Continue",
     "copyAddress": "Copiar dirección",
     "create": "Crear",
     "createPool": "Crea un pool",

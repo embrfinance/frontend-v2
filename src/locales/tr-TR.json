@@ -60,6 +60,7 @@
     "connecting": "Bağlanıyor...",
     "copied": "Kopyalandı!",
     "copperLaunchPromo": {"title":"A Copper adil lansman müzayede havuzu (FLA)", "description":"Copper, FLA'lar için bir platformdur—dünyanın dört bir yanından proje ve fikirlerin giriş engeli olmaksızın bireylerden para toplamasını sağlayan basit bir kitle fonlaması mekanizmasıdır.", "poweredByBalancer":"Copper, Balancer V2 üzerine inşa edilmiştir ve FLA'larına güç sağlamak için Likidite Önyükleme Havuzlarını kullanır", "buttonLabel":"Bu açık artırmayı Copper'da görüntüle"},
+    "continueAnyway" : "Continue",
     "copyAddress": "Adresi kopyala",
     "create": "Oluşturmak",
     "createPool": "Bir havuz oluştur",

@@ -60,6 +60,7 @@
     "connecting": "연결 중",
     "copied": "복사되었습니다!",
     "copperLaunchPromo": {"title":"구리 공정 출시 경매 풀(FLA)", "description":"Copper는 전 세계의 프로젝트와 아이디어가 진입 장벽 없이 개인으로부터 자금을 조달할 수 있도록 하는 간단한 크라우드 펀딩 메커니즘인 FLA를 위한 플랫폼입니다.", "poweredByBalancer":"Copper는 Balancer V2를 기반으로 하며 유동성 부트스태핑 풀을 사용하여 FLA에 전원을 공급합니다.", "buttonLabel":"Copper에서 이 경매 보기"},
+    "continueAnyway" : "Continue",
     "copyAddress": "주소 복사",
     "create": "창조하다",
     "createPool": "풀 만들기",

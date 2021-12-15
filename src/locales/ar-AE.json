@@ -60,6 +60,7 @@
     "connecting": "توصيل...",
     "copied": "نسخ!",
     "copperLaunchPromo": {"title":"تجمع مزاد إطلاق معرض النحاس (FLA)", "description":"النحاس هو منصة FLAs - آلية تمويل جماعي بسيطة تمكن المشاريع والأفكار من جميع أنحاء العالم من جمع الأموال من الأفراد دون عوائق أمام الدخول.", "poweredByBalancer":"تم بناء النحاس على Balancer V2 ويستخدم أحواض السيولة التمهيدية لتشغيل FLAs", "buttonLabel":"عرض هذا المزاد على النحاس"},
+    "continueAnyway" : "Continue",
     "copyAddress": "نسخ العنوان",
     "create": "يخلق",
     "createPool": "إنشاء تجمع",

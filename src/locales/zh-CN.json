@@ -60,6 +60,7 @@
     "connecting": "正在连线...",
     "copied": "复制！",
     "copperLaunchPromo": {"title":"铜交易会启动拍卖池 (FLA)", "description":"Copper 是 FLA 的平台——一种简单的众筹机制，使来自世界各地的项目和想法能够无障碍地从个人那里筹集资金。", "poweredByBalancer":"Copper 基于 Balancer V2 构建，并使用流动性引导池为其 FLA 提供动力", "buttonLabel":"在铜上查看本次拍卖"},
+    "continueAnyway" : "Continue",
     "copyAddress": "复制地址",
     "create": "创造",
     "createPool": "创建一个池",

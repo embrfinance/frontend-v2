@@ -42,7 +42,7 @@ export const TOKENS = {
     },
     '43114': {
       ETH: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
-      WETH: '0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7',
+      WETH: '0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7',
       BAL: '0x9FBA6AacB11010999355E60675A734278345B13C'
     }
   },

@@ -10,10 +10,11 @@ export default function useEmbrConfig() {
   );
 
   const embrConfig = computed(
-    (): EmbrConfig =>
-      embrConfigQuery.data.value
+    (): EmbrConfig => {
+      return embrConfigQuery.data.value
         ? embrConfigQuery.data.value
         : { incentivizedPools: [], blacklistedPools: [], pausedPools: [] }
+    }
   );
 
   return {

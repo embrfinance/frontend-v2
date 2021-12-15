@@ -64,8 +64,10 @@ export default {
      * All token lists
      */
     const allTokenLists = computed(
-      (): TokenListMap =>
-        tokenListsQuery.data.value ? tokenListsQuery.data.value : {}
+      (): TokenListMap => {
+       console.log("allTokenLists", allTokenLists)
+       return  tokenListsQuery.data.value ? tokenListsQuery.data.value : {}
+      }
     );
 
     /**

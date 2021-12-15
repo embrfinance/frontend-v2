@@ -125,8 +125,9 @@ export default defineComponent({
     );
 
     function goToPoolCreate() {
-      router.push({ name: 'create-pool' });
+      router.push({ name: 'pool-create' }); //router.push({ name: 'create-pool' });
     }
+
 
     watch(poolsQuery.error, () => {
       if (poolsQuery.error.value) {

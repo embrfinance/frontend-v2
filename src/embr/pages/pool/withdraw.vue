@@ -18,8 +18,8 @@ const { pool, loadingPool, transfersAllowed } = usePoolTransfers();
 const hasBptStaked = function(){
     try{
       computed( () => pool.value && pool.value.farm && pool.value.farm.userBpt > 0);
-    }catch(errosz){
-      consoloe.log(errozs)
+    }catch(e){
+      console.log(e)
     }
 }
 </script>

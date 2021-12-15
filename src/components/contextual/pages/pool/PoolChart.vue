@@ -69,7 +69,6 @@ export default defineComponent({
     const chartColors = [tailwind.theme.colors.green['400'], hodlColor.value];
 
     const nonEmptySnapshots = computed(() => {
-      console.log('nonEmptySnapshots', history.value);
       if (!history.value || !history.value) return [];
       return history.value.filter((state: any) => state.totalShares !== '0');
     });

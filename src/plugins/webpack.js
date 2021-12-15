@@ -10,7 +10,7 @@ if (process.env.VUE_APP_SENTRY_AUTH_TOKEN) {
   const sentryWebpack = new SentryWebpackPlugin({
     // sentry-cli configuration
     authToken: process.env.VUE_APP_SENTRY_AUTH_TOKEN,
-    org: 'balancer-labs',
+    org: 'embr-finance',
     project: 'app',
     release: release,
     // webpack specific configuration

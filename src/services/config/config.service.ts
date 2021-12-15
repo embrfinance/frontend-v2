@@ -19,9 +19,9 @@ interface Env {
 export default class ConfigService {
   public get env(): Env {
     return {
-      APP_ENV: process.env.VUE_APP_ENV || 'development',
+      APP_ENV: process.env.VUE_APP_ENV || 'production',
       NETWORK: networkId.value,
-      APP_DOMAIN: process.env.VUE_APP_DOMAIN || 'app.balancer.fi',
+      APP_DOMAIN: process.env.VUE_APP_DOMAIN || 'app.embr.finance',
       IPFS_NODE: process.env.VUE_APP_IPFS_NODE || 'ipfs.io',
       BLOCKNATIVE_DAPP_ID:
         process.env.VUE_APP_BLOCKNATIVE_DAPP_ID || 'MISSING_KEY',

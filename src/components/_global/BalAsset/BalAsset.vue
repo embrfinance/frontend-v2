@@ -62,7 +62,9 @@ export default defineComponent({
           tokenAddress.toLowerCase() === address.value.toLowerCase()
         );
       });
-
+      if (!token) {
+        return ''
+      }
       return resolve(token.logoURI);
     });
 

@@ -271,7 +271,6 @@ export default function usePoolCreation() {
   }
 
   function setPoolSymbol(symbol: string) {
-    console.log('xploited set pool symbol', symbol);
     poolCreationState.symbol = 'EPT' + symbol;
   }
 

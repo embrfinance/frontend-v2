@@ -480,6 +480,7 @@ export default function useSor({
 
     const tokenInAddress = tokenInAddressInput.value;
     const tokenOutAddress = tokenOutAddressInput.value;
+
     const tokenInDecimals = tokens.value[tokenInAddress].decimals;
     const tokenOutDecimals = tokens.value[tokenOutAddress].decimals;
     const tokenInAmountScaled = parseFixed(

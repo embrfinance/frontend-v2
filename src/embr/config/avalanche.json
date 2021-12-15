@@ -6,12 +6,12 @@
     "shortName": "Avalanche",
     "network": "avalanche",
     "unknown": false,
-    "rpc": "https://api.network/ext/bc/C/rpc",
+    "rpc": "https://api.avax.network/ext/bc/C/rpc",
     "ws": "wss://speedy-nodes-nyc.moralis.io/f7eaee720c05a3b9bb0ddefd/avalanche/mainnet/ws",
     "loggingRpc": "",
     "explorer": "https://snowtrace.io",
     "explorerName": "Snowtrace",
-    "subgraph": "https://api.thegraph.com/subgraphs/name/embrfinance/embr-avalanche-v2",
+    "subgraph": "https://node-south.official.finance/subgraphs/name/embrfinance/embr-avalanche-v2",
     "farmSubgraph": "https://api.thegraph.com/subgraphs/name/embrfinance/embr-token",
     "blockSubgraph": "https://api.thegraph.com/subgraphs/name/embrfinance/avalanche-blocks",
     "poolsUrlV1": "",
@@ -51,7 +51,7 @@
       "lidoRelayer": "",
       "balancerHelpers": "0xe44Bd462A1c3d8b957DdACeA0DcF20AFC5138e3D",
       "masterChef": "0xa5C23E56f7e673Fd741903656b79c4c6ef9De000",
-      "embrUsdcReferencePricePool": "",
+      "embrUsdcReferencePricePool": "0xceb3eaf873f033d89c202841c68bcca6d0869b56000200000000000000000009",
       "embrToken": "0x9FBA6AacB11010999355E60675A734278345B13C",
       "cembrVestingToken":"",
       "cembrToken":"",
@@ -92,7 +92,7 @@
     "supportsEIP1559": false,
     "supportsElementPools": false,
     "tokenListSanityUrl": "https://raw.githubusercontent.com/embrfinance/tokenlist/main/tokens.avalanche.json",
-    "configSanityUrl": "https://raw.githubusercontent.com/embrfinance/poolconfig/main/pools.avalanche.json",
+    "configSanityUrl": "https://raw.githubusercontent.com/embrfinance/tokenlist/main/pools.avalanche.json",
     "cEmbr": {
       "address": "",
       "poolId": "",
@@ -101,7 +101,7 @@
       "oldFarmId": ""
     },
     "incentivizedPools": [
-      ""
+      "0x5e66ca08eb84c1d30fd44acb0fdf10781994c62c000200000000000000000000"
     ]
   }
   

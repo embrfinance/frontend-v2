@@ -1,14 +1,24 @@
 <template>
   <div class="lg:container lg:mx-auto pt-10 md:pt-12">
-    <div class="mb-8 flex">
-      <BalTabs v-model="activeTab" :tabs="tabs" no-pad class="-mb-px mr-8" />
-      <div class="flex-1 flex justify-end">
-        <BalBtn
-          class="hidden lg:block createpool"
-          label="Compose a pool"
-          @click="goToPoolCreate"
+    <div class="flex mb-3 items-center">
+      <div class="flex-1">
+        <img
+          src="~@/embr/assets/images/headline.svg"
+          class="-ml-4"
         />
       </div>
+      <BalBtn
+        class="hidden lg:block"
+        label="Compose a pool"
+        @click="goToPoolCreate"
+      />
+    </div>
+    <InvestFeaturedPoolsCard
+      :pools="featuredPools"
+      :isLoading="isLoadingPools || embrConfigLoading"
+    />
+    <div class="mb-8 flex">
+      <BalTabs v-model="activeTab" :tabs="tabs" no-pad class="-mb-px mr-8" />
     </div>
     <TokenSearchInput
       v-model="selectedTokens"
@@ -75,13 +85,16 @@ import useWeb3 from '@/services/web3/useWeb3';
 import usePoolFilters from '@/composables/pools/usePoolFilters';
 import useAlerts, { AlertPriority, AlertType } from '@/composables/useAlerts';
 import BalTabs from '@/components/_global/BalTabs/BalTabs.vue';
+import InvestFeaturedPoolsCard from '@/embr/components/pages/invest/InvestFeaturedPoolsCard.vue';
+import useEmbrConfig from '@/embr/composables/useEmbrConfig';
+import { orderBy } from 'lodash';
 
 export default defineComponent({
   components: {
     TokenSearchInput,
     PoolsTable,
-    BalTabs
-    //FeaturedPools
+    BalTabs,
+    InvestFeaturedPoolsCard
   },
 
   setup() {
@@ -110,6 +123,8 @@ export default defineComponent({
     } = usePools(selectedTokens);
     const { addAlert, removeAlert } = useAlerts();
 
+  const { embrConfig, embrConfigLoading } = useEmbrConfig();
+
     const tabs = [
       { value: 'embr-pools', label: 'Embr Pools' },
       { value: 'community-pools', label: 'Community Pools' },
@@ -123,6 +138,13 @@ export default defineComponent({
     const hasUnstakedBpt = computed(() =>
       userPools.value.find(pool => pool.farm && parseFloat(pool.shares) > 0)
     );
+
+      const featuredPools = computed(() => {
+      const filtered = (embrPools.value || []).filter(pool =>
+        embrConfig.value.featuredPools.includes(pool.id)
+      );
+      return filtered.slice(0, 4);
+    });
 
     function goToPoolCreate() {
       router.push({ name: 'pool-create' }); //router.push({ name: 'create-pool' });
@@ -171,6 +193,7 @@ export default defineComponent({
       isLoadingFarms,
       tabs,
       activeTab,
+      featuredPools,
 
       // constants
       EXTERNAL_LINKS

@@ -13,7 +13,11 @@ export default function useEmbrConfig() {
     (): EmbrConfig => {
       return embrConfigQuery.data.value
         ? embrConfigQuery.data.value
-        : { incentivizedPools: [], blacklistedPools: [], pausedPools: [] }
+        : { incentivizedPools: [], 
+          blacklistedPools: [], 
+          pausedPools: [], 
+          featuredPools: [] 
+        }
     }
   );
 

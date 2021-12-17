@@ -20,6 +20,7 @@ export interface EmbrConfig {
   incentivizedPools: string[];
   pausedPools: string[];
   blacklistedPools: string[];
+  featuredPools: string[];
 }
 
 export default class EmbrService {

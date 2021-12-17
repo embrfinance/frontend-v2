@@ -25,6 +25,8 @@ export default function useProtocolDataQuery(
       }
     });
 
+   
+
     if (!embrPool) {
       throw new Error('Could not load embr reference price pool');
     }
@@ -33,7 +35,7 @@ export default function useProtocolDataQuery(
     const embrPrice = await getEmbrPrice(
       appNetworkConfig.addresses.embrUsdcReferencePricePool,
       appNetworkConfig.addresses.embr,
-      appNetworkConfig.addresses.usdc
+      appNetworkConfig.addresses.ausd
     );
 
     const circulatingSupply = await masterChefContractsService.embrToken.getCirculatingSupply();
@@ -60,7 +62,7 @@ export default function useProtocolDataQuery(
 export async function getEmbrPrice(
   poolId: string,
   embrAddress: string,
-  usdcAddress: string
+  ausdAddress: string
 ) {
   const [embrPool] = await balancerSubgraphService.pools.get({
     where: {
@@ -72,17 +74,17 @@ export async function getEmbrPrice(
   const embr = embrPool?.tokens.find(
     token => token.address.toLowerCase() === embrAddress.toLowerCase()
   );
-  const usdc = embrPool?.tokens.find(
-    token => token.address.toLowerCase() === usdcAddress.toLowerCase()
+  const ausd = embrPool?.tokens.find(
+    token => token.address.toLowerCase() === ausdAddress.toLowerCase()
   );
 
-  if (!embr || !usdc) {
+  if (!embr || !ausd) {
     return 0;
   }
 
   return (
-    ((parseFloat(embr.weight) / parseFloat(usdc.weight)) *
-      parseFloat(usdc.balance)) /
+    ((parseFloat(embr.weight) / parseFloat(ausd.weight)) *
+      parseFloat(ausd.balance)) /
     parseFloat(embr.balance)
   );
 }

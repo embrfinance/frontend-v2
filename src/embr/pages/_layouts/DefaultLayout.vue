@@ -35,10 +35,9 @@ const isHomePage = computed(() => route.path === '/');
   <div>
     <AppNav />
     <AppHeaderBg />
-    <div class="relative">
+    <!--    <div class="relative">
       <AppHero v-if="isInvestPage" />
-      <!--      <GlobalStats v-if="showGlobalStats" />-->
-    </div>
+    </div>-->
     <div class="pb-16 relative">
       <router-view :key="$route.path" />
     </div>
@@ -48,7 +47,7 @@ const isHomePage = computed(() => route.path === '/');
       <div
         class="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex justify-center pb-6 ml-8"
       >
-        <a href="https://twitter.com/embrfinance" class="mr-12">
+        <a href="https://twitter.com/EmbrFinance" class="mr-12">
           <img
             src="~@/embr/assets/images/twitter-icon.png"
             width="40"
@@ -62,7 +61,7 @@ const isHomePage = computed(() => route.path === '/');
             class="mx-auto"
           />
         </a>
-        <a href="https://discord.gg/jedS4zGk28" class="mr-12">
+        <a href="https://discord.gg/RC6t8Tq2Tw" class="mr-12">
           <img
             src="~@/embr/assets/images/discord-icon.png"
             width="40"

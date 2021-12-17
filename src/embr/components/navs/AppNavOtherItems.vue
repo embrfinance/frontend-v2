@@ -15,7 +15,7 @@
       <a class="app-nav-other-item" href="https://docs.embr.finance">
         Docs & Help
       </a>
-      <a class="app-nav-other-item" href="https://github.com/embrfinanace">
+      <a class="app-nav-other-item" href="https://github.com/embrfinance">
         Github
       </a>
       <a class="app-nav-other-item" href="https://twitter.com/embrfinance">
@@ -24,7 +24,7 @@
       <a class="app-nav-other-item" href="https://embrfinance.medium.com/">
         Medium
       </a>
-      <a class="app-nav-other-item" href="">
+      <a class="app-nav-other-item" href="https://discord.gg/RC6t8Tq2Tw">
         Discord
       </a>
     </div>

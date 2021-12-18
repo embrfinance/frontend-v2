@@ -127,7 +127,6 @@ export default defineComponent({
       } else {
         this.statusV1 = 0;
       }
-      console.log(123123, Number(allowance), Number(balance), this.statusV1);
     },
   },
 

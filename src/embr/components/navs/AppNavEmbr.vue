@@ -21,9 +21,13 @@
       </BalBtn>
     </template>
     <div class="w-80 sm:w-96">
-      <h5 class="text-lg mb-3 px-3 pt-3">
-        Embr
-      </h5>
+      <div class="flex justify-between">
+        <h5 class="text-lg mb-3 px-3 pt-3">
+          Embr {{ statusV1 }}
+        </h5>
+        <button class="bal-btn migrate" v-if="statusV1 == 1" @click="approveV1">Approve V2</button>
+        <button class="bal-btn migrate" v-if="statusV1 == 2" @click="migrateV1">Migrate V2</button>
+      </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-2 gap-y-2 px-2 mb-2">
         <BalCard>
@@ -74,18 +78,63 @@ import usePools from '@/composables/pools/usePools';
 import useEthers from '@/composables/useEthers';
 import useWeb3 from '@/services/web3/useWeb3';
 import useBreakpoints from '@/composables/useBreakpoints';
+import useTransactions from '@/composables/useTransactions';
 import { Alert } from '@/composables/useAlerts';
 //import { useCharredEmbr } from '@/embr/composables/stake/useCharredEmbr';
 import useProtocolDataQuery from '@/embr/composables/queries/useProtocolDataQuery';
+import { erc20ContractService } from '@/embr/services/erc20/erc20-contracts.service';
 
 export default defineComponent({
   name: 'AppNavEmbr',
+
+  data: () => {
+    return {
+      statusV1: 0
+    };
+  },
 
   props: {
     Alert: { type: Object as PropType<Alert>, required: true }
   },
 
+  watch: {
+    loading: function() {
+      if (!this.loading) {
+        this.fetchV1();
+      }
+    }
+  },
+
+  methods: {
+    fetchV1: async function() {
+      const { account } = this;
+      const allowance = await erc20ContractService.erc20.allowance(
+        '0x9FBA6AacB11010999355E60675A734278345B13C',
+        account,
+        '0x8A50748a79D20F493F4776C07C922e52eFD61c95'
+      );
+      const balance = await erc20ContractService.erc20.balanceOf(
+        '0x9FBA6AacB11010999355E60675A734278345B13C',
+        account
+      );
+      
+      if (Number(balance) == 0) {
+        if (Number(allowance) > 0) {
+          this.statusV1 = 2;
+        } else {
+          this.statusV1 = 1;
+        }
+      } else {
+        this.statusV1 = 0;
+      }
+      console.log(123123, Number(allowance), Number(balance), this.statusV1);
+    },
+  },
+
   setup() {
+    const { getProvider, account } = useWeb3();
+    const { addTransaction } = useTransactions();
+
     const { fNum } = useNumbers();
     const { upToLargeBreakpoint } = useBreakpoints();
 
@@ -105,14 +154,56 @@ export default defineComponent({
     });
     const loading = computed(() => protocolDataQuery.isLoading.value);
 
+    async function approveV1() {
+      const tx = await erc20ContractService.erc20.approveToken(
+        getProvider(),
+        '0x8A50748a79D20F493F4776C07C922e52eFD61c95',
+        '0x9FBA6AacB11010999355E60675A734278345B13C',
+        '115792089237316195423570985008687907853269984665640564039457584007913129639935'
+      );
+      addTransaction({
+        id: tx.hash,
+        type: 'tx',
+        action: 'approve',
+        summary: `Approving V1 for V2`,
+        details: {
+          contractAddress: '0x9FBA6AacB11010999355E60675A734278345B13C',
+          spender: '0x8A50748a79D20F493F4776C07C922e52eFD61c95'
+        }
+      });
+      return tx;
+    }
+
+    async function migrateV1() {
+      const tx = await erc20ContractService.erc20.migrateToken(
+        getProvider(),
+        '0x9FBA6AacB11010999355E60675A734278345B13C'
+      );
+      addTransaction({
+        id: tx.hash,
+        type: 'tx',
+        action: 'approve',
+        summary: `Migrating V1 for V2`,
+        details: {
+          contractAddress: '0x8A50748a79D20F493F4776C07C922e52eFD61c95',
+          v1: '0x9FBA6AacB11010999355E60675A734278345B13C'
+        }
+      });
+
+      return tx;
+    }
+
     return {
+      account,
       fNum,
       upToLargeBreakpoint,
       embrPrice,
       tvl,
       circulatingSupply,
       marketCap,
-      loading
+      loading,
+      approveV1,
+      migrateV1
     };
   }
 });
@@ -121,5 +212,12 @@ export default defineComponent({
 <style>
 .app-nav-alert {
   @apply flex items-center justify-between py-4 px-6;
+}
+</style>
+<style scoped>
+.bal-btn.migrate {
+  padding: 0 20px;
+  width: auto;
+  font-size: small;
 }
 </style>

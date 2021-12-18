@@ -2,6 +2,7 @@ import Service from '@/services/balancer/contracts/balancer-contracts.service';
 import ConfigService from '@/services/config/config.service';
 import { Multicaller } from '@/lib/utils/balancer/contract';
 import { default as abi, default as erc20Abi } from '@/lib/abi/ERC20.json';
+import { default as migrationAbi } from '@/lib/abi/TokenMigration.json';
 import { TransactionResponse, Web3Provider } from '@ethersproject/providers';
 import { sendTransaction } from '@/lib/utils/balancer/web3';
 import { BigNumber } from '@ethersproject/bignumber';
@@ -53,5 +54,12 @@ export default class Erc20 {
       .execute();
 
     return result.balanceOf.toString();
+  }
+
+  async migrateToken(
+    web3: Web3Provider,
+    v1: string
+  ): Promise<TransactionResponse> {
+    return sendTransaction(web3, '0x8A50748a79D20F493F4776C07C922e52eFD61c95', migrationAbi, 'migrate', [v1]);
   }
 }

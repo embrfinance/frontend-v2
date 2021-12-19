@@ -23,7 +23,7 @@
     <div class="w-80 sm:w-96">
       <div class="flex justify-between">
         <h5 class="text-lg mb-3 px-3 pt-3">
-          Embr {{ statusV1 }}
+          Embr
         </h5>
         <button class="bal-btn migrate" v-if="statusV1 == 1" @click="approveV1">Approve V2</button>
         <button class="bal-btn migrate" v-if="statusV1 == 2" @click="migrateV1">Migrate V2</button>
@@ -127,7 +127,6 @@ export default defineComponent({
       } else {
         this.statusV1 = 0;
       }
-      console.log(123123, Number(allowance), Number(balance), this.statusV1);
     },
   },
 

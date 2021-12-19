@@ -8,10 +8,10 @@
     <div
       class="p-4 rounded-lg bg-gradient-to-b from-gray-50 dark:from-gray-900 to-gray-100 dark:to-gray-850"
     >
-      <h6>New to Avalance?</h6>
+      <h6>New to Avalanche?</h6>
       <p class="text-sm">
-        Embr is a DeFi app on Avalance. To invest and trade here, you'll first
-        need to set up an Avalance compatible wallet.
+        Embr is a DeFi app on Avalanche. To invest and trade here, you'll first
+        need to set up an Avalanche compatible wallet.
         <BalLink :href="EXTERNAL_LINKS.Ethereum.Wallets" external>
           Learn More
           <span class="align-middle"

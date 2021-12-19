@@ -118,7 +118,7 @@ export default defineComponent({
         account
       );
       
-      if (Number(balance) == 0) {
+      if (Number(balance) > 0) {
         if (Number(allowance) > 0) {
           this.statusV1 = 2;
         } else {

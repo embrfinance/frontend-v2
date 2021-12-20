@@ -6,6 +6,14 @@ export interface FormRef {
   validate(): boolean;
 }
 
+export interface WalletToken {
+  address: string;
+  type: string;
+  symbol: string;
+  decimals: number;
+  logoURI: string;  
+}
+
 export interface Token {
   address: string;
   balance: string;

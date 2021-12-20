@@ -7,7 +7,7 @@ import { configService } from '../config/config.service';
 import { isAddress } from '@ethersproject/address';
 import { web3Service } from './web3.service';
 import { rpcProviderService } from '../rpc-provider/rpc-provider.service';
-import { switchToAppNetwork } from './utils/helpers';
+import { switchToAppNetwork, addTokenToWallet } from './utils/helpers';
 import useNetwork, { Network } from '@/composables/useNetwork';
 
 /** STATE */
@@ -89,6 +89,7 @@ export default function useWeb3() {
   // METHODS
   const getProvider = () => new Web3Provider(provider.value as any);
   const getSigner = () => getProvider().getSigner();
+  const getAddTokenToWallet = (token) => addTokenToWallet(provider.value as any, token)
   const connectToAppNetwork = () => switchToAppNetwork(provider.value as any);
   const toggleWalletSelectModal = (value: boolean) => {
     if (value !== undefined && typeof value === 'boolean') {
@@ -145,6 +146,7 @@ export default function useWeb3() {
     getSigner,
     disconnectWallet,
     toggleWalletSelectModal,
-    setBlockNumber
+    setBlockNumber,
+    getAddTokenToWallet
   };
 }

@@ -1,6 +1,6 @@
 import { ExternalProvider } from '@ethersproject/providers';
 import { configService } from '@/services/config/config.service';
-import { MetamaskError } from '@/types';
+import { MetamaskError, WalletToken } from '@/types';
 
 export async function switchToAppNetwork(provider: ExternalProvider) {
   const appNetworkConfig = configService.network;
@@ -23,6 +23,43 @@ export async function switchToAppNetwork(provider: ExternalProvider) {
     // chain does not exist, let's add it
     if (error.code === 4902) {
       return importNetworkDetailsToWallet(provider);
+    }
+  }
+  return false;
+}
+
+export async function addTokenToWallet(provider: ExternalProvider, token: WalletToken ) {
+  const appNetworkConfig = configService.network;
+  try {
+    const request = {
+      id: '1',
+      jsonrpc: '2.0',
+      method: 'wallet_watchAsset',
+      params: 
+        {
+          type: token.type,
+            options: {
+              address: token.address,
+              symbol: token.symbol,
+              decimals: token.decimals,
+              image: token.logoURI,
+            }
+        }
+    };
+    if (provider?.request) {
+      const response = await provider.request(request as any);
+      if (response?.error) {
+        throw new Error(
+          `Failed to add embr information to wallet. ${response.error.code}:${response.error.message}`
+        );
+      }
+      return true;
+    }
+  } catch (err) {
+    const error = err as MetamaskError;
+    // user rejected request
+    if (error.code === 4001) {
+      return false;
     }
   }
   return false;

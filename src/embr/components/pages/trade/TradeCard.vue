@@ -61,7 +61,18 @@
       :explorer-link="explorer.txLink(txHash)"
       @close="tradeSuccess = false"
     />
-  </BalCard>
+  </BalCard> 
+  <div class="items-center my-2"  style="text-align:center">
+    <button
+      v-if="!poolsLoading && tokenOutAddress !== '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'" 
+      class="text-sm font-medium bg-gradient-to-tr to-red-500 hover:to-red-800"
+      @click="addOutTokenToMetaMask"
+    > 
+       <span>
+         Add {{ tokenOut?.symbol }} to Wallet 
+       </span>
+    </button>
+  </div>
   <teleport to="#modal">
     <TradePreviewModal
       v-if="modalTradePreviewIsOpen"
@@ -107,6 +118,8 @@ import { configService } from '@/services/config/config.service';
 import { getWrapAction, WrapType } from '@/lib/utils/balancer/wrapper';
 import { useTradeState } from '@/composables/trade/useTradeState';
 import useUserSettings from '@/composables/useUserSettings';
+import { WalletToken } from '@/types';
+
 
 export default defineComponent({
   components: {
@@ -126,7 +139,7 @@ export default defineComponent({
     const { bp } = useBreakpoints();
 
     const { tokens, nativeAsset } = useTokens();
-    const { userNetworkConfig } = useWeb3();
+    const { userNetworkConfig, getAddTokenToWallet } = useWeb3();
     const { darkMode } = useDarkMode();
     const {
       tokenInAddress,
@@ -151,6 +164,17 @@ export default defineComponent({
     const tokenOut = computed(() => tokens.value[tokenOutAddress.value]);
 
     const liquiditySelection = computed(() => store.state.app.tradeLiquidity);
+
+    async function addOutTokenToMetaMask() { 
+        const token = { 
+            address: tokenOut.value.address,
+            type: 'ERC20',
+            symbol: tokenOut.value.symbol,
+            decimals: tokenOut.value.decimals,
+            logoURI: tokenOut.value.logoURI  
+      } as WalletToken;
+      await getAddTokenToWallet(token)
+    }
 
     const tradeCardShadow = computed(() => {
       switch (bp.value) {
@@ -318,6 +342,8 @@ export default defineComponent({
     populateInitialTokens();
 
     return {
+      addOutTokenToMetaMask,
+      tokenOut,
       highPiAccepted,
       title,
       error,

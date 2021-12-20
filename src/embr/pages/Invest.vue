@@ -1,12 +1,6 @@
 <template>
   <div class="lg:container lg:mx-auto pt-10 md:pt-12">
     <div class="flex mb-3 items-center">
-      <div class="flex-1">
-        <img
-          src="~@/embr/assets/images/headline.svg"
-          class="-ml-4"
-        />
-      </div>
       <BalBtn
         class="hidden lg:block"
         label="Compose a pool"

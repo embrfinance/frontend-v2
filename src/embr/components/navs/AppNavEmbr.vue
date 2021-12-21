@@ -25,27 +25,6 @@
         <h5 class="text-lg mb-3 px-3 pt-3">
           Embr
         </h5>
-
-
-        <BalBtn
-          v-if="statusV1 == 0"
-          color="transparent"
-          flat
-          class="mr-2 text-base"
-          size="sm"
-          :circle="upToLargeBreakpoint"
-          @click="addToWallet"
-        >
-          <img
-            src="~@/embr/assets/images/embr.png"
-            width="28"
-            :class="{ 'mr-2': !upToLargeBreakpoint }"
-            v-if="upToLargeBreakpoint ? !loading : true"
-          />
-          <span>
-            Add To MetaMask
-          </span>
-        </BalBtn>
         <button class="bal-btn migrate" v-if="statusV1 == 1" @click="approveV1">Approve V2</button>
         <button class="bal-btn migrate" v-if="statusV1 == 2" @click="migrateV1">Migrate V2</button>
       </div>
@@ -104,9 +83,6 @@ import { Alert } from '@/composables/useAlerts';
 //import { useCharredEmbr } from '@/embr/composables/stake/useCharredEmbr';
 import useProtocolDataQuery from '@/embr/composables/queries/useProtocolDataQuery';
 import { erc20ContractService } from '@/embr/services/erc20/erc20-contracts.service';
-import { WalletToken } from '@/types';
-import { configService } from '@/services/config/config.service';
-
 
 export default defineComponent({
   name: 'AppNavEmbr',
@@ -155,7 +131,7 @@ export default defineComponent({
   },
 
   setup() {
-    const { getProvider, account, getAddTokenToWallet } = useWeb3();
+    const { getProvider, account } = useWeb3();
     const { addTransaction } = useTransactions();
 
     const { fNum } = useNumbers();
@@ -165,7 +141,6 @@ export default defineComponent({
     const tvl = computed(
       () => protocolDataQuery.data?.value?.totalLiquidity || 0
     );
-
 
     const embrPrice = computed(
       () => protocolDataQuery.data?.value?.embrPrice || 0
@@ -195,7 +170,6 @@ export default defineComponent({
           spender: '0x8A50748a79D20F493F4776C07C922e52eFD61c95'
         }
       });
-      //this.statusV1 = 2;
       return tx;
     }
 
@@ -214,23 +188,11 @@ export default defineComponent({
           v1: '0x9FBA6AacB11010999355E60675A734278345B13C'
         }
       });
-      //this.statusV1 = 0;
+
       return tx;
     }
 
-    async function addToWallet() {
-      const emrb = {
-            address: configService.network.addresses.embr,
-            type: 'ERC20',
-            symbol: "EMBR",
-            decimals: 18,
-            logoURI: "https://raw.githubusercontent.com/embrfinance/frontend-v2/embr-staging/src/embr/assets/images/embr.png"
-      } as WalletToken;
-      await getAddTokenToWallet(emrb)
-    }
-
     return {
-      addToWallet,
       account,
       fNum,
       upToLargeBreakpoint,
@@ -251,7 +213,6 @@ export default defineComponent({
   @apply flex items-center justify-between py-4 px-6;
 }
 </style>
-
 <style scoped>
 .bal-btn.migrate {
   padding: 0 20px;

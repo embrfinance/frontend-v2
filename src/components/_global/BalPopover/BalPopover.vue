@@ -92,4 +92,16 @@ function handleClickOutside() {
 .bal-popover-wrapper:hover {
   @apply visible opacity-100;
 }
+
+@media only screen and (max-width: 600px) {
+  .bal-popover-wrapper {
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width:fit-content;
+  }
+}
+
 </style>

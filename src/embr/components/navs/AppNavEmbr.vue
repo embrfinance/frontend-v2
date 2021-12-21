@@ -128,6 +128,44 @@ export default defineComponent({
         this.statusV1 = 0;
       }
     },
+    approveV1: async function () {
+      const tx = await erc20ContractService.erc20.approveToken(
+        this.getProvider(),
+        '0x8A50748a79D20F493F4776C07C922e52eFD61c95',
+        '0x9FBA6AacB11010999355E60675A734278345B13C',
+        '115792089237316195423570985008687907853269984665640564039457584007913129639935'
+      );
+      this.addTransaction({
+        id: tx.hash,
+        type: 'tx',
+        action: 'approve',
+        summary: `Approving V1 for V2`,
+        details: {
+          contractAddress: '0x9FBA6AacB11010999355E60675A734278345B13C',
+          spender: '0x8A50748a79D20F493F4776C07C922e52eFD61c95'
+        }
+      });
+      this.statusV1 = 2
+      return tx;
+    },
+    migrateV1: async function () {
+      const tx = await erc20ContractService.erc20.migrateToken(
+        this.getProvider(),
+        '0x9FBA6AacB11010999355E60675A734278345B13C'
+      );
+      this.addTransaction({
+        id: tx.hash,
+        type: 'tx',
+        action: 'approve',
+        summary: `Migrating V1 for V2`,
+        details: {
+          contractAddress: '0x8A50748a79D20F493F4776C07C922e52eFD61c95',
+          v1: '0x9FBA6AacB11010999355E60675A734278345B13C'
+        }
+      });
+      this.statusV1 = 0
+      return tx;
+    }
   },
 
   setup() {
@@ -153,45 +191,6 @@ export default defineComponent({
     });
     const loading = computed(() => protocolDataQuery.isLoading.value);
 
-    async function approveV1() {
-      const tx = await erc20ContractService.erc20.approveToken(
-        getProvider(),
-        '0x8A50748a79D20F493F4776C07C922e52eFD61c95',
-        '0x9FBA6AacB11010999355E60675A734278345B13C',
-        '115792089237316195423570985008687907853269984665640564039457584007913129639935'
-      );
-      addTransaction({
-        id: tx.hash,
-        type: 'tx',
-        action: 'approve',
-        summary: `Approving V1 for V2`,
-        details: {
-          contractAddress: '0x9FBA6AacB11010999355E60675A734278345B13C',
-          spender: '0x8A50748a79D20F493F4776C07C922e52eFD61c95'
-        }
-      });
-      return tx;
-    }
-
-    async function migrateV1() {
-      const tx = await erc20ContractService.erc20.migrateToken(
-        getProvider(),
-        '0x9FBA6AacB11010999355E60675A734278345B13C'
-      );
-      addTransaction({
-        id: tx.hash,
-        type: 'tx',
-        action: 'approve',
-        summary: `Migrating V1 for V2`,
-        details: {
-          contractAddress: '0x8A50748a79D20F493F4776C07C922e52eFD61c95',
-          v1: '0x9FBA6AacB11010999355E60675A734278345B13C'
-        }
-      });
-
-      return tx;
-    }
-
     return {
       account,
       fNum,
@@ -201,8 +200,8 @@ export default defineComponent({
       circulatingSupply,
       marketCap,
       loading,
-      approveV1,
-      migrateV1
+      addTransaction,
+      getProvider
     };
   }
 });

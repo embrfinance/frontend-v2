@@ -93,7 +93,9 @@ body {
 
 .modal {z-index:999;}
 
-
+.leading-none {
+  background: none !important;
+}
 
 
 .bottom-0 {

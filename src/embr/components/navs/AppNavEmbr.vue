@@ -25,6 +25,25 @@
         <h5 class="text-lg mb-3 px-3 pt-3">
           Embr
         </h5>
+        <BalBtn
+           v-if="statusV1 == 0"
+          color="transparent"
+          flat
+          class="mr-2 text-base"
+          :size="upToLargeBreakpoint ? 'md' : 'sm'"
+          :circle="upToLargeBreakpoint"
+          @click="addTokenToMetaMask"
+      >
+        <img
+          src="~@/embr/assets/images/embr.png"
+          width="28"
+          :class="{ 'mr-2': !upToLargeBreakpoint }"
+          v-if="upToLargeBreakpoint ? !loading : true"
+        />
+        <span class="hidden lg:block">
+          Add EMBR to Wallet
+        </span>
+      </BalBtn>
         <button class="bal-btn migrate" v-if="statusV1 == 1" @click="approveV1">Approve V2</button>
         <button class="bal-btn migrate" v-if="statusV1 == 2" @click="migrateV1">Migrate V2</button>
       </div>
@@ -83,6 +102,8 @@ import { Alert } from '@/composables/useAlerts';
 //import { useCharredEmbr } from '@/embr/composables/stake/useCharredEmbr';
 import useProtocolDataQuery from '@/embr/composables/queries/useProtocolDataQuery';
 import { erc20ContractService } from '@/embr/services/erc20/erc20-contracts.service';
+import { configService } from '@/services/config/config.service';
+import { WalletToken } from '@/types';
 
 export default defineComponent({
   name: 'AppNavEmbr',
@@ -169,7 +190,7 @@ export default defineComponent({
   },
 
   setup() {
-    const { getProvider, account } = useWeb3();
+    const { getProvider, account, getAddTokenToWallet } = useWeb3();
     const { addTransaction } = useTransactions();
 
     const { fNum } = useNumbers();
@@ -191,6 +212,17 @@ export default defineComponent({
     });
     const loading = computed(() => protocolDataQuery.isLoading.value);
 
+     async function addTokenToMetaMask() { 
+        const token = { 
+            address: configService.network.addresses.embr,
+            type: 'ERC20',
+            symbol: "EMBR",
+            decimals: 18,
+            logoURI: "https://raw.githubusercontent.com/embrfinance/frontend-v2/embr-staging/src/embr/assets/images/embr.png"  
+      } as WalletToken;
+      await getAddTokenToWallet(token)
+    }
+
     return {
       account,
       fNum,
@@ -201,7 +233,8 @@ export default defineComponent({
       marketCap,
       loading,
       addTransaction,
-      getProvider
+      getProvider,
+      addTokenToMetaMask
     };
   }
 });

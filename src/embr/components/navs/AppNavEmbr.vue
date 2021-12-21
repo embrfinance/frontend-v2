@@ -141,7 +141,7 @@ export default defineComponent({
         '0x9FBA6AacB11010999355E60675A734278345B13C',
         account
       );
-      
+
       if (Number(balance) > 0) {
         if (Number(allowance) > 0) {
           this.statusV1 = 2;
@@ -165,7 +165,7 @@ export default defineComponent({
     const tvl = computed(
       () => protocolDataQuery.data?.value?.totalLiquidity || 0
     );
-    
+
 
     const embrPrice = computed(
       () => protocolDataQuery.data?.value?.embrPrice || 0
@@ -195,6 +195,7 @@ export default defineComponent({
           spender: '0x8A50748a79D20F493F4776C07C922e52eFD61c95'
         }
       });
+      statusV1 = 2;
       return tx;
     }
 
@@ -213,20 +214,21 @@ export default defineComponent({
           v1: '0x9FBA6AacB11010999355E60675A734278345B13C'
         }
       });
-
+      statusV1 = 0;
       return tx;
     }
 
     async function addToWallet() {
-      const emrb = { 
+      const emrb = {
             address: configService.network.addresses.embr,
             type: 'ERC20',
             symbol: "EMBR",
             decimals: 18,
-            logoURI: "https://raw.githubusercontent.com/embrfinance/frontend-v2/embr-staging/src/embr/assets/images/embr.png"  
+            logoURI: "https://raw.githubusercontent.com/embrfinance/frontend-v2/embr-staging/src/embr/assets/images/embr.png"
       } as WalletToken;
       await getAddTokenToWallet(emrb)
     }
+
     return {
       addToWallet,
       account,
@@ -249,6 +251,7 @@ export default defineComponent({
   @apply flex items-center justify-between py-4 px-6;
 }
 </style>
+
 <style scoped>
 .bal-btn.migrate {
   padding: 0 20px;

@@ -195,7 +195,7 @@ export default defineComponent({
           spender: '0x8A50748a79D20F493F4776C07C922e52eFD61c95'
         }
       });
-      account.statusV1 = 2;
+      this.statusV1 = 2;
       return tx;
     }
 
@@ -214,7 +214,7 @@ export default defineComponent({
           v1: '0x9FBA6AacB11010999355E60675A734278345B13C'
         }
       });
-      account.statusV1 = 0;
+      this.statusV1 = 0;
       return tx;
     }
 

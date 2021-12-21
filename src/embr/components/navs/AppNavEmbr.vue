@@ -25,6 +25,25 @@
         <h5 class="text-lg mb-3 px-3 pt-3">
           Embr
         </h5>
+        <BalBtn
+           v-if="statusV1 == 0"
+          color="transparent"
+          flat
+          class="mr-2 text-base"
+          :size="upToLargeBreakpoint ? 'md' : 'sm'"
+          :circle="upToLargeBreakpoint"
+          @click="addTokenToMetaMask"
+      >
+        <img
+          src="~@/embr/assets/images/embr.png"
+          width="28"
+          :class="{ 'mr-2': !upToLargeBreakpoint }"
+          v-if="upToLargeBreakpoint ? !loading : true"
+        />
+        <span class="hidden lg:block">
+          Add EMBR to Wallet
+        </span>
+      </BalBtn>
         <button class="bal-btn migrate" v-if="statusV1 == 1" @click="approveV1">Approve V2</button>
         <button class="bal-btn migrate" v-if="statusV1 == 2" @click="migrateV1">Migrate V2</button>
       </div>
@@ -83,6 +102,8 @@ import { Alert } from '@/composables/useAlerts';
 //import { useCharredEmbr } from '@/embr/composables/stake/useCharredEmbr';
 import useProtocolDataQuery from '@/embr/composables/queries/useProtocolDataQuery';
 import { erc20ContractService } from '@/embr/services/erc20/erc20-contracts.service';
+import { configService } from '@/services/config/config.service';
+import { WalletToken } from '@/types';
 
 export default defineComponent({
   name: 'AppNavEmbr',
@@ -128,10 +149,48 @@ export default defineComponent({
         this.statusV1 = 0;
       }
     },
+    approveV1: async function () {
+      const tx = await erc20ContractService.erc20.approveToken(
+        this.getProvider(),
+        '0x8A50748a79D20F493F4776C07C922e52eFD61c95',
+        '0x9FBA6AacB11010999355E60675A734278345B13C',
+        '115792089237316195423570985008687907853269984665640564039457584007913129639935'
+      );
+      this.addTransaction({
+        id: tx.hash,
+        type: 'tx',
+        action: 'approve',
+        summary: `Approving V1 for V2`,
+        details: {
+          contractAddress: '0x9FBA6AacB11010999355E60675A734278345B13C',
+          spender: '0x8A50748a79D20F493F4776C07C922e52eFD61c95'
+        }
+      });
+      this.statusV1 = 2
+      return tx;
+    },
+    migrateV1: async function () {
+      const tx = await erc20ContractService.erc20.migrateToken(
+        this.getProvider(),
+        '0x9FBA6AacB11010999355E60675A734278345B13C'
+      );
+      this.addTransaction({
+        id: tx.hash,
+        type: 'tx',
+        action: 'approve',
+        summary: `Migrating V1 for V2`,
+        details: {
+          contractAddress: '0x8A50748a79D20F493F4776C07C922e52eFD61c95',
+          v1: '0x9FBA6AacB11010999355E60675A734278345B13C'
+        }
+      });
+      this.statusV1 = 0
+      return tx;
+    }
   },
 
   setup() {
-    const { getProvider, account } = useWeb3();
+    const { getProvider, account, getAddTokenToWallet } = useWeb3();
     const { addTransaction } = useTransactions();
 
     const { fNum } = useNumbers();
@@ -153,43 +212,15 @@ export default defineComponent({
     });
     const loading = computed(() => protocolDataQuery.isLoading.value);
 
-    async function approveV1() {
-      const tx = await erc20ContractService.erc20.approveToken(
-        getProvider(),
-        '0x8A50748a79D20F493F4776C07C922e52eFD61c95',
-        '0x9FBA6AacB11010999355E60675A734278345B13C',
-        '115792089237316195423570985008687907853269984665640564039457584007913129639935'
-      );
-      addTransaction({
-        id: tx.hash,
-        type: 'tx',
-        action: 'approve',
-        summary: `Approving V1 for V2`,
-        details: {
-          contractAddress: '0x9FBA6AacB11010999355E60675A734278345B13C',
-          spender: '0x8A50748a79D20F493F4776C07C922e52eFD61c95'
-        }
-      });
-      return tx;
-    }
-
-    async function migrateV1() {
-      const tx = await erc20ContractService.erc20.migrateToken(
-        getProvider(),
-        '0x9FBA6AacB11010999355E60675A734278345B13C'
-      );
-      addTransaction({
-        id: tx.hash,
-        type: 'tx',
-        action: 'approve',
-        summary: `Migrating V1 for V2`,
-        details: {
-          contractAddress: '0x8A50748a79D20F493F4776C07C922e52eFD61c95',
-          v1: '0x9FBA6AacB11010999355E60675A734278345B13C'
-        }
-      });
-
-      return tx;
+     async function addTokenToMetaMask() { 
+        const token = { 
+            address: configService.network.addresses.embr,
+            type: 'ERC20',
+            symbol: "EMBR",
+            decimals: 18,
+            logoURI: "https://raw.githubusercontent.com/embrfinance/frontend-v2/embr-staging/src/embr/assets/images/embr.png"  
+      } as WalletToken;
+      await getAddTokenToWallet(token)
     }
 
     return {
@@ -201,8 +232,9 @@ export default defineComponent({
       circulatingSupply,
       marketCap,
       loading,
-      approveV1,
-      migrateV1
+      addTransaction,
+      getProvider,
+      addTokenToMetaMask
     };
   }
 });

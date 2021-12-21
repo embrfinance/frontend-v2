@@ -100,7 +100,7 @@ function handleClickOutside() {
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    width:100vw;
+    width:fit-content;
   }
 }
 

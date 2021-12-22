@@ -11,7 +11,7 @@
           <div v-html="$t('portfolioValueInfo')" class="w-52" />
         </BalTooltip>
       </h4>
-      <div class="text-gray-500 mb-2">{{ dateLabel }}</div>
+      <div class="text-gray-200 mb-2">{{ dateLabel }}</div>
       <template v-if="data.length > 2">
         <ECharts
           ref="chartInstance"
@@ -123,7 +123,7 @@ export default defineComponent({
             lineStyle: { color: tailwind.theme.colors.gray['600'] }
           },
           axisLabel: {
-            color: tailwind.theme.colors.gray[300],
+            color: tailwind.theme.colors.gold[300],
             fontSize: 14,
             formatter: value => format(value, 'MMM. d')
           }
@@ -135,7 +135,7 @@ export default defineComponent({
             lineStyle: { color: tailwind.theme.colors.gray['600'] }
           },
           axisLabel: {
-            color: tailwind.theme.colors.gray[300],
+            color: tailwind.theme.colors.gold[300],
             fontSize: 14,
             formatter: value =>
               `$${numeral(value).format(value > 1000 ? '0a' : '0.[00]')}`

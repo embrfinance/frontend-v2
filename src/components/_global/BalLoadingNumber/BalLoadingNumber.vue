@@ -3,19 +3,19 @@
     <template v-if="type === 'token'">
       <BalLoadingBlock :class="blockClasses" rounded="sm" darker />
       <BalLoadingBlock :class="blockClasses" rounded="sm" darker />
-      <span class="text-gray-300 dark:text-gray-500">.</span>
+      <span class="text-gray-300 dark:text-gray-200">.</span>
       <BalLoadingBlock :class="blockClasses" rounded="sm" darker />
       <BalLoadingBlock :class="blockClasses" rounded="sm" darker />
       <BalLoadingBlock :class="blockClasses" rounded="sm" darker />
       <BalLoadingBlock :class="blockClasses" rounded="sm" darker />
     </template>
     <template v-else-if="type === 'fiat'">
-      <span class="text-gray-300 dark:text-gray-500 mr-px">
+      <span class="text-gray-300 dark:text-gray-200 mr-px">
         {{ currencySymbol }}
       </span>
       <BalLoadingBlock :class="blockClasses" rounded="sm" darker />
       <BalLoadingBlock :class="blockClasses" rounded="sm" darker />
-      <span class="text-gray-300 dark:text-gray-500">.</span>
+      <span class="text-gray-300 dark:text-gray-200">.</span>
       <BalLoadingBlock :class="blockClasses" rounded="sm" darker />
       <BalLoadingBlock :class="blockClasses" rounded="sm" darker />
     </template>

@@ -21,7 +21,7 @@
           @click="toggleSelectTokenList"
           class="flex items-center group cursor-pointer"
         >
-          <span class="text-xs text-gray-500">{{ $t('tokenLists') }}</span>
+          <span class="text-xs text-gray-200">{{ $t('tokenLists') }}</span>
           <div class="flex items-center ml-2">
             <span class="mr-1 ">
               <img
@@ -98,7 +98,7 @@
         <div
           v-else
           v-text="$t('errorNoTokens')"
-          class="h-96 p-12 text-center text-gray-500"
+          class="h-96 p-12 text-center text-gray-200"
         />
       </div>
     </template>

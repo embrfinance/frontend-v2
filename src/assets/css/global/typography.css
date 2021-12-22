@@ -90,7 +90,7 @@ th {
 }
 
 .text-gradient {
-  @apply bg-green-500;
+  @apply bg-gold-500;
   background-image: linear-gradient(45deg, yellow, orange);
   background-size: 100%;
   -webkit-background-clip: text;

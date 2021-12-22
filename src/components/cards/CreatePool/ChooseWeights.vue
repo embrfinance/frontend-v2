@@ -303,7 +303,7 @@ function handleProceed() {
     <BalCard>
       <BalStack vertical spacing="sm">
         <BalStack vertical spacing="xs">
-          <span class="text-xs text-gray-700 dark:text-gray-500">{{
+          <span class="text-xs text-gray-700 dark:text-gray-200">{{
             networkName
           }}</span>
           <h5 class="font-bold dark:text-gray-300">

@@ -88,7 +88,7 @@ onBeforeMount(() => {
 
 <template>
   <BalCard>
-    <div class="text-gray-500 text-sm">
+    <div class="text-gray-200 text-sm">
       {{ $t('basedOnTokensInWallet') }}
     </div>
     <div class="flex justify-between items-center mb-4">

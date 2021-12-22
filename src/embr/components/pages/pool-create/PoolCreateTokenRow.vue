@@ -92,7 +92,7 @@
           >
             <BalIcon
               name="trash"
-              :class="[canDelete ? 'text-red-500' : 'text-gray-500']"
+              :class="[canDelete ? 'text-red-500' : 'text-gray-200']"
             />
           </BalBtn>
         </div>

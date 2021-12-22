@@ -5,7 +5,7 @@
         circle
         color="white"
         size="sm"
-        class="mb-2 text-gray-500 icon-spin-anim"
+        class="mb-2 text-gray-200 icon-spin-anim"
         @click="onActivatorClick"
       >
         <BalIcon name="settings" size="sm" />
@@ -207,10 +207,10 @@ export default defineComponent({
 
 <style>
 .trade-settings-option:hover {
-  @apply text-white border-green-500;
+  @apply text-white border-gold-200;
 }
 
 .trade-settings-option.active {
-  @apply text-white border-green-500;
+  @apply text-white border-gold-200;
 }
 </style>

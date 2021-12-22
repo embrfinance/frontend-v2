@@ -8,7 +8,7 @@
     <div class="message relative px-2 py-3">
       <div class="ml-12">
         <h6 v-text="$t('highGasFees')" class="relative text-sm" />
-        <div class="relative text-sm text-gray-500" v-html="text" />
+        <div class="relative text-sm text-gray-200" v-html="text" />
       </div>
     </div>
   </BalLink>

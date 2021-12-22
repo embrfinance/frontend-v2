@@ -81,7 +81,7 @@
       />
       <div
         v-if="!isLoading && !tableData.length"
-        class="max-w-full bg-white dark:bg-gray-850 row-bg h-40 flex items-center justify-center text-gray-500"
+        class="max-w-full bg-white dark:bg-gray-850 row-bg h-40 flex items-center justify-center text-gray-200"
       >
         {{ noResultsLabel || $t('noResults') }}
       </div>
@@ -522,7 +522,7 @@ export default defineComponent({
 
 .bal-table-pagination-btn {
   @apply flex items-center justify-center h-16 transition-all;
-  @apply text-gray-500 font-medium hover:text-gray-800 dark:hover:text-gray-400;
+  @apply text-gray-200 font-medium hover:text-gray-800 dark:hover:text-gray-400;
   @apply border-t dark:border-gray-900 rounded-b-lg;
   @apply hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer;
 }

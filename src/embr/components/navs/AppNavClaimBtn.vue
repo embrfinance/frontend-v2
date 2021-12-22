@@ -28,7 +28,7 @@
         Farm Incentives
       </h5>
       <BalCard class="mx-2 mb-2">
-        <div class="text-sm text-gray-500 font-medium mb-2 text-left">
+        <div class="text-sm text-gray-200 font-medium mb-2 text-left">
           Pending Rewards
         </div>
         <div class="text-xl font-medium truncate flex items-center">
@@ -37,24 +37,24 @@
       </BalCard>
       <div class="grid grid-cols-2 gap-x-2 gap-y-2 px-2">
         <BalCard class="">
-          <div class="text-sm text-gray-500 font-medium mb-2 text-left">
+          <div class="text-sm text-gray-200 font-medium mb-2 text-left">
             Total Deposit
           </div>
           <div class="text-xl font-medium truncate flex items-center">
             {{ data.totalBalance }}
           </div>
-          <div class="text-sm text-gray-500 font-medium mt-1 text-left">
+          <div class="text-sm text-gray-200 font-medium mt-1 text-left">
             {{ data.numFarms }} {{ data.numFarms === 1 ? 'Farm' : 'Farms' }}
           </div>
         </BalCard>
         <BalCard>
-          <div class="text-sm text-gray-500 font-medium mb-2 text-left">
+          <div class="text-sm text-gray-200 font-medium mb-2 text-left">
             Average APR
           </div>
           <div class="text-xl font-medium truncate flex items-center">
             {{ data.apr }}
           </div>
-          <div class="text-sm text-gray-500 font-medium mt-1 text-left">
+          <div class="text-sm text-gray-200 font-medium mt-1 text-left">
             {{ data.dailyApr }} Daily
           </div>
         </BalCard>

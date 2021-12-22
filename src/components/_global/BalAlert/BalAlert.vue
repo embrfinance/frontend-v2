@@ -67,7 +67,7 @@ export default defineComponent({
     const bgColorClass = computed(() => {
       switch (props.type) {
         case 'warning':
-          return 'bg-yellow-50 dark:bg-yellow-500 border border-yellow-200 dark:border-0 text-black dark:text-white';
+          return 'bg-gold-50 dark:bg-gold-500 border border-gold-200 dark:border-0 text-black dark:text-black';
         case 'error':
           return 'bg-red-50 dark:bg-red-500 border border-red-200 dark:border-0 text-black dark:text-white';
         default:
@@ -131,7 +131,7 @@ export default defineComponent({
         case 'error':
           return 'text-red-500 dark:text-white bg-red-500 dark:bg-white bg-opacity-10 dark:bg-opacity-10';
         default:
-          return 'text-gray-500 dark:text-white bg-black dark:bg-white bg-opacity-10 dark:bg-opacity-10';
+          return 'text-gray-200 dark:text-white bg-black dark:bg-white bg-opacity-10 dark:bg-opacity-10';
       }
     });
 

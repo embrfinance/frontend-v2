@@ -4,7 +4,7 @@
     <BalCard>
       <div class="flex">
         <div class="flex flex-col w-48">
-          <div class="text-gray-500 font-medium mb-2">
+          <div class="text-gray-200 font-medium mb-2">
             {{ title }}
             <BalTooltip>
               <template v-slot:activator>
@@ -21,7 +21,7 @@
           <div class="flex-1">
             <h4>{{ stat }}</h4>
           </div>
-          <div class="text-gray-500 font-medium">
+          <div class="text-gray-200 font-medium">
             {{ subTitle }}
           </div>
         </div>
@@ -110,7 +110,7 @@ export default defineComponent({
           lineStyle: { color: tailwind.theme.colors.gray['600'] }
         },
         axisLabel: {
-          color: tailwind.theme.colors.gray[300],
+          color: tailwind.theme.colors.gold[300],
           fontSize: 14,
           formatter: value => format(value * 1000, 'MMM. dd')
         },

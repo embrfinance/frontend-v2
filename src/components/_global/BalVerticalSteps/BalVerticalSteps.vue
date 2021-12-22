@@ -48,7 +48,7 @@ const stepCircleClasses = computed(() => {
       ],
       [
         StepState.Todo,
-        'border-2 border-gray-300 dark:border-gray-600 text-gray-500'
+        'border-2 border-gray-300 dark:border-gray-600 text-gray-200'
       ],
       [
         StepState.Success,

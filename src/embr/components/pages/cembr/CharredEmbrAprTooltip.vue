@@ -11,7 +11,7 @@
     </template>
     <div class="text-sm divide-y dark:divide-gray-900">
       <div class="px-3 pt-3 pb-1 bg-gray-50 dark:bg-gray-800 rounded-t">
-        <div class="text-gray-500">{{ $t('totalAPR') }}</div>
+        <div class="text-gray-200">{{ $t('totalAPR') }}</div>
         <div class="text-lg">
           {{ fNum(totalApr, 'percent') }}
         </div>
@@ -19,17 +19,17 @@
       <div class="p-3">
         <div class="whitespace-nowrap flex items-center mb-1">
           {{ fNum(swapApr, 'percent') }}
-          <span class="ml-1 text-gray-500 text-xs">{{ $t('swapFeeAPR') }}</span>
+          <span class="ml-1 text-gray-200 text-xs">{{ $t('swapFeeAPR') }}</span>
         </div>
         <div class="whitespace-nowrap flex items-center mb-1">
           {{ fNum(cembrApr, 'percent') }}
-          <span class="ml-1 text-gray-500 text-xs">
+          <span class="ml-1 text-gray-200 text-xs">
             cEMBR APR
           </span>
         </div>
         <div class="whitespace-nowrap flex items-center mb-1">
           {{ fNum(farmApr, 'percent') }}
-          <span class="ml-1 text-gray-500 text-xs">
+          <span class="ml-1 text-gray-200 text-xs">
             Farm APR
           </span>
         </div>

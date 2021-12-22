@@ -76,7 +76,7 @@ export default defineComponent({
     });
 
     const colorClass = computed(() => {
-      if (props.disabled) return 'text-gray-500';
+      if (props.disabled) return 'text-gray-200';
       return `text-${props.color}-500`;
     });
 

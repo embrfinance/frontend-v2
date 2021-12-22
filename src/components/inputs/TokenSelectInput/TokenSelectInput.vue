@@ -77,7 +77,7 @@ function tokenFor(option: string): TokenInfo {
       <span class="text-base font-medium">
         {{ token?.symbol }}
       </span>
-      <span v-if="Number(weight) > 0" class="text-gray-500 ml-2">
+      <span v-if="Number(weight) > 0" class="text-gray-200 ml-2">
         {{ fNum(weight, 'percent_lg') }}
       </span>
       <BalIcon
@@ -101,7 +101,7 @@ function tokenFor(option: string): TokenInfo {
           <span class="text-base font-medium">
             {{ token?.symbol }}
           </span>
-          <span v-if="Number(weight) > 0" class="text-gray-500 ml-2">
+          <span v-if="Number(weight) > 0" class="text-gray-200 ml-2">
             {{ fNum(weight, 'percent_lg') }}
           </span>
           <BalIcon
@@ -164,7 +164,7 @@ function tokenFor(option: string): TokenInfo {
 }
 
 .unselected {
-  @apply bg-green-500 text-white;
+  @apply bg-gold-500 text-white;
 }
 
 .selected {

@@ -14,7 +14,7 @@
             {{ fNum(amountIn, 'token') }} {{ symbolIn }} ->
             {{ fNum(amountOut, 'token') }} {{ symbolOut }}
           </div>
-          <div class="text-gray-500 text-sm">
+          <div class="text-gray-200 text-sm">
             {{ fNum(valueIn, 'usd') }}
           </div>
         </div>
@@ -32,7 +32,7 @@
                 name="check"
                 class="text-white"
               />
-              <span v-else class="text-gray-500 dark:text-gray-400">1</span>
+              <span v-else class="text-gray-200 dark:text-gray-400">1</span>
             </div>
             <div class="ml-3">
               <span v-if="isLidoRelayerApproved">{{
@@ -48,7 +48,7 @@
                 name="check"
                 class="text-white"
               />
-              <span v-else class="text-gray-500 dark:text-gray-400">{{
+              <span v-else class="text-gray-200 dark:text-gray-400">{{
                 requiresLidoRelayerApproval ? 2 : 1
               }}</span>
             </div>
@@ -60,7 +60,7 @@
             </div>
           </div>
           <div class="mt-3 card-container">
-            <div class="card-step text-gray-500 dark:text-gray-400">
+            <div class="card-step text-gray-200 dark:text-gray-400">
               {{ totalRequiredTransactions }}
             </div>
             <div class="ml-3">

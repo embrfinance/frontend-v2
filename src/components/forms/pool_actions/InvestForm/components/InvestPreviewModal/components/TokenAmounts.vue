@@ -53,7 +53,7 @@ function amountShare(address: string): string {
             </span>
             {{ tokenMap[address].symbol }}
           </div>
-          <div class="text-sm text-gray-500 font-numeric">
+          <div class="text-sm text-gray-200 font-numeric">
             {{ fNum(fiatAmountMap[address], currency) }}
             ({{ fNum(amountShare(address), 'percent') }})
           </div>

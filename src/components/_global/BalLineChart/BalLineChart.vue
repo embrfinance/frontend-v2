@@ -2,7 +2,7 @@
   <BalLoadingBlock v-if="isLoading" class="h-96 mt-16" />
   <div :class="[wrapperClass]" v-else @mouseleave="handleMouseLeave">
     <div id="lineChartHeader" class="mb-4" v-if="showHeader">
-      <h3 class="text-gray-800 dark:text-gray-400 text-xl tracking-wider">
+      <h3 class="text-gold-800 dark:text-gold-400 text-xl tracking-wider">
         {{ currentValue }}
       </h3>
       <span
@@ -162,8 +162,8 @@ export default defineComponent({
 
     const axisColor = computed(() =>
       darkMode.value
-        ? tailwind.theme.colors.gray['800']
-        : tailwind.theme.colors.gray['100']
+        ? tailwind.theme.colors.gold['800']
+        : tailwind.theme.colors.gold['100']
     );
 
     // https://echarts.apache.org/en/option.html
@@ -187,12 +187,12 @@ export default defineComponent({
         selected: props.legendState || {},
         textStyle: {
           color: darkMode.value
-            ? tailwind.theme.colors.gray['100']
-            : tailwind.theme.colors.gray['800']
+            ? tailwind.theme.colors.gold['100']
+            : tailwind.theme.colors.gold['800']
         },
         inactiveColor: darkMode.value
-          ? tailwind.theme.colors.gray['700']
-          : tailwind.theme.colors.gray['300']
+          ? tailwind.theme.colors.gold['700']
+          : tailwind.theme.colors.gold['300']
       },
       // controlling the display of the X-Axis
       xAxis: {
@@ -208,7 +208,7 @@ export default defineComponent({
             ? value =>
                 fNum(value, null, { format: props.axisLabelFormatter.xAxis })
             : undefined,
-          color: tailwind.theme.colors.gray['400']
+          color: tailwind.theme.colors.gold['100']
         }
       },
       // controlling the display of the Y-Axis
@@ -232,7 +232,7 @@ export default defineComponent({
             ? value =>
                 fNum(value, null, { format: props.axisLabelFormatter.yAxis })
             : undefined,
-          color: tailwind.theme.colors.gray['400']
+          color: tailwind.theme.colors.gold['100']
         },
         nameGap: 25
       },

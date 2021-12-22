@@ -14,7 +14,7 @@
           <BalIcon
             name="arrow-up-right"
             size="sm"
-            class="ml-1 text-gray-500 hover:text-white transition-colors"
+            class="ml-1 text-gray-200 hover:text-white transition-colors"
           />
         </BalLink>
       </div>

@@ -50,7 +50,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-2 gap-y-2 px-2 mb-2">
         <BalCard>
-          <div class="text-sm text-gray-500 font-medium mb-2 text-left">
+          <div class="text-sm text-gray-200 font-medium mb-2 text-left">
             TVL
           </div>
           <div class="text-xl font-medium truncate flex items-center">
@@ -58,7 +58,7 @@
           </div>
         </BalCard>
         <BalCard>
-          <div class="text-sm text-gray-500 font-medium mb-2 text-left">
+          <div class="text-sm text-gray-200 font-medium mb-2 text-left">
             Embr
           </div>
           <div class="text-xl font-medium truncate flex items-center">
@@ -68,7 +68,7 @@
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-2 gap-y-2 px-2 mb-2">
         <BalCard>
-          <div class="text-sm text-gray-500 font-medium mb-2 text-left">
+          <div class="text-sm text-gray-200 font-medium mb-2 text-left">
             Market Cap
           </div>
           <div class="text-xl font-medium truncate flex items-center">
@@ -76,7 +76,7 @@
           </div>
         </BalCard>
         <BalCard>
-          <div class="text-sm text-gray-500 font-medium mb-2 text-left">
+          <div class="text-sm text-gray-200 font-medium mb-2 text-left">
             Circulating Supply
           </div>
           <div class="text-xl font-medium truncate flex items-center">

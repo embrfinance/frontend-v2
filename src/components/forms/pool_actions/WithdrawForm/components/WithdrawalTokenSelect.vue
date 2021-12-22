@@ -134,7 +134,7 @@ function handleSelected(newToken: string): void {
 }
 
 .selectable {
-  @apply cursor-pointer hover:shadow-none transition-shadow;
+  @apply cursor-pointer  transition-shadow;
 }
 
 .selected {

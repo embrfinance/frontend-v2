@@ -18,34 +18,34 @@
       </template>
       <template v-else>
         <BalCard class="md:w-48 md:mr-4">
-          <div class="text-sm text-gray-500 font-medium mb-2 text-left">
+          <div class="text-sm text-gray-200 font-medium mb-2 text-left">
             Pending Rewards
           </div>
           <div class="text-xl font-medium truncate flex items-center">
             <div>{{ farmData.pendingEmbr }}&nbsp;</div>
-            <div class="text-sm text-gray-500 font-medium mt-1 text-left">
+            <div class="text-sm text-gray-200 font-medium mt-1 text-left">
               Embr
             </div>
           </div>
-          <div class="text-sm text-gray-500 font-medium mt-1 text-left">
+          <div class="text-sm text-gray-200 font-medium mt-1 text-left">
             {{ farmData.pendingEmbrValue }}
           </div>
         </BalCard>
         <BalCard class="md:w-48">
-          <div class="text-sm text-gray-500 font-medium mb-2 text-left">
+          <div class="text-sm text-gray-200 font-medium mb-2 text-left">
             Average APR
           </div>
           <div class="text-xl font-medium truncate flex items-center">
             {{ farmData.apr }}
           </div>
-          <div class="text-sm text-gray-500 font-medium mt-1 text-left">
+          <div class="text-sm text-gray-200 font-medium mt-1 text-left">
             {{ farmData.dailyEmbr }} Embr / day
           </div>
         </BalCard>
       </template>
     </div>
     <!--    <BalCard class="w-44" v-if="tvl">
-      <div class="text-sm text-gray-500 font-medium mb-2">
+      <div class="text-sm text-gray-200 font-medium mb-2">
         TVL
       </div>
       <div class="text-xl font-medium truncate flex items-center">
@@ -53,24 +53,24 @@
       </div>
     </BalCard>-->
     <!--    <BalCard class="mr-2 w-48">
-      <div class="text-sm text-gray-500 font-medium mb-2">
+      <div class="text-sm text-gray-200 font-medium mb-2">
         Embr Price
       </div>
       <div class="text-xl font-medium truncate flex items-center">
         $1.48
       </div>
-      <div class="text-sm text-gray-500 font-medium mt-1">
+      <div class="text-sm text-gray-200 font-medium mt-1">
         MC: $8,450,000
       </div>
     </BalCard>
     <BalCard class="w-48">
-      <div class="text-sm text-gray-500 font-medium mb-2">
+      <div class="text-sm text-gray-200 font-medium mb-2">
         Circulating Supply
       </div>
       <div class="text-xl font-medium truncate flex items-center">
         7,724,530
       </div>
-      <div class="text-sm text-gray-500 font-medium mt-1">
+      <div class="text-sm text-gray-200 font-medium mt-1">
         5.05 Embr/block
       </div>
     </BalCard>-->

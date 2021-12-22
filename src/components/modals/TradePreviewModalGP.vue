@@ -29,7 +29,7 @@
                   {{ fNum(trading.tokenInAmountInput.value, 'token') }}
                   {{ trading.tokenIn.value.symbol }}
                 </div>
-                <div class="text-gray-500 dark:text-gray-400 text-sm">
+                <div class="text-gray-200 dark:text-gray-400 text-sm">
                   {{ tokenInFiatValue }}
                 </div>
               </div>
@@ -51,7 +51,7 @@
                   {{ fNum(trading.tokenOutAmountInput.value, 'token') }}
                   {{ trading.tokenOut.value.symbol }}
                 </div>
-                <div class="text-gray-500 dark:text-gray-400 text-sm">
+                <div class="text-gray-200 dark:text-gray-400 text-sm">
                   {{ tokenOutFiatValue }}
                   <span
                     v-if="
@@ -134,7 +134,7 @@
               </div>
               <div v-html="summary.totalWithoutSlippage" />
             </div>
-            <div class="summary-item-row text-gray-500 dark:text-gray-400">
+            <div class="summary-item-row text-gray-200 dark:text-gray-400">
               <div class="w-64">
                 {{ labels.tradeSummary.totalWithSlippage }}
               </div>
@@ -881,6 +881,6 @@ export default defineComponent({
   @apply border-purple-500 dark:border-purple-500;
 }
 .step-approved {
-  @apply border-green-500 dark:border-green-500;
+  @apply border-gold-200 dark:border-gold-200;
 }
 </style>

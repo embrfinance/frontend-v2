@@ -32,7 +32,7 @@ const {
     </template>
     <template v-else>
       <BalCard>
-        <div class="text-sm text-gray-500 font-medium mb-2">
+        <div class="text-sm text-gray-200 font-medium mb-2">
           TVL
         </div>
         <div class="text-xl font-medium truncate flex items-center">
@@ -40,7 +40,7 @@ const {
         </div>
       </BalCard>
       <BalCard>
-        <div class="text-sm text-gray-500 font-medium mb-2">
+        <div class="text-sm text-gray-200 font-medium mb-2">
           cEMBR Minted
         </div>
         <div class="text-xl font-medium truncate flex items-center">
@@ -48,7 +48,7 @@ const {
         </div>
       </BalCard>
       <BalCard>
-        <div class="text-sm text-gray-500 font-medium mb-2">
+        <div class="text-sm text-gray-200 font-medium mb-2">
           Embr Staked
         </div>
         <div class="text-xl font-medium truncate flex items-center">
@@ -57,7 +57,7 @@ const {
       </BalCard>
 
       <BalCard>
-        <div class="text-sm text-gray-500 font-medium mb-2">
+        <div class="text-sm text-gray-200 font-medium mb-2">
           APR
         </div>
         <div class="text-xl font-medium truncate flex items-center">
@@ -77,7 +77,7 @@ const {
   <div v-else class="grid grid-cols-1 sm:grid-cols-1 xl:grid-cols-2 gap-4">
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-4">
       <BalCard>
-        <div class="text-sm text-gray-500 font-medium mb-2">
+        <div class="text-sm text-gray-200 font-medium mb-2">
           Farm TVL
         </div>
         <div class="text-xl font-medium truncate flex items-center">
@@ -85,7 +85,7 @@ const {
         </div>
       </BalCard>
       <BalCard>
-        <div class="text-sm text-gray-500 font-medium mb-2">
+        <div class="text-sm text-gray-200 font-medium mb-2">
           Embr
         </div>
         <div class="text-xl font-medium truncate flex items-center">
@@ -93,7 +93,7 @@ const {
         </div>
       </BalCard>
       <BalCard>
-        <div class="text-sm text-gray-500 font-medium mb-2">
+        <div class="text-sm text-gray-200 font-medium mb-2">
           My balance
         </div>
         <div class="text-xl font-medium truncate flex items-center">
@@ -101,7 +101,7 @@ const {
         </div>
       </BalCard>
       <BalCard>
-        <div class="text-sm text-gray-500 font-medium mb-2">
+        <div class="text-sm text-gray-200 font-medium mb-2">
           My share
         </div>
         <div class="text-xl font-medium truncate flex items-center">

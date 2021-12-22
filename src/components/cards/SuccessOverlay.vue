@@ -6,11 +6,11 @@
       <h3 v-text="title" />
       <div class="flex flex-col items-center">
         <div
-          class="w-20 h-20 rounded-full flex items-center justify-center bg-green-100 dark:bg-green-500 text-white dark:text-gray-850 mb-8"
+          class="w-20 h-20 rounded-full flex items-center justify-center bg-green-100 dark:bg-gold-500 text-white dark:text-gray-850 mb-8"
         >
           <BalIcon name="check-circle" size="xl" />
         </div>
-        <p v-html="description" class="text-gray-500" />
+        <p v-html="description" class="text-gray-200" />
       </div>
       <div class="grid grid-cols-2 gap-4 mt-4 w-full">
         <BalBtn

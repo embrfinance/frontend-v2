@@ -30,7 +30,7 @@ const hasBptStaked = function(){
     <BalCard v-else shadow="xl" exposeOverflow noBorder>
       <template #header>
         <div class="w-full">
-          <div class="text-xs text-gray-500 leading-none">
+          <div class="text-xs text-gray-200 leading-none">
             {{ network.chainName }}
           </div>
           <div class="flex items-center justify-between">

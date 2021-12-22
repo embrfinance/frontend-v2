@@ -177,7 +177,7 @@ function handleClearAll() {
   <BalCard>
     <BalStack vertical>
       <BalStack vertical spacing="xs">
-        <span class="text-xs text-gray-700 dark:text-gray-500">{{
+        <span class="text-xs text-gray-700 dark:text-gray-200">{{
           userNetworkConfig?.name
         }}</span>
         <BalStack horizontal spacing="xs" align="center">
@@ -197,7 +197,7 @@ function handleClearAll() {
             spacing="sm"
             class="border rounded-lg p-2 mt-2"
           >
-            <BalIcon name="zap" size="sm" class="mt-1 text-gray-500" />
+            <BalIcon name="zap" size="sm" class="mt-1 text-gray-200" />
             <span class="dark:text-gray-400 font-medium">
               {{ t('optimizedPrefilled') }}
             </span>

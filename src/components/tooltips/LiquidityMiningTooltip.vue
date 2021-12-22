@@ -11,7 +11,7 @@
     </template>
     <div class="text-sm divide-y dark:divide-gray-900">
       <div class="px-3 pt-3 pb-1 bg-gray-50 dark:bg-gray-800 rounded-t">
-        <div class="text-gray-500">{{ $t('totalAPR') }}</div>
+        <div class="text-gray-200">{{ $t('totalAPR') }}</div>
         <div class="text-lg">
           {{ fNum(pool.dynamic.apr.total, 'percent') }}
         </div>
@@ -19,14 +19,14 @@
       <div class="p-3">
         <div class="whitespace-nowrap flex items-center mb-1">
           {{ fNum(pool.dynamic.apr.pool, 'percent') }}
-          <span class="ml-1 text-gray-500 text-xs">{{ $t('swapFeeAPR') }}</span>
+          <span class="ml-1 text-gray-200 text-xs">{{ $t('swapFeeAPR') }}</span>
         </div>
         <div
           v-if="hasThirdPartyAPR"
           class="whitespace-nowrap flex items-center mb-1"
         >
           {{ fNum(pool.dynamic.apr.thirdParty, 'percent') }}
-          <span class="ml-1 text-gray-500 text-xs">
+          <span class="ml-1 text-gray-200 text-xs">
             {{ thirdPartyAPRLabel }}
           </span>
         </div>
@@ -36,7 +36,7 @@
         >
           <div class="flex items-center">
             {{ fNum(pool.dynamic.apr.liquidityMining, 'percent') }}
-            <span class="ml-1 text-gray-500 text-xs flex items-center">
+            <span class="ml-1 text-gray-200 text-xs flex items-center">
               {{ $t('liquidityMiningAPR') }}
               <img
                 src="~@/embr/assets/images/farmAPR.png"
@@ -47,7 +47,7 @@
           </div>
           <template v-if="multiRewardPool" #item="{ item }">
             {{ fNum(item[1], 'percent') }}
-            <span class="text-gray-500 text-xs ml-1">
+            <span class="text-gray-200 text-xs ml-1">
               {{ lmTokens[item[0]].symbol }} {{ $t('apr') }}
             </span>
           </template>

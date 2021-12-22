@@ -14,7 +14,7 @@ type Props = {
   tokenAddress: string;
   farmId: string;
   hasUnstakedBpt: boolean;
-  hasFarmRewards: boolean;
+  hasFarmRewards: number;
 };
 
 const props = defineProps<Props>();
@@ -82,7 +82,7 @@ const activeTab = ref(tabs[0].value);
     />
     <BalLoadingBlock v-if="loading || dynamicDataLoading" class="h-96" />
     <BalCard v-else-if="!isOldCembrFarm">
-      <div class="text-gray-500 text-sm">
+      <div class="text-gray-200 text-sm">
         Stake your EPTs to earn Embr
       </div>
       <h5 class="mb-1">Farm</h5>

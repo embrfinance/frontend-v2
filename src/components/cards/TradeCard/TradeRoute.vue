@@ -1,7 +1,7 @@
 <template>
   <div v-if="routes.length > 0">
     <div
-      class="flex text-gray-500 items-center cursor-pointer"
+      class="flex text-gray-200 items-center cursor-pointer"
       @click="toggleVisibility"
     >
       <div class="mr-2">
@@ -14,7 +14,7 @@
       <div
         v-if="routes.length === 0"
         v-text="$t('noData')"
-        class="mt-5 text-sm text-gray-500"
+        class="mt-5 text-sm text-gray-200"
       />
       <div v-else>
         <div>
@@ -54,13 +54,13 @@
             name="triangle"
             size="xxs"
             :filled="true"
-            class="transform rotate-180 text-gray-500"
+            class="transform rotate-180 text-gray-200"
           />
           <BalIcon
             name="triangle"
             size="xxs"
             :filled="true"
-            class="text-gray-500"
+            class="text-gray-200"
           />
         </div>
         <div class="relative my-1.5 mx-4">
@@ -85,7 +85,7 @@
                   name="triangle"
                   size="xxs"
                   :filled="true"
-                  class="transform rotate-90 text-gray-500"
+                  class="transform rotate-90 text-gray-200"
                 />
               </div>
               <div class="flex">
@@ -109,7 +109,7 @@
                   </a>
                 </div>
               </div>
-              <div class="w-10 mr-4 text-xs text-right text-gray-500">
+              <div class="w-10 mr-4 text-xs text-right text-gray-200">
                 {{ formatShare(route.share) }}
               </div>
             </div>

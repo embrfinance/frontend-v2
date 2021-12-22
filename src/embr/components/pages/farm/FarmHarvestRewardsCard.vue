@@ -1,6 +1,6 @@
 <template>
   <BalCard>
-    <div class="text-sm text-gray-500 font-medium mb-2">
+    <div class="text-sm text-gray-200 font-medium mb-2">
       My Pending Rewards
     </div>
     <div class="text-xl font-medium truncate flex items-center">

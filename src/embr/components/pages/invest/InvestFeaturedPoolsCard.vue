@@ -39,7 +39,7 @@ function navigateToPool(pool: FullPool) {
         class="col col-span-1 cursor-pointer"
         @click="navigateToPool(pool)"
       >
-        <div class="text-gray-500 font-medium mb-4">
+        <div class="text-gray-200 font-medium mb-4">
           {{ pool.name }}
         </div>
         <BalAssetSet
@@ -47,14 +47,14 @@ function navigateToPool(pool: FullPool) {
           :size="40"
           :width="150"
         />
-        <!--        <div class="font-medium truncate flex items-center mt-2 text-gray-500">
+        <!--        <div class="font-medium truncate flex items-center mt-2 text-gray-200">
           {{ topPerformer.name }}
         </div>-->
         <div class="text-xl font-medium truncate flex items-center mt-4">
           {{ fNum(pool.dynamic.apr.total, 'percent') }} APR
           <LiquidityMiningTooltip :pool="pool" />
         </div>
-        <div class="text-sm text-gray-500">
+        <div class="text-sm text-gray-200">
           {{ fNum(pool.dynamic.apr.total / 365, 'percent') }} DAILY
         </div>
       </BalCard>

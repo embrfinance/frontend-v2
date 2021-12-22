@@ -99,7 +99,7 @@ export default defineComponent({
       let bgClasses = 'bg-yellow-600 dark:bg-yellow-500';
 
       if (props.notification.type === 'success') {
-        bgClasses = 'bg-green-500 dark:bg-green-500';
+        bgClasses = 'bg-gold-500 dark:bg-gold-500';
       } else if (props.notification.type === 'error') {
         bgClasses = 'bg-red-500 dark:bg-red-500';
       }

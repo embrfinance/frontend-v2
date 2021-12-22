@@ -11,7 +11,7 @@
             name="check"
             class="text-white"
           />
-          <span v-else class="text-gray-500 dark:text-gray-400">1</span>
+          <span v-else class="text-gray-200 dark:text-gray-400">1</span>
         </div>
         <div class="ml-3 flex-1">
           <span>Create Pool</span>
@@ -33,7 +33,7 @@
       <div class="card-container mt-3">
         <div class="card-step text-white">
           <BalIcon v-if="joined" name="check" class="text-white" />
-          <span v-else class="text-gray-500 dark:text-gray-400">2</span>
+          <span v-else class="text-gray-200 dark:text-gray-400">2</span>
         </div>
         <div class="ml-3 flex-1">
           <span>Join Pool</span>
@@ -55,7 +55,7 @@
       <!--      <div class="card-container mt-3">
         <div class="card-step text-white">
           <BalIcon v-if="verified" name="check" class="text-white" />
-          <span v-else class="text-gray-500 dark:text-gray-400">3</span>
+          <span v-else class="text-gray-200 dark:text-gray-400">3</span>
         </div>
         <div class="ml-3 flex-1">
           <span>Verify Pool</span>

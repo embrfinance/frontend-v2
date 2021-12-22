@@ -34,11 +34,11 @@ const {
 
 <template>
   <BalCard class="mb-4">
-    <div class="text-sm text-gray-500 font-medium mb-4">
+    <div class="text-sm text-gray-200 font-medium mb-4">
       Exchange Rate
     </div>
     <div
-      class="border-green-500 bg-green-900 border-2 rounded-xl px-3 py-1 text-center justify-center mb-2 flex items-center text-sm"
+      class="border-gold-200 bg-green-900 border-2 rounded-xl px-3 py-1 text-center justify-center mb-2 flex items-center text-sm"
     >
       1 cEMBR =
       <BalLoadingBlock v-if="cEmbrLoading" class="h-5 w-4 mx-0.5" white />{{
@@ -62,7 +62,7 @@ const {
   </BalCard>
   <BalCard class="mb-4 pb-1">
     <div class="flex flex-col flex-grow">
-      <div class="text-sm text-gray-500 font-medium mb-3">
+      <div class="text-sm text-gray-200 font-medium mb-3">
         My Stake
       </div>
       <div class="flex items-center space-x-4">
@@ -78,7 +78,7 @@ const {
     </div>
     <div class="flex items-center my-5">
       <div class="h-1 w-full flex-1 bg-gray-700 rounded-3xl" />
-      <div class="text-gray-500 mx-2">OR</div>
+      <div class="text-gray-200 mx-2">OR</div>
       <div class="h-1 w-full flex-1 bg-gray-700 rounded-3xl" />
     </div>
     <div class="flex flex-col flex-grow">
@@ -98,7 +98,7 @@ const {
 
     <div class="flex items-center my-5">
       <div class="h-1 w-full flex-1 bg-gray-700 rounded-3xl" />
-      <div class="text-gray-500 mx-2">OR</div>
+      <div class="text-gray-200 mx-2">OR</div>
       <div class="h-1 w-full flex-1 bg-gray-700 rounded-3xl" />
     </div>
     <div class="flex flex-col flex-grow">

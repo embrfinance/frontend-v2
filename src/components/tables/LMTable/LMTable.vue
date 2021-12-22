@@ -101,7 +101,7 @@
             <span class="font-numeric">{{ fNum(total, 'token_lg') }}</span>
             {{ tokens[getAddress(token)]?.symbol || 'N/A' }}
           </span>
-          <span class="mt-2 text-gray-500 font-numeric"
+          <span class="mt-2 text-gray-200 font-numeric"
             >~${{ fNum(calculatePricesFor(totals[week.week])) }}</span
           >
         </div>

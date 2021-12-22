@@ -338,11 +338,11 @@ export default defineComponent({
 }
 
 .option:hover {
-  @apply text-white border-green-500;
+  @apply text-white border-gold-200;
 }
 
 .option.active {
-  @apply text-white border-green-500;
+  @apply text-white border-gold-200;
 }
 
 .slippage-input {
@@ -350,6 +350,6 @@ export default defineComponent({
 }
 
 .slippage-input.active {
-  @apply text-white border-green-500;
+  @apply text-white border-gold-200;
 }
 </style>

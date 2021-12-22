@@ -114,7 +114,7 @@ onBeforeMount(() => {
               </span>
               {{ token.symbol }}
             </span>
-            <span class="text-gray-500 text-sm">
+            <span class="text-gray-200 text-sm">
               {{ token.name }}
             </span>
           </div>
@@ -122,7 +122,7 @@ onBeforeMount(() => {
 
         <span class="flex flex-col flex-grow text-right">
           {{ isWalletReady ? fNum(proportionalAmounts[index], 'token') : '-' }}
-          <span class="text-gray-500 text-sm">
+          <span class="text-gray-200 text-sm">
             {{ isWalletReady ? fiatLabelFor(index, token.address) : '-' }}
           </span>
         </span>

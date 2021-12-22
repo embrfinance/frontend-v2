@@ -86,7 +86,7 @@ function onSymbolInput(): void {
   <BalCard>
     <BalStack vertical>
       <BalStack vertical spacing="xs">
-        <span class="text-xs text-gray-700 dark:text-gray-500">{{
+        <span class="text-xs text-gray-700 dark:text-gray-200">{{
           userNetworkConfig?.name
         }}</span>
         <BalStack horizontal align="center" spacing="xs">

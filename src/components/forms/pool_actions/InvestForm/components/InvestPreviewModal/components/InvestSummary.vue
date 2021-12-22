@@ -119,7 +119,7 @@ function weeklyYieldForAPR(apr: string): string {
               class="p-2 bg-gray-50 dark:bg-gray-700 rounded-t-lg border-b dark:border-gray-700"
             >
               <span class="text-sm" v-text="$t('yieldEarnings')" />
-              <span class="ml-1 text-gray-500">
+              <span class="ml-1 text-gray-200">
                 ({{ $t('basedOnLast24h') }})
               </span>
               <div class="text-base font-semibold mt-1">
@@ -130,7 +130,7 @@ function weeklyYieldForAPR(apr: string): string {
             <div class="p-2">
               <div class="whitespace-nowrap flex items-center mb-1">
                 {{ fNum(swapFeeWeeklyYield, currency) }}
-                <span class="ml-1 text-gray-500 text-xs">
+                <span class="ml-1 text-gray-200 text-xs">
                   {{ $t('swapFee') }}
                 </span>
               </div>
@@ -139,7 +139,7 @@ function weeklyYieldForAPR(apr: string): string {
                 class="whitespace-nowrap flex items-center mb-1"
               >
                 {{ fNum(thirdPartyWeeklyYield, currency) }}
-                <span class="ml-1 text-gray-500 text-xs">
+                <span class="ml-1 text-gray-200 text-xs">
                   {{ thirdPartyAPRLabel }}
                 </span>
               </div>
@@ -149,14 +149,14 @@ function weeklyYieldForAPR(apr: string): string {
               >
                 <div class="flex items-center">
                   <span>{{ fNum(lmWeeklyYield, currency) }}</span>
-                  <span class="ml-1 text-gray-500">
+                  <span class="ml-1 text-gray-200">
                     {{ $t('liquidityMining') }}
                   </span>
                   <img src="~@/embr/assets/images/farmAPR.png" width="28" />
                 </div>
                 <template v-if="multiRewardPool" v-slot:item="{ item }">
                   {{ fNum(weeklyYieldForAPR(item[1]), currency) }}
-                  <span class="text-gray-500 ml-1">
+                  <span class="text-gray-200 ml-1">
                     {{ lmTokens[item[0]].symbol }}
                   </span>
                 </template>

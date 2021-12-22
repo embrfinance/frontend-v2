@@ -5,7 +5,7 @@
     </template>
     <template v-else>
       <BalCard class="col col-span-1" v-if="topPerformer">
-        <div class="text-gray-500 font-medium mb-4">
+        <div class="text-gray-200 font-medium mb-4">
           Best Performer (24h)
         </div>
         <BalAssetSet
@@ -13,7 +13,7 @@
           :size="40"
           :width="150"
         />
-        <div class="font-medium truncate flex items-center mt-2 text-gray-500">
+        <div class="font-medium truncate flex items-center mt-2 text-gray-200">
           {{ topPerformer.name }}
         </div>
         <div class="text-xl font-medium mt-4">
@@ -29,7 +29,7 @@
         </div>
       </BalCard>
       <BalCard class="col col-span-1" v-if="topPerformer">
-        <div class="text-gray-500 font-medium mb-4">
+        <div class="text-gray-200 font-medium mb-4">
           Top Earner (24h)
         </div>
         <BalAssetSet
@@ -37,18 +37,18 @@
           :size="40"
           :width="150"
         />
-        <div class="font-medium truncate flex items-center mt-2 text-gray-500">
+        <div class="font-medium truncate flex items-center mt-2 text-gray-200">
           {{ topEarner.name }}
         </div>
         <div class="text-xl font-medium mt-4">
           <div>{{ fNum(topEarner.myFees, 'usd') }}&nbsp;</div>
         </div>
-        <div class="text-gray-500 text-sm">
+        <div class="text-gray-200 text-sm">
           In swap fees
         </div>
       </BalCard>
       <BalCard class="col col-span-1" v-if="highestVolume">
-        <div class="text-gray-500 font-medium mb-4">
+        <div class="text-gray-200 font-medium mb-4">
           Highest Volume (24h)
         </div>
         <BalAssetSet
@@ -56,16 +56,16 @@
           :size="40"
           :width="150"
         />
-        <div class="font-medium truncate flex items-center mt-2 text-gray-500">
+        <div class="font-medium truncate flex items-center mt-2 text-gray-200">
           {{ highestVolume.name }}
         </div>
         <div class="text-xl font-medium mt-4">
           {{ fNum(highestVolume.swapVolume, 'usd') }}
         </div>
-        <div class="text-gray-500 text-sm"></div>
+        <div class="text-gray-200 text-sm"></div>
       </BalCard>
       <BalCard class="col col-span-1" v-if="worstPerformer">
-        <div class="text-gray-500 font-medium mb-4">
+        <div class="text-gray-200 font-medium mb-4">
           Worst Performer (24h)
         </div>
         <BalAssetSet
@@ -73,7 +73,7 @@
           :size="42"
           :width="150"
         />
-        <div class="font-medium truncate flex items-center mt-2 text-gray-500">
+        <div class="font-medium truncate flex items-center mt-2 text-gray-200">
           {{ worstPerformer.name }}
         </div>
         <div class="text-xl font-medium mt-4">

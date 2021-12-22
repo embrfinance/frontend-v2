@@ -67,8 +67,8 @@ const chartConfig = computed(() => {
       top: 'bottom',
       textStyle: {
         color: darkMode.value
-          ? tailwind.theme.colors.gray['300']
-          : tailwind.theme.colors.gray['850']
+          ? tailwind.theme.colors.gold['300']
+          : tailwind.theme.colors.gold['850']
       }
     },
     series: [

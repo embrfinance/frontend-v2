@@ -12,6 +12,19 @@ body {
   z-index:0;
   color: white;
   background: transparent;
+  text-shadow: 0.5px 0px 0px #000, -0.5px 0px 0px #000, 0px 0.5px 0px #000, 0px -0.5px 0px #000 !important;
+}
+
+.pill-weight {
+  color: #999999 !important;
+}
+
+.lg\:container {
+  background: rgba(0,0,0,0.25);
+  padding-left: 1vw;
+  padding-right: 1vw;
+  padding-bottom: 0.5vh;
+  border-radius: 15px;
 }
 
 .layout-container {
@@ -29,7 +42,7 @@ body {
 }
 
 .bal-checkbox {
-  color: green !important;
+  color: gold !important;
 }
 
 #copr {
@@ -71,6 +84,11 @@ body {
   width: 25px !important;
   height: 25px !important;
   z-index: 222;
+}
+
+canvas {
+  color: white !important;
+
 }
 
 .particles-js-canvas-el {
@@ -351,8 +369,8 @@ bal-popover-activator:before {
 }
 
 .bal-btn:hover {
-  color:gold;
-  box-shadow: 0 1px 0 rgb(255 255 255 / 25%), 0 1px 0 rgb(255 255 255 / 25%) inset, 0 0 0 rgb(0 0 0 / 50%) inset, 0 1.25rem 0>;
+  color:gold !important;
+  /*box-shadow: 0 1px 0 rgb(255 255 255 / 25%), 0 1px 0 rgb(255 255 255 / 25%) inset, 0 0 0 rgb(0 0 0 / 50%) inset;*/
 }
 
 svg {

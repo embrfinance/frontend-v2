@@ -155,7 +155,7 @@ const inputAttrs = computed(() => omit(attrs, 'class'));
 }
 
 .label {
-  @apply text-sm text-gray-500;
+  @apply text-sm text-gray-200;
 }
 
 .error {
@@ -163,6 +163,6 @@ const inputAttrs = computed(() => omit(attrs, 'class'));
 }
 
 .info {
-  @apply text-gray-500 text-xs;
+  @apply text-gray-200 text-xs;
 }
 </style>

@@ -109,7 +109,7 @@ onBeforeMount(() => {
             {{ missingPrices ? '-' : fiatTotalLabel }}
           </div>
         </div>
-        <div class="flex mt-2 text-sm text-gray-500">
+        <div class="flex mt-2 text-sm text-gray-200">
           <span>
             {{ $t('proportionalWithdrawal') }}
           </span>

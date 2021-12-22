@@ -246,7 +246,7 @@ function getJoinExitDetails(amounts: PoolActivity['amounts']) {
               <BalIcon
                 name="arrow-up-right"
                 size="sm"
-                class="text-gray-500 hover:text-white transition-colors"
+                class="text-gray-200 hover:text-white transition-colors"
               />
             </BalLink>
           </div>

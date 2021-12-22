@@ -249,7 +249,7 @@ watchEffect(() => {
         class="flex flex-col pt-1"
       >
         <div
-          class="flex items-center justify-between text-sm text-gray-500 leading-none"
+          class="flex items-center justify-between text-sm text-gray-200 leading-none"
         >
           <div v-if="!isWalletReady" />
           <div v-else class="cursor-pointer" @click="setMax">

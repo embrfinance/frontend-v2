@@ -28,19 +28,19 @@
             <BalAsset :address="asset.address" :size="32" />
             <div
               v-if="asset.percentOfPortfolio >= 0.03"
-              class="rounded-full h-3 w-3 bg-green-500 absolute -top-1 -left-1"
+              class="rounded-full h-3 w-3 bg-gold-500 absolute -top-1 -left-1"
               :style="{ backgroundColor: chartColors[i] }"
             ></div>
           </div>
           <div class="flex-1">
             <div class="text-md font-medium">{{ asset.symbol }}</div>
-            <div class="text-sm text-gray-500 font-medium">
+            <div class="text-sm text-gray-200 font-medium">
               {{ fNum(asset.percentOfPortfolio, 'percent') }}
             </div>
           </div>
           <div class="text-md font-medium text-right">
             {{ fNum(asset.balance, 'token') }}
-            <div class="text-sm text-gray-500 font-medium text-right">
+            <div class="text-sm text-gray-200 font-medium text-right">
               {{ fNum(asset.totalValue, 'usd') }}
             </div>
           </div>

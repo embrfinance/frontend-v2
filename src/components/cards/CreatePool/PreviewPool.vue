@@ -118,7 +118,7 @@ function getSwapFeeManager() {
 <template>
   <BalCard>
     <BalStack vertical spacing="xs">
-      <span class="text-xs text-gray-700 dark:text-gray-500">{{
+      <span class="text-xs text-gray-700 dark:text-gray-200">{{
         userNetworkConfig?.name
       }}</span>
     </BalStack>
@@ -163,7 +163,7 @@ function getSwapFeeManager() {
                     {{ fNum(token.weight / 100, 'percent') }}
                     {{ tokens[token.tokenAddress].symbol }}
                   </span>
-                  <span class="text-sm text-gray-500">
+                  <span class="text-sm text-gray-200">
                     {{ initialWeightLabel }}:
                     {{ getInitialWeight(token.tokenAddress, token.amount) }}
                   </span>
@@ -173,7 +173,7 @@ function getSwapFeeManager() {
                 <span class="font-semibold">
                   {{ fNum(token.amount, 'token') }}
                 </span>
-                <span class="text-sm text-gray-500">
+                <span class="text-sm text-gray-200">
                   {{ fNum(token.amount * priceFor(token.tokenAddress), 'usd') }}
                 </span>
               </BalStack>

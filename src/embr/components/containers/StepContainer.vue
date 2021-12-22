@@ -2,7 +2,7 @@
   <BalCard class="mb-4">
     <div class="step-card-container">
       <div
-        :class="['step-card-step', complete ? 'bg-green-500 border-black' : '']"
+        :class="['step-card-step', complete ? 'bg-gold-500 border-black' : '']"
       >
         <span :class="[complete ? 'text-black' : 'text-gray-400']"
           >{{ stepNumber }}

@@ -40,7 +40,7 @@
       </div>
       <div v-if="pools.length > 3" class="text-center mt-6">
         <a
-          class="text-green-500 font-medium underline"
+          class="text-white font-medium underline"
           @click="toggleShowAll()"
         >
           {{ showAll ? 'Hide' : `Show all (${pools.length})` }}

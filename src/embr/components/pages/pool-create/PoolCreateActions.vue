@@ -5,11 +5,11 @@
     </div>
     <div>
       <div class="card-container">
-        <div class="card-step text-green-500">
+        <div class="card-step text-white">
           <BalIcon
             v-if="poolAddress !== ''"
             name="check"
-            class="text-green-500"
+            class="text-white"
           />
           <span v-else class="text-gray-500 dark:text-gray-400">1</span>
         </div>
@@ -31,8 +31,8 @@
         </div>
       </div>
       <div class="card-container mt-3">
-        <div class="card-step text-green-500">
-          <BalIcon v-if="joined" name="check" class="text-green-500" />
+        <div class="card-step text-white">
+          <BalIcon v-if="joined" name="check" class="text-white" />
           <span v-else class="text-gray-500 dark:text-gray-400">2</span>
         </div>
         <div class="ml-3 flex-1">
@@ -53,8 +53,8 @@
         </div>
       </div>
       <!--      <div class="card-container mt-3">
-        <div class="card-step text-green-500">
-          <BalIcon v-if="verified" name="check" class="text-green-500" />
+        <div class="card-step text-white">
+          <BalIcon v-if="verified" name="check" class="text-white" />
           <span v-else class="text-gray-500 dark:text-gray-400">3</span>
         </div>
         <div class="ml-3 flex-1">

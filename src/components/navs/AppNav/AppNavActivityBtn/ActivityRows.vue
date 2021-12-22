@@ -39,7 +39,7 @@
           <template v-else>
             <CheckIcon
               v-if="isSuccessfulTransaction(transaction)"
-              class="text-green-500"
+              class="text-white"
             />
             <BalTooltip v-else class="cursor-default">
               <template v-slot:activator>

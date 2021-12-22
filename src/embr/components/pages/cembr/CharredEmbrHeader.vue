@@ -3,7 +3,7 @@
 <template>
   <div class="flex justify-center mb-8 ml-4 lg:ml-0">
     <div class="flex flex-col w-full max-w-3xl mt-auto mb-2">
-      <h2 class="text-green-500">
+      <h2 class="text-white">
         Maximize your Yield
       </h2>
       <h2 class="text-lg font-light mb-4">

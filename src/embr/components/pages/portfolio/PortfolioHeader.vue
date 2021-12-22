@@ -1,7 +1,7 @@
 <template>
   <div class="mb-8 md:mb-16 md:flex">
     <div class="flex-1 ml-4 lg:ml-0">
-      <h2 class="text-green-500 mb-2">My Portfolio</h2>
+      <h2 class="text-white mb-2">My Portfolio</h2>
       <BalLoadingBlock v-if="isLoading" class="h-10 w-40" />
       <h2 class="text-5xl font-light" v-else>
         ${{ numeral(data.totalValue).format('0,0.00') }}

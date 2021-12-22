@@ -184,7 +184,7 @@
                 <BalIcon
                   v-if="!requiresGnosisRelayerApproval"
                   name="check"
-                  class="text-green-500"
+                  class="text-white"
                 />
                 <template v-else>1</template>
               </div>
@@ -226,7 +226,7 @@
                 <BalIcon
                   v-if="!requiresLidoRelayerApproval"
                   name="check"
-                  class="text-green-500"
+                  class="text-white"
                 />
                 <template v-else>1</template>
               </div>
@@ -271,7 +271,7 @@
                 <BalIcon
                   v-if="!requiresTokenApproval"
                   name="check"
-                  class="text-green-500"
+                  class="text-white"
                 />
                 <template v-else>{{
                   showGnosisRelayerApprovalStep || showLidoRelayerApprovalStep

@@ -80,6 +80,6 @@ export default defineComponent({
 
 <style scoped>
 .app-nav-other-item {
-  @apply px-4 py-2 text-gray-300 hover:text-green-500 block hover:bg-gray-700;
+  @apply px-4 py-2 text-gray-300 hover:text-white block hover:bg-gray-700;
 }
 </style>

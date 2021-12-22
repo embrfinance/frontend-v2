@@ -27,7 +27,7 @@
         <span
           v-for="token in sortedBalances"
           :key="`wallet-${token.symbol}`"
-          class="mr-6 cursor-pointer hover:text-green-500"
+          class="mr-6 cursor-pointer hover:text-white"
           @click="addToken(token.address)"
         >
           {{ token?.symbol }}

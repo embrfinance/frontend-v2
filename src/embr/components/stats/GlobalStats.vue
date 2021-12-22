@@ -4,7 +4,7 @@
   >
     <div
       v-if="tvl > 0 && embrPrice > 0"
-      class="text-green-500 font-semibold text-right"
+      class="text-white font-semibold text-right"
     >
       TVL: ${{ fNum(tvl, 'usd_lg') }}
     </div>

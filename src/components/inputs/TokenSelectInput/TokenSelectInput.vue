@@ -84,7 +84,7 @@ function tokenFor(option: string): TokenInfo {
         v-if="!fixed"
         name="chevron-down"
         size="sm"
-        class="text-green-500 group-hover:text-pink-500 ml-2"
+        class="text-white group-hover:text-pink-500 ml-2"
       />
     </div>
     <BalDropdown
@@ -107,7 +107,7 @@ function tokenFor(option: string): TokenInfo {
           <BalIcon
             name="chevron-down"
             size="sm"
-            class="text-green-500 group-hover:text-pink-500 ml-2"
+            class="text-white group-hover:text-pink-500 ml-2"
           />
         </div>
       </template>
@@ -125,7 +125,7 @@ function tokenFor(option: string): TokenInfo {
           <BalIcon
             v-if="optionToken.address === modelValue"
             name="check"
-            class="text-green-500 ml-4"
+            class="text-white ml-4"
           />
         </div>
       </template>

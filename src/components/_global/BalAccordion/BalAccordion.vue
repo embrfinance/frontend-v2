@@ -162,7 +162,7 @@ function setHandleBars(el: HTMLElement) {
           ]"
         >
           <h6>{{ section.title }}</h6>
-          <BalIcon class="text-green-500" name="chevron-down" />
+          <BalIcon class="text-white" name="chevron-down" />
         </button>
         <div
           class="relative"

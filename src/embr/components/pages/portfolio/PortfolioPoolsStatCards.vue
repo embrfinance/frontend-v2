@@ -22,7 +22,7 @@
         <div
           :class="[
             ' text-sm',
-            topPerformerIsNegative ? 'text-red-500' : 'text-green-500'
+            topPerformerIsNegative ? 'text-red-500' : 'text-white'
           ]"
         >
           {{ formatPriceChangePercent(topPerformer.priceChangePercent) }}
@@ -84,7 +84,7 @@
         <div
           :class="[
             ' text-sm',
-            worstPerformerIsNegative ? 'text-red-500' : 'text-green-500'
+            worstPerformerIsNegative ? 'text-red-500' : 'text-white'
           ]"
         >
           {{ formatPriceChangePercent(worstPerformer.priceChangePercent) }}

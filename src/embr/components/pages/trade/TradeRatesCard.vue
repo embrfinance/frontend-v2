@@ -47,7 +47,7 @@
         :class="[
           'w-20 flex justify-center',
           spooky[idx] > embr[idx] && spooky[idx] > spirit[idx]
-            ? 'text-green-500'
+            ? 'text-white'
             : ''
         ]"
       >
@@ -60,7 +60,7 @@
         :class="[
           'w-20 flex justify-center',
           spirit[idx] > spooky[idx] && spirit[idx] > embr[idx]
-            ? 'text-green-500'
+            ? 'text-white'
             : ''
         ]"
       >
@@ -73,7 +73,7 @@
         :class="[
           'w-20 flex justify-center',
           embr[idx] > spooky[idx] && embr[idx] > spirit[idx]
-            ? 'text-green-500'
+            ? 'text-white'
             : ''
         ]"
       >

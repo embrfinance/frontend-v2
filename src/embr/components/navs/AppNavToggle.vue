@@ -52,7 +52,7 @@ export default defineComponent({
     const route = useRoute();
     const { appLoading } = useApp();
     const { account, isLoadingProfile } = useWeb3();
-    const activeClasses = 'bg-black text-green-500 dark:bg-gray-800';
+    const activeClasses = 'bg-black text-white dark:bg-gray-800';
     const isTradePage = computed(() => route.name === 'trade');
     const isFarmPage = computed(() => String(route.name).startsWith('farm'));
     const isEmbrPage = computed(() => route.name === 'embr');

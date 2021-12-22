@@ -42,7 +42,7 @@
             <BalIcon
               :name="'chevron-down'"
               :size="'sm'"
-              class="text-green-500"
+              class="text-white"
             />
           </div>
           <div class="w-24 border-l border-r dark:border-gray-850 ml-4 mr-4">

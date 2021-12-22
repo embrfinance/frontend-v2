@@ -49,7 +49,7 @@
         <div class="text-center mt-6" v-if="assets.length > 4">
           <a
             @click="toggleShowAll()"
-            class="text-green-500 font-medium underline"
+            class="text-white font-medium underline"
           >
             {{ showAll ? 'Hide' : `Show all (${assets.length})` }}
           </a>

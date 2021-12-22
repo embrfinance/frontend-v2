@@ -200,7 +200,7 @@ function getJoinExitDetails(amounts: PoolActivity['amounts']) {
                 v-if="action.type === 'Join'"
                 name="plus"
                 size="sm"
-                class="text-green-500 dark:text-green-400"
+                class="text-white dark:text-green-400"
               />
               <BalIcon v-else name="minus" size="sm" class="text-red-500" />
             </div>
@@ -246,7 +246,7 @@ function getJoinExitDetails(amounts: PoolActivity['amounts']) {
               <BalIcon
                 name="arrow-up-right"
                 size="sm"
-                class="text-gray-500 hover:text-green-500 transition-colors"
+                class="text-gray-500 hover:text-white transition-colors"
               />
             </BalLink>
           </div>

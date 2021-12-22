@@ -333,16 +333,16 @@ export default defineComponent({
 
 <style scoped>
 .address {
-  @apply text-green-500;
+  @apply text-white;
   font-variant-ligatures: no-contextual;
 }
 
 .option:hover {
-  @apply text-green-500 border-green-500;
+  @apply text-white border-green-500;
 }
 
 .option.active {
-  @apply text-green-500 border-green-500;
+  @apply text-white border-green-500;
 }
 
 .slippage-input {
@@ -350,6 +350,6 @@ export default defineComponent({
 }
 
 .slippage-input.active {
-  @apply text-green-500 border-green-500;
+  @apply text-white border-green-500;
 }
 </style>

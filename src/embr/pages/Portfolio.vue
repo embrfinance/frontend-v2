@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="px-4 lg:px-0">
-      <h2 class="mb-6 text-green-500">My Investments</h2>
+      <h2 class="mb-6 text-white">My Investments</h2>
     </div>
     <div
       class="grid grid-cols-1 xl:grid-cols-4 gap-y-8 gap-x-0 xl:gap-x-8 mb-12"

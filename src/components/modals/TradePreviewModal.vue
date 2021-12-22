@@ -26,11 +26,11 @@
         </div>
         <div>
           <div v-if="requiresLidoRelayerApproval" class="mb-3 card-container">
-            <div class="card-step text-green-500">
+            <div class="card-step text-white">
               <BalIcon
                 v-if="isLidoRelayerApproved"
                 name="check"
-                class="text-green-500"
+                class="text-white"
               />
               <span v-else class="text-gray-500 dark:text-gray-400">1</span>
             </div>
@@ -42,11 +42,11 @@
             </div>
           </div>
           <div v-if="requiresTokenApproval" class="card-container">
-            <div class="card-step text-green-500">
+            <div class="card-step text-white">
               <BalIcon
                 v-if="isTokenApproved"
                 name="check"
-                class="text-green-500"
+                class="text-white"
               />
               <span v-else class="text-gray-500 dark:text-gray-400">{{
                 requiresLidoRelayerApproval ? 2 : 1

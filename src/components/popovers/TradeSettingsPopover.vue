@@ -207,10 +207,10 @@ export default defineComponent({
 
 <style>
 .trade-settings-option:hover {
-  @apply text-green-500 border-green-500;
+  @apply text-white border-green-500;
 }
 
 .trade-settings-option.active {
-  @apply text-green-500 border-green-500;
+  @apply text-white border-green-500;
 }
 </style>

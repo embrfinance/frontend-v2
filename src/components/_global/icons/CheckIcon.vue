@@ -6,7 +6,7 @@
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <circle cx="9.5" cy="10" r="9.5" fill="currentColor" />
+    <circle cx="9.5" cy="10" r="9.5" fill="green" />
     <path
       d="M5 10.1L7.4 12.5L13.4 6.5"
       stroke="white"

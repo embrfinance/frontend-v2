@@ -92,7 +92,7 @@ function handleSelected(newToken: string): void {
         <BalIcon
           name="chevron-down"
           size="sm"
-          class="text-white group-hover:text-pink-500 ml-2"
+          class="text-white group-hover:text-gold-200 ml-2"
         />
       </div>
     </template>

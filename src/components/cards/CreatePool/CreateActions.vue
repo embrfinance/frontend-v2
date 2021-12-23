@@ -117,7 +117,7 @@ function handleSuccess(details: any): void {
           <BalIcon
             name="arrow-up-right"
             size="sm"
-            class="ml-px group-hover:text-pink-500 transition-colors"
+            class="ml-px group-hover:text-gold-200 transition-colors"
           />
         </BalLink>
       </div>

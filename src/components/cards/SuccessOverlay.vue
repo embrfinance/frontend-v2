@@ -6,7 +6,7 @@
       <h3 v-text="title" />
       <div class="flex flex-col items-center">
         <div
-          class="w-20 h-20 rounded-full flex items-center justify-center bg-green-100 dark:bg-gold-500 text-white dark:text-gray-850 mb-8"
+          class="w-20 h-20 rounded-full flex items-center justify-center bg-green-100 dark:bg-gold-100 text-white dark:text-gray-850 mb-8"
         >
           <BalIcon name="check-circle" size="xl" />
         </div>

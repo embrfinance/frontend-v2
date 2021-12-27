@@ -61,7 +61,7 @@ export default defineComponent({
         backgroundColor: colors.blue['500'],
         borderColor: colors.blue['500'],
         borderWidth: 0,
-        backgroundImage: `linear-gradient(to top right, ${colors.blue['500']}, ${colors.pink['500']})`
+        backgroundImage: `linear-gradient(to top right, ${colors.gold['100']}, ${colors.gold['300']})`
       };
     });
 

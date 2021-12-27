@@ -261,7 +261,7 @@ watchEffect(() => {
               <span v-if="!isMaxed" class="text-white">
                 {{ $t('max') }}
               </span>
-              <span v-else class="text-gray-400 dark:text-gray-600 lowercase">
+              <span v-else class="text-gray-100 dark:text-gray-200 lowercase">
                 {{ $t('maxed') }}
               </span>
             </template>

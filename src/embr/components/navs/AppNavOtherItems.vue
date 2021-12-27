@@ -9,9 +9,6 @@
       </div>
     </template>
     <div class="w-48">
-      <a class="app-nav-other-item" href="https://analytics.embr.finance"
-        >Analytics</a
-      >
       <a class="app-nav-other-item" href="https://docs.embr.finance">
         Docs & Help
       </a>

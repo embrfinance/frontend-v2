@@ -14,7 +14,6 @@
     >
       Pools<!--{{ $t('invest') }}--><!--<span class="hidden lg:inline">&nbsp;/&nbsp;Farm</span></span>-->
     </router-link>
-
     <!-- <router-link
       :to="{ name: 'stake' }"
       :class="['toggle-link px-4', { [activeClasses]: isStakePage }]"
@@ -29,6 +28,9 @@
     >
       Portfolio
     </router-link>
+    <a class="toggle-link px-4" href="https://analytics.embr.finance" target="_blank"
+      >Info</a
+    >
   </div>
 </template>
 

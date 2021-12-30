@@ -102,12 +102,12 @@ export default defineComponent({
     const bgGradientClasses = computed(() => {
       if (props.outline) return 'bg-transparent';
 
-      let fromColor = 'green';
-      let toColor = 'green';
+      let fromColor = 'gold';
+      let toColor = 'orange';
 
       if (props.color === 'gradient-reverse') {
-        fromColor = 'green';
-        toColor = 'green';
+        fromColor = 'gold';
+        toColor = 'orange';
       } else if (props.color === 'gradient-pink-yellow') {
         fromColor = 'pink';
         toColor = 'yellow';

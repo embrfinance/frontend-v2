@@ -38,7 +38,7 @@ const {
       Exchange Rate
     </div>
     <div
-      class="border-gold-200 bg-green-900 border-2 rounded-xl px-3 py-1 text-center justify-center mb-2 flex items-center text-sm"
+      class="border-gold-200 bg-gold-500 border-2 rounded-xl px-3 py-1 text-center justify-center mb-2 flex items-center text-sm"
     >
       1 cEMBR =
       <BalLoadingBlock v-if="cEmbrLoading" class="h-5 w-4 mx-0.5" white />{{

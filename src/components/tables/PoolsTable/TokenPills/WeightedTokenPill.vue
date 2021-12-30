@@ -54,7 +54,7 @@ withDefaults(defineProps<Props>(), {
 .balance-indicator {
   @apply w-3 h-3;
   @apply rounded-full border-2 border-white dark:border-gray-850 group-hover:border-gray-50 dark:group-hover:border-gray-800;
-  @apply bg-green-200 dark:bg-gold-500;
+  @apply bg-gold-200 dark:bg-gold-500;
   @apply absolute top-0 right-0 -mt-1 -mr-1;
 }
 </style>

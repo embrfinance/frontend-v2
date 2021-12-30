@@ -58,7 +58,7 @@
         </div>
         <div class="flex justify-end pt-1 pb-2">
           <BalBtn
-            color="green"
+            color="gold"
             :disabled="poolTokens.length === 8"
             @click="addToken"
           >

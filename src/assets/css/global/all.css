@@ -41,6 +41,14 @@ body {
   height:100vh;*/
 }
 
+.tooltip {
+  width: fit-content;
+}
+
+.feather-info {
+  color: #999;
+}
+
 .bal-checkbox {
   color: gold !important;
 }

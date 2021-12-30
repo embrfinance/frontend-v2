@@ -1,16 +1,18 @@
 <template>
   <div class="lg:container lg:mx-auto pt-10 md:pt-12">
+    <div class="flex mb-3 items-center"><h3>Top Performing and Featured Liquidity Pools</h3></div>
+    <InvestFeaturedPoolsCard
+      :pools="featuredPools"
+      :isLoading="isLoadingPools || embrConfigLoading"
+    />
     <div class="flex mb-3 items-center">
+      Create your own pools to enable trading of your asset:
       <BalBtn
         class="hidden lg:block"
         label="Compose a pool"
         @click="goToPoolCreate"
       />
     </div>
-    <InvestFeaturedPoolsCard
-      :pools="featuredPools"
-      :isLoading="isLoadingPools || embrConfigLoading"
-    />
     <div class="mb-8 flex">
       <BalTabs v-model="activeTab" :tabs="tabs" no-pad class="-mb-px mr-8" />
     </div>

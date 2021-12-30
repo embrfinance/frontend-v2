@@ -11,9 +11,9 @@
     "loggingRpc": "",
     "explorer": "https://snowtrace.io",
     "explorerName": "Snowtrace",
-    "subgraph": "https://api.thegraph.com/subgraphs/name/embrfinance/embr-avalanche-v2",
+    "subgraph": "https://node-us.embr.finance/subgraphs/name/embrfinance/embr-avalanche-v2",
     "farmSubgraph": "https://api.thegraph.com/subgraphs/name/embrfinance/embr-token-v2",
-    "blockSubgraph": "https://api.thegraph.com/subgraphs/name/embrfinance/embr-blocks",
+    "blockSubgraph": "https://node-us.embr.finance/subgraphs/name/embrfinance/avalanche-blocks",
     "poolsUrlV1": "",
     "poolsUrlV2": "",
     "backendUrl": "https://graph.embr.finance/graphql",
@@ -105,3 +105,4 @@
       "0x5e66ca08eb84c1d30fd44acb0fdf10781994c62c000200000000000000000000"
     ]
   }
+  

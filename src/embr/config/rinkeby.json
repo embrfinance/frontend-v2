@@ -48,8 +48,8 @@
     "masterChef": "0xC926255d7BE5e1c432894ce966C30775c15f26C1",
     "embrUsdcReferencePricePool": "0xc5406e40f6f84468451319ec83038b2c063d280600020000000000000000002a",
     "embrToken": "0xf24bcf4d1e507740041c9cfd2dddb29585adce1e",
-    "cembrVestingToken":"0x33276D43aDA054a281d40a11d48310Cdc0156fc2",
-    "cembrToken":"0xC7Dc8F18A14c77F664fBF2EAC6F108c8099Fa35c",
+    "xembrVestingToken":"0x33276D43aDA054a281d40a11d48310Cdc0156fc2",
+    "xembrToken":"0xC7Dc8F18A14c77F664fBF2EAC6F108c8099Fa35c",
     "defaultPoolOwner": "0xCd983793ADb846dcE4830c22F30C7Ef0C864a776",
     "earlyLudwigNft": "0x4Cb35E11e28Ac1AA33a0F5De0B266E9193a48E84",
     "hnd": "0xb8fecb889862c486bcce52222c7efe9b30371ad5",
@@ -85,7 +85,7 @@
     "apiKey": "6BBVB2S3S5I1JJIYZJUVU21WVEB5CEVPYU",
     "apiUrl": "https://api-rinkeby.etherscan.io/api"
   },
-  "tokenListSanityUrl": "https://1g2ag2hb.api.sanity.io/v1/data/query/production?query=%7B%0A%20%20%22name%22%3A%20%22Beethoven%20X%22%2C%0A%20%20%22timestamp%22%3A%20%222021-10-06T18%3A18%3A18.181Z%22%2C%0A%20%20%22version%22%3A%20%7B%0A%20%20%20%20%22major%22%3A%201%2C%0A%20%20%20%20%22minor%22%3A%200%2C%0A%20%20%20%20%22patch%22%3A%202%0A%20%20%7D%2C%0A%20%20%22tags%22%3A%20%7B%7D%2C%0A%20%20%22logoURI%22%3A%20%22https%3A%2F%2Fstorageapi.fleek.co%2Cembrfinance-team-bucket%2Fbethovenx-icon.png%22%2C%0A%20%20%22keywords%22%3A%20%5B%0A%20%20%20%20%22beethoven%22%2C%0A%20%20%20%20%22default%22%2C%0A%20%20%20%20%22fantom%22%0A%20%20%5D%2C%0A%20%20%22tokens%22%3A%20*%5B_type%20%3D%3D%20%22rinkebyToken%22%5D%7B%0A%20%20%20%20%20%20name%2C%0A%20%20%20%20%20%20address%2C%0A%20%20%20%20%20%20symbol%2C%0A%20%20%20%20%20%20decimals%2C%0A%20%20%20%20%20%20%22chainId%22%3A%204%2C%0A%20%20%20%20%20%20logoURI%0A%20%20%20%7D%0A%7D",
+  "tokenListSanityUrl": "https://1g2ag2hb.api.sanity.io/v1/data/query/production?query=%7B%0A%20%20%22name%22%3A%20%22Beethoven%20X%22%2C%0A%20%20%22timestamp%22%3A%20%222021-10-06T18%3A18%3A18.181Z%22%2C%0A%20%20%22version%22%3A%20%7B%0A%20%20%20%20%22major%22%3A%201%2C%0A%20%20%20%20%22minor%22%3A%200%2C%0A%20%20%20%20%22patch%22%3A%202%0A%20%20%7D%2C%0A%20%20%22tags%22%3A%20%7B%7D%2C%0A%20%20%22logoURI%22%3A%20%22https%3A%2F%2Fstorageapi.fleek.co%2Xembrfinance-team-bucket%2Fbethovenx-icon.png%22%2C%0A%20%20%22keywords%22%3A%20%5B%0A%20%20%20%20%22beethoven%22%2C%0A%20%20%20%20%22default%22%2C%0A%20%20%20%20%22fantom%22%0A%20%20%5D%2C%0A%20%20%22tokens%22%3A%20*%5B_type%20%3D%3D%20%22rinkebyToken%22%5D%7B%0A%20%20%20%20%20%20name%2C%0A%20%20%20%20%20%20address%2C%0A%20%20%20%20%20%20symbol%2C%0A%20%20%20%20%20%20decimals%2C%0A%20%20%20%20%20%20%22chainId%22%3A%204%2C%0A%20%20%20%20%20%20logoURI%0A%20%20%20%7D%0A%7D",
   "configSanityUrl": "",
   "supportsEIP1559": false,
   "supportsElementPools": false,
@@ -93,7 +93,7 @@
     "infura": "",
     "alchemy": ""
   },
-  "cEmbr": {
+  "xEmbr": {
     "address": "0x6F2f25E980895B7c05422C61DbB2aA012E61CD3f",
     "poolId": "0x33276d43ada054a281d40a11d48310cdc0156fc2000200000000000000000001",
     "poolAddress": "0x33276d43ada054a281d40a11d48310cdc0156fc2",

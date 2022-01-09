@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import BalCard from '@/components/_global/BalCard/BalCard.vue';
-import CharredEmbrAprTooltip from '@/embr/components/pages/cembr/CharredEmbrAprTooltip.vue';
+import XEmbrAprTooltip from '@/embr/components/pages/xembr/XEmbrAprTooltip.vue';
 import FarmHarvestRewardsCard from '@/embr/components/pages/farm/FarmHarvestRewardsCard.vue';
 import useWeb3 from '@/services/web3/useWeb3';
-import { useCharredEmbr } from '@/embr/composables/stake/useCharredEmbr';
+import { useXEmbr } from '@/embr/composables/stake/useXEmbr';
 import useNumbers from '@/composables/useNumbers';
 import { computed } from 'vue';
 import FarmStatCardsLoading from '@/embr/components/pages/farm/FarmStatCardsLoading.vue';
@@ -12,22 +12,22 @@ const { appNetworkConfig } = useWeb3();
 const { fNum } = useNumbers();
 
 const {
-  cembrDecoratedFarm,
+  xembrDecoratedFarm,
   totalBptStaked,
   totalSupply,
   totalEmbrStaked,
   pool,
-  cEmbrLoading,
+  xEmbrLoading,
   swapApr,
   farmApr,
-  cembrApr,
+  xembrApr,
   totalApr
-} = useCharredEmbr();
+} = useXEmbr();
 </script>
 
 <template>
   <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
-    <template v-if="cEmbrLoading">
+    <template v-if="xEmbrLoading">
       <BalLoadingBlock v-for="n in 4" :key="n" class="h-24" />
     </template>
     <template v-else>
@@ -36,12 +36,12 @@ const {
           TVL
         </div>
         <div class="text-xl font-medium truncate flex items-center">
-          {{ fNum(cembrDecoratedFarm?.tvl || '0', 'usd') }}
+          {{ fNum(xembrDecoratedFarm?.tvl || '0', 'usd') }}
         </div>
       </BalCard>
       <BalCard>
         <div class="text-sm text-gray-200 font-medium mb-2">
-          cEMBR Minted
+          xEMBR Minted
         </div>
         <div class="text-xl font-medium truncate flex items-center">
           {{ fNum(totalSupply?.toString() || '0', 'token_lg') }}
@@ -62,10 +62,10 @@ const {
         </div>
         <div class="text-xl font-medium truncate flex items-center">
           {{ fNum(totalApr || '0', 'percent') }}
-          <CharredEmbrAprTooltip
+          <XEmbrAprTooltip
             :swap-apr="swapApr"
             :farm-apr="farmApr"
-            :cembr-apr="cembrApr"
+            :xembr-apr="xembrApr"
           />
         </div>
       </BalCard>
@@ -73,7 +73,7 @@ const {
     <!--    </template>-->
   </div>
   <h4 class="px-4 lg:px-0 mb-4">Fresh Embr Farm</h4>
-  <FarmStatCardsLoading v-if="cEmbrLoading" />
+  <FarmStatCardsLoading v-if="xEmbrLoading" />
   <div v-else class="grid grid-cols-1 sm:grid-cols-1 xl:grid-cols-2 gap-4">
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-4">
       <BalCard>
@@ -81,7 +81,7 @@ const {
           Farm TVL
         </div>
         <div class="text-xl font-medium truncate flex items-center">
-          {{ fNum(cembrDecoratedFarm?.tvl || '0', 'usd') }}
+          {{ fNum(xembrDecoratedFarm?.tvl || '0', 'usd') }}
         </div>
       </BalCard>
       <BalCard>
@@ -89,7 +89,7 @@ const {
           Embr
         </div>
         <div class="text-xl font-medium truncate flex items-center">
-          {{ fNum(cembrDecoratedFarm?.rewards || '0', 'token_lg') }} / day
+          {{ fNum(xembrDecoratedFarm?.rewards || '0', 'token_lg') }} / day
         </div>
       </BalCard>
       <BalCard>
@@ -97,7 +97,7 @@ const {
           My balance
         </div>
         <div class="text-xl font-medium truncate flex items-center">
-          {{ fNum(cembrDecoratedFarm?.stake || '0', 'usd') }}
+          {{ fNum(xembrDecoratedFarm?.stake || '0', 'usd') }}
         </div>
       </BalCard>
       <BalCard>
@@ -105,15 +105,15 @@ const {
           My share
         </div>
         <div class="text-xl font-medium truncate flex items-center">
-          {{ fNum(cembrDecoratedFarm?.share || '0', 'percent') }}
+          {{ fNum(xembrDecoratedFarm?.share || '0', 'percent') }}
         </div>
       </BalCard>
     </div>
     <FarmHarvestRewardsCard
-      :farm-id="appNetworkConfig.cEmbr.farmId"
-      :token-address="appNetworkConfig.cEmbr.poolAddress"
-      :pending-embr="cembrDecoratedFarm?.pendingEmbr || 0"
-      :pending-embr-value="cembrDecoratedFarm?.pendingEmbrValue || 0"
+      :farm-id="appNetworkConfig.xEmbr.farmId"
+      :token-address="appNetworkConfig.xEmbr.poolAddress"
+      :pending-embr="xembrDecoratedFarm?.pendingEmbr || 0"
+      :pending-embr-value="xembrDecoratedFarm?.pendingEmbrValue || 0"
       :pending-reward-token-value="0"
       :pending-reward-token="0"
     />

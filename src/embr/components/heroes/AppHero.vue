@@ -56,7 +56,7 @@ import useFathom from '@/composables/useFathom';
 import useWeb3 from '@/services/web3/useWeb3';
 import useDarkMode from '@/composables/useDarkMode';
 import { sumBy } from 'lodash';
-import { useCharredEmbr } from '@/embr/composables/stake/useCharredEmbr';
+import { useXEmbr } from '@/embr/composables/stake/useXEmbr';
 
 export default defineComponent({
   name: 'AppHero',

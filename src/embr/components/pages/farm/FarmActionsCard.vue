@@ -32,8 +32,8 @@ const farmInvestmentSuccess = ref(false);
 const farmWithdrawalSuccess = ref(false);
 const txHash = ref('');
 
-const isOldCembrFarm = computed(
-  () => props.farmId === appNetworkConfig.cEmbr.farmId
+const isOldXembrFarm = computed(
+  () => props.farmId === appNetworkConfig.xEmbr.farmId
 );
 
 function handleFarmInvestment(txReceipt): void {
@@ -65,7 +65,7 @@ const activeTab = ref(tabs[0].value);
 <template>
   <div class="mt-4 relative">
     <BalAlert
-      v-if="!loading && props.hasUnstakedBpt && !isOldCembrFarm"
+      v-if="!loading && props.hasUnstakedBpt && !isOldXembrFarm"
       title="You have unstaked EPT in your wallet"
       description="If you deposit your EPT into the farm, you will earn additional rewards paid out in Embr."
       type="warning"
@@ -73,15 +73,15 @@ const activeTab = ref(tabs[0].value);
       class="mb-3"
     />
     <BalAlert
-      v-if="!loading && isOldCembrFarm"
-      title="Incentives for the Fidelio Duetto have moved to cEMBR"
-      description="To receive Embr rewards for this pool, you need to stake your EPT for cEMBR. Click on the 'Stake' tab to get started."
+      v-if="!loading && isOldXembrFarm"
+      title="Incentives for the Fidelio Duetto have moved to xEMBR"
+      description="To receive Embr rewards for this pool, you need to stake your EPT for xEMBR. Click on the 'Stake' tab to get started."
       type="warning"
       size="sm"
       class="mb-3"
     />
     <BalLoadingBlock v-if="loading || dynamicDataLoading" class="h-96" />
-    <BalCard v-else-if="!isOldCembrFarm">
+    <BalCard v-else-if="!isOldXembrFarm">
       <div class="text-gray-200 text-sm">
         Stake your EPTs to earn Embr
       </div>

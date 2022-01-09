@@ -78,7 +78,7 @@ export interface Config {
   blockSubgraph: string;
   farmSubgraph: string;
   tokenListSanityUrl: string;
-  cEmbr: {
+  xEmbr: {
     address: string;
     poolId: string;
     poolAddress: string;

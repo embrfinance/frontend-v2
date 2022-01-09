@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import BalCard from '@/components/_global/BalCard/BalCard.vue';
-import { useCharredEmbr } from '@/embr/composables/stake/useCharredEmbr';
+import { useXEmbr } from '@/embr/composables/stake/useXEmbr';
 import useNumbers from '@/composables/useNumbers';
 import BalLoadingBlock from '@/components/_global/BalLoadingBlock/BalLoadingBlock.vue';
 import numeral from 'numeral';
 
 type Props = {
   loading: boolean;
-  cEmbrBalance: string;
+  xEmbrBalance: string;
   bptBalance: string;
   embrBalance: string;
 };
@@ -20,12 +20,12 @@ const {
   userStakedFtmBalance,
   userStakedEmbrBalance,
   userStakedBptBalance,
-  userCembrBalance,
+  userXembrBalance,
   currentExchangeRate,
   embrPerShare,
-  embrPerShare,
-  cEmbrLoading
-} = useCharredEmbr();
+  avaxPerShare,
+  xEmbrLoading
+} = useXEmbr();
 
 /**
  * STATE
@@ -40,9 +40,9 @@ const {
     <div
       class="border-gold-200 bg-gold-500 border-2 rounded-xl px-3 py-1 text-center justify-center mb-2 flex items-center text-sm"
     >
-      1 cEMBR =
-      <BalLoadingBlock v-if="cEmbrLoading" class="h-5 w-4 mx-0.5" white />{{
-        !cEmbrLoading ? fNum(currentExchangeRate, 'token') : ''
+      1 xEMBR =
+      <BalLoadingBlock v-if="xEmbrLoading" class="h-5 w-4 mx-0.5" white />{{
+        !xEmbrLoading ? fNum(currentExchangeRate, 'token') : ''
       }}
       BPT
     </div>
@@ -50,12 +50,12 @@ const {
       class="border-red-500 bg-red-900 border-2 rounded-xl px-3 py-1 text-center justify-center flex items-center text-sm"
     >
       1 BPT =
-      <BalLoadingBlock v-if="cEmbrLoading" class="h-5 w-4 mx-0.5" white />{{
-        !cEmbrLoading ? numeral(embrPerShare).format('0.[00]') : ''
+      <BalLoadingBlock v-if="xEmbrLoading" class="h-5 w-4 mx-0.5" white />{{
+        !xEmbrLoading ? numeral(embrPerShare).format('0.[00]') : ''
       }}
       Embr /
-      <BalLoadingBlock v-if="cEmbrLoading" class="h-5 w-4 mx-0.5" white />{{
-        !cEmbrLoading ? numeral(embrPerShare).format('0.[00]') : ''
+      <BalLoadingBlock v-if="xEmbrLoading" class="h-5 w-4 mx-0.5" white />{{
+        !xEmbrLoading ? numeral(avaxPerShare).format('0.[00]') : ''
       }}
       FTM
     </div>
@@ -66,13 +66,13 @@ const {
         My Stake
       </div>
       <div class="flex items-center space-x-4">
-        <img src="~@/embr/assets/images/cEMBR.png" width="52" />
+        <img src="~@/embr/assets/images/xEMBR.png" width="52" />
         <div class="flex flex-col justify-center">
           <BalLoadingBlock v-if="props.loading" class="h-6 w-24 mb-1" white />
           <p v-else class="text-sm font-bold md:text-lg">
-            {{ fNum(userCembrBalance.toString(), 'token') }}
+            {{ fNum(userXembrBalance.toString(), 'token') }}
           </p>
-          <p class="text-sm md:text-base text-primary">cEMBR</p>
+          <p class="text-sm md:text-base text-primary">xEMBR</p>
         </div>
       </div>
     </div>

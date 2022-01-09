@@ -63,7 +63,7 @@
             :loading="depositing || loading"
             block
           >
-            Mint cEMBR
+            Mint xEMBR
           </BalBtn>
         </template>
       </template>
@@ -93,7 +93,7 @@ import { scale, scaleDown, sleep } from '@/lib/utils';
 import useWeb3 from '@/services/web3/useWeb3';
 import useEthers from '@/composables/useEthers';
 import BigNumber from 'bignumber.js';
-import { useCharredEmbr } from '@/embr/composables/stake/useCharredEmbr';
+import { useXEmbr } from '@/embr/composables/stake/useXEmbr';
 import useAllowanceAvailableQuery from '@/embr/composables/farms/useAllowanceAvailableQuery';
 import { governanceContractsService } from '@/embr/services/governance/governance-contracts.service';
 import useTokens from '@/composables/useTokens';
@@ -108,7 +108,7 @@ type DataProps = {
 };
 
 export default defineComponent({
-  name: 'CharredEmbrDepositForm',
+  name: 'XEmbrDepositForm',
 
   components: {},
 
@@ -142,11 +142,11 @@ export default defineComponent({
       userBptTokenBalance,
       approve,
       stake,
-      CharredEmbrQuery,
+      XEmbrQuery,
       userAllowance,
       refetch
-    } = useCharredEmbr();
-    const { farmUserRefetch } = useFarmUser(appNetworkConfig.cEmbr.farmId);
+    } = useXEmbr();
+    const { farmUserRefetch } = useFarmUser(appNetworkConfig.xEmbr.farmId);
     const { refetchAllowances } = useTokens();
 
     const { amount } = toRefs(data);
@@ -221,7 +221,7 @@ export default defineComponent({
 
         txListener(tx, {
           onTxConfirmed: async () => {
-            await CharredEmbrQuery.refetch.value();
+            await XEmbrQuery.refetch.value();
             emit('success', tx);
             data.amount = '';
             depositing.value = false;

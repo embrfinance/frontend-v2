@@ -7,23 +7,22 @@
         Maximize your Yield
       </h2>
       <h2 class="text-lg font-light mb-4">
-        Stake your Fidelio Duetto BPTs for cEMBR
+        Stake your EMBR and earn xEMBR to vote in Governance
       </h2>
       <p>
-        30% of Embr protocol revenue is used to reward cEMBR holders. When you
-        stake your Fidelio Duetto BPTs, you receive cEMBR in return. cEMBR
-        holders earn triple yield:
+        90% of collected Embr protocol fees for 10 tokens are rewarded to xEMBR holders. When you
+        stake your EMBR, you receive xEMBR in return which can also be used in governance.
       </p>
       <ol class="list-decimal list-inside ml-2 mt-2">
-        <li>Swap fees earned as a Liquidity Provider (LP)</li>
-        <li>Farm incentives</li>
-        <li>30% of Protocol Revenue</li>
+        <li>90% of Protocol Revenue</li>
+        <li>Earn rewards from 10 different tokens</li>
+        <li>Vote on which tokens are rewarded</li>
       </ol>
       <!--        <BalLoadingBlock v-if="false" class="h-10 w-40" />-->
     </div>
     <div class="hidden pl-8 ml-6 md:block">
       <img
-        src="~@/embr/assets/images/BEETX-fBEET-3D2x.png"
+        src="~@/embr/assets/images/embrE.png"
         style="width: 256px; max-width: 256px;"
       />
     </div>

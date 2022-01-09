@@ -2,17 +2,17 @@
 import { computed, onMounted, ref } from 'vue';
 import useWeb3 from '@/services/web3/useWeb3';
 import { fNum } from '@/composables/useNumbers';
-import { useCharredEmbr } from '@/embr/composables/stake/useCharredEmbr';
+import { useXEmbr } from '@/embr/composables/stake/useXEmbr';
 import { scaleDown } from '@/lib/utils';
 import { BigNumber } from 'bignumber.js';
-import CharredEmbrBalances from '@/embr/components/pages/cembr/CharredEmbrBalances.vue';
-import CharredEmbrHeader from '@/embr/components/pages/cembr/CharredEmbrHeader.vue';
-import CharredEmbrOldFarmAlert from '@/embr/components/pages/cembr/CharredEmbrOldFarmAlert.vue';
-import CharredEmbrStatCards from '@/embr/components/pages/cembr/CharredEmbrStatCards.vue';
+//import XEmbrBalances from '@/embr/components/pages/xembr/XEmbrBalances.vue';
+import XEmbrHeader from '@/embr/components/pages/xembr/XEmbrHeader.vue';
+//import XEmbrOldFarmAlert from '@/embr/components/pages/xembr/XEmbrOldFarmAlert.vue';
+//import XEmbrStatCards from '@/embr/components/pages/xembr/XEmbrStatCards.vue';
 import BalTabs from '@/components/_global/BalTabs/BalTabs.vue';
 import useFarmUserQuery from '@/embr/composables/farms/useFarmUserQuery';
-import CharredEmbrDepositSteps from '@/embr/components/pages/cembr/CharredEmbrDepositSteps.vue';
-import CharredEmbrWithdrawSteps from '@/embr/components/pages/cembr/CharredEmbrWithdrawSteps.vue';
+//import XEmbrDepositSteps from '@/embr/components/pages/xembr/XEmbrDepositSteps.vue';
+//import XEmbrWithdrawSteps from '@/embr/components/pages/xembr/XEmbrWithdrawSteps.vue';
 import useTokens from '@/composables/useTokens';
 import { getAddress } from '@ethersproject/address';
 import useFarmUser from '@/embr/composables/farms/useFarmUser';
@@ -20,12 +20,13 @@ import usePoolWithFarm from '@/embr/composables/pool/usePoolWithFarm';
 import BalAlert from '@/components/_global/BalAlert/BalAlert.vue';
 
 const { appNetworkConfig, isLoadingProfile } = useWeb3();
-const {
-  cEmbrLoading,
-  userCembrBalance,
+/*const {
+  xEmbrLoading,
+  userXembrBalance,
   userBptTokenBalance,
-  userUnstakedCembrBalance
-} = useCharredEmbr();
+  userUnstakedXembrBalance
+} = useXEmbr();
+*/
 const {
   balanceFor,
   injectTokens,
@@ -33,49 +34,57 @@ const {
   loading: tokensLoading
 } = useTokens();
 
-const { farmUser, farmUserLoading } = useFarmUser(
-  appNetworkConfig.cEmbr.farmId
+/*const { farmUser, farmUserLoading } = useFarmUser(
+  appNetworkConfig.xEmbr.farmId
 );
-const { pool, loadingPool } = usePoolWithFarm(appNetworkConfig.cEmbr.poolId);
-const cembrDeposited = computed(() => {
+*/
+const { pool, loadingPool } = usePoolWithFarm(appNetworkConfig.xEmbr.poolId);
+/*
+const xembrDeposited = computed(() => {
   const amount = farmUser.value?.amount;
 
   return amount ? scaleDown(new BigNumber(amount), 18) : new BigNumber(0);
-});
+});*/
+
 
 const bptBalance = computed(() => {
   return fNum(
     scaleDown(
-      new BigNumber(userBptTokenBalance.value.toString()),
+      new BigNumber(0),
       18
     ).toString(),
     'token'
   );
 });
 
-const hasUnstakedCembr = computed(() => userUnstakedCembrBalance.value.gt(0));
-const hasBpt = computed(() => userBptTokenBalance.value.gt(0));
+const userBptTokenBalance = computed(()=> fNum(0) )
+const userUnstakedXembrBalance = computed(()=> fNum(0) )
+
+const hasUnstakedXembr = computed(() => {
+  return parseFloat((fNum(balanceFor(getAddress(appNetworkConfig.addresses.embr)), 'token') )) > 0
+})
+const hasBpt = computed(() => true)
 
 const embrBalance = computed(() =>
   fNum(balanceFor(getAddress(appNetworkConfig.addresses.embr)), 'token')
 );
 
-const oldFarmUserQuery = useFarmUserQuery(appNetworkConfig.cEmbr.oldFarmId);
+const oldFarmUserQuery = useFarmUserQuery(appNetworkConfig.xEmbr.oldFarmId);
 const oldFarmUser = computed(() => {
   return oldFarmUserQuery.data.value;
 });
 
 onMounted(() => {
   injectTokens([
-    appNetworkConfig.cEmbr.poolAddress,
-    appNetworkConfig.cEmbr.address
+    appNetworkConfig.xEmbr.poolAddress,
+    appNetworkConfig.xEmbr.address
   ]);
 });
 
 const dataLoading = computed(
   () =>
-    cEmbrLoading.value ||
-    farmUserLoading.value ||
+    //xEmbrLoading.value ||
+    //farmUserLoading.value ||
     tokensLoading.value ||
     dynamicDataLoading.value
 );
@@ -90,23 +99,22 @@ const activeTab = ref(tabs[0].value);
 
 <template>
   <div class="lg:container lg:mx-auto pt-12 md:pt-12">
-    <CharredEmbrHeader />
-    <CharredEmbrOldFarmAlert v-if="oldFarmUser && oldFarmUser.amount > 0" />
+    <XEmbrHeader />
 
     <div class="flex justify-center">
       <div class="w-full max-w-3xl">
         <BalAlert
-          v-if="userBptTokenBalance.gt(0)"
+          v-if="userBptTokenBalance > 0"
           title="You have unstaked EBT in your wallet"
-          description="If you stake your EPT, you will receive cEMBR and be eligible to earn a portion of Embr Protocol Revenue."
+          description="If you stake your EPT, you will receive xEMBR and be eligible to earn a portion of Embr Protocol Revenue."
           type="warning"
           size="md"
           class="mb-4"
         />
         <BalAlert
-          v-if="userBptTokenBalance.eq(0) && userUnstakedCembrBalance.gt(0)"
-          title="You have unstaked cEMBR in your wallet"
-          description="If you deposit your cEMBR into the farm, you will earn additional rewards paid out in Embr."
+          v-if="userBptTokenBalance == 0 && userUnstakedXembrBalance > 0"
+          title="You have unstaked xEMBR in your wallet"
+          description="If you deposit your xEMBR into the farm, you will earn additional rewards paid out in Embr."
           type="warning"
           size="md"
           class="mb-4"
@@ -119,31 +127,31 @@ const activeTab = ref(tabs[0].value);
 
     <div class="lg:flex justify-center mb-8">
       <div class="w-full lg:max-w-3xl">
-        <div class="mb-6">
-          <CharredEmbrStatCards />
-        </div>
+        <!-- <div class="mb-6">
+          <XEmbrStatCards /> 
+        </div>-->
         <div class="mb-4">
           <BalTabs v-model="activeTab" :tabs="tabs" no-pad class="-mb-px" />
         </div>
-        <CharredEmbrDepositSteps
+        <XEmbrDepositSteps
           v-if="activeTab === 'deposit'"
           :hasBpt="hasBpt"
-          :hasUnstakedCembr="hasUnstakedCembr"
-          :hasStakedCembr="cembrDeposited.gt(0)"
+          :hasUnstakedXembr="hasUnstakedXembr"
+          :hasStakedXembr="xembrDeposited > 0"
           :loading="dataLoading"
         />
-        <CharredEmbrWithdrawSteps
+        <XEmbrWithdrawSteps
           v-if="activeTab === 'withdraw'"
           :hasBpt="hasBpt"
-          :hasUnstakedCembr="hasUnstakedCembr"
-          :hasStakedCembr="cembrDeposited.gt(0)"
+          :hasUnstakedXembr="hasUnstakedXembr"
+          :hasStakedXembr="xembrDeposited > 0"
           :loading="dataLoading"
         />
       </div>
       <div class="w-full lg:max-w-xl mx-auto md:mx-0 lg:ml-6 md:block lg:w-72">
-        <CharredEmbrBalances
+        <XEmbrBalances
           :loading="dataLoading"
-          :f-embr-balance="userCembrBalance"
+          :f-embr-balance="userXembrBalance"
           :bpt-balance="bptBalance"
           :embr-balance="embrBalance"
         />

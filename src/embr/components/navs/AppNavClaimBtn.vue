@@ -85,7 +85,7 @@ import useEthers from '@/composables/useEthers';
 import useWeb3 from '@/services/web3/useWeb3';
 import useBreakpoints from '@/composables/useBreakpoints';
 import { Alert } from '@/composables/useAlerts';
-//import { useCharredEmbr } from '@/embr/composables/stake/useCharredEmbr';
+//import { useXEmbr } from '@/embr/composables/stake/useXEmbr';
 
 export default defineComponent({
   name: 'AppNavClaimBtn',
@@ -107,13 +107,13 @@ export default defineComponent({
     } = usePools();
     const harvesting = ref(false);
     const { upToLargeBreakpoint } = useBreakpoints();
-    //const { cembrDecoratedFarm } = useCharredEmbr();
+    //const { xembrDecoratedFarm } = useXEmbr();
 
     const data = computed(() => {
       const farms = onlyPoolsWithFarms.value.map(pool => pool.farm);
 
-      //if (cembrDecoratedFarm.value) {
-      //  farms.push(cembrDecoratedFarm.value);
+      //if (xembrDecoratedFarm.value) {
+      //  farms.push(xembrDecoratedFarm.value);
       // }
 
       const pendingEmbrValue = sumBy(farms, farm => farm.pendingEmbrValue);

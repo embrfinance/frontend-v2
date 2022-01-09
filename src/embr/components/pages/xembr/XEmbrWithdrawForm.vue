@@ -57,7 +57,7 @@
           block
           @click="trackGoal(Goals.ClickFarmWithdraw)"
         >
-          Burn cEMBR
+          Burn xEMBR
         </BalBtn>
       </template>
     </div>
@@ -89,7 +89,7 @@ import useWeb3 from '@/services/web3/useWeb3';
 import useTokens from '@/composables/useTokens';
 import { BigNumber } from 'bignumber.js';
 import useEthers from '@/composables/useEthers';
-import { useCharredEmbr } from '@/embr/composables/stake/useCharredEmbr';
+import { useXEmbr } from '@/embr/composables/stake/useXEmbr';
 import BalLoadingBlock from '@/components/_global/BalLoadingBlock/BalLoadingBlock.vue';
 import useFarmUser from '@/embr/composables/farms/useFarmUser';
 
@@ -101,7 +101,7 @@ type DataProps = {
   propToken: number;
 };
 export default defineComponent({
-  name: 'CharredEmbrWithdrawForm',
+  name: 'XEmbrWithdrawForm',
   components: {},
   emits: ['success'],
 
@@ -122,10 +122,10 @@ export default defineComponent({
     });
 
     const {
-      userUnstakedCembrBalance,
+      userUnstakedXembrBalance,
       unStake,
-      CharredEmbrQuery
-    } = useCharredEmbr();
+      XEmbrQuery
+    } = useXEmbr();
 
     const { txListener } = useEthers();
     const {
@@ -140,10 +140,10 @@ export default defineComponent({
     const { trackGoal, Goals } = useFathom();
     const { amount } = toRefs(data);
     const { refetchBalances } = useTokens();
-    const { farmUserRefetch } = useFarmUser(appNetworkConfig.cEmbr.farmId);
+    const { farmUserRefetch } = useFarmUser(appNetworkConfig.xEmbr.farmId);
 
     const bptDeposited = computed(() => {
-      return userUnstakedCembrBalance.value.toString();
+      return userUnstakedXembrBalance.value.toString();
     });
 
     function amountRules() {
@@ -172,7 +172,7 @@ export default defineComponent({
           onTxConfirmed: async () => {
             emit('success', tx);
             amount.value = '';
-            await CharredEmbrQuery.refetch.value();
+            await XEmbrQuery.refetch.value();
             withdrawing.value = false;
           },
           onTxFailed: () => {

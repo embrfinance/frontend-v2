@@ -1,7 +1,7 @@
 import useWeb3 from '@/services/web3/useWeb3';
 import { governanceContractsService } from '@/embr/services/governance/governance-contracts.service';
 import { erc20ContractService } from '@/embr/services/erc20/erc20-contracts.service';
-import useCharredEmbrQuery from '@/embr/composables/stake/useCharredEmbrQuery';
+import useXEmbrQuery from '@/embr/composables/stake/useXEmbrQuery';
 import { computed } from 'vue';
 import useTransactions from '@/composables/useTransactions';
 import useFarmUser from '@/embr/composables/farms/useFarmUser';
@@ -13,49 +13,43 @@ function bn(num: number) {
   return new BigNumber(num);
 }
 
-export function useCharredEmbr() {
+export function useXEmbr() {
   const { getProvider, appNetworkConfig } = useWeb3();
-  const CharredEmbrQuery = useCharredEmbrQuery();
+  const XEmbrQuery = useXEmbrQuery();
   const { addTransaction } = useTransactions();
-  const { farmUser, farmUserLoading } = useFarmUser(
-    appNetworkConfig.cEmbr.farmId
+ /* const { farmUser, farmUserLoading } = useFarmUser(
+    appNetworkConfig.xEmbr.farmId
   );
-  const {
-    poolsWithFarms,
-    farms,
-    allFarmsForUser,
-    isLoadingPools,
-    isLoadingFarms
-  } = usePools();
-  const { isLoading, data, refetch } = CharredEmbrQuery;
+  */
 
-  const cEmbrLoading = computed(() => {
+  const { isLoading, data, refetch } = XEmbrQuery;
+
+  const xEmbrLoading = computed(() => {
     return (
-      isLoading.value ||
-      isLoadingPools.value ||
-      isLoadingFarms.value ||
-      farmUserLoading.value
+      isLoading.value 
     );
   });
 
-  const userCembrFarm = computed(() =>
-    allFarmsForUser.value?.find(
-      userFarm => userFarm.pool.id === appNetworkConfig.cEmbr.farmId
-    )
-  );
+  const userXembrFarm = computed(() =>{
+   /* allFarmsForUser.value?.find(
+      userFarm => userFarm.pool.id === appNetworkConfig.xEmbr.farmId
+    )*/
+    return 0
+   });
+  
   const totalSupply = computed(
-    () => data.value?.totalCembrSupply.div(1e18) ?? bn(0)
+    () => data.value?.totalXembrSupply.div(1e18) ?? bn(0)
   );
   const totalBptStaked = computed(() => {
     return data.value?.totalBptStaked.div(1e18) ?? bn(0);
   });
-  const userUnstakedCembrBalance = computed(() => {
+  const userUnstakedXembrBalance = computed(() => {
     return data.value?.userBalance?.div(1e18) ?? bn(0);
   });
-  const userCembrBalance = computed(() => {
-    const userCembrInFarm = bn(userCembrFarm.value?.amount || 0).div(1e18);
+  const userXembrBalance = computed(() => {
+    const userXembrInFarm = bn(userXembrFarm.value || 0).div(1e18);
 
-    return userUnstakedCembrBalance.value.plus(userCembrInFarm);
+    return userUnstakedXembrBalance.value.plus(userXembrInFarm);
   });
   const userBptTokenBalance = computed(
     () => data.value?.userBptTokenBalance?.div(1e18) ?? bn(0)
@@ -69,15 +63,16 @@ export function useCharredEmbr() {
       : totalBptStaked.value.div(totalSupply.value);
   });
 
-  const pool = computed(() => {
+  /*const pool = computed(() => {
     return poolsWithFarms.value?.find(
       pool =>
         pool.address.toLowerCase() ===
-        appNetworkConfig.cEmbr.poolAddress.toLowerCase()
+        appNetworkConfig.xEmbr.poolAddress.toLowerCase()
     );
   });
+  */
 
-  const embr = computed(() =>
+  /*const embr = computed(() =>
     pool.value?.tokens.find(
       token =>
         token.address.toLowerCase() ===
@@ -85,19 +80,20 @@ export function useCharredEmbr() {
     )
   );
 
-  const embr = computed(() =>
+  const wavax = computed(() =>
     pool.value?.tokens.find(
       token =>
         token.address.toLowerCase() ===
         appNetworkConfig.addresses.weth.toLowerCase()
     )
   );
+  */
 
   const userStakedBptBalance = computed(() =>
-    userCembrBalance.value.times(currentExchangeRate.value)
+    userXembrBalance.value.times(currentExchangeRate.value)
   );
 
-  const userBptShare = computed(() => {
+  /*const userBptShare = computed(() => {
     if (!pool.value) {
       return bn(0);
     }
@@ -111,9 +107,9 @@ export function useCharredEmbr() {
       : '0';
   });
 
-  const embrPerShare = computed(() => {
-    return embr.value && pool.value
-      ? `${parseFloat(embr.value.balance) / parseFloat(pool.value.totalShares)}`
+  const wavaxPerShare = computed(() => {
+    return wavax.value && pool.value
+      ? `${parseFloat(wavax.value.balance) / parseFloat(pool.value.totalShares)}`
       : '0';
   });
 
@@ -142,18 +138,19 @@ export function useCharredEmbr() {
   });
 
   const farm = computed(() => {
-    return farms.value.find(farm => farm.id === appNetworkConfig.cEmbr.farmId);
+    return farms.value.find(farm => farm.id === appNetworkConfig.xEmbr.farmId);
   });
 
-  const cembrDecoratedFarm = computed(
+  const xembrDecoratedFarm = computed(
     (): DecoratedFarm | undefined => pool.value?.farm
   );
+  */
 
   async function approve(amount?: string) {
     const tx = await erc20ContractService.erc20.approveToken(
       getProvider(),
-      governanceContractsService.cembr.cembrAddress,
-      governanceContractsService.cembr.bptTokenAddress,
+      governanceContractsService.xembr.xembrAddress,
+      governanceContractsService.xembr.bptTokenAddress,
       amount
     );
 
@@ -163,27 +160,29 @@ export function useCharredEmbr() {
       action: 'approve',
       summary: `Approve LP token`,
       details: {
-        contractAddress: governanceContractsService.cembr.bptTokenAddress,
-        spender: governanceContractsService.cembr.cembrAddress
+        contractAddress: governanceContractsService.xembr.bptTokenAddress,
+        spender: governanceContractsService.xembr.xembrAddress
       }
     });
 
     return tx;
   }
 
-  const swapApr = computed(() =>
+  /*const swapApr = computed(() =>
     pool.value ? parseFloat(pool.value.dynamic.apr.pool) : 0
   );
   const farmApr = computed(() =>
-    cembrDecoratedFarm.value ? cembrDecoratedFarm.value.apr : 0
+    xembrDecoratedFarm.value ? xembrDecoratedFarm.value.apr : 0
   );
-  const cembrApr = computed(() => 0);
-  const totalApr = computed(
-    () => swapApr.value + farmApr.value + cembrApr.value
-  );
+  */
+  const xembrApr = computed(() => 0);
+  /*const totalApr = computed(
+    () => swapApr.value + farmApr.value + xembrApr.value
+  );*/
+
 
   async function stake(amount: string) {
-    const tx = await governanceContractsService.cembr.enter(
+    const tx = await governanceContractsService.xembr.enter(
       getProvider(),
       amount
     );
@@ -192,10 +191,10 @@ export function useCharredEmbr() {
       id: tx.hash,
       type: 'tx',
       action: 'deposit',
-      summary: 'Stake LP tokens for cEMBR',
+      summary: 'Stake LP tokens for xEMBR',
       details: {
-        contractAddress: governanceContractsService.cembr.bptTokenAddress,
-        spender: governanceContractsService.cembr.cembrAddress
+        contractAddress: governanceContractsService.xembr.bptTokenAddress,
+        spender: governanceContractsService.xembr.xembrAddress
       }
     });
 
@@ -203,7 +202,7 @@ export function useCharredEmbr() {
   }
 
   async function unStake(amount: string) {
-    const tx = await governanceContractsService.cembr.leave(
+    const tx = await governanceContractsService.xembr.leave(
       getProvider(),
       amount
     );
@@ -212,10 +211,10 @@ export function useCharredEmbr() {
       id: tx.hash,
       type: 'tx',
       action: 'claim',
-      summary: 'Burn cEMBR and withdraw LP tokens',
+      summary: 'Burn xEMBR and withdraw LP tokens',
       details: {
-        contractAddress: governanceContractsService.cembr.bptTokenAddress,
-        spender: governanceContractsService.cembr.cembrAddress
+        contractAddress: governanceContractsService.xembr.bptTokenAddress,
+        spender: governanceContractsService.xembr.xembrAddress
       }
     });
 
@@ -223,29 +222,29 @@ export function useCharredEmbr() {
   }
 
   return {
-    cEmbrLoading,
+    xEmbrLoading,
     totalSupply,
-    userCembrBalance,
+    userXembrBalance,
     userBptTokenBalance,
     userAllowance,
-    CharredEmbrQuery,
+    XEmbrQuery,
     currentExchangeRate,
-    cembrDecoratedFarm,
-    farm,
-    pool,
-    farmUser,
+    //xembrDecoratedFarm,
+    //farm,
+    //pool,
+    //farmUser,
     totalBptStaked,
-    totalEmbrStaked,
+    //totalEmbrStaked,
     userStakedBptBalance,
-    userStakedEmbrBalance,
-    userStakedFtmBalance,
-    embrPerShare,
-    embrPerShare,
-    userUnstakedCembrBalance,
-    swapApr,
-    farmApr,
-    cembrApr,
-    totalApr,
+    //userStakedEmbrBalance,
+    //userStakedFtmBalance,
+    //embrPerShare,
+    //wavaxPerShare,
+    userUnstakedXembrBalance,
+    //swapApr,
+    //farmApr,
+    xembrApr,
+    //totalApr,
     refetch,
 
     approve,

@@ -7,24 +7,24 @@ import { governanceContractsService } from '@/embr/services/governance/governanc
 import BigNumber from 'bignumber.js';
 
 interface QueryResponse {
-  totalCembrSupply: BigNumber;
+  totalXembrSupply: BigNumber;
   totalBptStaked: BigNumber;
   userBalance: BigNumber;
   userBptTokenBalance: BigNumber;
   allowance: BigNumber;
 }
 
-export default function useCharredEmbrQuery() {
+export default function useXEmbrQuery() {
   const { appLoading } = useApp();
   const { isWalletReady, account } = useWeb3();
   const enabled = computed(() => !appLoading.value && isWalletReady.value);
-  const queryKey = reactive(QUERY_KEYS.cEMBR.all);
+  const queryKey = reactive(QUERY_KEYS.xEMBR.all);
 
   const queryFn = async () => {
-    const data = await governanceContractsService.cembr.getData(account.value);
+    const data = await governanceContractsService.xembr.getData(account.value);
 
     return {
-      totalCembrSupply: new BigNumber(data.totalCembrSupply.toString()),
+      totalXembrSupply: new BigNumber(data.totalXembrSupply.toString()),
       totalBptStaked: new BigNumber(data.totalBptStaked.toString()),
       userBalance: new BigNumber(data.userBalance.toString()),
       userBptTokenBalance: new BigNumber(data.userBptTokenBalance.toString()),

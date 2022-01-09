@@ -196,7 +196,7 @@ export default defineComponent({
       poolOwnerValid,
       swapFeePercentageValid,
       poolSymbolInfoText:
-        'All LP tokens start with the EPT- prefix and Metamask limits token symbols to 11 characters. So, your symbol can be no longer than 7 characters.',
+        'All EPT tokens start with the EPT- prefix and Metamask limits token symbols to 11 characters. So, your symbol can be no longer than 7 characters.',
       swapFeePercentageInfoText:
         'Ex: 0.25 = 0.25%. The swap fee percentage must be between 0.0001% and 10%',
       poolOwnerInfoText:

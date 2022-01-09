@@ -28,7 +28,7 @@
       "decimals": 18,
       "deeplinkId": "avax",
       "logoURI": "https://cdn.discordapp.com/emojis/902638084779278356.png",
-      "minTransactionBuffer": "0.5"
+      "minTransactionBuffer": "0.005"
     },
     "addresses": {
       "bFactory": "",
@@ -54,8 +54,8 @@
       "masterChef": "0x1BCA50a8a832018d4BdF244846B61704C8EfD95a",
       "embrUsdcReferencePricePool": "0xe0d8da1b899c6161a8960db9ff3ea2f1f2f7862b00020000000000000000001e",
       "embrToken": "0xD81D45E7635400dDD9c028839e9a9eF479006B28",
-      "cembrVestingToken":"",
-      "cembrToken":"",
+      "xembrVestingToken":"",
+      "xembrToken":"",
       "defaultPoolOwner": "0x60d78090D54582245C40C7E0059c257CF39949B3",
       "earlyLudwigNft": "",
       "hnd": "",
@@ -94,7 +94,7 @@
     "supportsElementPools": false,
     "tokenListSanityUrl": "https://raw.githubusercontent.com/embrfinance/tokenlist/main/tokens.avalanche.json",
     "configSanityUrl": "https://raw.githubusercontent.com/embrfinance/tokenlist/main/pools.avalanche.json",
-    "cEmbr": {
+    "xEmbr": {
       "address": "",
       "poolId": "",
       "poolAddress": "",
@@ -105,4 +105,3 @@
       "0x5e66ca08eb84c1d30fd44acb0fdf10781994c62c000200000000000000000000"
     ]
   }
-  

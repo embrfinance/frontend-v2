@@ -54,8 +54,8 @@
     "embrUsdcReferencePricePool": "0x794dfa11b6a9649dbf9c2f1cc06e075a786b2dc000020000000000000000000f",
     "embrToken": "0x6036617225ded90fCD43cb20731D0E41BcF4e3f0",
     "ausd": "0x783C08b5F26E3daf8C4681F3bf49844e425b6393",
-    "cembrVestingToken":"",
-    "cembrToken":"",
+    "xembrVestingToken":"",
+    "xembrToken":"",
     "defaultPoolOwner": "0xFEb06159e2d3AC37f8B5c609A04B94dc6E11982f",
     "earlyLudwigNft": "",
     "hnd": "",
@@ -94,7 +94,7 @@
   "supportsElementPools": false,
   "tokenListSanityUrl": "https://raw.githubusercontent.com/l0rdicon/offical-token-lists/main/tokens.fuji.json",
   "configSanityUrl": "https://raw.githubusercontent.com/l0rdicon/offical-token-lists/main/pools.fuji.json",
-  "cEmbr": {
+  "xEmbr": {
     "address": "",
     "poolId": "",
     "poolAddress": "",

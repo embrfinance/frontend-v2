@@ -99,7 +99,7 @@ import useWeb3 from '@/services/web3/useWeb3';
 import useBreakpoints from '@/composables/useBreakpoints';
 import useTransactions from '@/composables/useTransactions';
 import { Alert } from '@/composables/useAlerts';
-//import { useCharredEmbr } from '@/embr/composables/stake/useCharredEmbr';
+//import { useXEmbr } from '@/embr/composables/stake/useXEmbr';
 import useProtocolDataQuery from '@/embr/composables/queries/useProtocolDataQuery';
 import { erc20ContractService } from '@/embr/services/erc20/erc20-contracts.service';
 import { configService } from '@/services/config/config.service';

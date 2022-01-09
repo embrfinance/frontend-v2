@@ -31,6 +31,7 @@ export default class BalancerSubgraphService {
     this.poolSnapshots = new PoolSnapshots(this);
     this.tradePairSnapshots = new TradePairSnapshots(this);
     this.balancers = new Balancers(this);
+    console.log("xploited useNetwork b")
   }
 
   public get blockTime(): number {
@@ -47,7 +48,7 @@ export default class BalancerSubgraphService {
       case Network.FANTOM:
         return 1;
       default:
-        return 13;
+        return 1;
     }
   }
 }

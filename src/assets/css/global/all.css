@@ -41,6 +41,39 @@ body {
   height:100vh;*/
 }
 
+.balance-indicator {
+  height:2em;
+  width:2em;
+}
+
+.balance-indicator::after {
+  position: inherit;
+      font-size: 0.4em;
+      content: "✔";
+      align-self: center;
+      margin: auto;
+      display: flex;
+      color: gold;
+}
+
+.eptwarning {
+  color:white;
+  position: inherit;
+      top: 0;
+      line-height: 1em;
+      font-size: small;
+        text-shadow: 0.5px 0px 0px #000, -0.5px 0px 0px #000, 0px 0.5px 0px #000, 0px -0.5px 0px #000 !important;
+}
+
+.investstake::before {
+
+}
+
+.investstake {
+  background-color: red !important;
+  width: fit-content;
+}
+
 .tooltip {
   width: fit-content;
 }

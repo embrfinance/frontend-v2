@@ -14,12 +14,12 @@
     >
       Pools<!--{{ $t('invest') }}--><!--<span class="hidden lg:inline">&nbsp;/&nbsp;Farm</span></span>-->
     </router-link>
-    <!-- <router-link
+    <router-link
       :to="{ name: 'stake' }"
       :class="['toggle-link px-4', { [activeClasses]: isStakePage }]"
     >
       Stake
-    </router-link> -->
+    </router-link>
 
     <router-link
       :to="{ name: 'my-portfolio' }"
@@ -59,7 +59,7 @@ export default defineComponent({
     const isFarmPage = computed(() => String(route.name).startsWith('farm'));
     const isEmbrPage = computed(() => route.name === 'embr');
     const isPortfolioPage = computed(() => route.name === 'my-portfolio');
-    //const isStakePage = computed(() => route.name === 'stake');
+    const isStakePage = computed(() => route.name === 'stake');
     const isInvestPage = computed(
       () => route.name === 'invest' || String(route.name).startsWith('pool')
     );
@@ -83,7 +83,7 @@ export default defineComponent({
       Goals,
       isLoggedIn,
       isPortfolioPage,
-      //isStakePage,
+      isStakePage,
       isInvestPage
     };
   }

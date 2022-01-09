@@ -39,8 +39,10 @@
       <template v-slot:iconColumnCell="pool">
         <div
           v-if="pool.farm && parseFloat(pool.shares) > 0"
-          class="rounded-br-xl h-4 w-4 flex bg-yellow-500 absolute top-0 left-0 bg-opacity-80"
-        />
+          class="investstake eptwarning rounded-br-xl h-4 flex bg-yellow-500 absolute top-0 left-0"
+          style="box-shadow: 0.5px 0px 0px #000, -0.5px 0px 0px #000, 0px 0.5px 0px #000, 0px -0.5px 0px #000, 0px 0px 10px red"
+          title="You have unstaked EPT tokens and are losing out on rewards!"
+        >&nbsp;⚠ Unstaked EPT&nbsp;</div>
         <div v-if="!isLoading" class="px-6 py-4">
           <BalAssetSet
             :addresses="orderedTokenAddressesFor(pool)"
@@ -55,10 +57,9 @@
             :isStablePool="isStableLike(pool.poolType)"
             :selectedTokens="selectedTokens"
           />
-
-          <!-- <h5 class="text-left font-normal">
+          &nbsp;<h5 class="text-left font-normal">
             {{ pool.name }}
-          </h5>-->
+          </h5>
           <BalChip
             v-if="pool.dynamic.isNewPool"
             color="red"

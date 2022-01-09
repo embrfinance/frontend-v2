@@ -158,7 +158,7 @@ export function useXEmbr() {
       id: tx.hash,
       type: 'tx',
       action: 'approve',
-      summary: `Approve LP token`,
+      summary: `Approve EPT token`,
       details: {
         contractAddress: governanceContractsService.xembr.bptTokenAddress,
         spender: governanceContractsService.xembr.xembrAddress
@@ -191,7 +191,7 @@ export function useXEmbr() {
       id: tx.hash,
       type: 'tx',
       action: 'deposit',
-      summary: 'Stake LP tokens for xEMBR',
+      summary: 'Stake EPT tokens for xEMBR',
       details: {
         contractAddress: governanceContractsService.xembr.bptTokenAddress,
         spender: governanceContractsService.xembr.xembrAddress
@@ -211,7 +211,7 @@ export function useXEmbr() {
       id: tx.hash,
       type: 'tx',
       action: 'claim',
-      summary: 'Burn xEMBR and withdraw LP tokens',
+      summary: 'Burn xEMBR and withdraw EPT tokens',
       details: {
         contractAddress: governanceContractsService.xembr.bptTokenAddress,
         spender: governanceContractsService.xembr.xembrAddress

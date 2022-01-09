@@ -231,7 +231,7 @@
     "investmentPoolsAbout": "Stake your assets to get $BAL tokens for participating in Balancer V2 liquidity mining.",
     "investmentPoolsAboutLink": "Learn more ->",
     "investmentSettled": "Your investment has settled",
-    "investmentSuccess": "Your tokens have been added to this pool, and you have received a new LP token representing this investment.",
+    "investmentSuccess": "Your tokens have been added to this pool, and you have received a new EPT token representing this investment.",
     "investmentTooltip": "Confirm investment into this pool",
     "inYourWallet": "In your wallet:",
     "isRequired": "is required",
@@ -645,7 +645,7 @@
     "portfolioFeesInfo": "Info text",
     "portfolioPoolsInfoText": "A break down of your investment pools.",
     "farmWithdrawalSettled": "Your withdrawal has settled",
-    "farmWithdrawalSuccess": "Your LP tokens have been withdrawn from this farm and any pending rewards have been harvested.",
+    "farmWithdrawalSuccess": "Your EPT tokens have been withdrawn from this farm and any pending rewards have been harvested.",
     "farmDepositSettled": "Your deposit has settled",
-    "farmDepositSuccess": "Your LP tokens have been deposited into this farm. You will now start to accrue farming rewards."
+    "farmDepositSuccess": "Your EPT tokens have been deposited into this farm. You will now start to accrue farming rewards."
 }

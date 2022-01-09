@@ -54,7 +54,7 @@ export default function useFarm(
         id: tx.hash,
         type: 'tx',
         action: 'approve',
-        summary: `Approve LP token`,
+        summary: `Approve EPT token`,
         details: {
           contractAddress: tokenAddress,
           spender: appNetworkConfig.addresses.masterChef
@@ -87,7 +87,7 @@ export default function useFarm(
         id: tx.hash,
         type: 'tx',
         action: 'invest',
-        summary: 'Deposit LP tokens into farm',
+        summary: 'Deposit EPT tokens into farm',
         details: {
           contractAddress: tokenAddress,
           spender: appNetworkConfig.addresses.masterChef
@@ -140,7 +140,7 @@ export default function useFarm(
         id: tx.hash,
         type: 'tx',
         action: 'claim',
-        summary: 'Withdraw LP tokens',
+        summary: 'Withdraw EPT tokens',
         details: {
           contractAddress: tokenAddress,
           spender: appNetworkConfig.addresses.masterChef

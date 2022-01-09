@@ -34,6 +34,7 @@ withDefaults(defineProps<Props>(), {
       :style="{ zIndex: tokens.length }"
     />
     <div
+      title="You Have Tokens That Could Be Earning Rewards if Staked"
       v-for="n in 2"
       :key="n"
       :class="[

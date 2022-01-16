@@ -7,6 +7,18 @@ import { BigNumber } from 'ethers';
 import { sendTransaction } from '@/lib/utils/balancer/web3';
 import { Web3Provider } from '@ethersproject/providers';
 
+interface LockedBalance {
+  amount: BigNumber
+  end: BigNumber
+  start: BigNumber
+}
+
+interface RewardInfo { 
+  current: BigNumber
+  last: BigNumber
+  expiry: BigNumber
+}
+
 export default class XEmbr {
   service: Service;
 
@@ -18,10 +30,13 @@ export default class XEmbr {
     account: string
   ): Promise<{
     totalXembrSupply: BigNumber;
-    totalBptStaked: BigNumber;
+    totalEmbrStaking: BigNumber;
     userBalance: BigNumber;
-    userBptTokenBalance: BigNumber;
+    embrBalance: BigNumber;
+    userLocked: LockedBalance;
     allowance: BigNumber;
+    rewardTokens: string[];
+    activeRewardInfo: RewardInfo[];
   }> {
     const multicaller = new Multicaller(
       this.configService.network.key,
@@ -30,14 +45,18 @@ export default class XEmbr {
     );
 
     multicaller.call('totalXembrSupply', this.xembrAddress, 'totalSupply', []);
-    multicaller.call('totalBptStaked', this.bptTokenAddress, 'balanceOf', [
+    multicaller.call('totalEmbrStaked', this.embrAddress, 'balanceOf', [
       this.xembrAddress
     ]);
     multicaller.call('userBalance', this.xembrAddress, 'balanceOf', [account]);
-    multicaller.call('userBptTokenBalance', this.bptTokenAddress, 'balanceOf', [
+    multicaller.call('embrBalance', this.embrAddress, 'balanceOf', [account]);
+    multicaller.call('totalEmbrStaking', this.embrAddress, 'balanceOf', [this.xembrAddress]);
+    multicaller.call('activeRewardInfo', this.xembrAddress, 'activeRewardInfo', []);
+    multicaller.call('rewardTokens', this.xembrAddress, 'rewardTokens', []);
+    multicaller.call('userLocked', this.xembrAddress, 'locked', [
       account
     ]);
-    multicaller.call('allowance', this.bptTokenAddress, 'allowance', [
+    multicaller.call('allowance', this.embrAddress, 'allowance', [
       account,
       this.xembrAddress
     ]);
@@ -52,14 +71,6 @@ export default class XEmbr {
     ]);
   }
 
-  public async getTotalVestedTokenAmount(): Promise<BigNumber> {
-    return await call(this.service.provider, XEmbrAbi, [
-      this.bptTokenAddress,
-      'balanceOf',
-      [this.xembrAddress]
-    ]);
-  }
-
   public async xEmbrBalanceOf(account: string): Promise<BigNumber> {
     return await call(this.service.provider, XEmbrAbi, [
       this.xembrAddress,
@@ -68,38 +79,110 @@ export default class XEmbr {
     ]);
   }
 
-  public async bptBalanceOf(account: string): Promise<BigNumber> {
+  public async earned(pid: string, account: string): Promise<BigNumber> {
     return await call(this.service.provider, ERC20Abi, [
-      this.bptTokenAddress,
+      this.xembrAddress,
+      'earned',
+      [BigNumber.from(pid), account]
+    ]);
+  }
+
+  public async locked(account: string): Promise<BigNumber> {
+    return await call(this.service.provider, ERC20Abi, [
+      this.xembrAddress,
+      'locked',
+      [account]
+    ]);
+  }
+
+  public async rewardTokens(account: string): Promise<BigNumber> {
+    return await call(this.service.provider, ERC20Abi, [
+      this.xembrAddress,
+      'rewardTokens',
+      []
+    ]);
+  }
+
+  public async activeRewardInfo(account: string): Promise<BigNumber> {
+    return await call(this.service.provider, ERC20Abi, [
+      this.xembrAddress,
+      'activeRewardInfo',
+      []
+    ]);
+  }
+
+  public async embrBalanceOf(account: string): Promise<BigNumber> {
+    return await call(this.service.provider, ERC20Abi, [
+      this.embrAddress,
       'balanceOf',
       [account]
     ]);
   }
 
-  public async enter(provider: Web3Provider, amount: string) {
+  public async createLock(provider: Web3Provider, amount: string, unlock_time: string) {
     return sendTransaction(
       provider,
       this.xembrAddress,
       XEmbrAbi,
-      'enter',
-      [BigNumber.from(amount)]
+      'createLock',
+      [BigNumber.from(amount), BigNumber.from(unlock_time)]
     );
   }
 
-  public async leave(provider: Web3Provider, amount: string) {
+  public async increaseLockLength(provider: Web3Provider, unlock_time: string) {
     return sendTransaction(
       provider,
       this.xembrAddress,
       XEmbrAbi,
-      'leave',
+      'increaseLockLength',
+      [BigNumber.from(unlock_time)]
+    );
+  }
+
+  public async increaseLockAmount(provider: Web3Provider, amount: string) {
+    return sendTransaction(
+      provider,
+      this.xembrAddress,
+      XEmbrAbi,
+      'increaseLockAmount',
       [BigNumber.from(amount)]
     );
   }
 
+  public async withdraw(provider: Web3Provider, address: string) {
+    return sendTransaction(
+      provider,
+      this.xembrAddress,
+      XEmbrAbi,
+      'withdraw',
+      [address]
+    );
+  }
+
+  public async claimAll(provider: Web3Provider) {
+    return sendTransaction(
+      provider,
+      this.xembrAddress,
+      XEmbrAbi,
+      'claimRewards',
+      []
+    );
+  }
+
+  public async claim(provider: Web3Provider, pid: string) {
+    return sendTransaction(
+      provider,
+      this.xembrAddress,
+      XEmbrAbi,
+      'claimReward',
+      [BigNumber.from(pid)]
+    );
+  }
+
+  public get embrAddress(): string {
+    return this.service.config.addresses.embr || '';
+  }
   public get xembrAddress(): string {
     return this.service.config.xEmbr.address || '';
-  }
-  public get bptTokenAddress(): string {
-    return this.service.config.xEmbr.poolAddress || '';
   }
 }

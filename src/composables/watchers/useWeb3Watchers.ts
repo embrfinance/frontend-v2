@@ -82,7 +82,6 @@ export default function useWeb3Watchers() {
   // Watch for user network switch
   // -> Display alert message if unsupported or not the same as app network.
   watch(chainId, () => {
-    console.log("xploited watching chain id", isUnsupportedNetwork.value, isMismatchedNetwork.value)
     if (isUnsupportedNetwork.value || isMismatchedNetwork.value) {
       addAlert({
         id: 'network-mismatch',

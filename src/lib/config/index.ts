@@ -80,10 +80,7 @@ export interface Config {
   tokenListSanityUrl: string;
   xEmbr: {
     address: string;
-    poolId: string;
     poolAddress: string;
-    farmId: string;
-    oldFarmId: string;
   };
 }
 

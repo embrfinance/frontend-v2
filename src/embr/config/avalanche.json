@@ -95,11 +95,7 @@
     "tokenListSanityUrl": "https://raw.githubusercontent.com/embrfinance/tokenlist/main/tokens.avalanche.json",
     "configSanityUrl": "https://raw.githubusercontent.com/embrfinance/tokenlist/main/pools.avalanche.json",
     "xEmbr": {
-      "address": "",
-      "poolId": "",
-      "poolAddress": "",
-      "farmId": "",
-      "oldFarmId": ""
+      "address": ""
     },
     "incentivizedPools": [
       "0x5e66ca08eb84c1d30fd44acb0fdf10781994c62c000200000000000000000000"

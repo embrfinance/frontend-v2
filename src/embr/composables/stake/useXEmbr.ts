@@ -4,9 +4,9 @@ import { erc20ContractService } from '@/embr/services/erc20/erc20-contracts.serv
 import useXEmbrQuery from '@/embr/composables/stake/useXEmbrQuery';
 import { computed } from 'vue';
 import useTransactions from '@/composables/useTransactions';
-import useFarmUser from '@/embr/composables/farms/useFarmUser';
+//import useFarmUser from '@/embr/composables/farms/useFarmUser';
 import usePools from '@/composables/pools/usePools';
-import { DecoratedFarm } from '@/embr/services/subgraph/subgraph-types';
+//import { DecoratedFarm } from '@/embr/services/subgraph/subgraph-types';
 import BigNumber from 'bignumber.js';
 
 function bn(num: number) {
@@ -17,62 +17,62 @@ export function useXEmbr() {
   const { getProvider, appNetworkConfig } = useWeb3();
   const XEmbrQuery = useXEmbrQuery();
   const { addTransaction } = useTransactions();
- /* const { farmUser, farmUserLoading } = useFarmUser(
-    appNetworkConfig.xEmbr.farmId
-  );
-  */
+  const {
+    poolsWithFarms,
+    isLoadingPools,
+    isLoadingFarms
+  } = usePools();
 
   const { isLoading, data, refetch } = XEmbrQuery;
 
   const xEmbrLoading = computed(() => {
     return (
-      isLoading.value 
+      isLoading.value ||
+      isLoadingPools.value ||
+      isLoadingFarms.value 
     );
   });
-
-  const userXembrFarm = computed(() =>{
-   /* allFarmsForUser.value?.find(
-      userFarm => userFarm.pool.id === appNetworkConfig.xEmbr.farmId
-    )*/
-    return 0
-   });
   
   const totalSupply = computed(
     () => data.value?.totalXembrSupply.div(1e18) ?? bn(0)
   );
-  const totalBptStaked = computed(() => {
-    return data.value?.totalBptStaked.div(1e18) ?? bn(0);
+
+  const userStakedEmbrBalance = computed(() => {
+    return data.value?.userLocked?.div(1e18) ?? bn(0);
   });
-  const userUnstakedXembrBalance = computed(() => {
-    return data.value?.userBalance?.div(1e18) ?? bn(0);
+
+  const userUnstakedEmbrBalance = computed(() => {
+    return data.value?.embrBalance?.div(1e18) ?? bn(0);
   });
   const userXembrBalance = computed(() => {
-    const userXembrInFarm = bn(userXembrFarm.value || 0).div(1e18);
-
-    return userUnstakedXembrBalance.value.plus(userXembrInFarm);
+    return data.value?.userBalance?.div(1e18) ?? bn(0);
   });
-  const userBptTokenBalance = computed(
-    () => data.value?.userBptTokenBalance?.div(1e18) ?? bn(0)
-  );
+
+  const totalEmbrStaking = computed(() => {
+    return data.value?.totalEmbrStaking?.div(1e18) ?? bn(0);
+  });
+
   const userAllowance = computed(
     () => data.value?.allowance.div(1e18) ?? bn(0)
   );
-  const currentExchangeRate = computed(() => {
+
+
+  /*const currentExchangeRate = computed(() => {
     return totalSupply.value.eq(0)
       ? bn(0)
       : totalBptStaked.value.div(totalSupply.value);
-  });
+  });*/
 
-  /*const pool = computed(() => {
+  const pool = computed(() => {
     return poolsWithFarms.value?.find(
       pool =>
         pool.address.toLowerCase() ===
         appNetworkConfig.xEmbr.poolAddress.toLowerCase()
     );
   });
-  */
+  
 
-  /*const embr = computed(() =>
+  const embr = computed(() =>
     pool.value?.tokens.find(
       token =>
         token.address.toLowerCase() ===
@@ -80,26 +80,18 @@ export function useXEmbr() {
     )
   );
 
-  const wavax = computed(() =>
+  const ausd = computed(() =>
     pool.value?.tokens.find(
       token =>
         token.address.toLowerCase() ===
         appNetworkConfig.addresses.weth.toLowerCase()
     )
   );
-  */
+  
 
-  const userStakedBptBalance = computed(() =>
-    userXembrBalance.value.times(currentExchangeRate.value)
-  );
 
-  /*const userBptShare = computed(() => {
-    if (!pool.value) {
-      return bn(0);
-    }
 
-    return userStakedBptBalance.value.div(pool.value.totalShares);
-  });
+  /*
 
   const embrPerShare = computed(() => {
     return embr.value && pool.value
@@ -112,45 +104,13 @@ export function useXEmbr() {
       ? `${parseFloat(wavax.value.balance) / parseFloat(pool.value.totalShares)}`
       : '0';
   });
-
-  const userStakedEmbrBalance = computed(() =>
-    userBptShare.value.times(embr.value?.balance || '0')
-  );
-  const userStakedFtmBalance = computed(() =>
-    userBptShare.value.times(embr.value?.balance || '0')
-  );
-
-  const totalEmbrStaked = computed(() => {
-    if (!pool.value) {
-      return '0';
-    }
-
-    const embr = pool.value.tokens.find(
-      token =>
-        token.address.toLowerCase() ===
-        appNetworkConfig.addresses.embr.toLowerCase()
-    );
-
-    return totalBptStaked.value
-      .div(pool.value.totalShares)
-      .times(embr?.balance || '0')
-      .toString();
-  });
-
-  const farm = computed(() => {
-    return farms.value.find(farm => farm.id === appNetworkConfig.xEmbr.farmId);
-  });
-
-  const xembrDecoratedFarm = computed(
-    (): DecoratedFarm | undefined => pool.value?.farm
-  );
   */
 
   async function approve(amount?: string) {
     const tx = await erc20ContractService.erc20.approveToken(
       getProvider(),
+      governanceContractsService.xembr.embrAddress,
       governanceContractsService.xembr.xembrAddress,
-      governanceContractsService.xembr.bptTokenAddress,
       amount
     );
 
@@ -158,9 +118,9 @@ export function useXEmbr() {
       id: tx.hash,
       type: 'tx',
       action: 'approve',
-      summary: `Approve EPT token`,
+      summary: `Approve Embr Token for xEmbr`,
       details: {
-        contractAddress: governanceContractsService.xembr.bptTokenAddress,
+        contractAddress: governanceContractsService.xembr.embrAddress,
         spender: governanceContractsService.xembr.xembrAddress
       }
     });
@@ -181,8 +141,49 @@ export function useXEmbr() {
   );*/
 
 
-  async function stake(amount: string) {
-    const tx = await governanceContractsService.xembr.enter(
+  async function createLock(amount: string, unlock_time: string) {
+    const tx = await governanceContractsService.xembr.createLock(
+      getProvider(),
+      amount,
+      unlock_time
+    );
+
+    addTransaction({
+      id: tx.hash,
+      type: 'tx',
+      action: 'deposit',
+      summary: 'Stake EMBR tokens for xEMBR',
+      details: {
+        contractAddress: governanceContractsService.xembr.embrAddress,
+        spender: governanceContractsService.xembr.xembrAddress
+      }
+    });
+
+    return tx;
+  }
+
+  async function increaseLockLength( unlock_time: string) {
+    const tx = await governanceContractsService.xembr.increaseLockLength(
+      getProvider(),
+      unlock_time
+    );
+
+    addTransaction({
+      id: tx.hash,
+      type: 'tx',
+      action: 'deposit',
+      summary: 'Increase lock length for xEMBR',
+      details: {
+        contractAddress: governanceContractsService.xembr.embrAddress,
+        spender: governanceContractsService.xembr.xembrAddress
+      }
+    });
+
+    return tx;
+  }
+
+  async function increaseLockAmount( amount: string) {
+    const tx = await governanceContractsService.xembr.increaseLockAmount(
       getProvider(),
       amount
     );
@@ -191,9 +192,9 @@ export function useXEmbr() {
       id: tx.hash,
       type: 'tx',
       action: 'deposit',
-      summary: 'Stake EPT tokens for xEMBR',
+      summary: 'Increase EMBR lock amount for xEMBR',
       details: {
-        contractAddress: governanceContractsService.xembr.bptTokenAddress,
+        contractAddress: governanceContractsService.xembr.embrAddress,
         spender: governanceContractsService.xembr.xembrAddress
       }
     });
@@ -201,19 +202,19 @@ export function useXEmbr() {
     return tx;
   }
 
-  async function unStake(amount: string) {
-    const tx = await governanceContractsService.xembr.leave(
+  async function withdraw(address: string) {
+    const tx = await governanceContractsService.xembr.withdraw(
       getProvider(),
-      amount
+      address
     );
 
     addTransaction({
       id: tx.hash,
       type: 'tx',
       action: 'claim',
-      summary: 'Burn xEMBR and withdraw EPT tokens',
+      summary: 'Burn xEMBR and withdraw EMBR tokens',
       details: {
-        contractAddress: governanceContractsService.xembr.bptTokenAddress,
+        contractAddress: governanceContractsService.xembr.embrAddress,
         spender: governanceContractsService.xembr.xembrAddress
       }
     });
@@ -225,30 +226,27 @@ export function useXEmbr() {
     xEmbrLoading,
     totalSupply,
     userXembrBalance,
-    userBptTokenBalance,
+    userUnstakedEmbrBalance,
     userAllowance,
     XEmbrQuery,
-    currentExchangeRate,
-    //xembrDecoratedFarm,
-    //farm,
-    //pool,
-    //farmUser,
-    totalBptStaked,
-    //totalEmbrStaked,
-    userStakedBptBalance,
-    //userStakedEmbrBalance,
-    //userStakedFtmBalance,
+    pool,
+    totalEmbrStaking,
+    userStakedEmbrBalance,
+    xembrApr,
+    refetch,
+    embr, 
+    ausd,
     //embrPerShare,
     //wavaxPerShare,
-    userUnstakedXembrBalance,
     //swapApr,
     //farmApr,
-    xembrApr,
     //totalApr,
-    refetch,
+    //currentExchangeRate,
 
     approve,
-    stake,
-    unStake
+    withdraw,
+    createLock,
+    increaseLockLength,
+    increaseLockAmount
   };
 }

@@ -20,13 +20,13 @@ import usePoolWithFarm from '@/embr/composables/pool/usePoolWithFarm';
 import BalAlert from '@/components/_global/BalAlert/BalAlert.vue';
 
 const { appNetworkConfig, isLoadingProfile } = useWeb3();
-/*const {
+const {
   xEmbrLoading,
   userXembrBalance,
-  userBptTokenBalance,
-  userUnstakedXembrBalance
+  //userBptTokenBalance,
+  userUnstakedEmbrBalance
 } = useXEmbr();
-*/
+
 const {
   balanceFor,
   injectTokens,
@@ -69,10 +69,6 @@ const embrBalance = computed(() =>
   fNum(balanceFor(getAddress(appNetworkConfig.addresses.embr)), 'token')
 );
 
-const oldFarmUserQuery = useFarmUserQuery(appNetworkConfig.xEmbr.oldFarmId);
-const oldFarmUser = computed(() => {
-  return oldFarmUserQuery.data.value;
-});
 
 onMounted(() => {
   injectTokens([
@@ -83,7 +79,7 @@ onMounted(() => {
 
 const dataLoading = computed(
   () =>
-    //xEmbrLoading.value ||
+    xEmbrLoading.value ||
     //farmUserLoading.value ||
     tokensLoading.value ||
     dynamicDataLoading.value

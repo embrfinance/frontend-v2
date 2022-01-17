@@ -41,7 +41,7 @@ export default function useXEmbrQuery() {
 
   const queryFn = async () => {
     const data = await governanceContractsService.xembr.getData(account.value);
-    let earned: Earned[] = []
+    const earned: Earned[] = []
     for(let i=0; i < data.activeRewardInfo.length; i++) { 
      const res = await governanceContractsService.xembr.earned(i.toString(), account.value);
      earned.push({

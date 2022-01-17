@@ -149,13 +149,13 @@ export default class XEmbr {
     );
   }
 
-  public async withdraw(provider: Web3Provider, address: string) {
+  public async withdraw(provider: Web3Provider) {
     return sendTransaction(
       provider,
       this.xembrAddress,
       XEmbrAbi,
       'withdraw',
-      [address]
+      []
     );
   }
 

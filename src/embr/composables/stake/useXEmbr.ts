@@ -204,8 +204,7 @@ export function useXEmbr() {
 
   async function withdraw(address: string) {
     const tx = await governanceContractsService.xembr.withdraw(
-      getProvider(),
-      address
+      getProvider()
     );
 
     addTransaction({

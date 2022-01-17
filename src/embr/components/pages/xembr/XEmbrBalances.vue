@@ -17,13 +17,11 @@ const props = defineProps<Props>();
 const { fNum } = useNumbers();
 
 const {
-  userStakedFtmBalance,
   userStakedEmbrBalance,
-  userStakedBptBalance,
   userXembrBalance,
-  currentExchangeRate,
-  embrPerShare,
-  avaxPerShare,
+  //currentExchangeRate,
+  //embrPerShare,
+  //avaxPerShare,
   xEmbrLoading
 } = useXEmbr();
 
@@ -87,10 +85,10 @@ const {
         <div class="flex flex-col justify-center">
           <BalLoadingBlock v-if="props.loading" class="h-6 w-24 mb-1" white />
           <p v-else class="text-sm font-bold md:text-lg">
-            {{ fNum(userStakedBptBalance.toString(), 'token') }}
+            {{ fNum(userStakedEmbrBalance.toString(), 'token') }}
           </p>
           <p class="text-sm md:text-base text-primary">
-            Fidelio Duetto BPTs
+            Embr
           </p>
         </div>
       </div>
@@ -111,23 +109,6 @@ const {
           </p>
           <p class="text-sm md:text-base text-primary">
             Embr
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="flex flex-col flex-grow mt-4">
-      <div class="flex items-center space-x-4">
-        <img
-          src="https://storageapi.fleek.co/embrfinance-team-bucket/FTM.png"
-          width="52"
-        />
-        <div class="flex flex-col justify-center">
-          <BalLoadingBlock v-if="props.loading" class="h-6 w-24 mb-1" white />
-          <p v-else class="text-sm font-bold md:text-lg">
-            {{ fNum(userStakedFtmBalance.toString(), 'token') }}
-          </p>
-          <p class="text-sm md:text-base text-primary">
-            FTM
           </p>
         </div>
       </div>

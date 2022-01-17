@@ -81,6 +81,7 @@ export interface Config {
   xEmbr: {
     address: string;
     poolAddress: string;
+    poolId: string;
   };
 }
 

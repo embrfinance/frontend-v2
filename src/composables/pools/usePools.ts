@@ -56,17 +56,10 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
   });
 
   const decoratedFarms = computed(() => {
-    //here we replace the old farm with the fembr farm on fidellio duetto.
     const mappedFarms = farms.value
-      .filter(farm => farm.id !== appNetworkConfig.xEmbr.oldFarmId)
+      //.filter(farm => farm.id !== appNetworkConfig.xEmbr.oldFarmId)
       .map(
-        (farm): Farm =>
-          farm.id === appNetworkConfig.xEmbr.farmId
-            ? {
-                ...farm,
-                pair: appNetworkConfig.xEmbr.poolAddress.toLowerCase()
-              }
-            : farm
+        (farm): Farm => farm
       );
 
     return decorateFarms(

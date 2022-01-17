@@ -17,10 +17,10 @@
         append-shadow
       >
         <template v-slot:info>
-          <div class="cursor-pointer flex" @click.prevent="amount = bptBalance">
+          <div class="cursor-pointer flex" @click.prevent="amount = userUnstakedEmbrBalance">
             {{ $t('balance') }}:
             <BalLoadingBlock v-if="loading" class="h-4 w-24 ml-1" white />
-            <span v-else>&nbsp;{{ bptBalance }}</span>
+            <span v-else>&nbsp;{{ userUnstakedEmbrBalance }}</span>
           </div>
         </template>
         <template v-slot:append>
@@ -28,7 +28,7 @@
             <BalBtn
               size="xs"
               color="white"
-              @click.prevent="amount = bptBalance"
+              @click.prevent="amount = userUnstakedEmbrBalance"
             >
               {{ $t('max') }}
             </BalBtn>
@@ -47,7 +47,7 @@
       <template v-else>
         <BalBtn
           v-if="approvalRequired"
-          label="Approve BPT"
+          label="Approve Embr"
           :loading="approving || loading"
           :loading-label="loading ? 'Loading' : $t('approving')"
           :disabled="!validInput || parseFloat(amount) === 0 || amount === ''"
@@ -97,7 +97,6 @@ import { useXEmbr } from '@/embr/composables/stake/useXEmbr';
 import useAllowanceAvailableQuery from '@/embr/composables/farms/useAllowanceAvailableQuery';
 import { governanceContractsService } from '@/embr/services/governance/governance-contracts.service';
 import useTokens from '@/composables/useTokens';
-import useFarmUser from '@/embr/composables/farms/useFarmUser';
 
 type DataProps = {
   depositForm: FormRef;
@@ -139,21 +138,19 @@ export default defineComponent({
     const { fNum } = useNumbers();
     const { t } = useI18n();
     const {
-      userBptTokenBalance,
+      userXembrBalance,
+      userUnstakedEmbrBalance,
       approve,
-      stake,
+      createLock,
       XEmbrQuery,
       userAllowance,
       refetch
     } = useXEmbr();
-    const { farmUserRefetch } = useFarmUser(appNetworkConfig.xEmbr.farmId);
     const { refetchAllowances } = useTokens();
 
     const { amount } = toRefs(data);
     const depositing = ref(false);
     const approving = ref(false);
-
-    const bptBalance = computed(() => userBptTokenBalance.value.toString());
 
     const { txListener } = useEthers();
 
@@ -161,7 +158,7 @@ export default defineComponent({
       return isWalletReady.value
         ? [
             isPositive(),
-            isLessThanOrEqualTo(bptBalance.value, t('exceedsBalance'))
+            isLessThanOrEqualTo(userUnstakedEmbrBalance.toString(), t('exceedsBalance'))
           ]
         : [isPositive()];
     }
@@ -212,7 +209,7 @@ export default defineComponent({
       const amountScaled = scale(new BigNumber(amount.value), 18);
 
       try {
-        const tx = await stake(amountScaled.toString());
+        const tx = await createLock(amountScaled.toString(), amountScaled.toString());
 
         if (!tx) {
           depositing.value = false;
@@ -267,7 +264,7 @@ export default defineComponent({
       // methods
       submit,
       fNum,
-      bptBalance
+      userUnstakedEmbrBalance
     };
   }
 });

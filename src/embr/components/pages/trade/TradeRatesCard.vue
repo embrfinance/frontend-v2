@@ -90,7 +90,7 @@ import useNumbers from '@/composables/useNumbers';
 import numeral from 'numeral';
 import { SorManager } from '@/lib/utils/balancer/helpers/sor/sorManager';
 import { getAddress } from '@ethersproject/address';
-import useDexesQuery from '@/embr/composables/useDexesQuery';
+//import useDexesQuery from '@/embr/composables/useDexesQuery';
 
 const WFTM = getAddress('0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83');
 const USDC = getAddress('0x04068DA6C83AFCFA0e13ba15A6696662335D5B75');
@@ -221,43 +221,17 @@ export default defineComponent({
 
   setup(props) {
     const { fNum } = useNumbers();
-    const { isLoading, data, isIdle } = useDexesQuery(props.sorManager, SWAPS);
+    //const { isLoading, data, isIdle } = useDexesQuery(props.sorManager, SWAPS);
 
     setInterval(() => {
       toggle.value = !toggle.value;
     }, 7500);
 
     const toggle = ref(false);
-    const spooky = computed(() => {
-      if (!data.value?.spooky) {
-        return [];
-      }
-
-      return toggle.value
-        ? data.value.spooky.slice(0, 4)
-        : data.value.spooky.slice(4, 8);
-    });
-
-    const spirit = computed(() => {
-      if (!data.value?.spirit) {
-        return [];
-      }
-
-      return toggle.value
-        ? data.value.spirit.slice(0, 4)
-        : data.value.spirit.slice(4, 8);
-    });
-
     const embr = computed(() => {
-      if (!data.value?.embr) {
         return [];
-      }
-
-      return toggle.value
-        ? data.value.embr.slice(0, 4)
-        : data.value.embr.slice(4, 8);
     });
-    const loading = computed(() => isLoading.value || isIdle.value);
+    const loading = computed(() => { return false});
 
     const items = computed(() =>
       toggle.value ? SWAPS.slice(0, 4) : SWAPS.slice(4, 8)
@@ -266,8 +240,6 @@ export default defineComponent({
     return {
       // data
       items,
-      spooky,
-      spirit,
       embr,
       loading,
 

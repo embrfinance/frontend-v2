@@ -5,7 +5,6 @@
         name="Withdraw"
         v-model="amount"
         v-model:isValid="validInput"
-        :rules="amountRules()"
         :disabled="withdrawing"
         type="number"
         min="0"
@@ -19,11 +18,11 @@
         <template v-slot:info>
           <div
             class="cursor-pointer flex"
-            @click.prevent="amount = bptDeposited"
+            @click.prevent="amount = userXembrBalance"
           >
             {{ $t('balance') }}:
             <BalLoadingBlock v-if="loading" class="h-4 w-24 ml-1" white />
-            <span v-else>&nbsp;{{ bptDeposited }}</span>
+            <span v-else>&nbsp;{{ userXembrBalance }}</span>
           </div>
         </template>
         <template v-slot:append>
@@ -31,7 +30,7 @@
             <BalBtn
               size="xs"
               color="white"
-              @click.prevent="amount = bptDeposited"
+              @click.prevent="amount = userXembrBalance"
             >
               {{ $t('max') }}
             </BalBtn>
@@ -55,7 +54,6 @@
           :disabled="!validInput || amount === '0' || amount === ''"
           :loading="withdrawing || loading"
           block
-          @click="trackGoal(Goals.ClickFarmWithdraw)"
         >
           Burn xEMBR
         </BalBtn>
@@ -91,7 +89,6 @@ import { BigNumber } from 'bignumber.js';
 import useEthers from '@/composables/useEthers';
 import { useXEmbr } from '@/embr/composables/stake/useXEmbr';
 import BalLoadingBlock from '@/components/_global/BalLoadingBlock/BalLoadingBlock.vue';
-import useFarmUser from '@/embr/composables/farms/useFarmUser';
 
 type DataProps = {
   withdrawForm: FormRef;
@@ -122,8 +119,9 @@ export default defineComponent({
     });
 
     const {
-      userUnstakedXembrBalance,
-      unStake,
+      userUnstakedEmbrBalance,
+      userXembrBalance,
+      withdraw,
       XEmbrQuery
     } = useXEmbr();
 
@@ -140,20 +138,10 @@ export default defineComponent({
     const { trackGoal, Goals } = useFathom();
     const { amount } = toRefs(data);
     const { refetchBalances } = useTokens();
-    const { farmUserRefetch } = useFarmUser(appNetworkConfig.xEmbr.farmId);
 
-    const bptDeposited = computed(() => {
-      return userUnstakedXembrBalance.value.toString();
+    const embrDeposited = computed(() => {
+      return userUnstakedEmbrBalance.value.toString();
     });
-
-    function amountRules() {
-      return isWalletReady.value && bptDeposited.value !== '0'
-        ? [
-            isPositive(),
-            isLessThanOrEqualTo(bptDeposited.value, t('exceedsBalance'))
-          ]
-        : [isPositive()];
-    }
 
     async function submit(): Promise<void> {
       if (!data.withdrawForm.validate()) return;
@@ -161,7 +149,7 @@ export default defineComponent({
       try {
         withdrawing.value = true;
         const amountScaled = scale(new BigNumber(amount.value), 18);
-        const tx = await unStake(amountScaled.toString());
+        const tx = await withdraw(amountScaled.toString());
 
         if (!tx) {
           withdrawing.value = false;
@@ -208,14 +196,13 @@ export default defineComponent({
       TOKENS,
       // computed
       tokens,
-      amountRules,
       isWalletReady,
       toggleWalletSelectModal,
       isRequired,
       // methods
       submit,
       trackGoal,
-      bptDeposited
+      userXembrBalance
     };
   }
 });

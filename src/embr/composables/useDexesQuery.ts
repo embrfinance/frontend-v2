@@ -14,8 +14,6 @@ import useWeb3 from '@/services/web3/useWeb3';
 import { dexContractsService } from '@/embr/services/dex/dex-contracts.service';
 
 interface QueryResponse {
-  spooky: number[];
-  spirit: number[];
   embr: number[];
 }
 
@@ -26,8 +24,6 @@ interface DexesQueryInput {
   tokenOut: string;
   tokenInDecimal: number;
   tokenOutDecimal: number;
-  spookyPath: string[];
-  spiritPath: string[];
 }
 
 export default function useDexesQuery(
@@ -67,26 +63,6 @@ export default function useDexesQuery(
     );
 
     const result = {
-      spooky: (
-        await dexContractsService.spookySwap.getAmountsOut(
-          inputs.map(input => ({ ...input, path: input.spookyPath }))
-        )
-      ).map((value, idx) =>
-        scaleDown(
-          new BigNumber(value.toString()),
-          inputs[idx].tokenOutDecimal
-        ).toNumber()
-      ),
-      spirit: (
-        await dexContractsService.spiritSwap.getAmountsOut(
-          inputs.map(input => ({ ...input, path: input.spiritPath }))
-        )
-      ).map((value, idx) =>
-        scaleDown(
-          new BigNumber(value.toString()),
-          inputs[idx].tokenOutDecimal
-        ).toNumber()
-      ),
       embr: response.map((value, idx) => {
         return scaleDown(
           new BigNumber(value.returnAmount.toString()),

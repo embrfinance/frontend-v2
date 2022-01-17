@@ -5,28 +5,29 @@ import { fNum } from '@/composables/useNumbers';
 import { useXEmbr } from '@/embr/composables/stake/useXEmbr';
 import { scaleDown } from '@/lib/utils';
 import { BigNumber } from 'bignumber.js';
-//import XEmbrBalances from '@/embr/components/pages/xembr/XEmbrBalances.vue';
+import XEmbrBalances from '@/embr/components/pages/xembr/XEmbrBalances.vue';
 import XEmbrHeader from '@/embr/components/pages/xembr/XEmbrHeader.vue';
 //import XEmbrOldFarmAlert from '@/embr/components/pages/xembr/XEmbrOldFarmAlert.vue';
 //import XEmbrStatCards from '@/embr/components/pages/xembr/XEmbrStatCards.vue';
 import BalTabs from '@/components/_global/BalTabs/BalTabs.vue';
-import useFarmUserQuery from '@/embr/composables/farms/useFarmUserQuery';
-//import XEmbrDepositSteps from '@/embr/components/pages/xembr/XEmbrDepositSteps.vue';
-//import XEmbrWithdrawSteps from '@/embr/components/pages/xembr/XEmbrWithdrawSteps.vue';
+//import useFarmUserQuery from '@/embr/composables/farms/useFarmUserQuery';
+import XEmbrDepositSteps from '@/embr/components/pages/xembr/XEmbrDepositSteps.vue';
+import XEmbrWithdrawSteps from '@/embr/components/pages/xembr/XEmbrWithdrawSteps.vue';
 import useTokens from '@/composables/useTokens';
 import { getAddress } from '@ethersproject/address';
-import useFarmUser from '@/embr/composables/farms/useFarmUser';
+//import useFarmUser from '@/embr/composables/farms/useFarmUser';
 import usePoolWithFarm from '@/embr/composables/pool/usePoolWithFarm';
 import BalAlert from '@/components/_global/BalAlert/BalAlert.vue';
 
 const { appNetworkConfig, isLoadingProfile } = useWeb3();
-/*const {
+const {
   xEmbrLoading,
   userXembrBalance,
-  userBptTokenBalance,
-  userUnstakedXembrBalance
+  userStakedEmbrBalance,
+  //userBptTokenBalance,
+  userUnstakedEmbrBalance
 } = useXEmbr();
-*/
+
 const {
   balanceFor,
   injectTokens,
@@ -46,33 +47,24 @@ const xembrDeposited = computed(() => {
   return amount ? scaleDown(new BigNumber(amount), 18) : new BigNumber(0);
 });*/
 
-
-const bptBalance = computed(() => {
+const unstakedEmbrBalance = computed(()=> {
   return fNum(
     scaleDown(
-      new BigNumber(0),
+      new BigNumber(userUnstakedEmbrBalance.toString()),
       18
     ).toString(),
     'token'
   );
-});
+})
 
-const userBptTokenBalance = computed(()=> fNum(0) )
-const userUnstakedXembrBalance = computed(()=> fNum(0) )
-
-const hasUnstakedXembr = computed(() => {
+const hasUnstakedEmbr = computed(() => {
   return parseFloat((fNum(balanceFor(getAddress(appNetworkConfig.addresses.embr)), 'token') )) > 0
 })
-const hasBpt = computed(() => true)
 
 const embrBalance = computed(() =>
   fNum(balanceFor(getAddress(appNetworkConfig.addresses.embr)), 'token')
 );
 
-const oldFarmUserQuery = useFarmUserQuery(appNetworkConfig.xEmbr.oldFarmId);
-const oldFarmUser = computed(() => {
-  return oldFarmUserQuery.data.value;
-});
 
 onMounted(() => {
   injectTokens([
@@ -83,7 +75,7 @@ onMounted(() => {
 
 const dataLoading = computed(
   () =>
-    //xEmbrLoading.value ||
+    xEmbrLoading.value ||
     //farmUserLoading.value ||
     tokensLoading.value ||
     dynamicDataLoading.value
@@ -135,16 +127,15 @@ const activeTab = ref(tabs[0].value);
         </div>
         <XEmbrDepositSteps
           v-if="activeTab === 'deposit'"
-          :hasBpt="hasBpt"
-          :hasUnstakedXembr="hasUnstakedXembr"
-          :hasStakedXembr="xembrDeposited > 0"
+          :hasUnstakedEmbr="hasUnstakedEmbr"
+          :hasStakedXembr="userXembrBalance > 0"
           :loading="dataLoading"
         />
         <XEmbrWithdrawSteps
           v-if="activeTab === 'withdraw'"
           :hasBpt="hasBpt"
-          :hasUnstakedXembr="hasUnstakedXembr"
-          :hasStakedXembr="xembrDeposited > 0"
+          :hasUnstakedEmbr="hasUnstakedEmbr"
+          :hasStakedXembr="userXembrBalance > 0"
           :loading="dataLoading"
         />
       </div>
@@ -152,8 +143,8 @@ const activeTab = ref(tabs[0].value);
         <XEmbrBalances
           :loading="dataLoading"
           :f-embr-balance="userXembrBalance"
-          :bpt-balance="bptBalance"
-          :embr-balance="embrBalance"
+          :embr-locked-balance="userStakedEmbrBalance"
+          :embr-balance="userXembrBalance"
         />
       </div>
     </div>

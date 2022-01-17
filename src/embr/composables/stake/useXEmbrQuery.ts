@@ -8,10 +8,29 @@ import BigNumber from 'bignumber.js';
 
 interface QueryResponse {
   totalXembrSupply: BigNumber;
-  totalBptStaked: BigNumber;
+  embrBalance: BigNumber;
+  totalEmbrStaking: BigNumber;
   userBalance: BigNumber;
-  userBptTokenBalance: BigNumber;
+  userLocked: BigNumber;
+  lockStart: BigNumber;
+  lockEnd: BigNumber;
   allowance: BigNumber;
+  rewardTokens: string[];
+  activeRewardInfo: RewardInfo[];
+  earned: Earned[]
+}
+
+interface Earned {
+  amount: BigNumber
+  address: string
+  index: BigNumber
+}
+
+
+interface RewardInfo { 
+  current: BigNumber
+  last: BigNumber
+  expiry: BigNumber
 }
 
 export default function useXEmbrQuery() {
@@ -22,13 +41,27 @@ export default function useXEmbrQuery() {
 
   const queryFn = async () => {
     const data = await governanceContractsService.xembr.getData(account.value);
-
+    const earned: Earned[] = []
+    for(let i=0; i < data.activeRewardInfo.length; i++) { 
+     const res = await governanceContractsService.xembr.earned(i.toString(), account.value);
+     earned.push({
+        amount: new BigNumber(res.toString()),
+        address:data.rewardTokens[data.activeRewardInfo[i].current.toString()],
+        index: new BigNumber(data.activeRewardInfo[i].current.toString())
+     })
+    }
     return {
       totalXembrSupply: new BigNumber(data.totalXembrSupply.toString()),
-      totalBptStaked: new BigNumber(data.totalBptStaked.toString()),
+      embrBalance: new BigNumber(data.embrBalance.toString()),
       userBalance: new BigNumber(data.userBalance.toString()),
-      userBptTokenBalance: new BigNumber(data.userBptTokenBalance.toString()),
-      allowance: new BigNumber(data.allowance.toString())
+      totalEmbrStaking: new BigNumber(data.totalEmbrStaking.toString()),
+      userLocked: new BigNumber(data.userLocked.amount.toString()),
+      lockStart: new BigNumber(data.userLocked.start.toString()),
+      lockEnd: new BigNumber(data.userLocked.end.toString()),
+      allowance: new BigNumber(data.allowance.toString()),
+      rewardTokens: data.rewardTokens,
+      activeRewardInfo: data.activeRewardInfo as any,
+      earned: earned,
     };
   };
 

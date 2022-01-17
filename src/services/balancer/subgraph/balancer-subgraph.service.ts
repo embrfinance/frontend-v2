@@ -48,7 +48,7 @@ export default class BalancerSubgraphService {
       case Network.FANTOM:
         return 1;
       default:
-        return 1;
+        return 10;
     }
   }
 }

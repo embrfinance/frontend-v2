@@ -28,8 +28,8 @@ export default defineComponent({
     disabled: { type: Boolean, default: false },
     color: {
       type: String,
-      default: 'green',
-      validator: (val: string): boolean => ['green'].includes(val)
+      default: 'white',
+      validator: (val: string): boolean => ['white'].includes(val)
     }
   },
   setup(props, { emit }) {

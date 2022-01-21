@@ -56,6 +56,7 @@ export default defineComponent({
           'red',
           'white',
           'blue',
+          'gold',
           'transparent'
         ].includes(val)
     },

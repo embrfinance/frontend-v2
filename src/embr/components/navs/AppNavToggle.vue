@@ -12,7 +12,7 @@
       :class="['toggle-link px-6', { [activeClasses]: isInvestPage }]"
       @click="trackGoal(Goals.ClickNavInvest)"
     >
-      Pools<!--{{ $t('invest') }}--><!--<span class="hidden lg:inline">&nbsp;/&nbsp;Farm</span></span>-->
+      Pools
     </router-link>
     <router-link
       :to="{ name: 'stake' }"
@@ -28,8 +28,8 @@
     >
       Portfolio
     </router-link>
-    <a class="toggle-link px-4" href="https://analytics.embr.finance" target="_blank"
-      >Info</a
+    <a class="toggle-link px-4" href="https://analytics.embr.finance" target="_blank" title="This link will open a new window"
+      >Price<svg width="24px" height="24px" viewBox="0 0 24 24" style="cursor:pointer"><g stroke-width="2.1" stroke="#666" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 13.5 17 19.5 5 19.5 5 7.5 11 7.5"></polyline><path d="M14,4.5 L20,4.5 L20,10.5 M20,4.5 L11,13.5"></path></g></svg></a
     >
   </div>
 </template>

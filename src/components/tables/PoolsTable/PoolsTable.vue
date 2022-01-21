@@ -42,7 +42,7 @@
           class="investstake eptwarning rounded-br-xl h-4 flex bg-yellow-500 absolute top-0 left-0"
           style="box-shadow: 0.5px 0px 0px #000, -0.5px 0px 0px #000, 0px 0.5px 0px #000, 0px -0.5px 0px #000, 0px 0px 10px red"
           title="You have unstaked EPT tokens and are losing out on rewards!"
-        >&nbsp;⚠ Unstaked EPT&nbsp;</div>
+        >&nbsp;&nbsp;⚠ Unstaked EPT&nbsp;&nbsp;</div>
         <div v-if="!isLoading" class="px-6 py-4">
           <BalAssetSet
             :addresses="orderedTokenAddressesFor(pool)"

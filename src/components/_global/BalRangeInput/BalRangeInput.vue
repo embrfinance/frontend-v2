@@ -41,8 +41,8 @@ export default defineComponent({
 
   props: {
     modelValue: { type: [String, Number], default: '0' },
-    leftLabel: { type: String, default: '' },
-    rightLabel: { type: String, default: '' }
+    leftLabel: { type: String, default: 'min' },
+    rightLabel: { type: String, default: 'max' }
   },
 
   setup(props, { emit }) {
@@ -73,7 +73,7 @@ export default defineComponent({
 
     const proccessStyle = computed(() => {
       return {
-        backgroundImage: `linear-gradient(to top right, ${colors.blue['500']}, ${colors.pink['500']})`
+        backgroundImage: `linear-gradient(to top right, red, green)`
       };
     });
 

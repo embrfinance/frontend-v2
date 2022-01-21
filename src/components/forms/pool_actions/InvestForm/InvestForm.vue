@@ -245,15 +245,16 @@ watch(useNativeAsset, shouldUseNativeAsset => {
       <BalBtn
         v-if="!isWalletReady"
         :label="$t('connectWallet')"
-        color="gradient"
+        color="white"
         block
         @click="toggleWalletSelectModal"
       />
       <BalBtn
         v-else
         :label="$t('preview')"
-        color="gradient"
+        color="gray"
         :disabled="!hasAmounts || !hasValidInputs || isMismatchedNetwork"
+        title="Please Ensure All Input Values >= 0"
         block
         @click="showInvestPreview = true"
       />

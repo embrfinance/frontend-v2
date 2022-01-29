@@ -41,6 +41,15 @@ body {
   height:100vh;*/
 }
 
+button {
+  /*
+  border-bottom: 1px solid #000000;
+  border-top: 1px solid #000000;
+
+  border: 1px solid #242424;
+    */
+}
+
 .balance-indicator {
   height:2em;
   width:2em;
@@ -71,9 +80,15 @@ body {
 
 .investstake {
   background-color: red !important;
+  vertical-align: middle;
+  backgroundColor: red !important;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
   font-variant: small-caps;
   font-weight: 500;
+  padding-top: 0.2em;
+
 }
 
 *:disabled {
@@ -95,7 +110,19 @@ body {
 }
 
 .bal-checkbox {
-  color: gold !important;
+  color: white !important;
+  font-weight:900;
+}
+
+.bal-checkbox-input {
+  background-color: black;
+  color: lawngreen !important;
+  text-shadow: 1px 0px 0px black, -1px 0px 0px black, 0px -1px 0px black, 0px 1px 0px black;
+}
+
+.bal-checkbox-error {
+  align-self: center;
+  color:gold !important;
 }
 
 #copr {
@@ -197,6 +224,10 @@ input, .input-group, .custom-input {
 
 #storybook-app {
   @apply text-gray-900 dark:text-gray-50;
+}
+
+#lineChartHeader {
+  color: white;
 }
 
 #app-nav{
@@ -390,7 +421,7 @@ bal-popover-activator:before {
   display: inline-block;
   padding: 10px;
   cursor: pointer;
-  color: #FFF;
+  color: #FFFFFF;
   letter-spacing: 1px;
   text-shadow: 0 1px 2px rgb(0 0 0 / 90%);
 
@@ -426,9 +457,15 @@ bal-popover-activator:before {
   /*box-shadow: 0 1px 0 rgb(255 255 255 / 25%), 0 1px 0 rgb(255 255 255 / 25%) inset, 0 0 0 rgb(0 0 0 / 50%) inset;*/
 }
 
-.bal-btn:disabled {
+:disabled {
   color: darkgray !important;
 }
+
+:disabled:hover {
+  cursor:not-allowed;
+  color: darkgray !important;
+}
+
 .checkbox {
   color: green;
 }

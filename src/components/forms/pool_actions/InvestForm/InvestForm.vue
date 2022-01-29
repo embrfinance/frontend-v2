@@ -228,7 +228,7 @@ watch(useNativeAsset, shouldUseNativeAsset => {
 
     <div
       v-if="highPriceImpact"
-      class="border dark:border-gray-700 rounded-lg p-2 pb-2 mt-4"
+      class="border dark:border-gray-700 bg-red-500 text-white rounded-lg p-2 pb-2 mt-4"
     >
       <BalCheckbox
         v-model="highPriceImpactAccepted"

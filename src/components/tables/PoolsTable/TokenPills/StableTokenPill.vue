@@ -22,7 +22,7 @@ withDefaults(defineProps<Props>(), {
       }
     ]"
   >
-    <div v-if="hasBalance" class="balance-indicator" />
+    <div v-if="hasBalance" class="balance-indicator" title="You have tokens that can be invested"/>
     <div class="pill-text">
       {{ symbol }}
     </div>

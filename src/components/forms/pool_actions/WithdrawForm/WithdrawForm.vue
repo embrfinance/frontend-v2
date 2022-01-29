@@ -7,6 +7,7 @@ import useWithdrawMath from './composables/useWithdrawMath';
 import useWithdrawalState from './composables/useWithdrawalState';
 import useWeb3 from '@/services/web3/useWeb3';
 import { useI18n } from 'vue-i18n';
+import usePool from '@/composables/usePool';
 // Components
 import TokenInput from '@/components/inputs/TokenInput/TokenInput.vue';
 import WithdrawTotals from './components/WithdrawTotals.vue';

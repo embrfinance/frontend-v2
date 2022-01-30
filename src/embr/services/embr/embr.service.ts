@@ -9,7 +9,7 @@ import {
   UserPortfolioData,
   UserTokenData
 } from './embr-types';
-import { getAddress } from '@ethersproject/address';
+import { getAddress, isAddress } from '@ethersproject/address';
 import { keyBy } from 'lodash';
 
 export type Price = { [fiat: string]: number };
@@ -72,7 +72,9 @@ export default class EmbrService {
     const result: TokenPrices = {};
 
     for (const tokenPrice of tokenPrices) {
-      result[getAddress(tokenPrice.address)] = { usd: tokenPrice.price };
+      if (isAddress(tokenPrice.address)) {
+        result[getAddress(tokenPrice.address)] = { usd: tokenPrice.price };
+      }    
     }
 
     return result;

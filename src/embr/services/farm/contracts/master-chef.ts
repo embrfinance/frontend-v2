@@ -4,7 +4,7 @@ import { Multicaller } from '@/lib/utils/balancer/contract';
 import { default as MasterChefAbi } from '@/embr/abi/EmbrMasterChef.json';
 import { sendTransaction } from '@/lib/utils/balancer/web3';
 import { Web3Provider } from '@ethersproject/providers';
-import { getAddress } from '@ethersproject/address';
+import { getAddress, isAddress } from '@ethersproject/address';
 import { scale } from '@/lib/utils';
 import BigNumber from 'bignumber.js';
 
@@ -21,6 +21,10 @@ export default class MasterChef {
   ): Promise<number> {
     let result = {} as Record<any, any>;
 
+    if (!isAddress(user)) {
+      return 0;
+    }
+    
     const masterChefMultiCaller = new Multicaller(
       this.configService.network.key,
       this.service.provider,

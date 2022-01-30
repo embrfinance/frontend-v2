@@ -32,6 +32,10 @@ export default function useAllFarmsForUserQuery(
 
   const queryFn = async () => {
     try {
+      if (!account.value) {
+        return [];
+      }
+      
       const userFarms = await farmSubgraphClient.getUserDataForAllFarms(
         account.value
       );

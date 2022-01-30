@@ -3,7 +3,6 @@
     <div>
       <BalTextInput
         name="Deposit"
-        label="Embr Deposit Amount"
         v-model="amount"
         v-model:isValid="validInput"
         :rules="amountRules()"
@@ -18,7 +17,7 @@
         append-shadow
       >
         <template v-slot:info>
-          <div class="cursor-pointer flex" @click.prevent="amount = userUnstakedEmbrBalance.toString()">
+          <div class="cursor-pointer flex" @click.prevent="amount = userUnstakedEmbrBalance">
             {{ $t('balance') }}:
             <BalLoadingBlock v-if="loading" class="h-4 w-24 ml-1" white />
             <span v-else>&nbsp;{{ userUnstakedEmbrBalance }}</span>
@@ -29,7 +28,7 @@
             <BalBtn
               size="xs"
               color="white"
-              @click.prevent="amount = userUnstakedEmbrBalance.toString()"
+              @click.prevent="amount = userUnstakedEmbrBalance"
             >
               {{ $t('max') }}
             </BalBtn>
@@ -63,9 +62,8 @@
             :disabled="!validInput || parseFloat(amount) === 0 || amount === ''"
             :loading="depositing || loading"
             block
-            @click.prevent="submit"
           >
-            Stake EMBR
+            Increase Amount
           </BalBtn>
         </template>
       </template>
@@ -103,7 +101,6 @@ import useTokens from '@/composables/useTokens';
 type DataProps = {
   depositForm: FormRef;
   amount: string;
-  locktime: string;
   propMax: string[];
   validInput: boolean;
   propToken: number;
@@ -127,7 +124,6 @@ export default defineComponent({
     const data = reactive<DataProps>({
       depositForm: {} as FormRef,
       amount: '',
-      locktime: '',
       propMax: [],
       validInput: true,
       propToken: 0
@@ -152,26 +148,17 @@ export default defineComponent({
     } = useXEmbr();
     const { refetchAllowances } = useTokens();
 
-    const { amount, locktime } = toRefs(data);
+    const { amount } = toRefs(data);
     const depositing = ref(false);
     const approving = ref(false);
 
     const { txListener } = useEthers();
 
-    const WEEK = new BigNumber(604800)
-
-    function locktimeRules() { 
-     return [
-            isPositive(),
-            isLessThanOrEqualTo(52, t('exceedsLocktime'))
-          ];
-    }
-
     function amountRules() {
       return isWalletReady.value
         ? [
             isPositive(),
-            isLessThanOrEqualTo(userUnstakedEmbrBalance.value.toString(), t('exceedsBalance'))
+            isLessThanOrEqualTo(userUnstakedEmbrBalance.toString(), t('exceedsBalance'))
           ]
         : [isPositive()];
     }
@@ -220,8 +207,9 @@ export default defineComponent({
 
       depositing.value = true;
       const amountScaled = scale(new BigNumber(amount.value), 18);
+
       try {
-        const tx = await createLock(amountScaled.toString(), "0");
+        const tx = await createLock(amountScaled.toString(), amountScaled.toString());
 
         if (!tx) {
           depositing.value = false;
@@ -247,7 +235,6 @@ export default defineComponent({
     watch(isWalletReady, isAuth => {
       if (!isAuth) {
         data.amount = '0';
-        data.locktime = '1';
         data.propMax = [];
       }
     });
@@ -271,7 +258,6 @@ export default defineComponent({
 
       appNetworkConfig,
       amountRules,
-      locktimeRules,
       isWalletReady,
       toggleWalletSelectModal,
       isRequired,

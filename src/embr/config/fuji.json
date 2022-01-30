@@ -93,9 +93,9 @@
   "tokenListSanityUrl": "https://raw.githubusercontent.com/l0rdicon/offical-token-lists/main/tokens.fuji.json",
   "configSanityUrl": "https://raw.githubusercontent.com/l0rdicon/offical-token-lists/main/pools.fuji.json",
   "xEmbr": {
-    "address": "0x3eDb7BaFc8F80f03e042F902e46bc78655C6f53B",
-    "poolAddress": "0xe0d8da1b899c6161a8960db9ff3ea2f1f2f7862b",
-    "poolId": "0xe0d8da1b899c6161a8960db9ff3ea2f1f2f7862b00020000000000000000001e"
+    "address": "0xfd09A50E7c65d054964346182BFa285D332FeE29",
+    "poolAddress": "0x931c39ca51ffa5c5391e346350db0fb8b8893d0d",
+    "poolId": "0x931c39ca51ffa5c5391e346350db0fb8b8893d0d000200000000000000000005"
   },
   "incentivizedPools": [
     "0x931c39ca51ffa5c5391e346350db0fb8b8893d0d000200000000000000000005"

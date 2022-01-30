@@ -11,13 +11,15 @@ interface QueryResponse {
   embrBalance: BigNumber;
   totalEmbrStaking: BigNumber;
   userBalance: BigNumber;
-  userLocked: BigNumber;
-  lockStart: BigNumber;
-  lockEnd: BigNumber;
+  userEmbrStaking: BigNumber;
   allowance: BigNumber;
-  rewardTokens: string[];
-  activeRewardInfo: RewardInfo[];
-  earned: Earned[]
+  activeRewardTokens: ActiveRewardToken[];
+
+  weightedTimestamp: BigNumber;
+  timeMultiplier: BigNumber;
+  questMultiplier: BigNumber;
+  cooldownTimestamp: BigNumber;
+  cooldownUnits: BigNumber;
 }
 
 interface Earned {
@@ -26,11 +28,9 @@ interface Earned {
   index: BigNumber
 }
 
-
-interface RewardInfo { 
-  current: BigNumber
-  last: BigNumber
-  expiry: BigNumber
+interface ActiveRewardToken { 
+  index: BigNumber
+  address: string
 }
 
 export default function useXEmbrQuery() {
@@ -41,27 +41,38 @@ export default function useXEmbrQuery() {
 
   const queryFn = async () => {
     const data = await governanceContractsService.xembr.getData(account.value);
-    const earned: Earned[] = []
-    for(let i=0; i < data.activeRewardInfo.length; i++) { 
-     const res = await governanceContractsService.xembr.earned(i.toString(), account.value);
-     earned.push({
-        amount: new BigNumber(res.toString()),
-        address:data.rewardTokens[data.activeRewardInfo[i].current.toString()],
-        index: new BigNumber(data.activeRewardInfo[i].current.toString())
-     })
+
+   
+    const rewardTokens: ActiveRewardToken[] = []
+    for(let i=0; i < data.activeTokenCount.toNumber(); i++) { 
+      //const global = await governanceContractsService.xembr.getGlobalData(i.toString())
+      const res = await governanceContractsService.xembr.getRewardToken(i.toString());
+      rewardTokens.push({
+        address: res,
+        index: new BigNumber(i)
+      })
     }
+    const allowance = await governanceContractsService.xembr.allowance(account.value);
+
+    console.log("xploited 111", data.userStaking.raw.toString(), data.userStaking.questMultiplier.toString(), data.userStaking.timeMultiplier.toString())
     return {
       totalXembrSupply: new BigNumber(data.totalXembrSupply.toString()),
       embrBalance: new BigNumber(data.embrBalance.toString()),
-      userBalance: new BigNumber(data.userBalance.toString()),
+      userBalance: new BigNumber(data.userStaking.raw.toString()),
+        //.times(new BigNumber(data.userStaking.timeMultiplier.toString()))
+        //.times(new BigNumber(data.userStaking.questMultiplier.toString())),
       totalEmbrStaking: new BigNumber(data.totalEmbrStaking.toString()),
-      userLocked: new BigNumber(data.userLocked.amount.toString()),
-      lockStart: new BigNumber(data.userLocked.start.toString()),
-      lockEnd: new BigNumber(data.userLocked.end.toString()),
-      allowance: new BigNumber(data.allowance.toString()),
-      rewardTokens: data.rewardTokens,
-      activeRewardInfo: data.activeRewardInfo as any,
-      earned: earned,
+      userEmbrStaking: new BigNumber(data.userStaking.raw.toString()),
+      allowance: new BigNumber(allowance.toString()),
+      activeRewardTokens: rewardTokens,
+      weightedTimestamp: new BigNumber(data.userStaking.weightedTimestamp.toString()),
+      timeMultiplier: new BigNumber(data.userStaking.timeMultiplier.toString()),
+      questMultiplier: new BigNumber(data.userStaking.questMultiplier.toString()),
+      cooldownTimestamp: new BigNumber(data.userStaking.cooldownTimestamp.toString()),
+      cooldownUnits: new BigNumber(data.userStaking.cooldownUnits.toString()),
+      //rewardTokens: data.rewardTokens,
+      //activeRewardInfo: data.activeRewardInfo as any,
+      //earned: earned,
     };
   };
 

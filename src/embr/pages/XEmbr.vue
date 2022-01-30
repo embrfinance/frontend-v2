@@ -3,9 +3,13 @@ import { computed, onMounted, ref } from 'vue';
 import useWeb3 from '@/services/web3/useWeb3';
 import { fNum } from '@/composables/useNumbers';
 import { useXEmbr } from '@/embr/composables/stake/useXEmbr';
+import { useXEmbrReward } from '@/embr/composables/stake/useXEmbrReward';
+
 import { scaleDown } from '@/lib/utils';
 import { BigNumber } from 'bignumber.js';
 import XEmbrBalances from '@/embr/components/pages/xembr/XEmbrBalances.vue';
+import XEmbrRewards from '@/embr/components/pages/xembr/XEmbrRewards.vue';
+
 import XEmbrHeader from '@/embr/components/pages/xembr/XEmbrHeader.vue';
 //import XEmbrOldFarmAlert from '@/embr/components/pages/xembr/XEmbrOldFarmAlert.vue';
 //import XEmbrStatCards from '@/embr/components/pages/xembr/XEmbrStatCards.vue';
@@ -24,9 +28,23 @@ const {
   xEmbrLoading,
   userXembrBalance,
   userStakedEmbrBalance,
-  //userBptTokenBalance,
-  userUnstakedEmbrBalance
+  userUnstakedEmbrBalance,
+  totalEmbrStaking,
+  totalXembrSupply,
+  rewardTokens,
+  cooldownUnits,
+  cooldownTimestamp
 } = useXEmbr();
+
+const {
+  xEmbrRewardLoading,
+  globalData,
+  userData,
+  //currentExchangeRate,
+  //embrPerShare,
+  //avaxPerShare,
+  earned
+} = useXEmbrReward();
 
 const {
   balanceFor,
@@ -61,10 +79,17 @@ const hasUnstakedEmbr = computed(() => {
   return parseFloat((fNum(balanceFor(getAddress(appNetworkConfig.addresses.embr)), 'token') )) > 0
 })
 
+const hasCoolingEmbr = computed(() => {
+  return parseFloat((fNum(cooldownUnits.toString(), 'token') )) > 0
+})
+
 const embrBalance = computed(() =>
   fNum(balanceFor(getAddress(appNetworkConfig.addresses.embr)), 'token')
 );
 
+const hasWithdrawableEmbr = computed(() => {
+  return parseFloat((fNum(cooldownUnits.toString(), 'token') )) > 0
+})
 
 onMounted(() => {
   injectTokens([
@@ -93,58 +118,35 @@ const activeTab = ref(tabs[0].value);
   <div class="lg:container lg:mx-auto pt-12 md:pt-12">
     <XEmbrHeader />
 
-    <div class="flex justify-center">
-      <div class="w-full max-w-3xl">
-        <BalAlert
-          v-if="userBptTokenBalance > 0"
-          title="You have unstaked EBT in your wallet"
-          description="If you stake your EPT, you will receive xEMBR and be eligible to earn a portion of Embr Protocol Revenue."
-          type="warning"
-          size="md"
-          class="mb-4"
-        />
-        <BalAlert
-          v-if="userBptTokenBalance == 0 && userUnstakedXembrBalance > 0"
-          title="You have unstaked xEMBR in your wallet"
-          description="If you deposit your xEMBR into the farm, you will earn additional rewards paid out in Embr."
-          type="warning"
-          size="md"
-          class="mb-4"
-        />
-      </div>
-      <div
-        class="hidden w-full max-w-xl mx-auto md:mx-0 md:ml-6 md:block md:w-72"
-      />
-    </div>
-
     <div class="lg:flex justify-center mb-8">
       <div class="w-full lg:max-w-3xl">
         <!-- <div class="mb-6">
           <XEmbrStatCards /> 
         </div>-->
-        <div class="mb-4">
-          <BalTabs v-model="activeTab" :tabs="tabs" no-pad class="-mb-px" />
-        </div>
+
         <XEmbrDepositSteps
           v-if="activeTab === 'deposit'"
           :hasUnstakedEmbr="hasUnstakedEmbr"
           :hasStakedXembr="userXembrBalance > 0"
-          :loading="dataLoading"
-        />
-        <XEmbrWithdrawSteps
-          v-if="activeTab === 'withdraw'"
-          :hasBpt="hasBpt"
-          :hasUnstakedEmbr="hasUnstakedEmbr"
-          :hasStakedXembr="userXembrBalance > 0"
+          :hasCoolingXembr="hasCoolingEmbr"
+          :hasWithdrawableEmbr="hasWithdrawableEmbr"
+          :total-embr-staking="totalEmbrStaking"
+          :total-xembr="totalXembrSupply"
           :loading="dataLoading"
         />
       </div>
       <div class="w-full lg:max-w-xl mx-auto md:mx-0 lg:ml-6 md:block lg:w-72">
         <XEmbrBalances
           :loading="dataLoading"
-          :f-embr-balance="userXembrBalance"
-          :embr-locked-balance="userStakedEmbrBalance"
-          :embr-balance="userXembrBalance"
+          :x-embr-balance="userXembrBalance.toString()"
+          :embr-locked-balance="userStakedEmbrBalance.toString()"
+          :embr-balance="userXembrBalance.toString()"
+        />
+
+        <XEmbrRewards
+          :loading="dataLoading"
+          :reward-tokens="rewardTokens"
+          :earned="earned"
         />
       </div>
     </div>

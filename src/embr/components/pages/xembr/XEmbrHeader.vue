@@ -10,13 +10,13 @@
         Stake your EMBR and earn xEMBR to vote in Governance
       </h2>
       <p>
-        90% of collected Embr protocol fees for 10 tokens are rewarded to xEMBR holders. When you
-        stake your EMBR, you receive xEMBR in return which can also be used in governance.
+        100% of collected Embr protocol fees for up to 10 tokens are rewarded to xEMBR holders. When you
+        stake your EMBR, you receive xEMBR in return.
       </p>
       <ol class="list-decimal list-inside ml-2 mt-2">
-        <li>90% of Protocol Revenue</li>
-        <li>Earn rewards from 10 different tokens</li>
-        <li>Vote on which tokens are rewarded</li>
+        <li>100% of Protocol Revenue</li>
+        <li>Earn rewards from up to 10 different tokens</li>
+        <li>Earn multiplers for staking longer</li>
       </ol>
       <!--        <BalLoadingBlock v-if="false" class="h-10 w-40" />-->
     </div>

@@ -39,6 +39,8 @@ export type TransactionAction =
   | 'wrap'
   | 'unwrap'
   | 'invest'
+  | 'cooldown'
+  | 'endCooldown'
   | 'withdraw'
   | 'deposit'
   | 'createPool'

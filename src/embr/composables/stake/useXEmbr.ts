@@ -25,6 +25,7 @@ export function useXEmbr() {
 
   const { isLoading, data, refetch } = XEmbrQuery;
 
+
   const xEmbrLoading = computed(() => {
     return (
       isLoading.value ||
@@ -38,7 +39,27 @@ export function useXEmbr() {
   );
 
   const userStakedEmbrBalance = computed(() => {
-    return data.value?.userLocked?.div(1e18) ?? bn(0);
+    return data.value?.userEmbrStaking?.div(1e18) ?? bn(0);
+  });
+
+  const weightedTimestamp = computed(() => {
+    return data.value?.weightedTimestamp ?? bn(0);
+  });
+
+  const timeMultiplier = computed(() => {
+    return data.value?.timeMultiplier ?? bn(0);
+  });
+
+  const questMultiplier = computed(() => {
+    return data.value?.questMultiplier ?? bn(0);
+  });
+
+  const cooldownTimestamp = computed(() => {
+    return data.value?.cooldownTimestamp ?? bn(0);
+  });
+
+  const cooldownUnits = computed(() => {
+    return data.value?.cooldownUnits?.div(1e18) ?? bn(0);
   });
 
   const userUnstakedEmbrBalance = computed(() => {
@@ -55,6 +76,14 @@ export function useXEmbr() {
   const userAllowance = computed(
     () => data.value?.allowance.div(1e18) ?? bn(0)
   );
+
+  const rewardTokens = computed(
+    () => data.value?.activeRewardTokens ?? []
+  )
+
+  const totalXembrSupply = computed(
+    () => data.value?.totalXembrSupply.div(1e18) ?? bn(0)
+  )
 
 
   /*const currentExchangeRate = computed(() => {
@@ -109,8 +138,8 @@ export function useXEmbr() {
   async function approve(amount?: string) {
     const tx = await erc20ContractService.erc20.approveToken(
       getProvider(),
-      governanceContractsService.xembr.embrAddress,
       governanceContractsService.xembr.xembrAddress,
+      governanceContractsService.xembr.embrAddress,
       amount
     );
 
@@ -142,48 +171,7 @@ export function useXEmbr() {
 
 
   async function createLock(amount: string, unlock_time: string) {
-    const tx = await governanceContractsService.xembr.createLock(
-      getProvider(),
-      amount,
-      unlock_time
-    );
-
-    addTransaction({
-      id: tx.hash,
-      type: 'tx',
-      action: 'deposit',
-      summary: 'Stake EMBR tokens for xEMBR',
-      details: {
-        contractAddress: governanceContractsService.xembr.embrAddress,
-        spender: governanceContractsService.xembr.xembrAddress
-      }
-    });
-
-    return tx;
-  }
-
-  async function increaseLockLength( unlock_time: string) {
-    const tx = await governanceContractsService.xembr.increaseLockLength(
-      getProvider(),
-      unlock_time
-    );
-
-    addTransaction({
-      id: tx.hash,
-      type: 'tx',
-      action: 'deposit',
-      summary: 'Increase lock length for xEMBR',
-      details: {
-        contractAddress: governanceContractsService.xembr.embrAddress,
-        spender: governanceContractsService.xembr.xembrAddress
-      }
-    });
-
-    return tx;
-  }
-
-  async function increaseLockAmount( amount: string) {
-    const tx = await governanceContractsService.xembr.increaseLockAmount(
+    const tx = await governanceContractsService.xembr.stake(
       getProvider(),
       amount
     );
@@ -192,7 +180,7 @@ export function useXEmbr() {
       id: tx.hash,
       type: 'tx',
       action: 'deposit',
-      summary: 'Increase EMBR lock amount for xEMBR',
+      summary: 'Deposit EMBR tokens for xEMBR',
       details: {
         contractAddress: governanceContractsService.xembr.embrAddress,
         spender: governanceContractsService.xembr.xembrAddress
@@ -202,9 +190,73 @@ export function useXEmbr() {
     return tx;
   }
 
-  async function withdraw(address: string) {
-    const tx = await governanceContractsService.xembr.withdraw(
+
+  async function increaseLockAmount( amount: string) {
+    const tx = await governanceContractsService.xembr.stake(
+      getProvider(),
+      amount
+    );
+
+    addTransaction({
+      id: tx.hash,
+      type: 'tx',
+      action: 'deposit',
+      summary: 'Deposit EMBR for xEMBR',
+      details: {
+        contractAddress: governanceContractsService.xembr.embrAddress,
+        spender: governanceContractsService.xembr.xembrAddress
+      }
+    });
+
+    return tx;
+  }
+
+  async function cooldown(amount: string) { 
+    const tx = await governanceContractsService.xembr.startCooldown(
+      getProvider(),
+      amount
+    );
+
+    addTransaction({
+      id: tx.hash,
+      type: 'tx',
+      action: 'endCooldown',
+      summary: 'Cooldown Embr for withdrawing',
+      details: {
+        contractAddress: governanceContractsService.xembr.embrAddress,
+        spender: governanceContractsService.xembr.xembrAddress
+      }
+    });
+
+    return tx;
+
+  }
+
+  async function endCooldown() { 
+    const tx = await governanceContractsService.xembr.endCooldown(
       getProvider()
+    );
+
+    addTransaction({
+      id: tx.hash,
+      type: 'tx',
+      action: 'endCooldown',
+      summary: 'End cooldown for withdrawing Embr',
+      details: {
+        contractAddress: governanceContractsService.xembr.embrAddress,
+        spender: governanceContractsService.xembr.xembrAddress
+      }
+    });
+
+    return tx;
+  }
+
+  async function withdraw(amount: string, address: string, exitCoolDown: boolean) {
+    const tx = await governanceContractsService.xembr.withdraw(
+      getProvider(),
+      amount,
+      address,
+      exitCoolDown
     );
 
     addTransaction({
@@ -230,8 +282,15 @@ export function useXEmbr() {
     XEmbrQuery,
     pool,
     totalEmbrStaking,
+    totalXembrSupply,
     userStakedEmbrBalance,
+    weightedTimestamp,
+    timeMultiplier,
+    questMultiplier,
+    cooldownTimestamp,
+    cooldownUnits,
     xembrApr,
+    rewardTokens,
     refetch,
     embr, 
     ausd,
@@ -242,10 +301,11 @@ export function useXEmbr() {
     //totalApr,
     //currentExchangeRate,
 
+    endCooldown,
+    cooldown,
     approve,
     withdraw,
     createLock,
-    increaseLockLength,
     increaseLockAmount
   };
 }

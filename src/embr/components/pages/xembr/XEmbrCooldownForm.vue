@@ -55,7 +55,7 @@
           :loading="withdrawing || loading"
           block
         >
-          Burn xEMBR
+          Cooldown
         </BalBtn>
       </template>
     </div>

@@ -131,8 +131,8 @@ const {
   error: failedToLoadPriceData
 } = useQuery(
   QUERY_KEYS.Tokens.PairPriceData(
-    tokenInAddress,
     tokenOutAddress,
+    tokenInAddress,
     activeTimespan,
     userNetworkId,
     nativeAsset,

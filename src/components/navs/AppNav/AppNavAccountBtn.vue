@@ -13,12 +13,6 @@
       >
         <Avatar :address="account" :profile="profile" :size="avatarSize" />
         <span
-          v-if="profile.ens"
-          v-text="profile.ens"
-          class="pl-2 hidden lg:inline-block"
-        />
-        <span
-          v-else
           v-text="_shorten(account)"
           class="pl-2 hidden lg:inline-block eth-address"
         />
@@ -45,7 +39,7 @@ export default defineComponent({
 
   setup() {
     const { bp, upToLargeBreakpoint } = useBreakpoints();
-    const { isLoadingProfile, profile, account } = useWeb3();
+    const { isLoadingProfile, account } = useWeb3();
 
     const avatarSize = computed(() => {
       if (bp.value === 'sm') {
@@ -61,7 +55,6 @@ export default defineComponent({
       // computed
       bp,
       account,
-      profile,
       avatarSize,
       upToLargeBreakpoint,
       isLoadingProfile

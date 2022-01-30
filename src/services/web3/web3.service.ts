@@ -22,7 +22,7 @@ export default class Web3Service {
 
   async getProfile(address: string): Promise<Web3Profile> {
     return {
-      ens: await this.getEnsName(address)
+      ens: null
     };
   }
 }

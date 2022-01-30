@@ -53,7 +53,7 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const { appLoading } = useApp();
-    const { account, isLoadingProfile } = useWeb3();
+    const { account } = useWeb3();
     const activeClasses = 'bg-black text-white dark:bg-gray-800';
     const isTradePage = computed(() => route.name === 'trade');
     const isFarmPage = computed(() => String(route.name).startsWith('farm'));
@@ -72,9 +72,7 @@ export default defineComponent({
     );
     const { trackGoal, Goals } = useFathom();
 
-    const isLoggedIn = computed(
-      () => !appLoading.value && !isLoadingProfile.value && !!account.value
-    );
+    const isLoggedIn = computed(() => !appLoading.value && !!account.value);
 
     return {
       isTradePage,

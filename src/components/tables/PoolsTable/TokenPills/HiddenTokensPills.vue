@@ -31,10 +31,10 @@ withDefaults(defineProps<Props>(), {
     <div
       v-if="hasBalance"
       class="balance-indicator"
+      title="You have tokens that can be invested"
       :style="{ zIndex: tokens.length }"
     />
     <div
-      title="You Have Tokens That Could Be Earning Rewards if Staked"
       v-for="n in 2"
       :key="n"
       :class="[

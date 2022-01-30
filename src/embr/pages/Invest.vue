@@ -1,6 +1,6 @@
 <template>
   <div class="lg:container lg:mx-auto pt-10 md:pt-12">
-    <div class="flex mb-3 items-center"><h3>Top Performing and Featured Liquidity Pools</h3></div>
+    <div class="flex mb-3 items-center"><h3>Top Performing Liquidity Pools</h3></div>
     <InvestFeaturedPoolsCard
       :pools="featuredPools"
       :isLoading="isLoadingPools || embrConfigLoading"

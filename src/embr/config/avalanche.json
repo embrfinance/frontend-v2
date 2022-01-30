@@ -28,7 +28,7 @@
       "decimals": 18,
       "deeplinkId": "avax",
       "logoURI": "https://cdn.discordapp.com/emojis/902638084779278356.png",
-      "minTransactionBuffer": "0.005"
+      "minTransactionBuffer": "0.1"
     },
     "addresses": {
       "bFactory": "",

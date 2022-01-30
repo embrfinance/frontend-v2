@@ -48,6 +48,13 @@ const optimizeBtnClasses = computed(() => ({
   'text-gradient': !highPriceImpact.value,
   'text-red-500 px-2 py-1 bg-white rounded-lg': highPriceImpact.value
 }));
+
+console.log(`fiatTotal:`);
+console.log(fiatTotal)
+
+console.log(`priceImpact:`);
+console.log(priceImpact)
+
 </script>
 
 <template>
@@ -57,25 +64,24 @@ const optimizeBtnClasses = computed(() => ({
       <div class="data-table-number-col">
         {{ fNum(fiatTotal, 'usd') }}
         <div v-if="isWalletReady && !hasNoBalances" class="text-sm">
-          <span v-if="maximized" class="text-gray-400 dark:text-gray-600">
-            {{ $t('maxed') }}
+          <span v-if="maximized" class="text-green-600 dark:text-green-700">
+            <button style="font-size: small !important; border:1px solid black !important;">&nbsp;{{ $t('maxed') }}&nbsp;</button>
           </span>
           <span
             v-else
             class="text-white cursor-pointer"
             @click="emit('maximize')"
           >
-            {{ $t('max') }}
+            <button style="font-size: small !important; border:1px solid black !important;">&nbsp;{{ $t('max') }}&nbsp;</button>
           </span>
         </div>
       </div>
     </div>
     <div :class="['data-table-row price-impact-row', priceImpactClasses]">
       <div class="p-2">{{ $t('priceImpact') }}</div>
-      <div class="data-table-number-col">
-        <div>
-          {{ fNum(priceImpact, 'percent') }}
-
+      <div class="data-table-number-col priceimpactdiv">
+        <div :class="[priceImpact > 0.0001 ? 'text-red-500 dark:text-red-500':'text-green-600 dark:text-green-700']">
+          <b>{{ fNum(priceImpact, 'percent') }}</b>
           <BalTooltip :text="$t('customAmountsTip')">
             <template v-slot:activator>
               <BalIcon
@@ -95,15 +101,32 @@ const optimizeBtnClasses = computed(() => ({
         </div>
 
         <div v-if="isWalletReady && hasAllTokens" class="text-sm font-semibold">
-          <span v-if="optimized" class="text-gray-400 dark:text-gray-600">
-            {{ $t('optimized') }}
-          </span>
+          <span v-if="optimized" class="text-green-600 dark:text-green-700">
+            ✔️&nbsp;<button style="font-size: small !important; border:1px solid black !important;">&nbsp;{{ $t('optimized') }}&nbsp;</button>
+        </span>
+
           <div
+          style="width:--webkit-fill-available;"
             v-else
-            :class="['cursor-pointer', optimizeBtnClasses]"
+            :class="(['cursor-pointer', optimizeBtnClasses], optimizer)"
             @click="emit('optimize')"
           >
-            {{ $t('optimize') }}
+          <span style="align-self: flex-start; float:left; width:auto;">
+            <span class="round">
+              <span id="cta">
+                <span style="filter: drop-shadow(0px 0px 3px red);" class="arrow primera next "></span>
+                <span style="filter: drop-shadow(0px 0px 3px orange);" class="arrow segunda next "></span>
+              </span>
+            </span>
+            <b style="color:gold;">Fix Value Loss</b>
+            <span class="round">
+              <span id="cta">
+                <span style="filter: drop-shadow(0px 0px 3px yellow);" class="arrow primera next "></span>
+                <span style="filter: drop-shadow(0px 0px 3px lawngreen);" class="arrow segunda next "></span>
+              </span>
+            </span>
+          </span>
+          <button style="font-size: small !important; border:1px solid black !important;">&nbsp;{{ $t('optimize') }}&nbsp;</button>
           </div>
         </div>
       </div>
@@ -133,4 +156,75 @@ const optimizeBtnClasses = computed(() => ({
 .price-impact-row {
   @apply text-sm rounded-b-lg;
 }
+
+.optimizer {
+  @apply hover:text-green-100;
+}
+
+
+
+
+.round {
+
+    display: inline-flex;
+    border: none;
+    width: 30px;
+    height: inherit;
+    border-radius: 100%;
+    position: relative;
+    inset: auto auto 0px 0px;
+    margin: 0px;
+    top: 0px;
+}
+
+#cta{
+    width:100%; cursor: pointer; position: absolute;
+}
+
+#cta .arrow{left: 30%;}
+.arrow {position: absolute; top: -0.8em;  margin-left:0px; width: 12px; height: 12px; background-size: contain;}
+.segunda{margin-left: 8px;}
+.next {
+	background-image: url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHN0eWxlPi5zdDB7ZmlsbDojZmZmfTwvc3R5bGU+PHBhdGggY2xhc3M9InN0MCIgZD0iTTMxOS4xIDIxN2MyMC4yIDIwLjIgMTkuOSA1My4yLS42IDczLjdzLTUzLjUgMjAuOC03My43LjZsLTE5MC0xOTBjLTIwLjEtMjAuMi0xOS44LTUzLjIuNy03My43UzEwOSA2LjggMTI5LjEgMjdsMTkwIDE5MHoiLz48cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzE5LjEgMjkwLjVjMjAuMi0yMC4yIDE5LjktNTMuMi0uNi03My43cy01My41LTIwLjgtNzMuNy0uNmwtMTkwIDE5MGMtMjAuMiAyMC4yLTE5LjkgNTMuMi42IDczLjdzNTMuNSAyMC44IDczLjcuNmwxOTAtMTkweiIvPjwvc3ZnPg==);
+}
+
+@keyframes bounceAlpha {
+  0% {opacity: 1; transform: translateX(0px) scale(1);}
+  25%{opacity: 0; transform:translateX(10px) scale(0.9);}
+  26%{opacity: 0; transform:translateX(-10px) scale(0.9);}
+  55% {opacity: 1; transform: translateX(0px) scale(1);}
+}
+
+.bounceAlpha {
+    animation-name: bounceAlpha;
+    animation-duration:1.4s;
+    animation-iteration-count:infinite;
+    animation-timing-function:linear;
+}
+
+.arrow.primera.bounceAlpha {
+    animation-name: bounceAlpha;
+    animation-duration:1.4s;
+    animation-delay:0.2s;
+    animation-iteration-count:infinite;
+    animation-timing-function:linear;
+}
+
+.round .arrow{
+    animation-name: bounceAlpha;
+    animation-duration:1.4s;
+    animation-iteration-count:infinite;
+    animation-timing-function:linear;
+}
+.round .arrow.primera{
+    animation-name: bounceAlpha;
+    animation-duration:1.4s;
+    animation-delay:0.2s;
+    animation-iteration-count:infinite;
+    animation-timing-function:linear;
+}
+
+
+
+
 </style>

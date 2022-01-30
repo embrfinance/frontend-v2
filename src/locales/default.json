@@ -374,8 +374,8 @@
     "previewTradeTransactions": "Preview trade transactions",
     "previewUnwrap": "Preview {0} Unwrap",
     "previewWrap": "Preview {0} Wrap",
-    "priceImpact": "Price impact",
-    "priceImpactAccept": "I accept the high price impact from {0} single token amounts, moving the market price based on the depth of the market.",
+    "priceImpact": "Value Loss",
+    "priceImpactAccept": "I accept the high price impact from {0} single token amounts, moving the market price based on the depth of the market. Please Optimize for best price result",
     "priceImpactCheckbox": "Price impact acknowledgement",
     "priceImpactTolerance": "Price impact tolerance",
     "priceUpdatedAlert": {

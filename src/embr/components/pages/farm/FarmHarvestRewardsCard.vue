@@ -4,7 +4,7 @@
       My Pending Rewards
     </div>
     <div class="text-xl font-medium truncate flex items-center">
-      {{ fNum(pendingEmbr, 'token_fixed') }} Embr
+      {{ fNum(pendingEmbr, 'token_fixed') }} EMBR
     </div>
     <div class="truncate flex items-center pb-8">
       {{ fNum(pendingEmbrValue, 'usd') }}

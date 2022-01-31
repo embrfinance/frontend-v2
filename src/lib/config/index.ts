@@ -61,6 +61,7 @@ export interface Config {
     usdc: string;
     ausd: string;
     defaultPoolOwner: string;
+    batchRelayer: string;
   };
   keys: {
     infura: string;

@@ -7,12 +7,47 @@ import { Web3Provider } from '@ethersproject/providers';
 import { getAddress, isAddress } from '@ethersproject/address';
 import { scale } from '@/lib/utils';
 import BigNumber from 'bignumber.js';
+import { mapValues } from 'lodash';
 
 export default class MasterChef {
   service: Service;
 
   constructor(service, private readonly configService = new ConfigService()) {
     this.service = service;
+  }
+
+  public async getPendingEmbrForFarms(
+    ids: string[],
+    user: string
+  ): Promise<{ [id: string]: number }> {
+    let result = {} as Record<any, any>;
+
+    if (!isAddress(user)) {
+      return {};
+    }
+
+    const masterChefMultiCaller = new Multicaller(
+      this.configService.network.key,
+      this.service.provider,
+      MasterChefAbi
+    );
+
+    for (const id of ids) {
+      masterChefMultiCaller.call(
+        `${id}.pendingEmbr`,
+        this.address,
+        'pendingEmbr',
+        [id, getAddress(user)]
+      );
+    }
+
+    result = await masterChefMultiCaller.execute(result);
+
+    return mapValues(result, item =>
+      item.pendingEmbr
+        ? scale(new BigNumber(item.pendingEmbr.toString()), -18).toNumber()
+        : 0
+    );
   }
 
   public async getPendingEmbrForFarm(
@@ -24,21 +59,24 @@ export default class MasterChef {
     if (!isAddress(user)) {
       return 0;
     }
-    
+
     const masterChefMultiCaller = new Multicaller(
       this.configService.network.key,
       this.service.provider,
       MasterChefAbi
     );
+
     masterChefMultiCaller.call('pendingEmbr', this.address, 'pendingEmbr', [
       id,
       getAddress(user)
     ]);
     result = await masterChefMultiCaller.execute(result);
 
-    const pendingEmbr = result.pendingEmbr.toString();
+    const pendingEmbr = result.pendingEmbr?.toString();
 
-    return pendingEmbr ? scale(new BigNumber(pendingEmbr), -18).toNumber() : 0;
+    return pendingEmbr
+      ? scale(new BigNumber(pendingEmbr), -18).toNumber()
+      : 0;
   }
 
   public async withdrawAndHarvest(

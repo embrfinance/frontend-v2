@@ -34,10 +34,10 @@ export function calculateTvl(farm: Farm, pool: DecoratedPool) {
   return 0;
 }
 
-export function calculateRewardsPerDay(farm: Farm, secondsPerDay: number) {
+export function calculateRewardsPerDay(farm: Farm, blocksPerDay: number) {
   const totalEmbrPerDay = new BigNumber(
     farm.masterChef.embrPerSec
-  ).multipliedBy(secondsPerDay);
+  ).multipliedBy(blocksPerDay);
 
   return totalEmbrPerDay
     .multipliedBy(farm.allocPoint / farm.masterChef.totalAllocPoint)
@@ -48,19 +48,21 @@ export function calculateRewardsPerDay(farm: Farm, secondsPerDay: number) {
 export function calculateApr(
   farm: Farm,
   tvl: number,
-  secPerYear: number,
+  blocksPerYear: number,
   embrPrice: number
 ) {
   if (tvl === 0) {
     return 0;
   }
 
-  const embrPerSec = Number(parseInt(farm.masterChef.embrPerSec) / 1e18) * 0.9;
-  const embrPerYear = embrPerSec * secPerYear; //31540000;
+  const embrPerSec =
+    Number(parseInt(farm.masterChef.embrPerSec) / 1e18) * 0.872;
+  const embrPerYear = embrPerSec * blocksPerYear;
   const farmEmbrPerYear =
     (farm.allocPoint / farm.masterChef.totalAllocPoint) * embrPerYear;
 
-  const valuePerYear = embrPrice * farmEmbrPerYear;
+  const valuePerYear =
+    embrPrice * farmEmbrPerYear;
 
   return valuePerYear / tvl;
 }
@@ -68,48 +70,55 @@ export function calculateApr(
 export function getPoolApr(
   pool: DecoratedPool,
   farm: DecoratedFarm,
-  secsPerYear: number,
+  blocksPerYear: number,
   embrPrice: number
 ): PoolApr {
   const tvl = calculateTvl(farm, pool);
   const liquidityMiningApr = farm
-    ? `${calculateApr(farm, tvl, secsPerYear, embrPrice)}`
+    ? `${calculateApr(farm, tvl, blocksPerYear, embrPrice)}`
     : '0';
 
   return {
-    pool: pool.dynamic.apr.pool,
+    pool: pool.apr.swapApr,
     liquidityMining: liquidityMiningApr,
-    total: `${parseFloat(pool.dynamic.apr.pool) +
-      parseFloat(liquidityMiningApr)}`,
+    total: `${parseFloat(pool.apr.swapApr) + parseFloat(liquidityMiningApr)}`,
     thirdParty: '',
-    liquidityMiningBreakdown: {}
+    liquidityMiningBreakdown: {},
+    thirdPartyBreakdown: {}
   };
 }
 
 export function decorateFarm(
   farm: Farm,
   pool: DecoratedPool,
-  secsPerYear: number,
-  secsPerDay: number,
+  blocksPerYear: number,
+  blocksPerDay: number,
   embrPrice: number,
   farmUser?: FarmUser
 ): DecoratedFarm {
   const tvl = calculateTvl(farm, pool);
-  const apr = calculateApr(farm, tvl, secsPerYear, embrPrice);
-  const userShare = new BigNumber(farmUser?.amount || 0)
-    .div(farm.slpBalance)
-    .toNumber();
+  const apr = calculateApr(
+    farm,
+    tvl,
+    blocksPerYear,
+    embrPrice
+  );
+
+  const userShare =
+    parseFloat(farm.slpBalance) > 0
+      ? new BigNumber(farmUser?.amount || 0).div(farm.slpBalance).toNumber()
+      : 0;
 
   return {
     ...farm,
     tvl,
-    rewards: calculateRewardsPerDay(farm, secsPerDay),
+    rewards: calculateRewardsPerDay(farm, blocksPerDay),
     apr,
     stake: tvl * userShare,
     pendingEmbr: farmUser?.pendingEmbr || 0,
     pendingEmbrValue: (farmUser?.pendingEmbr || 0) * embrPrice,
     share: userShare,
-    userBpt: new BigNumber(farmUser?.amount || 0).div(1e18).toNumber()
+    userBpt: new BigNumber(farmUser?.amount || 0).div(1e18).toNumber(),
   };
 }
 
@@ -117,8 +126,8 @@ export function decorateFarms(
   pools: DecoratedPool[],
   farms: Farm[],
   allFarmsForUser: FarmUser[],
-  secsPerYear: number,
-  secsPerDay: number,
+  blocksPerYear: number,
+  blocksPerDay: number,
   embrPrice: number
 ) {
   if (farms.length === 0 || pools.length === 0) {
@@ -132,12 +141,19 @@ export function decorateFarms(
       pool => pool.address.toLowerCase() === farm.pair.toLowerCase()
     );
     const farmUser = allFarmsForUser.find(
-      userFarm => userFarm.pool.id === farm.id
+      userFarm => userFarm.farmId === farm.id
     );
 
     if (pool) {
       decorated.push(
-        decorateFarm(farm, pool, secsPerYear, secsPerDay, embrPrice, farmUser)
+        decorateFarm(
+          farm,
+          pool,
+          blocksPerYear,
+          blocksPerDay,
+          embrPrice,
+          farmUser
+        )
       );
     }
   }

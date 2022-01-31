@@ -33,7 +33,7 @@
             >
               {{ $t('new') }}
             </BalChip>
-            <LiquidityMiningTooltip :pool="pool" class="-ml-1 mt-1" />
+            <LiquidityAPRTooltip :pool="pool" class="-ml-1 mt-1" />
           </div>
           <div class="flex items-center mt-2">
             <div v-html="poolFeeLabel" class="text-sm" />
@@ -82,11 +82,13 @@
       <div class="col-span-2 order-2 lg:order-1">
         <div class="grid grid-cols-1 gap-y-8">
           <div class="px-1 lg:px-0">
-            <PoolChart
+            <!--<PoolChart
               :prices="historicalPrices"
               :snapshots="snapshots"
               :loading="isLoadingSnapshots"
-            />
+            />-->
+            <BalLoadingBlock v-if="isLoadingSnapshots" class="h-96" />
+            <PoolVolumeChart v-else :snapshots="snapshots" />
           </div>
           <div class="mb-4 px-1 lg:px-0">
             <PoolStatCards :pool="pool" :loading="loadingPool" />
@@ -164,7 +166,7 @@
 import { computed, defineComponent, reactive, toRefs, watch } from 'vue';
 import * as PoolPageComponents from '@/components/contextual/pages/pool';
 import GauntletIcon from '@/components/images/icons/GauntletIcon.vue';
-import LiquidityMiningTooltip from '@/components/tooltips/LiquidityMiningTooltip.vue';
+import LiquidityAPRTooltip from '@/components/tooltips/LiquidityAPRTooltip.vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
 import useNumbers from '@/composables/useNumbers';
@@ -180,6 +182,8 @@ import useAlerts, { AlertPriority, AlertType } from '@/composables/useAlerts';
 import FarmStatCards from '@/embr/components/pages/farm/FarmStatCards.vue';
 import FarmStatCardsLoading from '@/embr/components/pages/farm/FarmStatCardsLoading.vue';
 import usePoolWithFarm from '@/embr/composables/pool/usePoolWithFarm';
+import PoolVolumeChart from '@/embr/components/pages/pool/PoolVolumeChart.vue';
+import BalLoadingBlock from '@/components/_global/BalLoadingBlock/BalLoadingBlock.vue';
 
 interface PoolPageData {
   id: string;
@@ -187,9 +191,11 @@ interface PoolPageData {
 
 export default defineComponent({
   components: {
+    BalLoadingBlock,
+    PoolVolumeChart,
     ...PoolPageComponents,
     GauntletIcon,
-    LiquidityMiningTooltip,
+    LiquidityAPRTooltip,
     FarmStatCards,
     FarmStatCardsLoading
   },
@@ -206,6 +212,7 @@ export default defineComponent({
     const { prices } = useTokens();
     const { blockNumber } = useWeb3();
     const { addAlert, removeAlert } = useAlerts();
+    const { balancerTokenListTokens } = useTokens();
 
     const { pool, loadingPool, isLoadingFarms } = usePoolWithFarm(
       route.params.id as string
@@ -227,9 +234,11 @@ export default defineComponent({
       id: route.params.id as string
     });
 
-    const { isStableLikePool, isLiquidityBootstrappingPool } = usePool(
-      poolQuery.data
-    );
+    const {
+      isStableLikePool,
+      isLiquidityBootstrappingPool,
+      isStablePhantomPool
+    } = usePool(poolQuery.data);
 
     const noInitLiquidity = computed(
       () =>
@@ -309,9 +318,13 @@ export default defineComponent({
     const missingPrices = computed(() => {
       if (pool.value) {
         const tokensWithPrice = Object.keys(prices.value);
-        return !pool.value.tokenAddresses.every(token =>
-          tokensWithPrice.includes(token)
-        );
+
+        const tokens =
+          isStablePhantomPool.value && pool.value.mainTokens
+            ? pool.value.mainTokens
+            : pool.value.tokenAddresses;
+
+        return !tokens.every(token => tokensWithPrice.includes(token));
       }
       return false;
     });

@@ -7,7 +7,7 @@
         </div>
         <div class="text-xl font-medium truncate flex items-center">
           {{ stat.value }}
-          <LiquidityMiningTooltip :pool="pool" v-if="stat.id === 'apr'" />
+          <LiquidityAPRTooltip :pool="pool" v-if="stat.id === 'apr'" />
         </div>
       </BalCard>
     </div>
@@ -23,7 +23,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, ref } from 'vue';
 import useNumbers from '@/composables/useNumbers';
-import LiquidityMiningTooltip from '@/components/tooltips/LiquidityMiningTooltip.vue';
+import LiquidityAPRTooltip from '@/components/tooltips/LiquidityAPRTooltip.vue';
 import useEthers from '@/composables/useEthers';
 import {
   DecoratedFarm,
@@ -38,7 +38,7 @@ import { DecoratedPool } from '@/services/balancer/subgraph/types';
 export default defineComponent({
   components: {
     FarmHarvestRewardsCard,
-    LiquidityMiningTooltip
+    LiquidityAPRTooltip
   },
 
   props: {
@@ -53,10 +53,10 @@ export default defineComponent({
     const { txListener } = useEthers();
     const { harvest } = useFarm(
       ref(props.pool.address),
-      ref(props.pool.farm.id)
+      ref(props.pool.decoratedFarm.id)
     );
     const harvesting = ref(false);
-    const farmUserQuery = useFarmUserQuery(props.pool.farm.id);
+    const farmUserQuery = useFarmUserQuery(props.pool.decoratedFarm.id);
     const farmUser = computed(() => farmUserQuery.data.value);
 
     async function harvestRewards(): Promise<void> {
@@ -81,30 +81,34 @@ export default defineComponent({
 
     // COMPUTED
     const stats = computed(() => {
-      const farm = props.pool.farm;
-
-      return [
+      const farm = props.pool.decoratedFarm;
+      const items = [
         {
           id: 'tvl',
           label: 'TVL',
           value: fNum(farm.tvl, 'usd')
-        },
-        {
-          id: 'embr',
-          label: 'Embr',
-          value: `${fNum(farm.rewards, 'token_lg')} / day`
-        },
-        {
-          id: 'stake',
-          label: 'My Balance',
-          value: fNum(farm.stake, 'usd')
-        },
-        {
-          id: 'your_share',
-          label: 'My Share',
-          value: fNum(farm.share, 'percent')
         }
       ];
+
+      items.push({
+        id: 'embr',
+        label: 'EMBR',
+        value: `${fNum(farm.rewards, 'token_lg')} / day`
+      });
+
+      items.push({
+        id: 'stake',
+        label: 'My Balance',
+        value: fNum(farm.stake, 'usd')
+      });
+
+      items.push({
+        id: 'your_share',
+        label: 'My Share',
+        value: fNum(farm.share, 'percent')
+      });
+
+      return items;
     });
 
     const pendingRewards = computed(() => {

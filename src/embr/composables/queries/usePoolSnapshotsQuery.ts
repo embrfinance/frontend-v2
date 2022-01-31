@@ -9,13 +9,14 @@ import {
   embrService,
   HistoricalPrices
 } from '@/embr/services/embr/embr.service';
+import { GqlBalancerPoolSnapshot } from '@/embr/services/embr/embr-types';
 
 /**
  * TYPES
  */
 interface QueryResponse {
   prices: HistoricalPrices;
-  snapshots: PoolSnapshots;
+  snapshots: GqlBalancerPoolSnapshot[];
 }
 
 export default function usePoolSnapshotsQuery(
@@ -45,7 +46,7 @@ export default function usePoolSnapshotsQuery(
     const prices = await embrService.getHistoricalTokenPrices(
       pool.value.tokensList
     );
-    const snapshots = await balancerSubgraphService.poolSnapshots.get(id, days);
+    const snapshots = await embrService.getPoolSnapshots(id);;
 
     return { prices, snapshots };
   };

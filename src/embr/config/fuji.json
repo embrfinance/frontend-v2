@@ -57,7 +57,8 @@
     "defaultPoolOwner": "0xFEb06159e2d3AC37f8B5c609A04B94dc6E11982f",
     "earlyLudwigNft": "",
     "hnd": "",
-    "hndRewarder": ""
+    "hndRewarder": "",
+    "batchRelayer": "0xf318a53495341351128D74781145a02Ec33923a1"
   },
   "strategies": {
     "0": {

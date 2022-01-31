@@ -8,6 +8,7 @@ import { POOLS } from '@/constants/pools';
 import { balancerSubgraphService } from '@/services/balancer/subgraph/balancer-subgraph.service';
 import { PoolSwap } from '@/services/balancer/subgraph/types';
 import useNetwork from '../useNetwork';
+import useWeb3 from '@/services/web3/useWeb3';
 
 type PoolSwapsQueryResponse = {
   poolSwaps: PoolSwap[];
@@ -19,10 +20,11 @@ export default function usePoolSwapsQuery(
   options: UseInfiniteQueryOptions<PoolSwapsQueryResponse> = {}
 ) {
   // COMPOSABLES
+  const { account, isWalletReady } = useWeb3();
   const { networkId } = useNetwork();
 
   // DATA
-  const queryKey = reactive(QUERY_KEYS.Pools.Swaps(networkId, id));
+  const queryKey = reactive(QUERY_KEYS.Pools.UserSwaps(networkId, id, account));
 
   // METHODS
   const queryFn = async ({ pageParam = 0 }) => {

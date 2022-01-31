@@ -59,10 +59,10 @@
         </BalCard>
         <BalCard>
           <div class="text-sm text-gray-200 font-medium mb-2 text-left">
-            Embr
+            Embr Price
           </div>
           <div class="text-xl font-medium truncate flex items-center">
-            {{ fNum(embrPrice, 'usd') }}
+            {{ fNum(embrPrice, 'token_fixed') }}
           </div>
         </BalCard>
       </div>

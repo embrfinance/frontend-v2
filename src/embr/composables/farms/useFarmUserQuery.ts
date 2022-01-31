@@ -7,21 +7,22 @@ import useApp from '@/composables/useApp';
 import useTokens from '@/composables/useTokens';
 import { masterChefContractsService } from '@/embr/services/farm/master-chef-contracts.service';
 import useProtocolDataQuery from '@/embr/composables/queries/useProtocolDataQuery';
-import { farmSubgraphClient } from '@/embr/services/subgraph/farm-subgraph.client';
+
 import { FarmUser } from '@/embr/services/subgraph/subgraph-types';
 import { AddressZero } from '@ethersproject/constants';
+import { embrService } from '@/embr/services/embr/embr.service';
 
 export default function useFarmUserQuery(
   farmId: string,
-  options: QueryObserverOptions<FarmUser> = {}
+  options: QueryObserverOptions<FarmUser | null> = {}
 ) {
-  const { account, isWalletReady, appNetworkConfig } = useWeb3();
+  const { account, isWalletReady } = useWeb3();
   const { appLoading } = useApp();
   const protocolDataQuery = useProtocolDataQuery();
   const embrPrice = computed(
     () => protocolDataQuery.data?.value?.embrPrice || 0
   );
-  const { priceFor, dynamicDataLoading, loading } = useTokens();
+  const { dynamicDataLoading, loading } = useTokens();
 
   const enabled = computed(
     () =>
@@ -36,7 +37,10 @@ export default function useFarmUserQuery(
     const address = account.value || AddressZero;
 
     try {
-      const userData = await farmSubgraphClient.getUserDataForFarm(
+      const farms = await embrService.getEmbrFarms();
+      const farm = farms.find(farm => (farm.id = farmId));
+
+      const userData = await embrService.getUserDataForFarm(
         farmId,
         address
       );
@@ -47,11 +51,16 @@ export default function useFarmUserQuery(
 
       return {
         ...userData,
+        amount: parseFloat(userData.amount),
+        rewardDebt: parseFloat(userData.rewardDebt),
+        embrHarvested: parseFloat(userData.embrHarvested),
         pendingEmbr,
         pendingEmbrValue: pendingEmbr * embrPrice.value
       };
     } catch (e) {
       console.log('ERROR', e);
+
+      return null;
     }
   };
 
@@ -61,5 +70,5 @@ export default function useFarmUserQuery(
     ...options
   });
 
-  return useQuery<FarmUser>(queryKey, queryFn, queryOptions);
+  return useQuery<FarmUser | null>(queryKey, queryFn, queryOptions);
 }

@@ -29,7 +29,7 @@ export default class EmbrToken {
     const totalSupply = result.totalSupply.toString();
 
     return totalSupply
-      ? scale(new BigNumber(totalSupply), -18).toNumber() - INITIAL_MINT
+      ? scale(new BigNumber(totalSupply), -18).toNumber()
       : 0;
   }
 

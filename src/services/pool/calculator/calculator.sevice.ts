@@ -18,8 +18,9 @@ interface Amounts {
 }
 
 export interface PiOptions {
-  exactOut: boolean;
-  tokenIndex: number | null;
+  exactOut?: boolean;
+  tokenIndex?: number | null;
+  queryBPT?: string;
 }
 
 type PoolAction = 'join' | 'exit';

@@ -1,14 +1,5 @@
 import { computed, ComputedRef } from 'vue';
-import { flatten } from 'lodash';
-import useWeb3 from '@/services/web3/useWeb3';
-import useTransactions from '@/composables/useTransactions';
-import useFarmsQuery from '@/embr/composables/farms/useFarmsQuery';
-import { masterChefContractsService } from '@/embr/services/farm/master-chef-contracts.service';
-import {
-  DecoratedPoolWithFarm,
-  Farm
-} from '@/embr/services/subgraph/subgraph-types';
-import useAllFarmsForUserQuery from '@/embr/composables/farms/useAllFarmsForUserQuery';
+import { DecoratedPoolWithFarm } from '@/embr/services/subgraph/subgraph-types';
 import usePools from '@/composables/pools/usePools';
 import usePoolQuery from '@/composables/queries/usePoolQuery';
 
@@ -36,11 +27,8 @@ export default function usePoolWithFarm(
 
     return {
       ...poolQuery.data.value,
-      dynamic: poolWithFarm
-        ? poolWithFarm.dynamic
-        : poolQuery.data.value.dynamic,
       hasLiquidityMiningRewards: !!poolWithFarm,
-      farm: poolWithFarm?.farm,
+      decoratedFarm: poolWithFarm?.decoratedFarm,
       shares: userPool?.shares
     };
   });

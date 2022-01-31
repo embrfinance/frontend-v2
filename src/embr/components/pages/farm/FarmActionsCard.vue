@@ -32,9 +32,6 @@ const farmInvestmentSuccess = ref(false);
 const farmWithdrawalSuccess = ref(false);
 const txHash = ref('');
 
-const isOldXembrFarm = computed(
-  () => props.farmId === appNetworkConfig.xEmbr.farmId
-);
 
 function handleFarmInvestment(txReceipt): void {
   farmInvestmentSuccess.value = true;
@@ -45,14 +42,6 @@ function handleFarmWithdrawal(txReceipt): void {
   farmWithdrawalSuccess.value = true;
   txHash.value = txReceipt.hash;
 }
-
-onMounted(() => {
-  // get the token address from the id if it doesn't exist
-  const tokenAddress = route.params.tokenAddress
-    ? route.params.tokenAddress
-    : route.params.id.slice(0, 42);
-  injectTokens([tokenAddress as string]);
-});
 
 const tabs = [
   { value: 'deposit', label: 'Deposit' },

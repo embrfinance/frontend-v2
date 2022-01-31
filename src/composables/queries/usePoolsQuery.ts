@@ -3,19 +3,27 @@ import { useInfiniteQuery } from 'vue-query';
 import { UseInfiniteQueryOptions } from 'react-query/types';
 import { flatten } from 'lodash';
 import QUERY_KEYS from '@/constants/queryKeys';
-import { POOLS } from '@/constants/pools';
 import { balancerSubgraphService } from '@/services/balancer/subgraph/balancer-subgraph.service';
-import { DecoratedPool } from '@/services/balancer/subgraph/types';
+import {
+  DecoratedPool,
+  LinearPool,
+  Pool
+} from '@/services/balancer/subgraph/types';
 import useTokens from '../useTokens';
 import useUserSettings from '../useUserSettings';
 import useApp from '../useApp';
-import { forChange } from '@/lib/utils';
+import { bnum, forChange } from '@/lib/utils';
 import useNetwork from '../useNetwork';
+import { getAddress } from '@ethersproject/address';
+import { formatUnits } from '@ethersproject/units';
+import { isStablePhantom, lpTokensFor } from '../usePool';
+import { balancerContractsService } from '@/services/balancer/contracts/balancer-contracts.service';
 
 type PoolsQueryResponse = {
   pools: DecoratedPool[];
   tokens: string[];
   skip?: number;
+  enabled?: boolean;
 };
 
 type FilterOptions = {
@@ -30,7 +38,7 @@ export default function usePoolsQuery(
   filterOptions?: FilterOptions
 ) {
   // COMPOSABLES
-  const { injectTokens, dynamicDataLoading, prices } = useTokens();
+  const { injectTokens, dynamicDataLoading, prices, getTokens } = useTokens();
   const { currency } = useUserSettings();
   const { appLoading } = useApp();
   const { networkId } = useNetwork();
@@ -43,41 +51,161 @@ export default function usePoolsQuery(
   );
 
   // COMPUTED
-  const enabled = computed(() => !appLoading.value);
+  const enabled = computed(() => !appLoading.value && options.enabled);
 
   // METHODS
+  function removePreMintedBPT(pool: Pool): Pool {
+    const poolAddress = balancerSubgraphService.pools.addressFor(pool.id);
+    // Remove pre-minted BPT token if exits
+    pool.tokensList = pool.tokensList.filter(
+      address => address !== poolAddress.toLowerCase()
+    );
+    return pool;
+  }
+
+  /**
+   * fetches StablePhantom linear pools and extracts
+   * required attributes.
+   */
+  async function getLinearPoolAttrs(pool: Pool): Promise<Pool> {
+    // Fetch linear pools from subgraph
+    const pools = await balancerSubgraphService.pools.get();
+    const linearPools = pools.filter(
+      pool => pool.poolType === 'Linear'
+    ) as LinearPool[];
+    const linearPoolTokensMap: Pool['linearPoolTokensMap'] = {};
+
+    // Inject main/wrapped tokens into pool schema
+    linearPools.forEach(linearPool => {
+      if (!pool.mainTokens) pool.mainTokens = [];
+      if (!pool.wrappedTokens) pool.wrappedTokens = [];
+
+      const index = pool.tokensList.indexOf(linearPool.address.toLowerCase());
+
+      pool.mainTokens[index] = getAddress(
+        linearPool.tokensList[linearPool.mainIndex]
+      );
+      pool.wrappedTokens[index] = getAddress(
+        linearPool.tokensList[linearPool.wrappedIndex]
+      );
+
+      linearPool.tokens
+        .filter(token => token.address !== linearPool.address)
+        .forEach(token => {
+          const address = getAddress(token.address);
+
+          linearPoolTokensMap[address] = {
+            ...token,
+            address
+          };
+        });
+    });
+
+    pool.linearPoolTokensMap = linearPoolTokensMap;
+
+    return pool;
+  }
+
   const queryFn = async ({ pageParam = 0 }) => {
-    const queryArgs: any = {
-      first: filterOptions?.pageSize || POOLS.Pagination.PerPage,
-      skip: pageParam,
-      where: {
-        tokensList_contains: tokenList.value
+    const pools = await balancerSubgraphService.pools.get();
+
+    for (let i = 0; i < pools.length; i++) {
+      const isStablePhantomPool = isStablePhantom(pools[i].poolType);
+
+      if (isStablePhantomPool) {
+        pools[i] = removePreMintedBPT(pools[i]);
+        pools[i] = await getLinearPoolAttrs(pools[i]);
       }
-    };
-    if (filterOptions?.poolIds?.value.length) {
-      queryArgs.where.id_in = filterOptions.poolIds.value;
     }
 
-    const pools = await balancerSubgraphService.pools.get(queryArgs);
+    const tokens = flatten(
+      pools.map(pool => [
+        ...pool.tokensList,
+        ...lpTokensFor(pool),
+        balancerSubgraphService.pools.addressFor(pool.id)
+      ])
+    );
 
-    const tokens = flatten(pools.map(pool => pool.tokensList));
     await injectTokens(tokens);
     await forChange(dynamicDataLoading, false);
 
-    const decoratedPools = await balancerSubgraphService.pools.decorate(
-      pools,
-      '24h',
-      prices.value,
-      currency.value
-    );
+    const decoratedPools = await balancerSubgraphService.pools.decorate(pools);
+
+    // TODO - cleanup and extract elsewhere in refactor
+    for (let i = 0; i < decoratedPools.length; i++) {
+      const isStablePhantomPool = isStablePhantom(decoratedPools[i].poolType);
+
+      if (isStablePhantomPool) {
+        const decoratedPool = decoratedPools[i];
+
+        const poolTokenMeta = getTokens(
+          decoratedPool.tokensList.map(address => getAddress(address))
+        );
+
+        const onchainData = await balancerContractsService.vault.getPoolData(
+          decoratedPool.id,
+          decoratedPool.poolType,
+          poolTokenMeta
+        );
+
+        if (
+          onchainData != null &&
+          onchainData.linearPools != null &&
+          decoratedPool.linearPoolTokensMap != null
+        ) {
+          let totalLiquidity = bnum(0);
+          const tokensMap = getTokens(
+            Object.keys(decoratedPool.linearPoolTokensMap)
+          );
+
+          Object.entries(onchainData.linearPools).forEach(
+            ([address, token]) => {
+              const tokenShare = bnum(onchainData.tokens[address].balance).div(
+                token.totalSupply
+              );
+
+              const mainTokenBalance = formatUnits(
+                token.mainToken.balance,
+                tokensMap[token.mainToken.address].decimals
+              );
+
+              const wrappedTokenBalance = formatUnits(
+                token.wrappedToken.balance,
+                tokensMap[token.wrappedToken.address].decimals
+              );
+
+              const mainTokenPrice =
+                prices.value[token.mainToken.address] != null
+                  ? prices.value[token.mainToken.address].usd
+                  : null;
+
+              if (mainTokenPrice != null) {
+                const mainTokenValue = bnum(mainTokenBalance)
+                  .times(tokenShare)
+                  .times(mainTokenPrice);
+
+                const wrappedTokenValue = bnum(wrappedTokenBalance)
+                  .times(tokenShare)
+                  .times(mainTokenPrice)
+                  .times(token.wrappedToken.priceRate);
+
+                totalLiquidity = bnum(totalLiquidity)
+                  .plus(mainTokenValue)
+                  .plus(wrappedTokenValue);
+              }
+            }
+          );
+
+          decoratedPools[i].onchain = onchainData;
+          decoratedPools[i].totalLiquidity = totalLiquidity.toString();
+        }
+      }
+    }
 
     return {
       pools: decoratedPools,
       tokens,
-      skip:
-        pools.length >= POOLS.Pagination.PerPage
-          ? pageParam + POOLS.Pagination.PerPage
-          : undefined
+      skip: undefined
     };
   };
 

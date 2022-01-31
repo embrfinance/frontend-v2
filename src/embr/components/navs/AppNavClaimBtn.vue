@@ -110,12 +110,7 @@ export default defineComponent({
     //const { xembrDecoratedFarm } = useXEmbr();
 
     const data = computed(() => {
-      const farms = onlyPoolsWithFarms.value.map(pool => pool.farm);
-
-      //if (xembrDecoratedFarm.value) {
-      //  farms.push(xembrDecoratedFarm.value);
-      // }
-
+      const farms = onlyPoolsWithFarms.value.map(pool => pool.decoratedFarm);
       const pendingEmbrValue = sumBy(farms, farm => farm.pendingEmbrValue);
 
       const averageApr =
@@ -129,9 +124,9 @@ export default defineComponent({
           'usd'
         ),
         pendingEmbr:
-          numeral(sumBy(farms, farm => farm.pendingEmbr)).format('0,0.[0000]') +
-          ' Embr',
-        pendingRewardValue: fNum(pendingEmbrValue, 'usd'),
+          numeral(sumBy(farms, farm => farm.pendingEmbr)).format(
+            '0,0.[0000]'
+          ) + ' BEETS',
         apr: fNum(averageApr, 'percent'),
         dailyApr: fNum(averageApr / 365, 'percent')
       };
@@ -139,13 +134,14 @@ export default defineComponent({
 
     const hasFarmRewards = computed(
       () =>
-        onlyPoolsWithFarms.value.filter(pool => pool.farm.stake > 0).length > 0
+        onlyPoolsWithFarms.value.filter(pool => pool.decoratedFarm.stake > 0)
+          .length > 0
     );
 
     async function harvestAllRewards(): Promise<void> {
       const farmIds = onlyPoolsWithFarms.value
-        .filter(pool => pool.farm.stake > 0)
-        .map(pool => pool.farm.id);
+        .filter(pool => pool.decoratedFarm.stake > 0)
+        .map(pool => pool.decoratedFarm.id);
 
       harvesting.value = true;
       const tx = await harvestAllFarms(farmIds);

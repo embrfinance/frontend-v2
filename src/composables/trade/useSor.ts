@@ -167,12 +167,8 @@ export default function useSor({
   });
 
   useIntervalFn(async () => {
-    try{
-      if (sorConfig.refetchPools && sorManager) {
-        fetchPools();
-      }
-    }catch(se){
-      console.log(se);
+    if (sorConfig.refetchPools && sorManager) {
+      fetchPools();
     }
   }, 30 * 1e3);
 
@@ -186,7 +182,7 @@ export default function useSor({
     const poolsUrlV1 = `${
       configService.network.poolsUrlV1
     }?timestamp=${Date.now()}`;
-    const subgraphUrl = configService.network.subgraph;
+    const subgraphUrl = configService.network.poolsUrlV2;
 
     // If V1 previously selected on another network then it uses this and returns no liquidity.
     if (!isV1Supported) {
@@ -252,174 +248,158 @@ export default function useSor({
     const tokenInDecimals = tokens.value[tokenInAddressInput.value]?.decimals;
     const tokenOutDecimals = tokens.value[tokenOutAddressInput.value]?.decimals;
 
-    try {
-      if (wrapType.value !== WrapType.NonWrap) {
-        const wrapper =
-          wrapType.value === WrapType.Wrap ? tokenOutAddress : tokenInAddress;
-
-        if (exactIn.value) {
-          tokenInAmountInput.value = amount;
-
-          const outputAmount = await getWrapOutput(
-            wrapper,
-            wrapType.value,
-            parseFixed(amount, tokenInDecimals)
-          );
-          tokenOutAmountInput.value = formatFixed(
-            outputAmount,
-            tokenInDecimals
-          );
-        } else {
-          tokenOutAmountInput.value = amount;
-
-          const inputAmount = await getWrapOutput(
-            wrapper,
-            wrapType.value === WrapType.Wrap ? WrapType.Unwrap : WrapType.Wrap,
-            parseFixed(amount, tokenOutDecimals)
-          );
-          tokenInAmountInput.value = formatFixed(inputAmount, tokenOutDecimals);
-        }
-
-        sorReturn.value.hasSwaps = false;
-        priceImpact.value = 0;
-        return;
-      }
-
-      if (!sorManager || !sorManager.hasPoolData()) {
-        if (exactIn.value) tokenOutAmountInput.value = '';
-        else tokenInAmountInput.value = '';
-        return;
-      }
+    if (wrapType.value !== WrapType.NonWrap) {
+      const wrapper =
+        wrapType.value === WrapType.Wrap ? tokenOutAddress : tokenInAddress;
 
       if (exactIn.value) {
-        await setSwapCost(
-          tokenOutAddressInput.value,
-          tokenOutDecimals,
-          sorManager
+        tokenInAmountInput.value = amount;
+
+        const outputAmount = await getWrapOutput(
+          wrapper,
+          wrapType.value,
+          parseFixed(amount, tokenInDecimals)
         );
+        tokenOutAmountInput.value = formatFixed(outputAmount, tokenInDecimals);
+      } else {
+        tokenOutAmountInput.value = amount;
 
-        const tokenInAmountNormalised = new OldBigNumber(amount); // Normalized value
-        const tokenInAmountScaled = scale(
-          tokenInAmountNormalised,
-          tokenInDecimals
+        const inputAmount = await getWrapOutput(
+          wrapper,
+          wrapType.value === WrapType.Wrap ? WrapType.Unwrap : WrapType.Wrap,
+          parseFixed(amount, tokenOutDecimals)
         );
+        tokenInAmountInput.value = formatFixed(inputAmount, tokenOutDecimals);
+      }
 
-        console.log('[SOR Manager] swapExactIn');
+      sorReturn.value.hasSwaps = false;
+      priceImpact.value = 0;
+      return;
+    }
 
-        const swapReturn: SorReturn = await sorManager.getBestSwap(
-          tokenInAddress,
-          tokenOutAddress,
-          tokenInDecimals,
-          tokenOutDecimals,
-          SwapTypes.SwapExactIn,
-          tokenInAmountScaled,
-          tokenInDecimals,
-          liquiditySelection.value
-        );
+    if (!sorManager || !sorManager.hasPoolData()) {
+      if (exactIn.value) tokenOutAmountInput.value = '';
+      else tokenInAmountInput.value = '';
+      return;
+    }
 
-        sorReturn.value = swapReturn; // TO DO - is it needed?
-        const tokenOutAmountNormalised = bnum(
+    if (exactIn.value) {
+      await setSwapCost(
+        tokenOutAddressInput.value,
+        tokenOutDecimals,
+        sorManager
+      );
+
+      const tokenInAmountNormalised = new OldBigNumber(amount); // Normalized value
+      const tokenInAmountScaled = scale(
+        tokenInAmountNormalised,
+        tokenInDecimals
+      );
+
+      console.log('[SOR Manager] swapExactIn');
+
+      const swapReturn: SorReturn = await sorManager.getBestSwap(
+        tokenInAddress,
+        tokenOutAddress,
+        tokenInDecimals,
+        tokenOutDecimals,
+        SwapTypes.SwapExactIn,
+        tokenInAmountScaled,
+        tokenInDecimals,
+        liquiditySelection.value
+      );
+
+      sorReturn.value = swapReturn; // TO DO - is it needed?
+      const tokenOutAmountNormalised = bnum(
+        formatFixed(swapReturn.returnAmount, tokenOutDecimals)
+      );
+      tokenOutAmountInput.value =
+        tokenOutAmountNormalised.toNumber() > 0
+          ? tokenOutAmountNormalised.toFixed(6, OldBigNumber.ROUND_DOWN)
+          : '';
+
+      if (!sorReturn.value.hasSwaps) {
+        priceImpact.value = 0;
+      } else {
+        let returnAmtNormalised = bnum(
           formatFixed(swapReturn.returnAmount, tokenOutDecimals)
         );
-        tokenOutAmountInput.value =
-          tokenOutAmountNormalised.toNumber() > 0
-            ? tokenOutAmountNormalised.toFixed(6, OldBigNumber.ROUND_DOWN)
-            : '';
 
-        if (!sorReturn.value.hasSwaps) {
-          priceImpact.value = 0;
-        } else {
-          let returnAmtNormalised = bnum(
-            formatFixed(swapReturn.returnAmount, tokenOutDecimals)
-          );
-
-          returnAmtNormalised = await adjustedPiAmount(
-            returnAmtNormalised,
-            tokenOutAddress,
-            tokenOutDecimals
-          );
-
-          const effectivePrice = tokenInAmountNormalised.div(
-            returnAmtNormalised
-          );
-          const priceImpactCalc = effectivePrice
-            .div(swapReturn.marketSpNormalised)
-            .minus(1);
-
-          priceImpact.value = OldBigNumber.max(
-            priceImpactCalc,
-            MIN_PRICE_IMPACT
-          ).toNumber();
-        }
-      } else {
-        // Notice that outputToken is tokenOut if swapType == 'swapExactIn' and tokenIn if swapType == 'swapExactOut'
-        await setSwapCost(
-          tokenInAddressInput.value,
-          tokenInDecimals,
-          sorManager
-        );
-
-        let tokenOutAmountNormalised = new OldBigNumber(amount);
-        const tokenOutAmount = scale(
-          tokenOutAmountNormalised,
+        returnAmtNormalised = await adjustedPiAmount(
+          returnAmtNormalised,
+          tokenOutAddress,
           tokenOutDecimals
         );
 
-        console.log('[SOR Manager] swapExactOut');
+        const effectivePrice = tokenInAmountNormalised.div(returnAmtNormalised);
+        const priceImpactCalc = effectivePrice
+          .div(swapReturn.marketSpNormalised)
+          .minus(1);
 
-        const swapReturn: SorReturn = await sorManager.getBestSwap(
-          tokenInAddress,
-          tokenOutAddress,
-          tokenInDecimals,
-          tokenOutDecimals,
-          SwapTypes.SwapExactOut,
-          tokenOutAmount,
-          tokenOutDecimals,
-          liquiditySelection.value
-        );
-
-        sorReturn.value = swapReturn; // TO DO - is it needed?
-
-        const tradeAmount: BigNumber = swapReturn.returnAmount;
-        const tokenInAmountNormalised = bnum(
-          formatFixed(tradeAmount, tokenInDecimals)
-        );
-        tokenInAmountInput.value =
-          tokenInAmountNormalised.toNumber() > 0
-            ? tokenInAmountNormalised.toFixed(6, OldBigNumber.ROUND_UP)
-            : '';
-
-        if (!sorReturn.value.hasSwaps) {
-          priceImpact.value = 0;
-        } else {
-          tokenOutAmountNormalised = await adjustedPiAmount(
-            tokenOutAmountNormalised,
-            tokenOutAddress,
-            tokenOutDecimals
-          );
-
-          const effectivePrice = tokenInAmountNormalised.div(
-            tokenOutAmountNormalised
-          );
-          const priceImpactCalc = effectivePrice
-            .div(swapReturn.marketSpNormalised)
-            .minus(1);
-
-          priceImpact.value = OldBigNumber.max(
-            priceImpactCalc,
-            MIN_PRICE_IMPACT
-          ).toNumber();
-        }
+        priceImpact.value = OldBigNumber.max(
+          priceImpactCalc,
+          MIN_PRICE_IMPACT
+        ).toNumber();
       }
+    } else {
+      // Notice that outputToken is tokenOut if swapType == 'swapExactIn' and tokenIn if swapType == 'swapExactOut'
+      await setSwapCost(tokenInAddressInput.value, tokenInDecimals, sorManager);
 
-      pools.value = sorManager.selectedPools;
+      let tokenOutAmountNormalised = new OldBigNumber(amount);
+      const tokenOutAmount = scale(tokenOutAmountNormalised, tokenOutDecimals);
 
-      state.validationErrors.highPriceImpact =
-        priceImpact.value >= HIGH_PRICE_IMPACT_THRESHOLD;
-    } catch (pse) {
-      console.log(pse);
+      console.log('[SOR Manager] swapExactOut');
+
+      const swapReturn: SorReturn = await sorManager.getBestSwap(
+        tokenInAddress,
+        tokenOutAddress,
+        tokenInDecimals,
+        tokenOutDecimals,
+        SwapTypes.SwapExactOut,
+        tokenOutAmount,
+        tokenOutDecimals,
+        liquiditySelection.value
+      );
+
+      sorReturn.value = swapReturn; // TO DO - is it needed?
+
+      const tradeAmount: BigNumber = swapReturn.returnAmount;
+      const tokenInAmountNormalised = bnum(
+        formatFixed(tradeAmount, tokenInDecimals)
+      );
+      tokenInAmountInput.value =
+        tokenInAmountNormalised.toNumber() > 0
+          ? tokenInAmountNormalised.toFixed(6, OldBigNumber.ROUND_UP)
+          : '';
+
+      if (!sorReturn.value.hasSwaps) {
+        priceImpact.value = 0;
+      } else {
+        tokenOutAmountNormalised = await adjustedPiAmount(
+          tokenOutAmountNormalised,
+          tokenOutAddress,
+          tokenOutDecimals
+        );
+
+        const effectivePrice = tokenInAmountNormalised.div(
+          tokenOutAmountNormalised
+        );
+        const priceImpactCalc = effectivePrice
+          .div(swapReturn.marketSpNormalised)
+          .minus(1);
+
+        priceImpact.value = OldBigNumber.max(
+          priceImpactCalc,
+          MIN_PRICE_IMPACT
+        ).toNumber();
+      }
     }
-  } //END handleAmountChange
+
+    pools.value = sorManager.selectedPools;
+
+    state.validationErrors.highPriceImpact =
+      priceImpact.value >= HIGH_PRICE_IMPACT_THRESHOLD;
+  }
 
   function txHandler(tx: TransactionResponse, action: TransactionAction): void {
     confirming.value = false;
@@ -480,7 +460,6 @@ export default function useSor({
 
     const tokenInAddress = tokenInAddressInput.value;
     const tokenOutAddress = tokenOutAddressInput.value;
-
     const tokenInDecimals = tokens.value[tokenInAddress].decimals;
     const tokenOutDecimals = tokens.value[tokenOutAddress].decimals;
     const tokenInAmountScaled = parseFixed(
@@ -631,20 +610,18 @@ export default function useSor({
 
   function getQuote(): TradeQuote {
     const maximumInAmount =
-      tokenInAmountScaled != null
-        ? getMaxIn(tokenInAmountScaled.value).toString()
-        : '';
+      tokenInAmountScaled != null ? getMaxIn(tokenInAmountScaled.value) : Zero;
 
     const minimumOutAmount =
       tokenOutAmountScaled != null
-        ? getMinOut(tokenOutAmountScaled.value).toString()
-        : '';
+        ? getMinOut(tokenOutAmountScaled.value)
+        : Zero;
 
     return {
       feeAmountInToken: '0',
       feeAmountOutToken: '0',
-      maximumInAmount,
-      minimumOutAmount
+      maximumInAmount: maximumInAmount.toString(),
+      minimumOutAmount: minimumOutAmount.toString()
     };
   }
 

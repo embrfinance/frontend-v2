@@ -5,12 +5,12 @@
     </template>
     <template v-else>
       <BalCard v-for="(stat, i) in stats" :key="i">
-        <div class="text-sm text-gray-200 font-medium mb-2">
+        <div class="text-sm text-gray-500 font-medium mb-2">
           {{ stat.label }}
         </div>
         <div class="text-xl font-medium truncate flex items-center">
           {{ stat.value }}
-          <LiquidityMiningTooltip :pool="pool" v-if="stat.id === 'apr'" />
+          <LiquidityAPRTooltip :pool="pool" v-if="stat.id === 'apr'" />
         </div>
       </BalCard>
     </template>
@@ -25,11 +25,11 @@ import useNumbers from '@/composables/useNumbers';
 
 import { DecoratedPool } from '@/services/balancer/subgraph/types';
 
-import LiquidityMiningTooltip from '@/components/tooltips/LiquidityMiningTooltip.vue';
+import LiquidityAPRTooltip from '@/components/tooltips/LiquidityAPRTooltip.vue';
 
 export default defineComponent({
   components: {
-    LiquidityMiningTooltip
+    LiquidityAPRTooltip
   },
 
   props: {
@@ -55,17 +55,17 @@ export default defineComponent({
         {
           id: 'volumeTime',
           label: t('volumeTime', ['24h']),
-          value: fNum(props.pool.dynamic.volume, 'usd')
+          value: fNum(props.pool.volume24h, 'usd')
         },
         {
           id: 'feesTime',
           label: t('feesTime', ['24h']),
-          value: fNum(props.pool.dynamic.fees, 'usd')
+          value: fNum(props.pool.fees24h, 'usd')
         },
         {
           id: 'apr',
           label: 'APR',
-          value: fNum(props.pool.dynamic.apr.total, 'percent')
+          value: fNum(props.pool.apr.total, 'percent')
         }
       ];
     });

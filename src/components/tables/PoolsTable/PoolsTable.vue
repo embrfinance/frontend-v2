@@ -39,10 +39,8 @@
       <template v-slot:iconColumnCell="pool">
         <div
           v-if="pool.farm && parseFloat(pool.shares) > 0"
-          class="investstake eptwarning rounded-br-xl h-4 flex bg-yellow-500 absolute top-0 left-0"
-          style="box-shadow: 0.5px 0px 0px #000, -0.5px 0px 0px #000, 0px 0.5px 0px #000, 0px -0.5px 0px #000, 0px 0px 10px red"
-          title="You have unstaked EPT tokens and are losing out on rewards!"
-        >&nbsp;&nbsp;⚠ Unstaked EPT&nbsp;&nbsp;</div>
+          class="rounded-br-xl h-4 w-4 flex bg-yellow-500 absolute top-0 left-0 bg-opacity-80"
+        />
         <div v-if="!isLoading" class="px-6 py-4">
           <BalAssetSet
             :addresses="orderedTokenAddressesFor(pool)"
@@ -52,16 +50,17 @@
       </template>
       <template v-slot:poolNameCell="pool">
         <div v-if="!isLoading" class="px-6 py-4 flex items-center">
-          <TokenPills
+          <!--          <TokenPills
             :tokens="orderedPoolTokens(pool)"
             :isStablePool="isStableLike(pool.poolType)"
             :selectedTokens="selectedTokens"
-          />
-          &nbsp;<h5 class="text-left font-normal">
+          />-->
+
+          <h5 class="text-left font-normal">
             {{ pool.name }}
           </h5>
           <BalChip
-            v-if="pool.dynamic.isNewPool"
+            v-if="pool.isNewPool"
             color="red"
             size="sm"
             class="ml-2 uppercase"
@@ -74,11 +73,11 @@
       <template v-slot:aprCell="pool">
         <div class="px-6 py-4 -mt-1 flex justify-end font-numeric">
           {{
-            Number(pool.dynamic.apr.pool) > 10000
+            Number(pool.apr.swapApr) > 10000
               ? '-'
-              : fNum(pool.dynamic.apr.total, 'percent')
+              : fNum(pool.apr.total, 'percent')
           }}
-          <LiquidityMiningTooltip :pool="pool" />
+          <LiquidityAPRTooltip :pool="pool" />
         </div>
       </template>
     </BalTable>
@@ -100,7 +99,7 @@ import { getAddress } from '@ethersproject/address';
 import useNumbers from '@/composables/useNumbers';
 import useFathom from '@/composables/useFathom';
 
-import LiquidityMiningTooltip from '@/components/tooltips/LiquidityMiningTooltip.vue';
+import LiquidityAPRTooltip from '@/components/tooltips/LiquidityAPRTooltip.vue';
 import TokenPills from './TokenPills/TokenPills.vue';
 
 import {
@@ -109,7 +108,7 @@ import {
 } from '@/components/_global/BalTable/BalTable.vue';
 import useDarkMode from '@/composables/useDarkMode';
 import useBreakpoints from '@/composables/useBreakpoints';
-import { isStableLike } from '@/composables/usePool';
+import { isStableLike, isStablePhantom } from '@/composables/usePool';
 import useWeb3 from '@/services/web3/useWeb3';
 import { sortBy } from 'lodash';
 
@@ -117,8 +116,8 @@ const POOLS_PER_PAGE = 10;
 
 export default defineComponent({
   components: {
-    LiquidityMiningTooltip,
-    TokenPills
+    LiquidityAPRTooltip
+    //TokenPills
   },
 
   emits: ['loadMore'],
@@ -178,7 +177,7 @@ export default defineComponent({
         noGrow: true
       },
       {
-        name: 'Composition',
+        name: 'Pool',
         id: 'poolName',
         accessor: 'id',
         Cell: 'poolNameCell',
@@ -188,14 +187,15 @@ export default defineComponent({
         name: t('myBalance'),
         accessor: pool =>
           fNum(
-            parseFloat(pool.shares || '0') + (pool.farm?.stake || 0),
+            parseFloat(pool.shares || '0') + (pool.decoratedFarm?.stake || 0),
             'usd',
             { forcePreset: true }
           ),
         align: 'right',
         id: 'myBalance',
         hidden: !props.showPoolShares,
-        sortKey: pool => Number(pool.shares || 0) + (pool.farm?.stake || 0),
+        sortKey: pool =>
+          Number(pool.shares || 0) + (pool.decoratedFarm?.stake || 0),
         width: 150
       },
       {
@@ -213,11 +213,11 @@ export default defineComponent({
       },
       {
         name: t('volume24h', [t('hourAbbrev')]),
-        accessor: pool => fNum(pool.dynamic.volume, 'usd'),
+        accessor: pool => fNum(pool.volume24h, 'usd'),
         align: 'right',
         id: 'poolVolume',
         sortKey: pool => {
-          const apr = Number(pool.dynamic.volume);
+          const apr = Number(pool.volume24h);
           if (apr === Infinity || isNaN(apr)) return 0;
           return apr;
         },
@@ -227,11 +227,11 @@ export default defineComponent({
       {
         name: t('apr'),
         Cell: 'aprCell',
-        accessor: pool => pool.dynamic.apr.total,
+        accessor: pool => pool.apr.total,
         align: 'right',
         id: 'poolApr',
         sortKey: pool => {
-          const apr = Number(pool.dynamic.apr.total);
+          const apr = Number(pool.apr.total);
           if (apr === Infinity || isNaN(apr)) return 0;
           return apr;
         },
@@ -264,6 +264,8 @@ export default defineComponent({
     }
 
     function orderedPoolTokens(pool: DecoratedPoolWithShares): PoolToken[] {
+      if (isStablePhantom(pool.poolType))
+        return pool.tokens.filter(token => token.address !== pool.address);
       if (isStableLike(pool.poolType)) return pool.tokens;
 
       const sortedTokens = pool.tokens.slice();

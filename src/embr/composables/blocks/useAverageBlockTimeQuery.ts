@@ -1,7 +1,7 @@
 import { reactive } from 'vue';
 import { useQuery } from 'vue-query';
 import { UseQueryOptions } from 'react-query/types';
-import { blockSubgraphClient } from '@/embr/services/subgraph/block-subraph.client';
+import { embrService } from '@/embr/services/embr/embr.service';
 
 /**
  * TYPES
@@ -13,9 +13,12 @@ export default function useAverageBlockTimeQuery(
   options: UseQueryOptions<number> = {}
 ) {
   const queryFn = async () => {
-    console.log('Fetching average block time');
+    console.log(
+      'Fetching average block time',
+      await embrService.getAverageBlockTime()
+    );
 
-    return await blockSubgraphClient.getAverageBlockTime();
+    return embrService.getAverageBlockTime();
   };
 
   const queryOptions = reactive({

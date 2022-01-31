@@ -6,16 +6,17 @@ import useWeb3 from '@/services/web3/useWeb3';
 import useApp from '@/composables/useApp';
 import useTokens from '@/composables/useTokens';
 import { masterChefContractsService } from '@/embr/services/farm/master-chef-contracts.service';
-import { farmSubgraphClient } from '@/embr/services/subgraph/farm-subgraph.client';
 import { FarmUser } from '@/embr/services/subgraph/subgraph-types';
 import useProtocolDataQuery from '@/embr/composables/queries/useProtocolDataQuery';
+import { embrService } from '@/embr/services/embr/embr.service';
+import { uniq } from 'lodash';
 
 export default function useAllFarmsForUserQuery(
   options: QueryObserverOptions<FarmUser[]> = {}
 ) {
-  const { account, isWalletReady, appNetworkConfig } = useWeb3();
+  const { account, isWalletReady } = useWeb3();
   const { appLoading } = useApp();
-  const { priceFor, dynamicDataLoading, loading } = useTokens();
+  const { dynamicDataLoading, loading } = useTokens();
   const protocolDataQuery = useProtocolDataQuery();
   const embrPrice = computed(
     () => protocolDataQuery.data?.value?.embrPrice || 0
@@ -35,20 +36,28 @@ export default function useAllFarmsForUserQuery(
       if (!account.value) {
         return [];
       }
-      
-      const userFarms = await farmSubgraphClient.getUserDataForAllFarms(
+
+      const farms = await embrService.getEmbrFarms();
+      const userFarms = await embrService.getUserDataForAllFarms(
         account.value
       );
       const decoratedUserFarms: FarmUser[] = [];
 
+      const farmIds = userFarms.map(farm => farm.farmId);
+      const pendingEmbrForFarms = await masterChefContractsService.masterChef.getPendingEmbrForFarms(
+        farmIds,
+        account.value
+      );
+
       for (const userFarm of userFarms) {
-        const pendingEmbr = await masterChefContractsService.masterChef.getPendingEmbrForFarm(
-          userFarm.pool.id,
-          account.value
-        );
+        const farm = farms.find(farm => farm.id === userFarm.farmId);
+        const pendingEmbr = pendingEmbrForFarms[userFarm.farmId] || 0;
 
         decoratedUserFarms.push({
           ...userFarm,
+          amount: parseFloat(userFarm.amount),
+          rewardDebt: parseFloat(userFarm.rewardDebt),
+          embrHarvested: parseFloat(userFarm.embrHarvested),
           pendingEmbr,
           pendingEmbrValue: pendingEmbr * embrPrice.value
         });

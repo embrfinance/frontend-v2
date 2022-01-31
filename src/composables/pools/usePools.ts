@@ -1,16 +1,17 @@
 import { computed, ComputedRef, Ref, ref } from 'vue';
 
-import { flatten } from 'lodash';
+import { flatten, uniqBy } from 'lodash';
 
 import usePoolsQuery from '@/composables/queries/usePoolsQuery';
 import useUserPoolsQuery from '@/composables/queries/useUserPoolsQuery';
 import useFarms from '@/embr/composables/farms/useFarms';
-import { decorateFarms, getPoolApr } from '@/embr/utils/farmHelper';
+import { decorateFarms } from '@/embr/utils/farmHelper';
 import useAverageBlockTime from '@/embr/composables/blocks/useAverageBlockTime';
 import useProtocolDataQuery from '@/embr/composables/queries/useProtocolDataQuery';
-import { DecoratedPoolWithShares } from '@/services/balancer/subgraph/types';
-import { uniqBy } from 'lodash';
-import useTokens from '@/composables/useTokens';
+import {
+  DecoratedPoolWithShares,
+  PoolType
+} from '@/services/balancer/subgraph/types';
 import useWeb3 from '@/services/web3/useWeb3';
 import {
   DecoratedPoolWithFarm,
@@ -24,7 +25,6 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
   const poolsQuery = usePoolsQuery(poolsTokenList, {}, { pageSize: 1000 });
   const userPoolsQuery = useUserPoolsQuery();
   const protocolDataQuery = useProtocolDataQuery();
-  const { priceFor, dynamicDataLoaded } = useTokens();
   const { appNetworkConfig } = useWeb3();
   const { embrConfig } = useEmbrConfig();
   const embrPrice = computed(
@@ -38,10 +38,7 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
     harvestAllFarms,
     refetchFarmsForUser
   } = useFarms();
-  const secPerYear = 31540000;
-  const secPerDay = 86400;
-
-  // COMPUTED
+  const { blocksPerYear, blocksPerDay } = useAverageBlockTime();
 
   const pools = computed(() => {
     if (!poolsQuery.data.value) {
@@ -56,38 +53,28 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
   });
 
   const decoratedFarms = computed(() => {
+    //here we replace the old farm with the fembr farm on fidellio duetto.
     const mappedFarms = farms.value
-      //.filter(farm => farm.id !== appNetworkConfig.xEmbr.oldFarmId)
-      .map(
-        (farm): Farm => farm
-      );
 
     return decorateFarms(
       pools.value,
       mappedFarms,
       allFarmsForUser.value,
-      secPerYear,
-      secPerDay,
+      blocksPerYear.value,
+      blocksPerDay.value,
       embrPrice.value
     );
   });
 
   const poolsWithFarms: ComputedRef<DecoratedPoolWithFarm[]> = computed(() => {
     return pools.value.map(pool => {
-      const farm = decoratedFarms.value.find(
+      const decoratedFarm = decoratedFarms.value.find(
         farm => pool.address.toLowerCase() === farm.pair.toLowerCase()
       );
 
       return {
         ...pool,
-        farm,
-        hasLiquidityMiningRewards: !!farm,
-        dynamic: {
-          ...pool.dynamic,
-          apr: farm
-            ? getPoolApr(pool, farm, secPerYear, embrPrice.value)
-            : pool.dynamic.apr
-        }
+        decoratedFarm
       };
     });
   });
@@ -109,25 +96,15 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
   const userPools = computed<DecoratedPoolWithShares[]>(() => {
     const userPools = userPoolsQuery.data.value?.pools || [];
     const userFarmPools = onlyPoolsWithFarms.value
-      .filter(pool => pool.farm.stake > 0)
+      .filter(pool => pool.decoratedFarm.stake > 0)
       .map(pool => ({ ...pool, shares: '0' }));
 
     return uniqBy([...userPools, ...userFarmPools], 'id').map(pool => {
-      const farm = decoratedFarms.value.find(
+      const decoratedFarm = decoratedFarms.value.find(
         farm => pool.address.toLowerCase() === farm.pair.toLowerCase()
       );
 
-      return {
-        ...pool,
-        farm,
-        hasLiquidityMiningRewards: !!farm,
-        dynamic: {
-          ...pool.dynamic,
-          apr: farm
-            ? getPoolApr(pool, farm, secPerYear, embrPrice.value)
-            : pool.dynamic.apr
-        }
-      };
+      return { ...pool, decoratedFarm };
     });
   });
 
@@ -148,11 +125,23 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
     () => poolsQuery.isFetchingNextPage?.value
   );
 
-  const communityPools = computed(() =>
-    poolsWithFarms.value?.filter(
-      pool => !embrConfig.value.incentivizedPools.includes(pool.id)
-    )
-  );
+  const communityPools = computed(() => {
+    return poolsTokenList.value.length > 0
+      ? poolsWithFarms.value?.filter(pool => {
+          return (
+            poolsTokenList.value.every((selectedToken: string) =>
+              pool.tokenAddresses.includes(selectedToken)
+            ) &&
+            !embrConfig.value.incentivizedPools.includes(pool.id) &&
+            pool.poolType !== PoolType.Linear
+          );
+        })
+      : poolsWithFarms?.value.filter(
+          pool =>
+            !embrConfig.value.incentivizedPools.includes(pool.id) &&
+            pool.poolType !== PoolType.Linear
+        );
+  });
 
   const embrPools = computed(() => {
     return poolsTokenList.value.length > 0

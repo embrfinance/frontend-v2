@@ -55,6 +55,9 @@ interface Scalars {
   GqlBigNumber: string;
   JSON: any;
   UUID: string;
+  BigDecimal: string;
+  BigInt: string;
+  Bytes: string;
 }
 
 export interface GqlUserPoolData {
@@ -115,4 +118,204 @@ export interface GqlTokenPrice {
   __typename?: 'GqlTokenPrice';
   address: Scalars['String'];
   price: Scalars['Float'];
+}
+
+export interface GqlLgeCreateInput {
+  id: Scalars['ID'];
+  address: Scalars['String'];
+  bannerImageUrl: Scalars['String'];
+  collateralAmount: Scalars['String'];
+  collateralEndWeight: Scalars['Int'];
+  collateralStartWeight: Scalars['Int'];
+  collateralTokenAddress: Scalars['String'];
+  description: Scalars['String'];
+  discordUrl: Scalars['String'];
+  endDate: Scalars['String'];
+  mediumUrl: Scalars['String'];
+  name: Scalars['String'];
+  startDate: Scalars['String'];
+  swapFeePercentage: Scalars['String'];
+  telegramUrl: Scalars['String'];
+  tokenAmount: Scalars['String'];
+  tokenContractAddress: Scalars['String'];
+  tokenEndWeight: Scalars['Int'];
+  tokenIconUrl: Scalars['String'];
+  tokenStartWeight: Scalars['Int'];
+  twitterUrl: Scalars['String'];
+  websiteUrl: Scalars['String'];
+}
+
+export interface GqlLge {
+  __typename?: 'GqlLge';
+  address: Scalars['String'];
+  bannerImageUrl: Scalars['String'];
+  collateralAmount: Scalars['String'];
+  collateralEndWeight: Scalars['Int'];
+  collateralStartWeight: Scalars['Int'];
+  collateralTokenAddress: Scalars['String'];
+  description: Scalars['String'];
+  discordUrl: Scalars['String'];
+  endDate: Scalars['String'];
+  id: Scalars['ID'];
+  mediumUrl: Scalars['String'];
+  name: Scalars['String'];
+  startDate: Scalars['String'];
+  swapFeePercentage: Scalars['String'];
+  telegramUrl: Scalars['String'];
+  tokenAmount: Scalars['String'];
+  tokenContractAddress: Scalars['String'];
+  tokenEndWeight: Scalars['Int'];
+  tokenIconUrl: Scalars['String'];
+  tokenStartWeight: Scalars['Int'];
+  twitterUrl: Scalars['String'];
+  websiteUrl: Scalars['String'];
+  adminAddress: Scalars['String'];
+  adminIsMultisig: Scalars['Boolean'];
+}
+
+export const CreateLgeTypes = {
+  CreateLge: [
+    { name: 'id', type: 'string' },
+    { name: 'address', type: 'string' },
+    { name: 'name', type: 'string' },
+    { name: 'description', type: 'string' },
+    { name: 'tokenContractAddress', type: 'string' },
+    { name: 'collateralTokenAddress', type: 'string' },
+    { name: 'tokenAmount', type: 'string' },
+    { name: 'collateralAmount', type: 'string' },
+    { name: 'tokenStartWeight', type: 'int' },
+    { name: 'tokenEndWeight', type: 'int' },
+    { name: 'collateralStartWeight', type: 'int' },
+    { name: 'collateralEndWeight', type: 'int' },
+    { name: 'swapFeePercentage', type: 'string' },
+    { name: 'tokenIconUrl', type: 'string' },
+    { name: 'bannerImageUrl', type: 'string' },
+    { name: 'websiteUrl', type: 'string' },
+    { name: 'telegramUrl', type: 'string' },
+    { name: 'twitterUrl', type: 'string' },
+    { name: 'discordUrl', type: 'string' },
+    { name: 'mediumUrl', type: 'string' },
+    { name: 'startDate', type: 'string' },
+    { name: 'endDate', type: 'string' }
+  ]
+};
+
+export interface GqlEmbrProtocolData {
+  __typename?: 'GqlEmbrProtocolData';
+  embrPrice: Scalars['BigDecimal'];
+  circulatingSupply: Scalars['BigDecimal'];
+  marketCap: Scalars['BigDecimal'];
+  poolCount: Scalars['BigInt'];
+  totalLiquidity: Scalars['BigDecimal'];
+  totalSwapFee: Scalars['BigDecimal'];
+  totalSwapVolume: Scalars['BigDecimal'];
+  swapFee24h: Scalars['BigDecimal'];
+  swapVolume24h: Scalars['BigDecimal'];
+}
+
+export interface GqlBalancerPoolSnapshot {
+  __typename?: 'GqlBalancerPoolSnapshot';
+  id: Scalars['ID'];
+  liquidityChange24h: Scalars['BigDecimal'];
+  poolId: Scalars['ID'];
+  swapFees24h: Scalars['BigDecimal'];
+  swapVolume24h: Scalars['BigDecimal'];
+  timestamp: Scalars['Int'];
+  tokens: Array<GqlBalancerPoolToken>;
+  totalLiquidity: Scalars['BigDecimal'];
+  totalShares: Scalars['BigDecimal'];
+  totalSwapFee: Scalars['BigDecimal'];
+  totalSwapVolume: Scalars['BigDecimal'];
+}
+
+export interface GqlBalancerPoolToken {
+  __typename?: 'GqlBalancerPoolToken';
+  address: Scalars['String'];
+  balance: Scalars['BigDecimal'];
+}
+
+export interface GqlEmbrFarm {
+  __typename?: 'GqlEmbrFarm';
+  allocPoint: Scalars['Int'];
+  block: Scalars['BigInt'];
+  id: Scalars['ID'];
+  lastRewardTimestamp: Scalars['BigInt'];
+  masterChef: GqlEmbrMasterChef;
+  pair: Scalars['Bytes'];
+  slpBalance: Scalars['BigInt'];
+  timestamp: Scalars['BigInt'];
+  userCount: Scalars['BigInt'];
+}
+
+export interface GqlEmbrFarmUser {
+  __typename?: 'GqlEmbrFarmUser';
+  address: Scalars['Bytes'];
+  amount: Scalars['BigInt'];
+  embrHarvested: Scalars['BigInt'];
+  farmId: Scalars['ID'];
+  id: Scalars['ID'];
+  rewardDebt: Scalars['BigInt'];
+  timestamp: Scalars['BigInt'];
+}
+
+export interface GqlEmbrMasterChef {
+  __typename?: 'GqlEmbrMasterChef';
+  embrPerSec: Scalars['BigInt'];
+  id: Scalars['ID'];
+  totalAllocPoint: Scalars['Int'];
+}
+
+export interface GqlEmbrConfig {
+  __typename?: 'GqlEmbrConfig';
+  blacklistedPools: Array<Scalars['String']>;
+  featuredPools: Array<Scalars['String']>;
+  incentivizedPools: Array<Scalars['String']>;
+  pausedPools: Array<Scalars['String']>;
+  poolFilters: Array<GqlEmbrConfigPoolFilterItem>;
+}
+
+export interface GqlEmbrConfigFeaturedPool {
+  __typename?: 'GqlEmbrConfigFeaturedPool';
+  description?: Scalars['String'];
+  image: Scalars['String'];
+  poolId: Scalars['String'];
+}
+
+export interface GqlEmbrConfigNewsItem {
+  __typename?: 'GqlEmbrConfigNewsItem';
+  description: Scalars['String'];
+  image: Scalars['String'];
+  title: Scalars['String'];
+  url: Scalars['String'];
+  publishDate: Scalars['String'];
+}
+
+export interface GqlEmbrConfigPoolFilterItem {
+  __typename?: 'GqlEmbrConfigPoolFilterItem';
+  id: Scalars['ID'];
+  pools: Array<Scalars['String']>;
+  title: Scalars['String'];
+}
+
+export interface GqlBalancePoolApr {
+  __typename?: 'GqlBalancePoolApr';
+  embrApr: Scalars['BigDecimal'];
+  hasRewardApr: Scalars['Boolean'];
+  items: Array<GqlBalancePoolAprItem>;
+  swapApr: Scalars['BigDecimal'];
+  thirdPartyApr: Scalars['BigDecimal'];
+  total: Scalars['BigDecimal'];
+}
+
+export interface GqlBalancePoolAprItem {
+  __typename?: 'GqlBalancePoolAprItem';
+  apr: Scalars['BigDecimal'];
+  subItems?: Array<GqlBalancePoolAprSubItem>;
+  title: Scalars['String'];
+}
+
+export interface GqlBalancePoolAprSubItem {
+  __typename?: 'GqlBalancePoolAprSubItem';
+  apr: Scalars['BigDecimal'];
+  title: Scalars['String'];
 }

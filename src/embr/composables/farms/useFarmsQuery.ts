@@ -4,7 +4,7 @@ import { UseInfiniteQueryOptions } from 'react-query/types';
 import QUERY_KEYS from '@/embr/constants/queryKeys';
 import useApp from '@/composables/useApp';
 import { Farm } from '@/embr/services/subgraph/subgraph-types';
-import { farmSubgraphClient } from '@/embr/services/subgraph/farm-subgraph.client';
+import { embrService } from '@/embr/services/embr/embr.service';
 
 type FarmsQueryResponse = {
   farms: Farm[];
@@ -25,11 +25,9 @@ export default function useFarmsQuery(
 
   // METHODS
   const queryFn = async () => {
-    const data = await farmSubgraphClient.getFarms();
+    const farms = await embrService.getEmbrFarms();
 
-    return {
-      farms: data.farms
-    };
+    return { farms };
   };
 
   const queryOptions = reactive({

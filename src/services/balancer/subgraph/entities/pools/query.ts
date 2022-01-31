@@ -5,11 +5,11 @@ const defaultArgs = {
   first: 1000,
   orderBy: 'totalLiquidity',
   orderDirection: 'desc',
-  where: {
+  /*where: {
     totalShares_gt: 0.01,
     id_not_in: POOLS.BlockList,
     poolType_not: 'Element'
-  }
+  }*/
 };
 
 const defaultAttrs = {

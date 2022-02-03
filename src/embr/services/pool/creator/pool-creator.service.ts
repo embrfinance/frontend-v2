@@ -115,7 +115,11 @@ export class PoolCreatorService {
           weightedPoolAbi,
           'getPoolId',
           []
-        );
+        ); 
+        
+        if (poolId) {
+          break;
+        }
       } catch {
         //
       }

@@ -1,23 +1,89 @@
 <template>
-  <div
+  <img
+    v-if="iconSRC && !error"
+    :src="iconSRC"
+    :style="{
+      width: `${size}px`,
+      height: `${size}px`,
+      backgroundColor: 'black'
+    }"
+    @error="error = true"
+    class="rounded-full inline-block leading-none shadow-sm"
+  />
+  <img
+    v-else
+    :src="`https://avatar.tobi.sh/${address}?size=${size}`"
+    :style="{
+      width: `${size}px`,
+      height: `${size}px`,
+      backgroundColor: 'black'
+    }"
+    @error="error = true"
+    class="rounded-full inline-block leading-none shadow-sm"
+  />
+  <!--  <div
+    v-else
     class="leading-none rounded-full overflow-hidden"
     :style="{
-      width: `${parseInt(size) || 22}px`,
-      height: `${parseInt(size) || 22}px`
+      width: `${size}px`,
+      height: `${size}px`
     }"
   >
-    <jazzicon :address="address" :diameter="parseInt(size) || 22" />
-  </div>
+    <jazzicon :address="address" :diameter="size" />
+  </div>-->
 </template>
 
 <script>
-import Jazzicon from 'vue3-jazzicon/src/components';
+import { defineComponent, ref, computed, watch } from 'vue';
+//import Jazzicon from 'vue3-jazzicon/src/components';
+import useUrls from '@/composables/useUrls';
 
-export default {
+export default defineComponent({
+  name: 'Avatar',
+
   components: {
-    Jazzicon
+    //Jazzicon
   },
 
-  props: ['address', 'size']
-};
+  props: {
+    address: {
+      type: String,
+      required: true
+    },
+    iconURI: { type: String },
+    size: {
+      type: Number,
+      default: 24
+    }
+  },
+
+  setup(props) {
+    /**
+     * COMPOSABLES
+     */
+    const { resolve } = useUrls();
+
+    /**
+     * STATE
+     */
+    const error = ref(false);
+
+    /**
+     * COMPUTED
+     */
+    const iconSRC = computed(() => resolve(props.iconURI));
+
+    /**
+     * WATCHERS
+     */
+    watch(iconSRC, newURL => {
+      if (newURL !== '') error.value = false;
+    });
+
+    return {
+      iconSRC,
+      error
+    };
+  }
+});
 </script>

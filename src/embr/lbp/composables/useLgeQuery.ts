@@ -1,9 +1,9 @@
 import { reactive, Ref } from 'vue';
 import { useQuery } from 'vue-query';
 import { UseQueryOptions } from 'react-query/types';
-import QUERY_KEYS from '@/beethovenx/constants/queryKeys';
-import { beethovenxService } from '@/beethovenx/services/beethovenx/beethovenx.service';
-import { GqlLge } from '@/beethovenx/services/beethovenx/beethovenx-types';
+import QUERY_KEYS from '@/embr/constants/queryKeys';
+import { embrService } from '@/embr/services/embr/embr.service';
+import { GqlLge } from '@/embr/services/embr/embr-types';
 
 export default function useLgeQuery(
   id: Ref<string>,
@@ -12,7 +12,7 @@ export default function useLgeQuery(
   const queryKey = reactive(QUERY_KEYS.Lges.Current(id));
 
   const queryFn = async () => {
-    return beethovenxService.getLge(id.value);
+    return embrService.getLge(id.value);
   };
 
   const queryOptions = reactive({

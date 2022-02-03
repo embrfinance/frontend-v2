@@ -15,8 +15,8 @@ import useWeb3 from '@/services/web3/useWeb3';
 import { Rules } from '@/components/_global/BalTextInput/BalTextInput.vue';
 
 import { TokenInfo } from '@/types/TokenList';
-import { GqlLge } from '@/beethovenx/services/beethovenx/beethovenx-types';
-import LgeTokenSelectInput from '@/beethovenx/lbp/components/TradeCard/LgeTokenSelectInput.vue';
+import { GqlLge } from '@/embr/services/embr/embr-types';
+import LgeTokenSelectInput from '@/embr/lbp/components/TradeCard/LgeTokenSelectInput.vue';
 
 /**
  * TYPES

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import useLge from '@/beethovenx/lbp/composables/useLge';
-import { GqlLge } from '@/beethovenx/services/beethovenx/beethovenx-types';
+import useLge from '@/embr/lbp/composables/useLge';
+import { GqlLge } from '@/embr/services/embr/embr-types';
 import { FullPool } from '@/services/balancer/subgraph/types';
 
 type Props = {

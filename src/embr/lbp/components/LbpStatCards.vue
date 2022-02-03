@@ -4,11 +4,11 @@ import useNumbers from '@/composables/useNumbers';
 import { differenceInMilliseconds, format } from 'date-fns';
 import { FullPool } from '@/services/balancer/subgraph/types';
 import numeral from 'numeral';
-import useLge from '@/beethovenx/lbp/composables/useLge';
+import useLge from '@/embr/lbp/composables/useLge';
 import BalCard from '@/components/_global/BalCard/BalCard.vue';
-import { GqlLge } from '@/beethovenx/services/beethovenx/beethovenx-types';
+import { GqlLge } from '@/embr/services/embr/embr-types';
 import useWeb3 from '@/services/web3/useWeb3';
-import { calculateLbpTokenPrice } from '@/beethovenx/lbp/utils/lbpChartUtils';
+import { calculateLbpTokenPrice } from '@/embr/lbp/utils/lbpChartUtils';
 import { getAddress } from '@ethersproject/address';
 
 type Props = {
@@ -96,7 +96,7 @@ const lbpData = computed(() => {
     percentSold: sold / parseFloat(lge.tokenAmount),
     tokenPrice: numeral(tokenPrice).format('$0,0.0000'),
     predictedPrice: numeral(predictedPrice).format('$0,0.0000'),
-    beetsWeight: numeral(parseFloat(poolLaunchToken.weight) * 100).format(
+    embrWeight: numeral(parseFloat(poolLaunchToken.weight) * 100).format(
       '0.[00]'
     ),
     usdcWeight: numeral(parseFloat(poolCollateralToken.weight) * 100).format(

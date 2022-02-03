@@ -11,7 +11,7 @@
         :size="upToLargeBreakpoint ? 'md' : 'sm'"
         :circle="upToLargeBreakpoint"
       >
-        <Avatar :address="account" :profile="profile" :size="avatarSize" />
+        <Avatar :address="account" :size="avatarSize" />
         <span
           v-text="_shorten(account)"
           class="pl-2 hidden lg:inline-block eth-address"
@@ -28,11 +28,13 @@ import useBreakpoints from '@/composables/useBreakpoints';
 import AppNavSettings from './AppNavSettings.vue';
 import Avatar from '@/components/images/Avatar.vue';
 import useWeb3 from '@/services/web3/useWeb3';
+import BalBtn from '@/components/_global/BalBtn/BalBtn.vue';
 
 export default defineComponent({
   name: 'AppNavAccountBtn',
 
   components: {
+    BalBtn,
     AppNavSettings,
     Avatar
   },

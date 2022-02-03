@@ -620,8 +620,8 @@ export default function useSor({
     return {
       feeAmountInToken: '0',
       feeAmountOutToken: '0',
-      maximumInAmount: maximumInAmount.toString(),
-      minimumOutAmount: minimumOutAmount.toString()
+      maximumInAmount,
+      minimumOutAmount
     };
   }
 

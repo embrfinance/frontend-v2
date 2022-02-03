@@ -126,7 +126,7 @@ export default defineComponent({
         pendingEmbr:
           numeral(sumBy(farms, farm => farm.pendingEmbr)).format(
             '0,0.[0000]'
-          ) + ' BEETS',
+          ) + ' EMBR',
         apr: fNum(averageApr, 'percent'),
         dailyApr: fNum(averageApr / 365, 'percent')
       };

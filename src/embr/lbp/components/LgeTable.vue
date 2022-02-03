@@ -9,8 +9,8 @@ import BalAsset from '@/components/_global/BalAsset/BalAsset.vue';
 import useNumbers from '@/composables/useNumbers';
 import BalIcon from '@/components/_global/BalIcon/BalIcon.vue';
 import { useRouter } from 'vue-router';
-import useLgesQuery from '@/beethovenx/lbp/composables/useLgesQuery';
-import { GqlLge } from '@/beethovenx/services/beethovenx/beethovenx-types';
+import useLgesQuery from '@/embr/lbp/composables/useLgesQuery';
+import { GqlLge } from '@/embr/services/embr/embr-types';
 import { watch } from 'vue';
 import { formatDistanceToNow, parseISO, isBefore, isAfter } from 'date-fns';
 import BalTabs from '@/components/_global/BalTabs/BalTabs.vue';
@@ -176,7 +176,7 @@ const visibleLges = computed(() => {
             class="mr-2 -mt-1"
           >
             <img
-              src="~@/beethovenx/assets/images/twitter.svg"
+              src="~@/embr/assets/images/twitter.svg"
               :style="{ width: '20px', 'max-width': '20px' }"
             />
           </a>
@@ -187,7 +187,7 @@ const visibleLges = computed(() => {
             class="-mt-1 mr-2"
           >
             <img
-              src="~@/beethovenx/assets/images/discord.svg"
+              src="~@/embr/assets/images/discord.svg"
               :style="{ width: '20px', 'max-width': '20px' }"
             />
           </a>
@@ -198,7 +198,7 @@ const visibleLges = computed(() => {
             class="-mt-1 mr-2"
           >
             <img
-              src="~@/beethovenx/assets/images/telegram.svg"
+              src="~@/embr/assets/images/telegram.svg"
               :style="{ width: '20px', 'max-width': '20px' }"
             />
           </a>
@@ -209,7 +209,7 @@ const visibleLges = computed(() => {
             class="-mt-1 mr-2"
           >
             <img
-              src="~@/beethovenx/assets/images/medium.svg"
+              src="~@/embr/assets/images/medium.svg"
               :style="{ width: '20px', 'max-width': '20px' }"
             />
           </a>

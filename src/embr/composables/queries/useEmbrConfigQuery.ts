@@ -3,13 +3,15 @@ import { useQuery } from 'vue-query';
 import { UseQueryOptions } from 'react-query/types';
 import QUERY_KEYS from '@/embr/constants/queryKeys';
 import { FETCH_ONCE_OPTIONS } from '@/constants/vue-query';
-import { EmbrConfig, embrService } from '@/embr/services/embr/embr.service';
+import { embrService } from '@/embr/services/embr/embr.service';
+import { GqlEmbrConfig } from '@/embr/services/embr/embr-types';
+
 
 /**
  * Fetch all token lists, should only happen once.
  */
 export default function useEmbrConfigQuery(
-  options: UseQueryOptions<EmbrConfig> = {}
+  options: UseQueryOptions<GqlEmbrConfig> = {}
 ) {
   const queryKey = reactive(QUERY_KEYS.Config.All);
 
@@ -24,5 +26,5 @@ export default function useEmbrConfigQuery(
     ...options
   });
 
-  return useQuery<EmbrConfig>(queryKey, queryFn, queryOptions);
+  return useQuery<GqlEmbrConfig>(queryKey, queryFn, queryOptions);
 }

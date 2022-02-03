@@ -11,8 +11,8 @@ import {
   fromUnixTime
 } from 'date-fns';
 import { zip } from 'lodash';
-import { LgeData } from '@/beethovenx/lbp/lbp-types';
-import { GqlLge } from '@/beethovenx/services/beethovenx/beethovenx-types';
+import { LgeData } from '@/embr/lbp/lbp-types';
+import { GqlLge } from '@/embr/services/embr/embr-types';
 import {
   FullPool,
   PoolToken,

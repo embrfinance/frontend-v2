@@ -15,7 +15,7 @@
   "farmSubgraph": "https://api.thegraph.com/subgraphs/name/embrfinance/embr-masterchef-fuji",
   "blockSubgraph": "https://api.thegraph.com/subgraphs/name/embrfinance/fuji-blocks",
   "poolsUrlV1": "",
-  "poolsUrlV2": "",
+  "poolsUrlV2": "https://graph.official.finance/graphql",
   "backendUrl": "https://graph.official.finance/graphql",
   "etherscan": {
     "apiKey": "",
@@ -48,7 +48,7 @@
     "wstETH": "",
     "usdc": "0xfb8fa9f5f0bd47591ba6f7c75fe519e3e8fde429",
     "embr": "0x6036617225ded90fCD43cb20731D0E41BcF4e3f0",
-    "lidoRelayer": "",
+    "lidoRelayer": "fff",
     "balancerHelpers": "0x108bB3e254733C65bCB9fd861c72C7107FA5ca95",
     "masterChef": "0xcd836CCcb03B4eE04B639142d3687753230Ef762",
     "embrUsdcReferencePricePool": "0x794dfa11b6a9649dbf9c2f1cc06e075a786b2dc000020000000000000000000f",
@@ -58,7 +58,8 @@
     "earlyLudwigNft": "",
     "hnd": "",
     "hndRewarder": "",
-    "batchRelayer": "0xf318a53495341351128D74781145a02Ec33923a1"
+    "batchRelayer": "0xf318a53495341351128D74781145a02Ec33923a1",
+    "copperProxy": "0xb04239a4a7ece9f1a7346b6d7549688071b91ffb"
   },
   "strategies": {
     "0": {

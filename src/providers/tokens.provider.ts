@@ -134,7 +134,8 @@ export default {
       allowanceContracts: compact([
         networkConfig.addresses.vault,
         networkConfig.addresses.wstETH,
-        networkConfig.addresses.exchangeProxy
+        networkConfig.addresses.exchangeProxy,
+        networkConfig.addresses.copperProxy
       ])
     });
 

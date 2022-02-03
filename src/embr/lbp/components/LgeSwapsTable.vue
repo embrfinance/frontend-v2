@@ -13,10 +13,10 @@ import useWeb3 from '@/services/web3/useWeb3';
 import { format, getUnixTime } from 'date-fns';
 import { flatten, orderBy } from 'lodash';
 import numeral from 'numeral';
-import { GqlLge } from '@/beethovenx/services/beethovenx/beethovenx-types';
-import useLge from '@/beethovenx/lbp/composables/useLge';
+import { GqlLge } from '@/embr/services/embr/embr-types';
+import useLge from '@/embr/lbp/composables/useLge';
 import usePoolSwapsQuery from '@/composables/queries/usePoolSwapsQuery';
-import useAllPoolSwapsQuery from '@/beethovenx/composables/queries/useAllPoolSwapsQuery';
+import useAllPoolSwapsQuery from '@/embr/composables/queries/useAllPoolSwapsQuery';
 
 type Props = {
   lge: GqlLge;

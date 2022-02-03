@@ -60,7 +60,8 @@
       "earlyLudwigNft": "",
       "hnd": "",
       "hndRewarder": "",
-      "batchRelayer": "0xf318a53495341351128D74781145a02Ec33923a1"
+      "batchRelayer": "0xf318a53495341351128D74781145a02Ec33923a1",
+      "copperProxy": "0xb04239a4a7ece9f1a7346b6d7549688071b91ffb"
     },
     "strategies": {
       "0": {

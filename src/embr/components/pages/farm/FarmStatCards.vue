@@ -12,10 +12,12 @@
       </BalCard>
     </div>
     <FarmHarvestRewardsCard
-      :farm-id="pool.farm.id"
+      :farm-id="pool.decoratedFarm.id"
       :token-address="pool.address"
-      :pending-embr="pool.farm.pendingEmbr"
-      :pending-embr-value="pool.farm.pendingEmbrValue"
+      :has-embr-rewards="pool.decoratedFarm.rewards > 0"
+      :has-third-party-rewards="pool.decoratedFarm.rewardTokenPerDay > 0"
+      :pending-embr="pool.decoratedFarm.pendingEmbr"
+      :pending-embr-value="pool.decoratedFarm.pendingEmbrValue"
     />
   </div>
 </template>

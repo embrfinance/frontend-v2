@@ -6,8 +6,8 @@ import useNumbers from '@/composables/useNumbers';
 import useTokens from '@/composables/useTokens';
 import { UseTrading } from '@/composables/trade/useTrading';
 import TradePairToggle from '@/components/cards/TradeCard/TradePairToggle.vue';
-import { GqlLge } from '@/beethovenx/services/beethovenx/beethovenx-types';
-import LgeTokenInput from '@/beethovenx/lbp/components/TradeCard/LgeTokenInput.vue';
+import { GqlLge } from '@/embr/services/embr/embr-types';
+import LgeTokenInput from '@/embr/lbp/components/TradeCard/LgeTokenInput.vue';
 
 /**
  * TYPES

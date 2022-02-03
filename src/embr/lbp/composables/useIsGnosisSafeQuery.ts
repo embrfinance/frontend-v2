@@ -1,8 +1,8 @@
 import { reactive, Ref } from 'vue';
 import { useQuery } from 'vue-query';
 import { UseQueryOptions } from 'react-query/types';
-import QUERY_KEYS from '@/beethovenx/constants/queryKeys';
-import { beethovenxService } from '@/beethovenx/services/beethovenx/beethovenx.service';
+import QUERY_KEYS from '@/embr/constants/queryKeys';
+import { embrService } from '@/embr/services/embr/embr.service';
 
 export default function useIsGnosisSafeQuery(
   address: Ref<string>,
@@ -11,7 +11,7 @@ export default function useIsGnosisSafeQuery(
   const queryKey = reactive(QUERY_KEYS.GnosisSafe.Current(address));
 
   const queryFn = async () => {
-    return beethovenxService.isAddressMultisigWallet(address.value);
+    return embrService.isAddressMultisigWallet(address.value);
   };
 
   const queryOptions = reactive({

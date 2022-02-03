@@ -4,7 +4,7 @@ import SelectTokenModal from '@/components/modals/SelectTokenModal/SelectTokenMo
 import useTokens from '@/composables/useTokens';
 import useNumbers from '@/composables/useNumbers';
 import { TokenInfo } from '@/types/TokenList';
-import { GqlLge } from '@/beethovenx/services/beethovenx/beethovenx-types';
+import { GqlLge } from '@/embr/services/embr/embr-types';
 
 /**
  * TYPES

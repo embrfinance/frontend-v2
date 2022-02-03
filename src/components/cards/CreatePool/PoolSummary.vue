@@ -36,7 +36,8 @@ const {
   seedTokens,
   updateTokenColors,
   totalLiquidity,
-  tokensList
+  tokensList,
+  hasRestoredFromSavedState
 } = usePoolCreation();
 const { upToLargeBreakpoint } = useBreakpoints();
 const { darkMode } = useDarkMode();
@@ -67,8 +68,8 @@ const chartConfig = computed(() => {
       top: 'bottom',
       textStyle: {
         color: darkMode.value
-          ? tailwind.theme.colors.gold['300']
-          : tailwind.theme.colors.gold['850']
+          ? tailwind.theme.colors.gray['300']
+          : tailwind.theme.colors.gray['850']
       }
     },
     series: [
@@ -142,15 +143,13 @@ const chartConfig = computed(() => {
  * WATCHERS
  */
 watch(
-  seedTokens,
+  [seedTokens, hasRestoredFromSavedState],
   async () => {
     const colors = await calculateColors();
     await nextTick();
-    await nextTick();
-    await nextTick();
     updateTokenColors(colors as string[]);
   },
-  { deep: true }
+  { deep: true, immediate: true }
 );
 
 /**
@@ -186,10 +185,7 @@ async function calculateColors() {
 
 <template>
   <BalCard noPad shadow="none">
-    <div
-      class="p-2 px-3 border-b dark:border-gray-600"
-      v-if="!upToLargeBreakpoint"
-    >
+    <div class="p-4 border-b dark:border-gray-600" v-if="!upToLargeBreakpoint">
       <h6 class="dark:text-gray-300">{{ $t('createAPool.poolSummary') }}</h6>
     </div>
     <div class="p-2">

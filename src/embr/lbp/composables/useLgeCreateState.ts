@@ -2,8 +2,8 @@ import { computed, reactive, toRefs } from 'vue';
 import { isDateCheck, isTimeCheck, isUrlCheck } from '@/lib/utils/validations';
 import useTokens from '@/composables/useTokens';
 import { getAddress } from '@ethersproject/address';
-import { LgeData } from '@/beethovenx/lbp/lbp-types';
-import { PoolTokenInput } from '@/beethovenx/services/pool/creator/pool-creator.service';
+import { LgeData } from '@/embr/lbp/lbp-types';
+import { PoolTokenInput } from '@/embr/services/pool/creator/pool-creator.service';
 import { format, formatInTimeZone, utcToZonedTime } from 'date-fns-tz';
 import { toUtcTime } from '@/lib/utils/date';
 

@@ -15,6 +15,10 @@ const network = ((): Network => {
       return Network.ARBITRUM;
     case '250':
       return Network.ARBITRUM;
+    case '43114':
+      return Network.AVALANCHE;
+    case '43113':
+      return Network.FUJI;
     default:
       return Network.MAINNET;
   }

@@ -3,7 +3,7 @@ import { computed, onMounted, ref, watch } from 'vue';
 
 import ChooseWeights from '@/components/cards/CreatePool/ChooseWeights.vue';
 import PoolSummary from '@/components/cards/CreatePool/PoolSummary.vue';
-import PoolName from '@/components/cards/CreatePool/PoolName.vue';
+//import PoolName from '@/components/cards/CreatePool/PoolName.vue';
 import PoolFees from '@/components/cards/CreatePool/PoolFees.vue';
 import SimilarPools from '@/components/cards/CreatePool/SimilarPools.vue';
 import InitialLiquidity from '@/components/cards/CreatePool/InitialLiquidity.vue';
@@ -196,15 +196,6 @@ watch([hasInjectedToken, totalLiquidity], () => {
         @update-dimensions="setWrapperHeight"
       >
         <ChooseWeights @update:height="setWrapperHeight" />
-      </AnimatePresence>
-      <AnimatePresence
-        :isVisible="!appLoading && activeStep === 1"
-        :initial="initialAnimateProps"
-        :animate="entryAnimateProps"
-        :exit="exitAnimateProps"
-        @update-dimensions="setWrapperHeight"
-      >
-        <PoolName />
       </AnimatePresence>
       <AnimatePresence
         :isVisible="!appLoading && activeStep === 3"

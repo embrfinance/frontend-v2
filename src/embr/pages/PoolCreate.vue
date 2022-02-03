@@ -37,6 +37,7 @@
             @token-amount-change="value => tokenAmountChange(value, idx)"
             @token-weight-change="value => tokenWeightChange(value, idx)"
             @token-approved="address => handleTokenApproved(address)"
+            :has-token-weight="true"
           />
         </div>
       </div>

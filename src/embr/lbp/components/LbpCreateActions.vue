@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import useLgeCreateState from '@/beethovenx/lbp/composables/useLgeCreateState';
+import useLgeCreateState from '@/embr/lbp/composables/useLgeCreateState';
 import { TransactionReceipt } from '@ethersproject/providers';
 import { computed, ref } from 'vue';
-import { PoolCreatorService } from '@/beethovenx/services/pool/creator/pool-creator.service';
+import { PoolCreatorService } from '@/embr/services/pool/creator/pool-creator.service';
 import useWeb3 from '@/services/web3/useWeb3';
 import useTransactions from '@/composables/useTransactions';
 import useEthers from '@/composables/useEthers';
 import useTokens from '@/composables/useTokens';
-import { CopperProxyService } from '@/beethovenx/services/pool/copper-proxy.service';
-import { beethovenxService } from '@/beethovenx/services/beethovenx/beethovenx.service';
+import { CopperProxyService } from '@/embr/services/pool/copper-proxy.service';
+import { embrService } from '@/embr/services/embr/embr.service';
 import { omit } from 'lodash';
-import ActionStepContainer from '@/beethovenx/components/containers/ActionStepContainer.vue';
-import { GqlLge } from '@/beethovenx/services/beethovenx/beethovenx-types';
+import ActionStepContainer from '@/embr/components/containers/ActionStepContainer.vue';
+import { GqlLge } from '@/embr/services/embr/embr-types';
 import { useRouter } from 'vue-router';
 import BalBtn from '@/components/_global/BalBtn/BalBtn.vue';
 import BalTextInput from '@/components/_global/BalTextInput/BalTextInput.vue';
 import { balancerSubgraphService } from '@/services/balancer/subgraph/balancer-subgraph.service';
 import { sleep } from '@/lib/utils';
 import { callStatic } from '@/lib/utils/balancer/web3';
-import { default as weightedPoolAbi } from '@/beethovenx/abi/WeightedPool.json';
+import { default as weightedPoolAbi } from '@/embr/abi/WeightedPool.json';
 
 const { appNetworkConfig, getProvider, account } = useWeb3();
 const {
@@ -91,7 +91,7 @@ async function saveAuction() {
   if (poolId.value && poolAddress.value) {
     savingLge.value = true;
 
-    await beethovenxService.createLge(
+    await embrService.createLge(
       getProvider(),
       {
         ...omit(data.value, ['startTime', 'endTime', 'poolName', 'poolSymbol']),
@@ -138,7 +138,7 @@ function goToLge() {
         the auction page once you’ve created the auction.
       </p>
       <a
-        href="https://docs.beethovenx.io/balancer-v2-1/lbps-for-token-launches"
+        href="https://docs.embr.io/balancer-v2-1/lbps-for-token-launches"
         target="_blank"
         class="text-green-500"
       >
@@ -239,7 +239,7 @@ function goToLge() {
   <div v-if="lgeSaved" class="mt-8">
     <div class="mb-2">
       <a
-        href="https://docs.beethovenx.io/developers/pool-verification"
+        href="https://docs.embr.io/developers/pool-verification"
         target="_blank"
         class="text-green-500"
       >
@@ -248,7 +248,7 @@ function goToLge() {
     </div>
     <div>
       <a
-        href="https://docs.beethovenx.io/developers/pool-verification"
+        href="https://docs.embr.io/developers/pool-verification"
         target="_blank"
         class="text-green-500"
       >

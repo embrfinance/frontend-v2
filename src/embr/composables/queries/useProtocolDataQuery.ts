@@ -8,6 +8,8 @@ import { embrService } from '@/embr/services/embr/embr.service';
 interface ProtocolData extends SubgraphBalancer {
   embrPrice: number;
   circulatingSupply: number;
+  swapFee24h: number;
+  swapVolume24h: number;
 }
 
 export default function useProtocolDataQuery(
@@ -22,7 +24,9 @@ export default function useProtocolDataQuery(
       totalSwapVolume: parseFloat(protocolData.totalSwapVolume),
       embrPrice: parseFloat(protocolData.embrPrice),
       circulatingSupply: parseFloat(protocolData.circulatingSupply),
-      totalLiquidity: parseFloat(protocolData.totalLiquidity)
+      totalLiquidity: parseFloat(protocolData.totalLiquidity),
+      swapFee24h: parseFloat(protocolData.swapFee24h),
+      swapVolume24h: parseFloat(protocolData.swapVolume24h)
     };
   };
 

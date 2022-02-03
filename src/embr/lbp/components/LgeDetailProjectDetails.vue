@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import useLge from '@/beethovenx/lbp/composables/useLge';
-import { GqlLge } from '@/beethovenx/services/beethovenx/beethovenx-types';
+import useLge from '@/embr/lbp/composables/useLge';
+import { GqlLge } from '@/embr/services/embr/embr-types';
 import { FullPool } from '@/services/balancer/subgraph/types';
 import BalIcon from '@/components/_global/BalIcon/BalIcon.vue';
 import useWeb3 from '@/services/web3/useWeb3';
@@ -56,7 +56,7 @@ const fundsRaisedValue = computed(
       target="_blank"
       class="mr-4 -mt-1"
     >
-      <img src="~@/beethovenx/assets/images/twitter.svg" class="w-8" />
+      <img src="~@/embr/assets/images/twitter.svg" class="w-8" />
     </a>
     <a
       v-if="props.lge.discordUrl"
@@ -64,7 +64,7 @@ const fundsRaisedValue = computed(
       target="_blank"
       class="-mt-1 mr-4"
     >
-      <img src="~@/beethovenx/assets/images/discord.svg" class="w-8" />
+      <img src="~@/embr/assets/images/discord.svg" class="w-8" />
     </a>
     <a
       v-if="props.lge.mediumUrl"
@@ -72,7 +72,7 @@ const fundsRaisedValue = computed(
       target="_blank"
       class="-mt-1 mr-4"
     >
-      <img src="~@/beethovenx/assets/images/medium.svg" class="w-8" />
+      <img src="~@/embr/assets/images/medium.svg" class="w-8" />
     </a>
     <a
       v-if="props.lge.telegramUrl"
@@ -80,7 +80,7 @@ const fundsRaisedValue = computed(
       target="_blank"
       class="-mt-1 mr-4"
     >
-      <img src="~@/beethovenx/assets/images/telegram.svg" class="w-8" />
+      <img src="~@/embr/assets/images/telegram.svg" class="w-8" />
     </a>
   </div>
   <div class="mt-4">

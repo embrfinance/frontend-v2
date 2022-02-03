@@ -3,7 +3,7 @@ import { ref, watch } from 'vue';
 import BalIcon from '@/components/_global/BalIcon/BalIcon.vue';
 import BalBtn from '@/components/_global/BalBtn/BalBtn.vue';
 import useWeb3 from '@/services/web3/useWeb3';
-import useIsGnosisSafeQuery from '@/beethovenx/lbp/composables/useIsGnosisSafeQuery';
+import useIsGnosisSafeQuery from '@/embr/lbp/composables/useIsGnosisSafeQuery';
 
 const { account } = useWeb3();
 const { data } = useIsGnosisSafeQuery(account);

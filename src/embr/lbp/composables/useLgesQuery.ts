@@ -1,15 +1,15 @@
 import { reactive } from 'vue';
 import { useQuery } from 'vue-query';
 import { UseQueryOptions } from 'react-query/types';
-import QUERY_KEYS from '@/beethovenx/constants/queryKeys';
-import { beethovenxService } from '@/beethovenx/services/beethovenx/beethovenx.service';
-import { GqlLge } from '@/beethovenx/services/beethovenx/beethovenx-types';
+import QUERY_KEYS from '@/embr/constants/queryKeys';
+import { embrService } from '@/embr/services/embr/embr.service';
+import { GqlLge } from '@/embr/services/embr/embr-types';
 
 export default function useLgesQuery(options: UseQueryOptions<GqlLge[]> = {}) {
   const queryKey = reactive(QUERY_KEYS.Lges.All);
 
   const queryFn = async () => {
-    return beethovenxService.getLges();
+    return embrService.getLges();
   };
 
   const queryOptions = reactive({

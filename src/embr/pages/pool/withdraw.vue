@@ -15,13 +15,9 @@ import { computed } from 'vue';
 const { network } = configService;
 const { pool, loadingPool, transfersAllowed } = usePoolTransfers();
 
-const hasBptStaked = function(){
-    try{
-      computed( () => pool.value && pool.value.farm && pool.value.farm.userBpt > 0);
-    }catch(e){
-      console.log(e)
-    }
-}
+const hasBptStaked = computed(
+  () => pool.value && pool.value.farm && pool.value.farm.userBpt > 0
+);
 </script>
 
 <template>

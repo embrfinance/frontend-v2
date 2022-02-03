@@ -239,7 +239,7 @@ export interface GqlEmbrFarm {
   allocPoint: Scalars['Int'];
   block: Scalars['BigInt'];
   id: Scalars['ID'];
-  lastRewardTimestamp: Scalars['BigInt'];
+  lastRewardBlock: Scalars['BigInt'];
   masterChef: GqlEmbrMasterChef;
   pair: Scalars['Bytes'];
   slpBalance: Scalars['BigInt'];

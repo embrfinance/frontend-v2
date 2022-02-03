@@ -7,6 +7,7 @@ import useNumbers from '@/composables/useNumbers';
 
 import TokenPills from '@/components/tables/PoolsTable/TokenPills/TokenPills.vue';
 import { useI18n } from 'vue-i18n';
+import { orderBy, take } from 'lodash';
 
 /**
  * COMPOSABLES
@@ -30,6 +31,15 @@ const title = computed(() => {
   return t('createAPool.similarPoolsExist');
 });
 
+// limit the similar pools on the UI to the first 4 ones
+// with highest tvl
+const relevantSimilarPools = computed(() => {
+  return take(
+    orderBy(similarPools.value, pool => Number(pool.totalLiquidity), 'desc'),
+    4
+  );
+});
+
 /**
  * FUNCTIONS
  */
@@ -40,12 +50,12 @@ function cancel() {
 </script>
 
 <template>
-  <BalCard :class="{ 'border-red-400': existingPool }">
+  <BalCard shadow="xl" noBorder :class="{ 'border-red-400': existingPool }">
     <BalStack vertical>
       <BalStack vertical spacing="xs">
         <span
           v-if="isWalletReady"
-          class="text-xs text-gray-700 dark:text-gray-200"
+          class="text-xs text-gray-700 dark:text-gray-500"
           >{{ userNetworkConfig?.name }}</span
         >
         <BalStack align="center" horizontal spacing="xs">
@@ -70,7 +80,7 @@ function cancel() {
           </BalStack>
           <BalStack horizontal spacing="lg">
             <BalStack vertical spacing="none">
-              <span class="font-medium  dark:text-gray-200">{{
+              <span class="font-medium  dark:text-gray-500">{{
                 $t('poolValue')
               }}</span>
               <span class="font-semibold">{{
@@ -78,26 +88,30 @@ function cancel() {
               }}</span>
             </BalStack>
             <BalStack vertical spacing="none">
-              <span class="font-medium  dark:text-gray-200">{{
+              <span class="font-medium  dark:text-gray-500">{{
                 $t('volume24hShort')
               }}</span>
               <span class="font-semibold">{{
-                fNum(existingPool.dynamic.volume, 'usd')
+                fNum(existingPool.volume24h, 'usd')
               }}</span>
             </BalStack>
             <BalStack vertical spacing="none">
-              <span class="font-medium capitalize  dark:text-gray-200">{{
+              <span class="font-medium capitalize  dark:text-gray-500">{{
                 $t('fees')
               }}</span>
               <span class="font-semibold">{{
-                fNum(existingPool.swapFee, 'percent')
+                fNum(existingPool.swapfee24h, 'percent')
               }}</span>
             </BalStack>
           </BalStack>
         </BalStack>
       </BalCard>
       <BalStack isDynamic v-else vertical>
-        <BalCard shadow="none" v-for="pool in similarPools" :key="pool.id">
+        <BalCard
+          shadow="none"
+          v-for="pool in relevantSimilarPools"
+          :key="pool.id"
+        >
           <BalStack vertical>
             <BalStack spacing="sm" horizontal align="center">
               <div>
@@ -107,7 +121,7 @@ function cancel() {
             </BalStack>
             <BalStack horizontal spacing="xl">
               <BalStack vertical spacing="none">
-                <span class="font-medium  dark:text-gray-200">{{
+                <span class="font-medium  dark:text-gray-500">{{
                   $t('poolValue')
                 }}</span>
                 <span class="font-semibold">{{
@@ -115,19 +129,19 @@ function cancel() {
                 }}</span>
               </BalStack>
               <BalStack vertical spacing="none">
-                <span class="font-medium  dark:text-gray-200">{{
+                <span class="font-medium  dark:text-gray-500">{{
                   $t('volume24hShort')
                 }}</span>
                 <span class="font-semibold">{{
-                  fNum(pool.dynamic.volume, 'usd')
+                  fNum(pool.volume24h, 'usd')
                 }}</span>
               </BalStack>
               <BalStack vertical spacing="none">
-                <span class="font-medium capitalize dark:text-gray-200">{{
+                <span class="font-medium capitalize dark:text-gray-500">{{
                   $t('fees')
                 }}</span>
                 <span class="font-semibold">{{
-                  fNum(pool.swapFee, 'percent')
+                  fNum(pool.swapFee24h, 'percent')
                 }}</span>
               </BalStack>
             </BalStack>

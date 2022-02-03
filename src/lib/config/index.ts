@@ -61,6 +61,7 @@ export interface Config {
     usdc: string;
     ausd: string;
     defaultPoolOwner: string;
+    copperProxy: string;
     batchRelayer: string;
   };
   keys: {

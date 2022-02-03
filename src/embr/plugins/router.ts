@@ -9,6 +9,9 @@ import PoolCreate from '@/embr/pages/PoolCreate.vue';
 import Portfolio from '@/embr/pages/Portfolio.vue';
 import CreatePoolPage from '@/embr/pages/pool/create.vue';
 import XEmbr from '@/embr/pages/XEmbr.vue';
+import LbpCreate from '@/embr/pages/lbp/LgeCreate.vue';
+import LgeList from '@/embr/pages/lbp/LgeList.vue';
+import LbpDetail from '@/embr/pages/lbp/LgeDetail.vue';
 
 const routes: RouteRecordRaw[] = [
   { path: '/', name: 'home', redirect: '/trade' },
@@ -56,6 +59,9 @@ const routes: RouteRecordRaw[] = [
   { path: '/pool-create', name: 'pool-create', component: PoolCreate },
   { path: '/my-portfolio', name: 'my-portfolio', component: Portfolio },
   { path: '/stake', name: 'stake', component: XEmbr },
+  { path: '/lge-create', name: 'lge-create', component: LbpCreate },
+  { path: '/launch', name: 'launch', component: LgeList },
+  { path: '/lge/:id', name: 'lge', component: LbpDetail },
   {
     path: '/:pathMatch(.*)*',
     name: 'not-found',

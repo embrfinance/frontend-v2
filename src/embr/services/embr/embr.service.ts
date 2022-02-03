@@ -3,6 +3,7 @@ import axios from 'axios';
 import {
   CreateLgeTypes,
   GqlBalancerPoolSnapshot,
+  GqlEmbrConfig,
   GqlEmbrFarm,
   GqlEmbrFarmUser,
   GqlEmbrProtocolData,
@@ -16,25 +17,15 @@ import {
   UserPortfolioData,
   UserTokenData
 } from './embr-types';
-import { getAddress } from '@ethersproject/address';
+import { getAddress, isAddress } from '@ethersproject/address';
 import { keyBy } from 'lodash';
 import { ethers } from 'ethers';
 import { Web3Provider } from '@ethersproject/providers';
 import { jsonToGraphQLQuery } from 'json-to-graphql-query';
-import { LgeData } from '@/embr/lbp/lbp-types';
-import { omit } from 'lodash';
-import { Farm } from '@/embr/services/subgraph/subgraph-types';
 
 export type Price = { [fiat: string]: number };
 export type TokenPrices = { [address: string]: Price };
 export type HistoricalPrices = { [timestamp: string]: number[] };
-
-export interface EmbrConfig {
-  incentivizedPools: string[];
-  pausedPools: string[];
-  blacklistedPools: string[];
-  featuredPools: string[];
-}
 
 export default class EmbrService {
   private readonly url: string;
@@ -90,7 +81,9 @@ export default class EmbrService {
     const result: TokenPrices = {};
 
     for (const tokenPrice of response.tokenPrices) {
-      result[getAddress(tokenPrice.address)] = { usd: tokenPrice.price };
+      if (isAddress(tokenPrice.address)) {
+        result[getAddress(tokenPrice.address)] = { usd: tokenPrice.price };
+      }
     }
 
     return result;
@@ -137,12 +130,26 @@ export default class EmbrService {
     return result;
   }
 
-  public async getEmbrConfig(): Promise<EmbrConfig> {
-    const { data } = await axios.get<{ result: EmbrConfig }>(
-      this.configService.network.configSanityUrl
-    );
+  public async getEmbrConfig(): Promise<GqlEmbrConfig> {
+    const query = jsonToGraphQLQuery({
+      query: {
+        embrGetConfig: {
+          incentivizedPools: true,
+          pausedPools: true,
+          blacklistedPools: true,
+          featuredPools: true,
+          poolFilters: {
+            id: true,
+            title: true,
+            pools: true
+          }
+        }
+      }
+    });
 
-    return data.result;
+    const response = await this.get<{ embrGetConfig: GqlEmbrConfig }>(query);
+
+    return response.embrGetConfig;  
   }
 
   public async createLge(
@@ -150,7 +157,7 @@ export default class EmbrService {
     input: GqlLgeCreateInput,
     account: string
   ): Promise<{ id: string }> {
-    const signature = await web3.getSigner()._signTypedData(
+    /*const signature = await web3.getSigner()._signTypedData(
       {
         name: 'embr',
         version: '1',
@@ -158,12 +165,12 @@ export default class EmbrService {
       },
       CreateLgeTypes,
       input
-    );
+    );*/
 
     const query = jsonToGraphQLQuery({
       mutation: {
         lgeCreate: {
-          __args: { signature, lge: input },
+          __args: { signature: '', lge: input },
           id: true,
           address: true,
           name: true
@@ -233,21 +240,9 @@ export default class EmbrService {
     }
   }
 
-  public async getFembrApr(): Promise<number> {
-    const query = jsonToGraphQLQuery({
-      query: {
-        fembrGetApr: {
-          apr: true
-        }
-      }
-    });
 
-    const { fembrGetApr } = await this.get<{ fembrGetApr: { apr: number } }>(
-      query
-    );
 
-    return fembrGetApr.apr;
-  }
+
 
   public async getProtocolData(): Promise<GqlEmbrProtocolData> {
     const query = jsonToGraphQLQuery({
@@ -259,7 +254,9 @@ export default class EmbrService {
           totalLiquidity: true,
           totalSwapVolume: true,
           poolCount: true,
-          circulatingSupply: true
+          circulatingSupply: true,
+          swapFee24h: true,
+          swapVolume24h: true
         }
       }
     });

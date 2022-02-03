@@ -1,24 +1,27 @@
 import { computed } from 'vue';
 import useEmbrConfigQuery from '@/embr/composables/queries/useEmbrConfigQuery';
-import { EmbrConfig } from '@/embr/services/embr/embr.service';
+import { GqlEmbrConfig } from '@/embr/services/embr/embr-types';
 
 export default function useEmbrConfig() {
   const embrConfigQuery = useEmbrConfigQuery();
 
   const embrConfigLoading = computed(
-    () => embrConfigQuery.isLoading.value || embrConfigQuery.isIdle.value
+    () => 
+    embrConfigQuery.isLoading.value || 
+    embrConfigQuery.isIdle.value
   );
 
   const embrConfig = computed(
-    (): EmbrConfig => {
-      return embrConfigQuery.data.value
+    (): GqlEmbrConfig =>
+      embrConfigQuery.data.value
         ? embrConfigQuery.data.value
-        : { incentivizedPools: [], 
+        : { 
+          incentivizedPools: [], 
           blacklistedPools: [], 
           pausedPools: [], 
-          featuredPools: [] 
+          featuredPools: [] ,
+          poolFilters: []
         }
-    }
   );
 
   return {

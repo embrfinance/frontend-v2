@@ -4,13 +4,13 @@ import { computed, ref, watch } from 'vue';
 import useWeb3 from '@/services/web3/useWeb3';
 import useTransactions from '@/composables/useTransactions';
 import useEthers from '@/composables/useEthers';
-import { CopperProxyService } from '@/beethovenx/services/pool/copper-proxy.service';
-import { GqlLge } from '@/beethovenx/services/beethovenx/beethovenx-types';
+import { CopperProxyService } from '@/embr/services/pool/copper-proxy.service';
+import { GqlLge } from '@/embr/services/embr/embr-types';
 import { FullPool } from '@/services/balancer/subgraph/types';
 import BalBtn from '@/components/_global/BalBtn/BalBtn.vue';
 import BalModal from '@/components/_global/BalModal/BalModal.vue';
 import BalToggle from '@/components/_global/BalToggle/BalToggle.vue';
-import useLge from '@/beethovenx/lbp/composables/useLge';
+import useLge from '@/embr/lbp/composables/useLge';
 
 type Props = {
   lge: GqlLge;

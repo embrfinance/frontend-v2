@@ -2,11 +2,11 @@
 import BalRangeInput from '@/components/_global/BalRangeInput/BalRangeInput.vue';
 import BalTooltip from '@/components/_global/BalTooltip/BalTooltip.vue';
 import BalIcon from '@/components/_global/BalIcon/BalIcon.vue';
-import LbpTokenWeightRangeLabel from '@/beethovenx/lbp/components/LbpTokenWeightRangeLabel.vue';
-import useLgeCreateState from '@/beethovenx/lbp/composables/useLgeCreateState';
+import LbpTokenWeightRangeLabel from '@/embr/lbp/components/LbpTokenWeightRangeLabel.vue';
+import useLgeCreateState from '@/embr/lbp/composables/useLgeCreateState';
 import useTokens from '@/composables/useTokens';
 import { computed } from 'vue';
-import LbpPreviewChart from '@/beethovenx/lbp/components/LbpPreviewChart.vue';
+import LbpPreviewChart from '@/embr/lbp/components/LbpPreviewChart.vue';
 
 const { data, lgeChartConfigValid } = useLgeCreateState();
 const { tokens, getToken, dynamicDataLoaded, dynamicDataLoading } = useTokens();

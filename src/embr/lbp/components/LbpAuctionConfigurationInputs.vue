@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import useLgeCreateState from '@/beethovenx/lbp/composables/useLgeCreateState';
+import useLgeCreateState from '@/embr/lbp/composables/useLgeCreateState';
 import BalTextInput from '@/components/_global/BalTextInput/BalTextInput.vue';
-import PoolCreateTokenRow from '@/beethovenx/components/pages/pool-create/PoolCreateTokenRow.vue';
+import PoolCreateTokenRow from '@/embr/components/pages/pool-create/PoolCreateTokenRow.vue';
 import useWeb3 from '@/services/web3/useWeb3';
 import useTokenLists from '@/composables/useTokenLists';
 import { computed } from 'vue';
 import { getAddress } from '@ethersproject/address';
-import LbpTokenWeightsConfig from '@/beethovenx/lbp/components/LbpTokenWeightsConfig.vue';
-import { isGreaterThanOrEqualTo } from '@/beethovenx/utils/validations';
+import LbpTokenWeightsConfig from '@/embr/lbp/components/LbpTokenWeightsConfig.vue';
+import { isGreaterThanOrEqualTo } from '@/embr/utils/validations';
 import { isLessThanOrEqualTo } from '@/lib/utils/validations';
 import BalAlert from '@/components/_global/BalAlert/BalAlert.vue';
 
@@ -130,7 +130,7 @@ const tokensLoaded = computed(() => {
         $20,600 (2%) with Beethoven X from total funds raised at auction end.
       </p>
       <a
-        href="https://docs.beethovenx.io/balancer-v2-1/lbps-for-token-launches"
+        href="https://docs.embr.io/balancer-v2-1/lbps-for-token-launches"
         target="_blank"
         class="text-green-500"
       >

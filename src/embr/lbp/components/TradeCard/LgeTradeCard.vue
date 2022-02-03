@@ -109,9 +109,9 @@ import { configService } from '@/services/config/config.service';
 import { getWrapAction } from '@/lib/utils/balancer/wrapper';
 import { useTradeState } from '@/composables/trade/useTradeState';
 import useUserSettings from '@/composables/useUserSettings';
-import useLge from '@/beethovenx/lbp/composables/useLge';
-import LbpTradePair from '@/beethovenx/lbp/components/TradeCard/LgeTradePair.vue';
-import { GqlLge } from '@/beethovenx/services/beethovenx/beethovenx-types';
+import useLge from '@/embr/lbp/composables/useLge';
+import LbpTradePair from '@/embr/lbp/components/TradeCard/LgeTradePair.vue';
+import { GqlLge } from '@/embr/services/embr/embr-types';
 import { FullPool } from '@/services/balancer/subgraph/types';
 
 export default defineComponent({

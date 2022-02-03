@@ -14,7 +14,7 @@ type Props = {
   tokenAddress: string;
   farmId: string;
   hasUnstakedBpt: boolean;
-  hasFarmRewards: number;
+  hasFarmRewards: boolean;
 };
 
 const props = defineProps<Props>();
@@ -54,23 +54,15 @@ const activeTab = ref(tabs[0].value);
 <template>
   <div class="mt-4 relative">
     <BalAlert
-      v-if="!loading && props.hasUnstakedBpt && !isOldXembrFarm"
+      v-if="!loading && props.hasUnstakedBpt"
       title="You have unstaked EPT in your wallet"
       description="If you deposit your EPT into the farm, you will earn additional rewards paid out in Embr."
       type="warning"
       size="sm"
       class="mb-3"
     />
-    <BalAlert
-      v-if="!loading && isOldXembrFarm"
-      title="Incentives for the Fidelio Duetto have moved to xEMBR"
-      description="To receive Embr rewards for this pool, you need to stake your EPT for xEMBR. Click on the 'Stake' tab to get started."
-      type="warning"
-      size="sm"
-      class="mb-3"
-    />
     <BalLoadingBlock v-if="loading || dynamicDataLoading" class="h-96" />
-    <BalCard v-else-if="!isOldXembrFarm">
+    <BalCard v-else>
       <div class="text-gray-200 text-sm">
         Stake your EPTs to earn Embr
       </div>

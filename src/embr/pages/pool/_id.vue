@@ -25,7 +25,7 @@
               </span>
             </div>
             <BalChip
-              v-if="pool.dynamic.isNewPool"
+              v-if="pool.isNewPool"
               color="red"
               size="sm"
               class="uppercase mt-2 mr-2"
@@ -68,6 +68,13 @@
           block
         />
         <BalAlert
+          v-if="!appLoading && hasCustomToken"
+          type="error"
+          :title="$t('highRiskPool')"
+          class="mt-2"
+          block
+        />
+        <BalAlert
           v-if="!appLoading && noInitLiquidity"
           type="warning"
           :title="$t('noInitLiquidity')"
@@ -96,7 +103,12 @@
 
           <div
             class="mb-4"
-            v-if="loadingPool || (!!pool.farm && pool.farm.rewards > 0)"
+                        v-if="
+              loadingPool ||
+                (!!pool.decoratedFarm &&
+                  (pool.decoratedFarm.rewards > 0 ||
+                    pool.decoratedFarm.rewardTokenPerDay > 0))
+            "
           >
             <h4 class="px-4 lg:px-0 mb-4">Farm</h4>
             <FarmStatCardsLoading v-if="loadingPool || isLoadingFarms" />
@@ -329,6 +341,18 @@ export default defineComponent({
       return false;
     });
 
+const hasCustomToken = computed(() => {
+      const knownTokens = Object.keys(balancerTokenListTokens.value);
+      return (
+        !!pool.value &&
+        !isLiquidityBootstrappingPool.value &&
+        !isStablePhantomPool.value &&
+        pool.value.tokenAddresses.some(
+          address => !knownTokens.includes(address)
+        )
+      );
+    });
+
     /**
      * METHODS
      */
@@ -381,6 +405,7 @@ export default defineComponent({
       isStableLikePool,
       isLiquidityBootstrappingPool,
       isLoadingFarms,
+      hasCustomToken,
       // methods
       fNum,
       onNewTx

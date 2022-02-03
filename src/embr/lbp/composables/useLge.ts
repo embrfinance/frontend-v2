@@ -6,14 +6,14 @@ import {
   POOLS_ROOT_KEY,
   SWAPS_ROOT_KEY,
   TOKEN_PRICES_ROOT_KEY
-} from '@/beethovenx/constants/queryKeys';
+} from '@/embr/constants/queryKeys';
 import { useQueryClient } from 'vue-query';
 import useWeb3 from '@/services/web3/useWeb3';
-import useSubgraphTokenPricesQuery from '@/beethovenx/composables/queries/useSubgraphTokenPricesQuery';
+import useSubgraphTokenPricesQuery from '@/embr/composables/queries/useSubgraphTokenPricesQuery';
 import { TokenInfo } from '@/types/TokenList';
-import { GqlLge } from '@/beethovenx/services/beethovenx/beethovenx-types';
+import { GqlLge } from '@/embr/services/embr/embr-types';
 import { FullPool, OnchainTokenData } from '@/services/balancer/subgraph/types';
-import { calculateLbpTokenPrice } from '@/beethovenx/lbp/utils/lbpChartUtils';
+import { calculateLbpTokenPrice } from '@/embr/lbp/utils/lbpChartUtils';
 
 interface LgeState {
   refetchQueriesOnBlockNumber: number;

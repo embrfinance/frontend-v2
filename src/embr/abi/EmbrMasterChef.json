@@ -186,7 +186,7 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "lastRewardTimestamp",
+        "name": "lastRewardBlock",
         "type": "uint256"
       },
       {
@@ -531,7 +531,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "lastRewardTimestamp",
+        "name": "lastRewardBlock",
         "type": "uint256"
       },
       {
@@ -707,7 +707,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "lastRewardTimestamp",
+            "name": "lastRewardBlock",
             "type": "uint256"
           },
           {

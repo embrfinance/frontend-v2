@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import LbpLineChart from '@/beethovenx/lbp/components/LbpLineChart.vue';
+import LbpLineChart from '@/embr/lbp/components/LbpLineChart.vue';
 import { computed } from 'vue';
 import useTailwind from '@/composables/useTailwind';
-import useLgeCreateState from '@/beethovenx/lbp/composables/useLgeCreateState';
+import useLgeCreateState from '@/embr/lbp/composables/useLgeCreateState';
 import {
   getLbpPreviewChartPredictedPriceData,
   getLbpNumDays
-} from '@/beethovenx/lbp/utils/lbpChartUtils';
+} from '@/embr/lbp/utils/lbpChartUtils';
 import useTokens from '@/composables/useTokens';
 
 const { data, lgeChartConfigValid } = useLgeCreateState();

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import useLgeCreateState from '@/beethovenx/lbp/composables/useLgeCreateState';
+import useLgeCreateState from '@/embr/lbp/composables/useLgeCreateState';
 import BalTextInput from '@/components/_global/BalTextInput/BalTextInput.vue';
 
 const { data } = useLgeCreateState();

@@ -12,7 +12,7 @@
       <div class="flex mt-1">
         <div class="flex">
           <div class="relative">
-            <Avatar :address="account" size="44" />
+            <Avatar :address="account" :size="avatarSize" />
             <div class="connector-icon-wrapper">
               <img
                 :src="connectorLogo"
@@ -192,6 +192,8 @@ import { TradeInterface } from '@/store/modules/app';
 import useEthereumTxType from '@/composables/useEthereumTxType';
 import { ENABLE_LEGACY_TRADE_INTERFACE } from '@/composables/trade/constants';
 import { Network } from '@/composables/useNetwork';
+import useBreakpoints from '@/composables/useBreakpoints';
+
 
 const locales = {
   'en-US': 'English',
@@ -220,6 +222,7 @@ export default defineComponent({
     const {
       explorerLinks,
       account,
+      profile,
       disconnectWallet,
       connector,
       isV1Supported,
@@ -228,6 +231,7 @@ export default defineComponent({
       appNetworkConfig,
       isUnsupportedNetwork
     } = useWeb3();
+    const { bp, upToLargeBreakpoint } = useBreakpoints();
     const { ethereumTxType, setEthereumTxType } = useEthereumTxType();
 
     // DATA
@@ -239,6 +243,16 @@ export default defineComponent({
     });
 
     // COMPUTED
+    const avatarSize = computed(() => {
+      if (bp.value === 'sm') {
+        return 35;
+      } else if (['md', 'lg'].includes(bp.value)) {
+        return 40;
+      } else {
+        return 20;
+      }
+    });
+
     const networkColorClass = computed(() => {
       let color = 'green';
 
@@ -305,6 +319,7 @@ export default defineComponent({
       ENABLE_LEGACY_TRADE_INTERFACE,
       // computed
       account,
+      profile,
       appTradeLiquidity,
       appTradeInterface,
       networkName,
@@ -318,6 +333,7 @@ export default defineComponent({
       isEIP1559SupportedNetwork,
       isGnosisSupportedNetwork,
       isUnsupportedNetwork,
+      avatarSize,
       // methods
       disconnectWallet,
       setDarkMode,

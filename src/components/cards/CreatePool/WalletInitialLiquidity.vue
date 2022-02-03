@@ -52,13 +52,13 @@ const totalsClass = computed(() => ({
       <div class="grid grid-cols-12 w-full gap-y-1.5">
         <div class="col-span-6">
           <span
-            class="text-sm font-semibold text-gray-700 dark:text-gray-200"
+            class="text-sm font-semibold text-gray-700 dark:text-gray-500"
             >{{ $t('token') }}</span
           >
         </div>
         <div class="col-span-6 text-right">
           <span
-            class="text-sm font-semibold text-gray-700 dark:text-gray-200"
+            class="text-sm font-semibold text-gray-700 dark:text-gray-500"
             >{{ $t('usdValue') }}</span
           >
         </div>

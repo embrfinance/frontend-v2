@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import useLgeCreateState from '@/beethovenx/lbp/composables/useLgeCreateState';
+import useLgeCreateState from '@/embr/lbp/composables/useLgeCreateState';
 import BalTextInput from '@/components/_global/BalTextInput/BalTextInput.vue';
-import PoolCreateTokenRow from '@/beethovenx/components/pages/pool-create/PoolCreateTokenRow.vue';
+import PoolCreateTokenRow from '@/embr/components/pages/pool-create/PoolCreateTokenRow.vue';
 import useWeb3 from '@/services/web3/useWeb3';
 import useTokenLists from '@/composables/useTokenLists';
 import useTokens from '@/composables/useTokens';
 import { computed } from 'vue';
 import { getAddress } from '@ethersproject/address';
-import LbpTokenWeightsConfig from '@/beethovenx/lbp/components/LbpTokenWeightsConfig.vue';
-import { isGreaterThanOrEqualTo } from '@/beethovenx/utils/validations';
+import LbpTokenWeightsConfig from '@/embr/lbp/components/LbpTokenWeightsConfig.vue';
+import { isGreaterThanOrEqualTo } from '@/embr/utils/validations';
 import { isLessThanOrEqualTo } from '@/lib/utils/validations';
 
 const {

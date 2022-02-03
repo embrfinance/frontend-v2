@@ -54,7 +54,6 @@ export default function useXEmbrQuery() {
     }
     const allowance = await governanceContractsService.xembr.allowance(account.value);
 
-    console.log("xploited 111", data.userStaking.raw.toString(), data.userStaking.questMultiplier.toString(), data.userStaking.timeMultiplier.toString())
     return {
       totalXembrSupply: new BigNumber(data.totalXembrSupply.toString()),
       embrBalance: new BigNumber(data.embrBalance.toString()),

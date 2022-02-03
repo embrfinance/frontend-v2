@@ -13,17 +13,17 @@ import {
   subDays
 } from 'date-fns';
 import useTailwind from '@/composables/useTailwind';
-import useLge from '@/beethovenx/lbp/composables/useLge';
-import { GqlLge } from '@/beethovenx/services/beethovenx/beethovenx-types';
+import useLge from '@/embr/lbp/composables/useLge';
+import { GqlLge } from '@/embr/services/embr/embr-types';
 import { FullPool, OnchainTokenData } from '@/services/balancer/subgraph/types';
-import LbpLineChart from '@/beethovenx/lbp/components/LbpLineChart.vue';
+import LbpLineChart from '@/embr/lbp/components/LbpLineChart.vue';
 import BalLoadingBlock from '@/components/_global/BalLoadingBlock/BalLoadingBlock.vue';
 import useTokens from '@/composables/useTokens';
 import {
   getLbpChartPredictedPriceData,
   getLbpChartTokenPriceData
-} from '@/beethovenx/lbp/utils/lbpChartUtils';
-import useAllPoolSwapsQuery from '@/beethovenx/composables/queries/useAllPoolSwapsQuery';
+} from '@/embr/lbp/utils/lbpChartUtils';
+import useAllPoolSwapsQuery from '@/embr/composables/queries/useAllPoolSwapsQuery';
 import { getAddress } from '@ethersproject/address';
 import BalBlankSlate from '@/components/_global/BalBlankSlate/BalBlankSlate.vue';
 import BalIcon from '@/components/_global/BalIcon/BalIcon.vue';

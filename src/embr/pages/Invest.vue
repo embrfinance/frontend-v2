@@ -19,13 +19,17 @@
     <TokenSearchInput
       v-model="selectedTokens"
       :loading="isLoadingPools"
+      :activeTab="activeTab"
+      :filters="embrConfig.poolFilters"
+      :active-filters="activeFilters"
       @add="addSelectedToken"
       @remove="removeSelectedToken"
+      @toggleFilter="toggleFilter"
     />
     <PoolsTable
       v-if="activeTab === 'embr-pools'"
       :isLoading="isLoadingPools"
-      :data="embrPools"
+      :data="filteredEmbrPools"
       :noPoolsLabel="$t('noPoolsFound')"
       :isPaginated="false"
       :isLoadingMore="false"
@@ -74,7 +78,6 @@ import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
 import { EXTERNAL_LINKS } from '@/constants/links';
-import TokenSearchInput from '@/components/inputs/TokenSearchInput.vue';
 import PoolsTable from '@/components/tables/PoolsTable/PoolsTable.vue';
 import usePools from '@/composables/pools/usePools';
 import useWeb3 from '@/services/web3/useWeb3';
@@ -83,14 +86,16 @@ import useAlerts, { AlertPriority, AlertType } from '@/composables/useAlerts';
 import BalTabs from '@/components/_global/BalTabs/BalTabs.vue';
 import InvestFeaturedPoolsCard from '@/embr/components/pages/invest/InvestFeaturedPoolsCard.vue';
 import useEmbrConfig from '@/embr/composables/useEmbrConfig';
-import { orderBy } from 'lodash';
+import TokenSearchInput from '@/components/inputs/TokenSearchInput.vue';
+import { flatten } from 'lodash';
+
 
 export default defineComponent({
   components: {
+     InvestFeaturedPoolsCard,
     TokenSearchInput,
     PoolsTable,
-    BalTabs,
-    InvestFeaturedPoolsCard
+    BalTabs
   },
 
   setup() {
@@ -115,19 +120,21 @@ export default defineComponent({
       poolsQuery,
       isLoadingFarms,
       communityPools,
-      embrPools
+      embrPools,
+      poolsWithFarms
     } = usePools(selectedTokens);
     const { addAlert, removeAlert } = useAlerts();
 
   const { embrConfig, embrConfigLoading } = useEmbrConfig();
 
     const tabs = [
-      { value: 'embr-pools', label: 'Embr Pools' },
+      { value: 'embr-pools', label: 'Incentivized Pools' },
       { value: 'community-pools', label: 'Community Pools' },
       { value: 'my-investments', label: 'My Investments' }
     ];
 
     const activeTab = ref(tabs[0].value);
+    const activeFilters = ref<string[]>([]);
 
     const hideV1Links = computed(() => !isV1Supported);
 
@@ -136,16 +143,38 @@ export default defineComponent({
     );
 
       const featuredPools = computed(() => {
-      const filtered = (embrPools.value || []).filter(pool =>
+      const filtered = (poolsWithFarms.value || []).filter(pool =>
         embrConfig.value.featuredPools.includes(pool.id)
       );
+
       return filtered.slice(0, 4);
     });
+
+const filteredEmbrPools = computed(() => {
+      if (activeFilters.value.length === 0 || !embrPools.value) {
+        return embrPools.value;
+      }
+
+      const selected = embrConfig.value.poolFilters.filter(filter =>
+        activeFilters.value.includes(filter.id)
+      );
+      const poolIds = flatten(selected.map(selected => selected.pools));
+
+      return embrPools.value?.filter(pool => poolIds.includes(pool.id));
+    });
+
 
     function goToPoolCreate() {
       router.push({ name: 'pool-create' }); //router.push({ name: 'create-pool' });
     }
 
+    function toggleFilter(filterId: string) {
+      if (activeFilters.value.includes(filterId)) {
+        activeFilters.value = activeFilters.value.filter(id => id !== filterId);
+      } else {
+        activeFilters.value.push(filterId);
+      }
+    }
 
     watch(poolsQuery.error, () => {
       if (poolsQuery.error.value) {
@@ -169,6 +198,7 @@ export default defineComponent({
       userPools,
       isLoadingPools,
       isLoadingUserPools,
+      embrConfigLoading,
 
       // computed
       isWalletReady,
@@ -190,6 +220,10 @@ export default defineComponent({
       tabs,
       activeTab,
       featuredPools,
+      embrConfig,
+      toggleFilter,
+      activeFilters,
+      filteredEmbrPools,
 
       // constants
       EXTERNAL_LINKS

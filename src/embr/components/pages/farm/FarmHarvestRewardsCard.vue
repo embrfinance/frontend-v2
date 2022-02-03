@@ -3,7 +3,10 @@
     <div class="text-sm text-gray-200 font-medium mb-2">
       My Pending Rewards
     </div>
-    <div class="text-xl font-medium truncate flex items-center">
+    <div
+      v-if="hasEmbrRewards"
+      class="text-xl font-medium truncate flex items-center"
+    >
       {{ fNum(pendingEmbr, 'token_fixed') }} EMBR
     </div>
     <div class="truncate flex items-center pb-8">
@@ -34,6 +37,14 @@ export default defineComponent({
   components: {},
 
   props: {
+    hasEmbrRewards: {
+      type: Boolean,
+      required: true
+    },
+    hasThirdPartyRewards: {
+      type: Boolean,
+      required: true
+    },
     pendingEmbr: {
       type: Number,
       required: true

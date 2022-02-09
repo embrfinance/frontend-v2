@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { computed, onMounted, ref } from 'vue';
 import useWeb3 from '@/services/web3/useWeb3';
 import useNumbers from '@/composables/useNumbers';
+import useXEmbrSnapshotsQuery from '@/embr/composables/queries/useXEmbrSnapshotsQuery';
+
 import BalBtn from '@/components/_global/BalBtn/BalBtn.vue';
 import BalCard from '@/components/_global/BalCard/BalCard.vue';
 import XEmbrDepositForm from '@/embr/components/pages/xembr/XEmbrDepositForm.vue';
@@ -8,6 +11,7 @@ import XEmbrIncreaseDepositLocktimeForm from '@/embr/components/pages/xembr/XEmb
 import XEmbrIncreaseDepositAmountForm from '@/embr/components/pages/xembr/XEmbrIncreaseDepositAmountForm.vue';
 import XEmbrWithdrawForm from '@/embr/components/pages/xembr/XEmbrWithdrawForm.vue';
 import XEmbrCooldownForm from '@/embr/components/pages/xembr/XEmbrCooldownForm.vue';
+import XEmbrChart from '@/embr/components/pages/xembr/XEmbrChart.vue';
 
 
 //import FarmDepositForm from '@/embr/components/pages/farm/FarmDepositForm.vue';
@@ -34,6 +38,16 @@ const { XEmbrQuery } = useXEmbr();
 function handleEmbrDeposit(txReceipt): void {
   XEmbrQuery.refetch.value();
 }
+
+/*const xembrSnapshotsQuery = useXEmbrSnapshotsQuery(
+      30
+    );
+
+const snapshots = computed(() => xembrSnapshotsQuery.data.value?.snapshots);
+const isLoadingSnapshots = computed(
+    () =>
+      xembrSnapshotsQuery.isLoading.value || xembrSnapshotsQuery.isIdle.value
+  );*/
 </script>
 
 <style scoped>
@@ -95,6 +109,10 @@ function handleEmbrDeposit(txReceipt): void {
               Avg Multiplier
             </p>
           </div>
+          <!--<div class="px-1 lg:px-0">
+            <BalLoadingBlock v-if="isLoadingSnapshots" class="h-96" />
+            <XEmbrChart v-else :snapshots="snapshots" />
+          </div>-->
       </div>
     </BalCard>
     <BalCard class="mb-4" v-if="props.hasUnstakedEmbr && !props.hasStakedXembr">

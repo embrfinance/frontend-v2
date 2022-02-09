@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import useNumbers from '@/composables/useNumbers';
-import { isWstETH } from '@/composables/usePool';
+import { isStablePhantom, isWstETH } from '@/composables/usePool';
 import useTokens from '@/composables/useTokens';
 import useUserSettings from '@/composables/useUserSettings';
 import { bnum } from '@/lib/utils';
@@ -34,19 +34,19 @@ const { getTokens } = useTokens();
  * COMPUTED
  */
 const totalWeeklyYield = computed((): string =>
-  weeklyYieldForAPR(props.pool.dynamic.apr.total)
+  weeklyYieldForAPR(`${props.pool.apr.total}`)
 );
 
 const swapFeeWeeklyYield = computed((): string =>
-  weeklyYieldForAPR(props.pool.dynamic.apr.pool)
+  weeklyYieldForAPR(props.pool.apr.swapApr)
 );
 
-const thirdPartyWeeklyYield = computed((): string =>
-  weeklyYieldForAPR(props.pool.dynamic.apr.thirdParty)
+/*const thirdPartyWeeklyYield = computed((): string =>
+  weeklyYieldForAPR(props.pool.apr.thirdPartyApr)
 );
 
 const lmWeeklyYield = computed((): string =>
-  weeklyYieldForAPR(props.pool.dynamic.apr.liquidityMining)
+  weeklyYieldForAPR(props.pool.apr.beetsApr)
 );
 
 const lmBreakdown = computed(
@@ -55,16 +55,33 @@ const lmBreakdown = computed(
 
 const lmTokens = computed(() => getTokens(Object.keys(lmBreakdown.value)));
 
-const multiRewardPool = computed(() => Object.keys(lmTokens.value).length > 1);
+const lmMultiRewardPool = computed(
+  () => Object.keys(lmTokens.value).length > 1
+);*/
 
 const hasThirdPartyAPR = computed(() =>
-  bnum(props.pool.dynamic.apr.thirdParty).gt(0)
+  bnum(props.pool.apr.thirdPartyApr).gt(0)
 );
 
-const thirdPartyAPRLabel = computed(() => {
+/*const thirdPartyBreakdown = computed(
+  () => props.pool.dynamic.apr.thirdPartyBreakdown
+);*/
+
+/*const thirdPartyTokens = computed(() =>
+  getTokens(Object.keys(thirdPartyBreakdown.value))
+);*/
+
+/*const thirdPartyMultiRewardPool = computed(
+  () => Object.keys(thirdPartyTokens.value).length > 1
+);
+
+const thirdPartyFiatLabel = computed(() => {
   if (isWstETH(props.pool)) return t('thirdPartyRewards.fiat.steth');
+  if (isStablePhantom(props.pool.poolType))
+    return t('thirdPartyRewards.fiat.aaveBoosted');
+
   return '';
-});
+});*/
 
 /**
  * METHODS
@@ -114,12 +131,24 @@ function weeklyYieldForAPR(apr: string): string {
         <div class="summary-table-label" v-text="$t('potentialWeeklyYield')" />
         <div class="summary-table-number">
           {{ fNum(totalWeeklyYield, currency) }}
-          <BalTooltip icon-size="sm" width="72" class="ml-2" noPad>
+          <BalTooltip icon-size="sm" width="72" noPad>
+            <template v-slot:activator>
+              <StarsIcon
+                v-if="props.pool.apr.hasRewardApr || hasThirdPartyAPR"
+                class="h-4 text-yellow-300"
+              />
+              <BalIcon
+                v-else
+                name="info"
+                size="sm"
+                class="text-gray-300 ml-2"
+              />
+            </template>
             <div
               class="p-2 bg-gray-50 dark:bg-gray-700 rounded-t-lg border-b dark:border-gray-700"
             >
               <span class="text-sm" v-text="$t('yieldEarnings')" />
-              <span class="ml-1 text-gray-200">
+              <span class="ml-1 text-gray-500">
                 ({{ $t('basedOnLast24h') }})
               </span>
               <div class="text-base font-semibold mt-1">
@@ -130,11 +159,11 @@ function weeklyYieldForAPR(apr: string): string {
             <div class="p-2">
               <div class="whitespace-nowrap flex items-center mb-1">
                 {{ fNum(swapFeeWeeklyYield, currency) }}
-                <span class="ml-1 text-gray-200 text-xs">
+                <span class="ml-1 text-gray-500 text-xs">
                   {{ $t('swapFee') }}
                 </span>
               </div>
-              <div
+              <!--<div
                 v-if="hasThirdPartyAPR"
                 class="whitespace-nowrap flex items-center mb-1"
               >
@@ -160,7 +189,7 @@ function weeklyYieldForAPR(apr: string): string {
                     {{ lmTokens[item[0]].symbol }}
                   </span>
                 </template>
-              </BalBreakdown>
+              </BalBreakdown>-->
             </div>
           </BalTooltip>
         </div>

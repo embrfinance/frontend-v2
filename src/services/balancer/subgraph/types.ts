@@ -232,6 +232,13 @@ export interface PoolSwap {
   tx: string;
 }
 
+export interface XembrSnapshots {
+  timestamp: number;
+  totalShares: string;
+  totalXembr: string;
+  rewardValue: string;
+}
+
 export interface PoolSnapshot {
   /*pool: {
     id: string;

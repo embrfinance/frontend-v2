@@ -7,6 +7,29 @@ export interface UserPortfolioData {
 
   pools: UserPoolData[];
   tokens: UserTokenData[];
+  //xembr: UserXembrData;
+  
+}
+
+export interface UserXembrData {
+  id: string;
+  totalRewardValue: number;
+  xembrBalance: number;
+  shares: number;
+  percentShare: number;
+  questMultiplier: number;
+  timeMultiplier: number;
+  rewardTokens: UserRewardTokenData[];
+}
+
+export interface UserRewardTokenData {
+  id: string;
+  address: string;
+  symbol: string;
+  name: string;
+  claimed: number;
+  pending: number;
+  totalValue: number;
 }
 
 export interface UserPoolData {
@@ -87,6 +110,30 @@ export interface GqlUserPortfolioData {
   tokens: Array<GqlUserTokenData>;
   totalSwapFees: Scalars['GqlBigNumber'];
   totalSwapVolume: Scalars['GqlBigNumber'];
+  totalValue: Scalars['GqlBigNumber'];
+  //xembr: GqlUserXembrData;
+}
+
+export interface GqlUserXembrData {
+  __typename?: 'GqlUserXembrData';
+  id: Scalars['String'];
+  totalRewardValue: Scalars['GqlBigNumber'];
+  //xembrBalance: Scalars['GqlBigNumber'];
+  shares: Scalars['GqlBigNumber'];
+  percentShare: Scalars['GqlBigNumber'];
+  questMultiplier: Scalars['Float'];
+  timeMultiplier: Scalars['Float'];
+  rewardTokens:  GqlUserRewardTokenData[];
+}
+
+export interface GqlUserRewardTokenData {
+  __typename?: 'GqlUserRewardTokenData';
+  id: Scalars['String'];
+  address: Scalars['String'];
+  symbol: Scalars['String'];
+  name: Scalars['String'];
+  claimed: Scalars['GqlBigNumber'];
+  pending: Scalars['GqlBigNumber'];
   totalValue: Scalars['GqlBigNumber'];
 }
 
@@ -211,6 +258,26 @@ export interface GqlEmbrProtocolData {
   totalSwapVolume: Scalars['BigDecimal'];
   swapFee24h: Scalars['BigDecimal'];
   swapVolume24h: Scalars['BigDecimal'];
+}
+
+export interface GqlXEmbrSnapshot {
+  __typename?: 'GqlXEmbrSnapshot';
+  id: Scalars['ID'];
+  rewardValue1w: Scalars['BigDecimal'];
+  rewardValueTotal: Scalars['BigDecimal'];
+  totalShares: Scalars['BigDecimal'];
+  totalXembr: Scalars['BigDecimal'];
+  timestamp: Scalars['Int'];
+  rewardTokens: Array<GqlxEmbrRewardToken>;
+}
+
+export interface GqlxEmbrRewardToken {
+  __typename?: 'GqlxEmbrRewardToken';
+  address: Scalars['String'];
+  index: Scalars['BigInt'];
+  totalValue: number;
+  claimed: Scalars['BigDecimal'];
+  pending: Scalars['BigDecimal'];
 }
 
 export interface GqlBalancerPoolSnapshot {

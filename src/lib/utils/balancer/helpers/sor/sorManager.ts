@@ -95,7 +95,7 @@ export class SorManager {
     tokenDecimals: number,
     manualCost: string | null = null
   ): Promise<BigNumber> {
-    
+
     tokenAddr = tokenAddr === NATIVE_ASSET_ADDRESS ? this.weth : tokenAddr;
     if (manualCost) {
       await this.sorV2.swapCostCalculator.setNativeAssetPriceInToken(

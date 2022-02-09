@@ -34,7 +34,9 @@ const {
   priceImpact,
   highPriceImpact,
   maximized,
-  optimized
+  optimized,
+  batchSwapLoading,
+  supportsPropotionalOptimization
 } = toRefs(props.math);
 
 /**
@@ -48,13 +50,6 @@ const optimizeBtnClasses = computed(() => ({
   'text-gradient': !highPriceImpact.value,
   'text-red-500 px-2 py-1 bg-white rounded-lg': highPriceImpact.value
 }));
-
-console.log(`fiatTotal:`);
-console.log(fiatTotal)
-
-console.log(`priceImpact:`);
-console.log(priceImpact)
-
 </script>
 
 <template>
@@ -79,9 +74,12 @@ console.log(priceImpact)
     </div>
     <div :class="['data-table-row price-impact-row', priceImpactClasses]">
       <div class="p-2">{{ $t('priceImpact') }}</div>
-      <div class="data-table-number-col priceimpactdiv">
-        <div :class="[priceImpact > 0.0001 ? 'text-red-500 dark:text-red-500':'text-green-600 dark:text-green-700']">
-          <b>{{ fNum(priceImpact, 'percent') }}</b>
+      <div class="data-table-number-col">
+        <div class="flex">
+          <span v-if="!batchSwapLoading">
+            {{ fNum(priceImpact, 'percent') }}
+          </span>
+          <BalLoadingBlock v-else class="w-10" />
           <BalTooltip :text="$t('customAmountsTip')">
             <template v-slot:activator>
               <BalIcon
@@ -100,7 +98,7 @@ console.log(priceImpact)
           </BalTooltip>
         </div>
 
-        <div v-if="isWalletReady && hasAllTokens" class="text-sm font-semibold">
+        <div v-if="isWalletReady && hasAllTokens && supportsPropotionalOptimization" class="text-sm font-semibold">
           <span v-if="optimized" class="text-green-600 dark:text-green-700">
             ✔️&nbsp;<button style="font-size: small !important; border:1px solid black !important;">&nbsp;{{ $t('optimized') }}&nbsp;</button>
         </span>

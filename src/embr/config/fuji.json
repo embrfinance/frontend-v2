@@ -48,7 +48,7 @@
     "wstETH": "",
     "usdc": "0xfb8fa9f5f0bd47591ba6f7c75fe519e3e8fde429",
     "embr": "0x6036617225ded90fCD43cb20731D0E41BcF4e3f0",
-    "lidoRelayer": "fff",
+    "lidoRelayer": "",
     "balancerHelpers": "0x108bB3e254733C65bCB9fd861c72C7107FA5ca95",
     "masterChef": "0xcd836CCcb03B4eE04B639142d3687753230Ef762",
     "embrUsdcReferencePricePool": "0x794dfa11b6a9649dbf9c2f1cc06e075a786b2dc000020000000000000000000f",

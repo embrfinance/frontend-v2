@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, toRef, ref } from 'vue';
-import { FullPool } from '@/services/balancer/subgraph/types';
+import { computed, ref, toRef } from 'vue';
+import { FullPoolWithFarm } from '@/services/balancer/subgraph/types';
 import { bnum } from '@/lib/utils';
 import PoolCalculator from '@/services/pool/calculator/calculator.sevice';
 // Composables
@@ -10,12 +10,13 @@ import useUserSettings from '@/composables/useUserSettings';
 // Components
 import AssetRow from './components/AssetRow.vue';
 import { getAddress } from '@ethersproject/address';
+import { usePool } from '@/composables/usePool';
 
 /**
  * TYPES
  */
 type Props = {
-  pool: FullPool;
+  pool: FullPoolWithFarm;
   hideHeader?: boolean;
 };
 /**
@@ -31,6 +32,7 @@ const props = withDefaults(defineProps<Props>(), {
 const { tokens, balances, balanceFor } = useTokens();
 const { fNum, toFiat } = useNumbers();
 const { currency } = useUserSettings();
+const { isStablePhantomPool } = usePool(toRef(props, 'pool'));
 
 /**
  * SERVICES
@@ -47,7 +49,7 @@ const poolCalculator = new PoolCalculator(
  * COMPUTED
  */
 const propTokenAmounts = computed((): string[] => {
-  const farm = props.pool.farm;
+  const farm = props.pool.decoratedFarm;
   const userBalance = parseFloat(balanceFor(getAddress(props.pool.address)));
   const farmBalance = farm ? farm.userBpt : 0;
 
@@ -56,11 +58,32 @@ const propTokenAmounts = computed((): string[] => {
     0,
     'send'
   );
+  if (isStablePhantomPool.value) {
+    // Return linear pool's main token balance using the price rate.
+    // mainTokenBalance = linearPoolBPT * priceRate
+    return props.pool.tokenAddresses.map((address, i) => {
+      if (!props.pool.onchain.linearPools) return '0';
+
+      const priceRate = props.pool.onchain.linearPools[address].priceRate;
+
+      return bnum(receive[i])
+        .times(priceRate)
+        .toString();
+    });
+  }
   return receive;
 });
 
+const tokenAddresses = computed((): string[] => {
+  if (isStablePhantomPool.value) {
+    // We're using mainToken balances for StablePhantom pools
+    // so return mainTokens here so that fiat values are correct.
+    return props.pool.mainTokens || [];
+  }
+  return props.pool.tokenAddresses;
+});
 const fiatTotal = computed(() => {
-  const fiatValue = props.pool.tokenAddresses
+  const fiatValue = tokenAddresses.value
     .map((address, i) => toFiat(propTokenAmounts.value[i], address))
     .reduce((total, value) =>
       bnum(total)
@@ -74,7 +97,7 @@ const fiatTotal = computed(() => {
 <template>
   <BalCard shadow="none" noPad>
     <template v-if="!hideHeader" #header>
-      <div class="p-4 w-full shadow-lg">
+      <div class="p-4 w-full shadow-lg border-b dark:border-gray-900">
         <h6>
           {{ $t('poolTransfer.myPoolBalancesCard.title') }}
         </h6>
@@ -82,11 +105,7 @@ const fiatTotal = computed(() => {
     </template>
 
     <div class="-mt-2 p-4">
-      <div
-        v-for="(address, i) in pool.tokenAddresses"
-        :key="address"
-        class="py-2"
-      >
+      <div v-for="(address, i) in tokenAddresses" :key="address" class="py-2">
         <AssetRow :address="address" :balance="propTokenAmounts[i]" />
       </div>
       <div class="pt-4 flex justify-between font-medium">

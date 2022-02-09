@@ -349,7 +349,9 @@
         color="gradient"
         block
         @click.prevent="lidoRelayerApproval.approve"
-        :loading="lidoRelayerApproval.approving.value"
+        :loading="
+        lidoRelayerApproval.init.value || lidoRelayerApproval.approving.value
+        "
         :loading-label="`${$t('approvingLidoRelayer')}...`"
       >
         {{ $t('approveLidoRelayer') }}

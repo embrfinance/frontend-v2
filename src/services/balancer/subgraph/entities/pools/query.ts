@@ -37,14 +37,13 @@ const defaultAttrs = {
       id: true,
       totalAllocPoint: true,
       embrPerSec: true
-    },
+    }
   },
   volume24h: true,
   fees24h: true,
   isNewPool: true,
   apr: {
     total: true,
-    hasRewardApr: true,
     swapApr: true,
     embrApr: true,
     thirdPartyApr: true,

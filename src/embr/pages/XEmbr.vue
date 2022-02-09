@@ -1,9 +1,50 @@
+
+<template>
+  <div class="lg:container lg:mx-auto pt-12 md:pt-12">
+    <XEmbrHeader />
+
+    <div class="lg:flex justify-center mb-8">
+      <div class="w-full lg:max-w-3xl">
+        <!-- <div class="mb-6">
+          <XEmbrStatCards /> 
+        </div>-->
+
+        <XEmbrDepositSteps
+          v-if="activeTab === 'deposit'"
+          :hasUnstakedEmbr="hasUnstakedEmbr"
+          :hasStakedXembr="userXembrBalance > 0"
+          :hasCoolingXembr="hasCoolingEmbr"
+          :hasWithdrawableEmbr="hasWithdrawableEmbr"
+          :total-embr-staking="totalEmbrStaking"
+          :total-xembr="totalXembrSupply"
+          :loading="dataLoading"
+        />
+      </div>
+      <div class="w-full lg:max-w-xl mx-auto md:mx-0 lg:ml-6 md:block lg:w-72">
+        <XEmbrBalances
+          :loading="dataLoading"
+          :x-embr-balance="userXembrBalance.toString()"
+          :embr-locked-balance="userStakedEmbrBalance.toString()"
+          :embr-balance="userXembrBalance.toString()"
+        />
+
+        <XEmbrRewards
+          :loading="dataLoading"
+          :reward-tokens="rewardTokens"
+          :earned="earned"
+        />
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import useWeb3 from '@/services/web3/useWeb3';
 import { fNum } from '@/composables/useNumbers';
 import { useXEmbr } from '@/embr/composables/stake/useXEmbr';
 import { useXEmbrReward } from '@/embr/composables/stake/useXEmbrReward';
+
 
 import { scaleDown } from '@/lib/utils';
 import { BigNumber } from 'bignumber.js';
@@ -16,12 +57,12 @@ import XEmbrHeader from '@/embr/components/pages/xembr/XEmbrHeader.vue';
 import BalTabs from '@/components/_global/BalTabs/BalTabs.vue';
 //import useFarmUserQuery from '@/embr/composables/farms/useFarmUserQuery';
 import XEmbrDepositSteps from '@/embr/components/pages/xembr/XEmbrDepositSteps.vue';
-import XEmbrWithdrawSteps from '@/embr/components/pages/xembr/XEmbrWithdrawSteps.vue';
 import useTokens from '@/composables/useTokens';
 import { getAddress } from '@ethersproject/address';
 //import useFarmUser from '@/embr/composables/farms/useFarmUser';
 import usePoolWithFarm from '@/embr/composables/pool/usePoolWithFarm';
 import BalAlert from '@/components/_global/BalAlert/BalAlert.vue';
+
 
 const { appNetworkConfig, isLoadingProfile } = useWeb3();
 const {
@@ -57,7 +98,9 @@ const {
   appNetworkConfig.xEmbr.farmId
 );
 */
-const { pool, loadingPool } = usePoolWithFarm(appNetworkConfig.xEmbr.poolId);
+//const { pool, loadingPool } = usePoolWithFarm(appNetworkConfig.xEmbr.poolId);
+
+
 /*
 const xembrDeposited = computed(() => {
   const amount = farmUser.value?.amount;
@@ -103,7 +146,7 @@ const dataLoading = computed(
     xEmbrLoading.value ||
     //farmUserLoading.value ||
     tokensLoading.value ||
-    dynamicDataLoading.value
+    dynamicDataLoading.value 
 );
 
 const tabs = [
@@ -114,41 +157,3 @@ const tabs = [
 const activeTab = ref(tabs[0].value);
 </script>
 
-<template>
-  <div class="lg:container lg:mx-auto pt-12 md:pt-12">
-    <XEmbrHeader />
-
-    <div class="lg:flex justify-center mb-8">
-      <div class="w-full lg:max-w-3xl">
-        <!-- <div class="mb-6">
-          <XEmbrStatCards /> 
-        </div>-->
-
-        <XEmbrDepositSteps
-          v-if="activeTab === 'deposit'"
-          :hasUnstakedEmbr="hasUnstakedEmbr"
-          :hasStakedXembr="userXembrBalance > 0"
-          :hasCoolingXembr="hasCoolingEmbr"
-          :hasWithdrawableEmbr="hasWithdrawableEmbr"
-          :total-embr-staking="totalEmbrStaking"
-          :total-xembr="totalXembrSupply"
-          :loading="dataLoading"
-        />
-      </div>
-      <div class="w-full lg:max-w-xl mx-auto md:mx-0 lg:ml-6 md:block lg:w-72">
-        <XEmbrBalances
-          :loading="dataLoading"
-          :x-embr-balance="userXembrBalance.toString()"
-          :embr-locked-balance="userStakedEmbrBalance.toString()"
-          :embr-balance="userXembrBalance.toString()"
-        />
-
-        <XEmbrRewards
-          :loading="dataLoading"
-          :reward-tokens="rewardTokens"
-          :earned="earned"
-        />
-      </div>
-    </div>
-  </div>
-</template>

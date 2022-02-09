@@ -7,9 +7,10 @@ import Stable from './stable';
 import { TokenInfoMap } from '@/types/TokenList';
 import { BalanceMap } from '@/services/token/concerns/balances.concern';
 import { Ref, ref } from 'vue';
-import { isStable, isStableLike } from '@/composables/usePool';
+import { isStable, isStableLike, isStablePhantom } from '@/composables/usePool';
 import { bnum } from '@/lib/utils';
 import { configService } from '@/services/config/config.service';
+import StablePhantom from './stable-phantom';
 
 interface Amounts {
   send: string[];
@@ -29,6 +30,7 @@ export default class CalculatorService {
   types = ['send', 'receive'];
   weighted: Weighted;
   stable: Stable;
+  stablePhantom: StablePhantom;
 
   constructor(
     public pool: Ref<FullPool>,
@@ -38,10 +40,12 @@ export default class CalculatorService {
     public useNativeAsset: Ref<boolean> = ref(false),
     weightedClass = Weighted,
     stableClass = Stable,
+    stablePhantomClass = StablePhantom,
     public readonly config = configService
   ) {
     this.weighted = new weightedClass(this);
     this.stable = new stableClass(this);
+    this.stablePhantom = new stablePhantomClass(this);
   }
 
   public priceImpact(
@@ -49,7 +53,11 @@ export default class CalculatorService {
     opts: PiOptions = { exactOut: false, tokenIndex: 0 }
   ): OldBigNumber {
     if (this.isStableLikePool) {
-      return this.stable.priceImpact(tokenAmounts, opts);
+      if (this.isStablePhantomPool) {
+        return this.stablePhantom.priceImpact(tokenAmounts, opts);
+      } else {
+        return this.stable.priceImpact(tokenAmounts, opts);
+      }
     }
     return this.weighted.priceImpact(tokenAmounts, opts);
   }
@@ -225,6 +233,10 @@ export default class CalculatorService {
     return isStableLike(this.pool.value.poolType);
   }
 
+  public get isStablePhantomPool(): boolean {
+    return isStablePhantom(this.pool.value.poolType);
+  }
+  
   public get sendTokens(): string[] {
     if (this.action === 'join') return this.tokenAddresses;
     return [this.pool.value.address];

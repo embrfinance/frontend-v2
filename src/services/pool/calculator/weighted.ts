@@ -41,6 +41,7 @@ export default class Weighted {
     );
     const amounts = denormAmounts.map(a => bnum(a.toString()));
 
+    console.log("bptInForExactTokensOut", tokenAmounts)
     return SDK.WeightedMath._calcBptInGivenExactTokensOut(
       balances,
       weights,
@@ -88,6 +89,8 @@ export default class Weighted {
     const bptAmountIn = bnum(
       parseUnits(bptAmount, this.calc.poolDecimals).toString()
     );
+
+    console.log("xploited exactBPTInForTokenOut", bptAmount, tokenIndex, tokenBalance.toString(), tokenNormalizedWeight.toString(), bptAmountIn.toString())
 
     return SDK.WeightedMath._calcTokenOutGivenExactBptIn(
       tokenBalance,

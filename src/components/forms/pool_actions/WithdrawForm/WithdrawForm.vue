@@ -7,7 +7,6 @@ import useWithdrawMath from './composables/useWithdrawMath';
 import useWithdrawalState from './composables/useWithdrawalState';
 import useWeb3 from '@/services/web3/useWeb3';
 import { useI18n } from 'vue-i18n';
-import usePool from '@/composables/usePool';
 // Components
 import TokenInput from '@/components/inputs/TokenInput/TokenInput.vue';
 import WithdrawTotals from './components/WithdrawTotals.vue';
@@ -40,7 +39,8 @@ const {
   tokenOutIndex,
   highPriceImpactAccepted,
   validInput,
-  maxSlider
+  maxSlider,
+  tokensOut
 } = useWithdrawalState(toRef(props, 'pool'));
 
 const withdrawMath = useWithdrawMath(
@@ -55,7 +55,9 @@ const {
   highPriceImpact,
   singleAssetMaxes,
   tokenOutAmount,
-  tokenOutPoolBalance
+  tokenOutPoolBalance,
+  initMath,
+  loadingAmountsOut
 } = withdrawMath;
 
 const {
@@ -85,6 +87,7 @@ const singleAssetRules = computed(() => [
 onBeforeMount(() => {
   isProportional.value = true;
   maxSlider();
+  initMath();
 });
 </script>
 
@@ -93,7 +96,7 @@ onBeforeMount(() => {
     <ProportionalWithdrawalInput
       v-if="isProportional"
       :pool="pool"
-      :tokenAddresses="pool.tokenAddresses"
+      :tokenAddresses="tokensOut"
       :math="withdrawMath"
     />
     <TokenInput
@@ -102,9 +105,10 @@ onBeforeMount(() => {
       :address="tokenOut"
       v-model:amount="tokenOutAmount"
       v-model:isValid="validInput"
-      :customBalance="singleAssetMaxes[tokenOutIndex]"
+      :customBalance="singleAssetMaxes[tokenOutIndex] || '0'"
       :rules="singleAssetRules"
       :balanceLabel="$t('singleTokenMax')"
+      :balanceLoading="loadingAmountsOut"
       fixedToken
       disableNativeAssetBuffer
     >
@@ -140,7 +144,12 @@ onBeforeMount(() => {
         v-else
         :label="$t('preview')"
         color="gradient"
-        :disabled="!hasAmounts || !hasValidInputs || isMismatchedNetwork"
+        :disabled="
+          !hasAmounts ||
+            !hasValidInputs ||
+            isMismatchedNetwork ||
+            loadingAmountsOut
+        "
         block
         @click="showPreview = true"
       />

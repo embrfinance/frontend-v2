@@ -13,9 +13,14 @@ import {
   GqlTokenPrice,
   GqlUserPortfolioData,
   GqlUserTokenData,
+  GqlUserXembrData,
+  //GqlXEmbrSnapshot,
+  //GqlUserRewardTokenData,
   UserPortfolio,
   UserPortfolioData,
-  UserTokenData
+  UserTokenData,
+  UserRewardTokenData,
+  UserXembrData
 } from './embr-types';
 import { getAddress, isAddress } from '@ethersproject/address';
 import { keyBy } from 'lodash';
@@ -300,6 +305,35 @@ export default class EmbrService {
     return poolSnapshots;
   }
 
+  /*public async getXEmbrSnapshots(
+  ): Promise<GqlXEmbrSnapshot[]> {
+    const query = jsonToGraphQLQuery({
+      query: {
+        xembrSnapshot: {
+          id: true,
+          rewardValue1w: true,
+          rewardValueTotal: true,
+          totalShares: true,
+          totalXembr: true,
+          timestamp: true,
+          rewardTokens: {
+            address: true,
+            index: true,
+            totalValue: true,
+            claimed: true,
+            pending: true
+          }
+        }
+      }
+    });
+
+    const { xembrSnapshots } = await this.get<{
+      xembrSnapshots: GqlXEmbrSnapshot[];
+    }>(query);
+
+    return xembrSnapshots;
+  }*/
+
   public async getAverageBlockTime(): Promise<number> {
     const query = jsonToGraphQLQuery({
       query: { blocksGetAverageBlockTime: true }
@@ -480,6 +514,7 @@ export default class EmbrService {
       totalSwapFees: parseFloat(data.totalSwapFees),
       totalSwapVolume: parseFloat(data.totalSwapVolume),
       myFees: parseFloat(data.myFees),
+      //xembr: this.mapXEmbrUserData(data.xembr),
       pools: data.pools.map(pool => ({
         ...pool,
         totalValue: parseFloat(pool.totalValue),
@@ -503,6 +538,31 @@ export default class EmbrService {
       totalValue: parseFloat(token.totalValue)
     };
   }
+
+  /*private mapXEmbrUserData(userdata: GqlUserXembrData): UserXembrData {
+    return {
+      ...userdata,
+      totalRewardValue:  parseFloat(userdata.totalRewardValue),
+      //xembrBalance:  parseFloat(userdata.xembrBalance),
+      shares:  parseFloat(userdata.shares),
+      percentShare:  parseFloat(userdata.percentShare),
+      questMultiplier:  userdata.questMultiplier,
+      timeMultiplier:  userdata.timeMultiplier,
+      rewardTokens: this.mapXEmbrRewardTokens(userdata.rewardTokens),
+    };
+  }
+
+  private mapXEmbrRewardTokens(tokens: GqlUserRewardTokenData[]): UserRewardTokenDat[] {
+    return [{
+      id: tokens[0].id,
+      address:tokens[0].address,
+      symbol: tokens[0].symbol,
+      name: tokens[0].name,
+      claimed: parseFloat(tokens[0].claimed),
+      pending: parseFloat(tokens[0].pending),
+      totalValue: parseFloat(tokens[0].totalValue),
+    }]
+  }*/
 }
 
 export const embrService = new EmbrService();

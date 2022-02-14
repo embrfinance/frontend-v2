@@ -165,12 +165,12 @@ export function useXEmbr() {
   );
   */
   const xembrApr = computed(() => 0);
-  /*const totalApr = computed(
+  /*const totalApr = computed( 
     () => swapApr.value + farmApr.value + xembrApr.value
   );*/
 
 
-  async function createLock(amount: string, unlock_time: string) {
+  async function stake(amount: string) {
     const tx = await governanceContractsService.xembr.stake(
       getProvider(),
       amount
@@ -181,27 +181,6 @@ export function useXEmbr() {
       type: 'tx',
       action: 'deposit',
       summary: 'Deposit EMBR tokens for xEMBR',
-      details: {
-        contractAddress: governanceContractsService.xembr.embrAddress,
-        spender: governanceContractsService.xembr.xembrAddress
-      }
-    });
-
-    return tx;
-  }
-
-
-  async function increaseLockAmount( amount: string) {
-    const tx = await governanceContractsService.xembr.stake(
-      getProvider(),
-      amount
-    );
-
-    addTransaction({
-      id: tx.hash,
-      type: 'tx',
-      action: 'deposit',
-      summary: 'Deposit EMBR for xEMBR',
       details: {
         contractAddress: governanceContractsService.xembr.embrAddress,
         spender: governanceContractsService.xembr.xembrAddress
@@ -305,7 +284,6 @@ export function useXEmbr() {
     cooldown,
     approve,
     withdraw,
-    createLock,
-    increaseLockAmount
+    stake
   };
 }

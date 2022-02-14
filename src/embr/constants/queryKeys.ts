@@ -120,7 +120,10 @@ const QUERY_KEYS = {
     GetAmountsOut: ['Dexes', 'GetAmountsOut', 'all']
   },
   xEMBR: {
-    all: ['xEMBR', 'all']
+    All: ['xEMBR', 'all']
+  },
+  xEMBRewards: {
+    All: ['xEMBRewards', 'all']
   }
 };
 

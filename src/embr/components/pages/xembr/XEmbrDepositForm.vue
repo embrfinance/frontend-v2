@@ -145,7 +145,7 @@ export default defineComponent({
       userXembrBalance,
       userUnstakedEmbrBalance,
       approve,
-      createLock,
+      stake,
       XEmbrQuery,
       userAllowance,
       refetch
@@ -221,7 +221,7 @@ export default defineComponent({
       depositing.value = true;
       const amountScaled = scale(new BigNumber(amount.value), 18);
       try {
-        const tx = await createLock(amountScaled.toString(), "0");
+        const tx = await stake(amountScaled.toString());
 
         if (!tx) {
           depositing.value = false;

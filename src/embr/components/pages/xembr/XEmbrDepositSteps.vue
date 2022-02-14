@@ -115,7 +115,7 @@ const isLoadingSnapshots = computed(
           </div>-->
       </div>
     </BalCard>
-    <BalCard class="mb-4" v-if="props.hasUnstakedEmbr && !props.hasStakedXembr">
+    <BalCard class="mb-4" v-if="props.hasUnstakedEmbr">
       <div class="step-card-container">
         <div class="ml-3 flex-1">
           <span>Invest your Embr into the xEmbr reward pool</span>
@@ -125,17 +125,7 @@ const isLoadingSnapshots = computed(
         </div>
       </div>
     </BalCard>
-    <BalCard class="mb-4" v-if="props.hasStakedXembr">
-      <div class="step-card-container">
-        <div class="ml-3 flex-1">
-          <span>Increase your xEMBR stake amount</span>
-        </div>
-        <div class="ml-4">
-          <XEmbrIncreaseDepositAmountForm :loading="props.loading" />
-        </div>
-      </div>
-    </BalCard>
-    <BalCard class="mb-4" v-if="!props.hasCoolingXembr && !props.hasWithdrawableEmbr">
+    <BalCard class="mb-4" v-if="!props.hasCoolingXembr && !props.hasWithdrawableEmbr  && props.hasStakedXembr">
       <div class="step-card-container">
         <div class="ml-3 flex-1">
           <span>Start cooldown to withdraw your Embr</span>

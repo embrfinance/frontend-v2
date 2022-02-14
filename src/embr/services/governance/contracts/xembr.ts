@@ -94,7 +94,7 @@ export default class XEmbr {
     ]);
   }
 
-  public async earned(pid: string, account: string): Promise<BigNumber> {
+  public async earned(account: string, pid: string): Promise<BigNumber> {
     return await call(this.service.provider, XEmbrAbi, [
       this.xembrAddress,
       'earned',
@@ -147,7 +147,7 @@ export default class XEmbr {
       provider,
       this.xembrAddress,
       XEmbrAbi,
-      'stake',
+      'stake(uint256)',
       [BigNumber.from(amount)]
     );
   }
@@ -157,7 +157,7 @@ export default class XEmbr {
       provider,
       this.xembrAddress,
       XEmbrAbi,
-      'stake',
+      'stake(uint256, address)',
       [BigNumber.from(amount), delegate]
     );
   }
@@ -167,7 +167,7 @@ export default class XEmbr {
       provider,
       this.xembrAddress,
       XEmbrAbi,
-      'stake',
+      'stake(uint256, bool)',
       [BigNumber.from(amount), exitCooldown]
     );
   }

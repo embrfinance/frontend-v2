@@ -31,7 +31,6 @@
         <XEmbrRewards
           :loading="dataLoading"
           :reward-tokens="rewardTokens"
-          :earned="earned"
         />
       </div>
     </div>
@@ -43,8 +42,6 @@ import { computed, onMounted, ref } from 'vue';
 import useWeb3 from '@/services/web3/useWeb3';
 import { fNum } from '@/composables/useNumbers';
 import { useXEmbr } from '@/embr/composables/stake/useXEmbr';
-import { useXEmbrReward } from '@/embr/composables/stake/useXEmbrReward';
-
 
 import { scaleDown } from '@/lib/utils';
 import { BigNumber } from 'bignumber.js';
@@ -76,16 +73,6 @@ const {
   cooldownUnits,
   cooldownTimestamp
 } = useXEmbr();
-
-const {
-  xEmbrRewardLoading,
-  globalData,
-  userData,
-  //currentExchangeRate,
-  //embrPerShare,
-  //avaxPerShare,
-  earned
-} = useXEmbrReward();
 
 const {
   balanceFor,

@@ -9,19 +9,29 @@ import numeral from 'numeral';
 type Props = {
   loading: boolean;
   rewardTokens: [];
-  earned: []
 };
 
 const props = defineProps<Props>();
 
 const { fNum } = useNumbers();
 
-
+const {
+  xEmbrRewardLoading,
+  globalData,
+  userData,
+  //currentExchangeRate,
+  //embrPerShare,
+  //avaxPerShare,
+  earned
+} = useXEmbrReward();
 
 const { tokens, nativeAsset } = useTokens();
 
-const calcEarned = function(index: number) {
-  return props.earned[index] ? props.earned[index] : 0;
+const calcEarned = function(index: any) {
+  for (let i = 0; i < earned.value.length; i ++) { 
+    if (index.eq(earned.value[i].index)) return earned.value[index.toNumber()].amount.div(1e18)
+  }
+  return 0;
 }
 /**
  * STATE
@@ -49,11 +59,14 @@ const calcEarned = function(index: number) {
               <p  class="text-sm font-bold md:text-lg">
                   {{ tokens[item.address].name }}
               </p>
-              <p class="text-sm md:text-base text-primary">Pending: {{ calcEarned(item.index) }}</p>
+              <BalLoadingBlock v-if="xEmbrRewardLoading" class="h-4 w-24 ml-1" white />
+              <p v-else class="text-sm md:text-base text-primary">Pending: {{ fNum(calcEarned(item.index).toString(), 'token') }}</p>
             </div>
         </div>
         <div class="pb-4">
+          <BalLoadingBlock v-if="xEmbrRewardLoading" class="h-6 w-32 mr-2" white />
           <BalBtn
+            v-else-if="calcEarned(item.index).gt(0)"
             color="transparent"
             flat
             :size="'sm'"

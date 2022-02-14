@@ -37,7 +37,7 @@ export default function useXEmbrQuery() {
   const { appLoading } = useApp();
   const { isWalletReady, account } = useWeb3();
   const enabled = computed(() => !appLoading.value && isWalletReady.value);
-  const queryKey = reactive(QUERY_KEYS.xEMBR.all);
+  const queryKey = reactive(QUERY_KEYS.xEMBR.All);
 
   const queryFn = async () => {
     const data = await governanceContractsService.xembr.getData(account.value);

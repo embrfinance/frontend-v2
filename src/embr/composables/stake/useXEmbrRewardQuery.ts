@@ -36,11 +36,12 @@ export default function useXEmbrRewardQuery() {
   const { appLoading } = useApp();
   const { isWalletReady, account } = useWeb3();
   const enabled = computed(() => !appLoading.value && isWalletReady.value);
-  const queryKey = reactive(QUERY_KEYS.xEMBR.all);
+  const queryKey = reactive(QUERY_KEYS.xEMBRewards.All);
 
   const queryFn = async () => {
 
     const activeTokenCount = await governanceContractsService.xembr.activeTokenCount()
+
     const global: GlobalData[] = []
     const earned: Earned[] = []
     const user: UserData[] = []

@@ -1,11 +1,11 @@
 <template>
-  <BalForm ref="withdrawForm" @on-submit="submit">
+  <BalForm ref="cooldownForm" @on-submit="submit">
     <div>
       <BalTextInput
-        name="Withdraw"
+        name="Cooldown"
         v-model="amount"
         v-model:isValid="validInput"
-        :disabled="withdrawing"
+        :disabled="coolingdown"
         type="number"
         min="0"
         step="any"
@@ -52,10 +52,10 @@
           :loading-label="loading ? 'Loading' : $t('confirming')"
           color="gradient"
           :disabled="!validInput || amount === '0' || amount === ''"
-          :loading="withdrawing || loading"
+          :loading="coolingdown || loading"
           block
         >
-          Cooldown
+          Cooldown for withdraw
         </BalBtn>
       </template>
     </div>
@@ -91,14 +91,14 @@ import { useXEmbr } from '@/embr/composables/stake/useXEmbr';
 import BalLoadingBlock from '@/components/_global/BalLoadingBlock/BalLoadingBlock.vue';
 
 type DataProps = {
-  withdrawForm: FormRef;
+  cooldownForm: FormRef;
   amount: string;
   propMax: string[];
   validInput: boolean;
   propToken: number;
 };
 export default defineComponent({
-  name: 'XEmbrWithdrawForm',
+  name: 'XEmbrCooldownForm',
   components: {},
   emits: ['success'],
 
@@ -111,7 +111,7 @@ export default defineComponent({
 
   setup(props, { emit }) {
     const data = reactive<DataProps>({
-      withdrawForm: {} as FormRef,
+      cooldownForm: {} as FormRef,
       amount: '',
       propMax: [],
       validInput: true,
@@ -121,7 +121,7 @@ export default defineComponent({
     const {
       userUnstakedEmbrBalance,
       userXembrBalance,
-      withdraw,
+      cooldown,
       XEmbrQuery
     } = useXEmbr();
 
@@ -132,7 +132,7 @@ export default defineComponent({
       toggleWalletSelectModal,
       appNetworkConfig
     } = useWeb3();
-    const withdrawing = ref(false);
+    const coolingdown = ref(false);
     const { t } = useI18n();
     const { tokens } = useTokens();
     const { trackGoal, Goals } = useFathom();
@@ -144,16 +144,16 @@ export default defineComponent({
     });
 
     async function submit(): Promise<void> {
-      if (!data.withdrawForm.validate()) return;
+      if (!data.cooldownForm.validate()) return;
 
       try {
-        withdrawing.value = true;
+        coolingdown.value = true;
 
         const amountScaled = scale(new BigNumber(amount.value), 18);
-        const tx = await withdraw(amountScaled.toString(), account.value, false);
+        const tx = await cooldown(amountScaled.toString());
 
         if (!tx) {
-          withdrawing.value = false;
+          coolingdown.value = false;
           return;
         }
 
@@ -162,14 +162,14 @@ export default defineComponent({
             emit('success', tx);
             amount.value = '';
             await XEmbrQuery.refetch.value();
-            withdrawing.value = false;
+            coolingdown.value = false;
           },
           onTxFailed: () => {
-            withdrawing.value = false;
+            coolingdown.value = false;
           }
         });
       } catch {
-        withdrawing.value = false;
+        coolingdown.value = false;
       }
     }
 
@@ -191,7 +191,7 @@ export default defineComponent({
     return {
       // data
       ...toRefs(data),
-      withdrawing,
+      coolingdown,
 
       Goals,
       TOKENS,

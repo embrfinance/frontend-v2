@@ -43,7 +43,7 @@ const chartLabel = computed(() => {
 
 const chartConfig = computed(() => {
   return {
-    color: '#2172E5',
+    color: '#FAA206',//'#2172E5',
     tooltip: {
       trigger: 'axis',
       backgroundColor: tailwind.theme.colors.gray['800'],
@@ -99,7 +99,7 @@ const chartConfig = computed(() => {
         lineStyle: { color: tailwind.theme.colors.gray['600'] }
       },
       axisLabel: {
-        color: tailwind.theme.colors.gray[300],
+        color: tailwind.theme.colors.gold[300],
         fontSize: 14,
         formatter: value =>
           `$${numeral(value).format(value > 1000 ? '0a' : '0.[00]')}`

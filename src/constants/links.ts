@@ -1,16 +1,16 @@
 export const EXTERNAL_LINKS = {
   Balancer: {
-    Home: 'https://balancer.fi',
+    Home: 'https://embr.finance',
     BalForGas:
       'https://docs.balancer.finance/core-concepts/bal-balancer-governance-token/bal-for-gas',
-    PoolsV1Dashboard: 'https://pools.balancer.exchange/#/dashboard',
-    PoolsV1Explore: 'https://pools.balancer.exchange/#/explore'
+    PoolsV1Dashboard: 'https://embr.finance/#/dashboard',
+    PoolsV1Explore: 'https://embr.finance/#/explore'
   },
   Gauntlet: {
     Home: 'https://gauntlet.network'
   },
   Ethereum: {
-    Wallets: 'https://fantom.foundation/wallets/'
+    Wallets: 'https://avax.network/'
   },
   Element: {
     Earn: 'https://app.element.fi/earn',

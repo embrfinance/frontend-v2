@@ -13,10 +13,11 @@
           v-if="activeTab === 'deposit'"
           :hasUnstakedEmbr="hasUnstakedEmbr"
           :hasStakedXembr="userXembrBalance > 0"
-          :hasCoolingXembr="hasCoolingEmbr"
+          :hasCoolingEmbr="hasCoolingEmbr"
           :hasWithdrawableEmbr="hasWithdrawableEmbr"
           :total-embr-staking="totalEmbrStaking"
           :total-xembr="totalXembrSupply"
+          :total-embr-cooling="totalCoolingSupply"
           :loading="dataLoading"
         />
       </div>
@@ -29,6 +30,7 @@
         />
 
         <XEmbrRewards
+          v-if="dataLoading === false"
           :loading="dataLoading"
           :reward-tokens="rewardTokens"
         />
@@ -70,8 +72,11 @@ const {
   totalEmbrStaking,
   totalXembrSupply,
   rewardTokens,
+  totalCoolingSupply,
   cooldownUnits,
-  cooldownTimestamp
+  cooldownTimestamp,
+  cooldownPeriod,
+  unstakeWindow
 } = useXEmbr();
 
 const {
@@ -95,6 +100,10 @@ const xembrDeposited = computed(() => {
   return amount ? scaleDown(new BigNumber(amount), 18) : new BigNumber(0);
 });*/
 
+function bn(num: number) {
+  return new BigNumber(num);
+}
+
 const unstakedEmbrBalance = computed(()=> {
   return fNum(
     scaleDown(
@@ -110,15 +119,18 @@ const hasUnstakedEmbr = computed(() => {
 })
 
 const hasCoolingEmbr = computed(() => {
-  return parseFloat((fNum(cooldownUnits.toString(), 'token') )) > 0
+    return cooldownUnits.value.gt(0)
 })
 
 const embrBalance = computed(() =>
   fNum(balanceFor(getAddress(appNetworkConfig.addresses.embr)), 'token')
 );
 
+const ONE_DAY = bn(86400)
 const hasWithdrawableEmbr = computed(() => {
-  return parseFloat((fNum(cooldownUnits.toString(), 'token') )) > 0
+  const currentTime = bn(Date.now()/ 1000)
+  const totalTime = cooldownTimestamp.value.plus(cooldownPeriod.value)
+  return cooldownUnits.value.gt(0) && currentTime.gt(totalTime) && currentTime.lt(totalTime.plus(unstakeWindow.value))
 })
 
 onMounted(() => {

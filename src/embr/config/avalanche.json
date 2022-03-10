@@ -14,6 +14,7 @@
     "subgraph": "https://node-us.embr.finance/subgraphs/name/embrfinance/embr-avalanche-v2",
     "farmSubgraph": "https://api.thegraph.com/subgraphs/name/embrfinance/embr-token-v2",
     "blockSubgraph": "https://node-us.embr.finance/subgraphs/name/embrfinance/avalanche-blocks",
+    "xembrSubgraph": "https://api.thegraph.com/subgraphs/name/embrfinance/xembr-fuji",
     "poolsUrlV1": "",
     "poolsUrlV2": "",
     "backendUrl": "https://graph.embr.finance/graphql",

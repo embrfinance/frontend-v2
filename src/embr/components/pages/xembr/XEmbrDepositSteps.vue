@@ -11,7 +11,10 @@ import XEmbrIncreaseDepositLocktimeForm from '@/embr/components/pages/xembr/XEmb
 import XEmbrIncreaseDepositAmountForm from '@/embr/components/pages/xembr/XEmbrIncreaseDepositAmountForm.vue';
 import XEmbrWithdrawForm from '@/embr/components/pages/xembr/XEmbrWithdrawForm.vue';
 import XEmbrCooldownForm from '@/embr/components/pages/xembr/XEmbrCooldownForm.vue';
+import XEmbrCoolingDown from '@/embr/components/pages/xembr/XEmbrCoolingDown.vue';
 import XEmbrChart from '@/embr/components/pages/xembr/XEmbrChart.vue';
+import XEmbrReviewTimestamp from '@/embr/components/pages/xembr/XEmbrReviewTimestamp.vue';
+
 
 
 //import FarmDepositForm from '@/embr/components/pages/farm/FarmDepositForm.vue';
@@ -21,10 +24,11 @@ import BigNumber from 'bignumber.js';
 type Props = {
   hasUnstakedEmbr: boolean;
   hasStakedXembr: boolean;
-  hasCoolingXembr: boolean;
+  hasCoolingEmbr: boolean;
   hasWithdrawableEmbr: boolean;
   loading: boolean;
   totalEmbrStaking: BigNumber;
+  totalEmbrCooling: BigNumber;
   totalXembr: BigNumber;
 };
 
@@ -33,7 +37,7 @@ const { fNum } = useNumbers();
 
 
 const { appNetworkConfig } = useWeb3();
-const { XEmbrQuery } = useXEmbr();
+const { XEmbrQuery, weightedTimestamp, userStakedEmbrBalance, requireReviewTimestamp } = useXEmbr();
 
 function handleEmbrDeposit(txReceipt): void {
   XEmbrQuery.refetch.value();
@@ -52,8 +56,13 @@ const isLoadingSnapshots = computed(
 
 <style scoped>
 .step-card-container {
-  @apply flex items-center;
+  @apply flex ;
 }
+
+.center-text-container {
+  text-align: center;
+}
+
 .step-card-step {
   @apply w-9 h-9 flex items-center justify-center border rounded-full dark:border-gray-700;
 }
@@ -64,7 +73,7 @@ const isLoadingSnapshots = computed(
   <div v-else>
     <BalCard class="mb-4">
       <div class="step-card-container">
-          <div>
+          <div  class="flex-1 text-center">
             <p class="text-center">
                <img
               src="~@/embr/assets/images/embr.png"
@@ -79,7 +88,22 @@ const isLoadingSnapshots = computed(
               Embr Staking
             </p>
           </div>
-          <div class="flex-1 ml-4 items-center text-center">
+          <div  class="flex-1 text-center">
+            <p class="text-center">
+               <img
+              src="~@/embr/assets/images/embr.png"
+              width="32"
+              style="margin-left: auto;margin-right: auto;display: block;"
+            />
+            </p>
+            <p class="text-sm font-bold md:text-lg text-center">
+             {{ fNum(totalEmbrCooling.toString(), 'token') }}
+            </p>
+            <p class="text-sm md:text-base text-primary">
+              Embr Cooling
+            </p>
+          </div>
+          <div class="flex-1 text-center">
             <p class="text-center">
                <img
               src="~@/embr/assets/images/embry.png"
@@ -87,14 +111,14 @@ const isLoadingSnapshots = computed(
               style="margin-left: auto;margin-right: auto;display: block;"
             />
             </p>
-            <p class="text-sm font-bold md:text-lg">
+            <p class="text-sm font-bold md:text-lg ">
               {{ fNum(totalXembr.toString(), 'token') }}
             </p>
             <p class="text-sm md:text-base text-primary">
               Total Xembr
             </p>
           </div>
-          <div class="flex-3 items-end">
+          <div class="flex-1 text-center">
             <p class="text-center">
                <img
               src="~@/embr/assets/images/farmAPR.png"
@@ -115,44 +139,45 @@ const isLoadingSnapshots = computed(
           </div>-->
       </div>
     </BalCard>
+    <BalCard class="mb-4" v-if="requireReviewTimestamp && hasStakedXembr">
+      <div class="step-card-container">
+        <div class="ml-3 flex-1 mt-4">
+          <XEmbrReviewTimestamp :loading="props.loading" />
+        </div>
+      </div>
+    </BalCard>
     <BalCard class="mb-4" v-if="props.hasUnstakedEmbr">
       <div class="step-card-container">
-        <div class="ml-3 flex-1">
-          <span>Invest your Embr into the xEmbr reward pool</span>
+        <div class="ml-3 flex-1 mt-4 text-sm font-bold md:text-lg" style="text-align: center">
+          <div class="mt-4">
+            <span>Stake your Embr</span>
+          </div>
+          <div class="mt-4">
+            <span>into the</span>
+          </div>
+          <div class="mt-4">
+            <span>xEmbr reward pool</span>
+          </div>
+          
         </div>
         <div class="ml-4">
           <XEmbrDepositForm :loading="props.loading" />
         </div>
       </div>
     </BalCard>
-    <BalCard class="mb-4" v-if="!props.hasCoolingXembr && !props.hasWithdrawableEmbr  && props.hasStakedXembr">
+    <BalCard class="mb-4" v-if="!props.hasCoolingEmbr && !props.hasWithdrawableEmbr && props.hasStakedXembr">
       <div class="step-card-container">
-        <div class="ml-3 flex-1">
-          <span>Start cooldown to withdraw your Embr</span>
-        </div>
-        <div class="ml-4">
-          <XEmbrCooldownForm :loading="props.loading" />
-        </div>
+         <XEmbrCooldownForm :loading="props.loading" />
       </div>
     </BalCard>
-    <BalCard class="mb-4" v-if="props.hasCoolingXembr && !props.hasWithdrawableEmbr">
+    <BalCard class="mb-4" v-if="props.hasCoolingEmbr && !props.hasWithdrawableEmbr">
       <div class="step-card-container">
-        <div class="ml-3 flex-1">
-          <span>End your cooldown to return the xEmbr to your xEmbr balance</span>
-        </div>
-        <div class="ml-4">
-          <XEmbrWithdrawForm :loading="props.loading" />
-        </div>
+          <XEmbrCoolingDown :loading="props.loading" />
       </div>
     </BalCard>
     <BalCard class="mb-4" v-if="props.hasWithdrawableEmbr">
       <div class="step-card-container">
-        <div class="ml-3 flex-1">
-          <span>Burn your xEMBR and receive your locked EMBR</span>
-        </div>
-        <div class="ml-4">
-          <XEmbrWithdrawForm :loading="props.loading" />
-        </div>
+        <XEmbrWithdrawForm :loading="props.loading" />
       </div>
     </BalCard>
   </div>

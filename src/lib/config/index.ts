@@ -79,6 +79,7 @@ export interface Config {
   configSanityUrl: string;
   blockSubgraph: string;
   farmSubgraph: string;
+  xembrSubgraph: string;
   tokenListSanityUrl: string;
   xEmbr: {
     address: string;

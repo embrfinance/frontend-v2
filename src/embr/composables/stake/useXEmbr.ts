@@ -35,7 +35,7 @@ export function useXEmbr() {
   });
   
   const totalSupply = computed(
-    () => data.value?.totalXembrSupply.div(1e18) ?? bn(0)
+    () => data.value?.totalXembrSupply ?? bn(0)
   );
 
   const userStakedEmbrBalance = computed(() => {
@@ -70,7 +70,7 @@ export function useXEmbr() {
   });
 
   const totalEmbrStaking = computed(() => {
-    return data.value?.totalEmbrStaking?.div(1e18) ?? bn(0);
+    return data.value?.totalEmbrStaking ?? bn(0);
   });
 
   const userAllowance = computed(
@@ -78,11 +78,17 @@ export function useXEmbr() {
   );
 
   const rewardTokens = computed(
-    () => data.value?.activeRewardTokens ?? []
+    () => { 
+      return data.value?.activeRewardTokens ?? []
+    }
   )
 
   const totalXembrSupply = computed(
-    () => data.value?.totalXembrSupply.div(1e18) ?? bn(0)
+    () => data.value?.totalXembrSupply ?? bn(0)
+  )
+
+  const totalCoolingSupply = computed(
+    () => data.value?.totalEmbrCooling ?? bn(0)
   )
 
 
@@ -117,6 +123,7 @@ export function useXEmbr() {
     )
   );
   
+
 
 
 
@@ -157,6 +164,26 @@ export function useXEmbr() {
     return tx;
   }
 
+  async function reviewTimestamp(account: string) {
+    const tx = await governanceContractsService.xembr.reviewTimestamp(
+      getProvider(),
+      account
+    );
+
+    addTransaction({
+      id: tx.hash,
+      type: 'tx',
+      action: 'reviewTimestamp',
+      summary: `Review timestamp for xEmbr`,
+      details: {
+        contractAddress: governanceContractsService.xembr.embrAddress,
+        spender: governanceContractsService.xembr.xembrAddress
+      }
+    });
+
+    return tx;
+  }
+
   /*const swapApr = computed(() =>
     pool.value ? parseFloat(pool.value.dynamic.apr.pool) : 0
   );
@@ -169,6 +196,52 @@ export function useXEmbr() {
     () => swapApr.value + farmApr.value + xembrApr.value
   );*/
 
+
+  const ONE_DAY = bn(86400)
+  const unstakeWindow = computed(() => {
+    return bn(1209600)
+  })
+
+  const cooldownPeriod = computed(() => {
+    return bn(7200)
+  })
+
+  const requireReviewTimestamp = computed(() => {
+  //function requireReviewTimestamp() { 
+    const currentTime = bn(Date.now() / 1000)
+    const hodlLength = currentTime.minus(weightedTimestamp.value);
+    if (hodlLength.lt(ONE_DAY)) { //13 weeks) {
+        // 0-3 months = 1x
+        return false;
+    } else if (hodlLength.lt(ONE_DAY.times(2))) { //26 weeks) {
+        // 3 months = 1.2x
+        if (timeMultiplier.value.lt(20)) { 
+          return true
+        }
+        return false
+    } else if (hodlLength.lt(ONE_DAY.times(3))) { //52 weeks) {
+        // 6 months = 1.3x
+        if (timeMultiplier.value.lt(30)) { 
+          return true
+        }
+        return false
+    } else if (hodlLength.lt(ONE_DAY.times(4))) { //78 weeks) {
+      if (timeMultiplier.value.lt(40)) { 
+        return true
+      }
+        return false
+    } else if (hodlLength.lt(ONE_DAY.times(3))) { //104 weeks) {
+      if (timeMultiplier.value.lt(50)) { 
+        return true
+      }
+        return false
+    } else {
+      if (timeMultiplier.value.lt(60)) { 
+        return true
+      }
+      return false
+    }
+  })
 
   async function stake(amount: string) {
     const tx = await governanceContractsService.xembr.stake(
@@ -199,7 +272,7 @@ export function useXEmbr() {
     addTransaction({
       id: tx.hash,
       type: 'tx',
-      action: 'endCooldown',
+      action: 'cooldown',
       summary: 'Cooldown Embr for withdrawing',
       details: {
         contractAddress: governanceContractsService.xembr.embrAddress,
@@ -241,7 +314,7 @@ export function useXEmbr() {
     addTransaction({
       id: tx.hash,
       type: 'tx',
-      action: 'claim',
+      action: 'withdraw',
       summary: 'Burn xEMBR and withdraw EMBR tokens',
       details: {
         contractAddress: governanceContractsService.xembr.embrAddress,
@@ -262,6 +335,7 @@ export function useXEmbr() {
     pool,
     totalEmbrStaking,
     totalXembrSupply,
+    totalCoolingSupply,
     userStakedEmbrBalance,
     weightedTimestamp,
     timeMultiplier,
@@ -279,7 +353,10 @@ export function useXEmbr() {
     //farmApr,
     //totalApr,
     //currentExchangeRate,
-
+    requireReviewTimestamp,
+    unstakeWindow,
+    cooldownPeriod,
+    reviewTimestamp,
     endCooldown,
     cooldown,
     approve,

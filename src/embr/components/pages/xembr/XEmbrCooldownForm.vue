@@ -1,65 +1,78 @@
 <template>
-  <BalForm ref="cooldownForm" @on-submit="submit">
-    <div>
-      <BalTextInput
-        name="Cooldown"
-        v-model="amount"
-        v-model:isValid="validInput"
-        :disabled="coolingdown"
-        type="number"
-        min="0"
-        step="any"
-        placeholder="0"
-        :decimal-limit="18"
-        validate-on="input"
-        prepend-border
-        append-shadow
-      >
-        <template v-slot:info>
-          <div
-            class="cursor-pointer flex"
-            @click.prevent="amount = userXembrBalance"
-          >
-            {{ $t('balance') }}:
-            <BalLoadingBlock v-if="loading" class="h-4 w-24 ml-1" white />
-            <span v-else>&nbsp;{{ userXembrBalance }}</span>
-          </div>
-        </template>
-        <template v-slot:append>
-          <div class="p-2">
-            <BalBtn
-              size="xs"
-              color="white"
-              @click.prevent="amount = userXembrBalance"
-            >
-              {{ $t('max') }}
-            </BalBtn>
-          </div>
-        </template>
-      </BalTextInput>
+  <div class="ml-2 flex-1 mt-4 center-text-container">
+    <div class="mb-2">
+      <span><p>Start cooldown to withdraw your Embr</p></span>
     </div>
-
-    <div class="pt-4">
-      <BalBtn
-        v-if="!isWalletReady"
-        :label="$t('connectWallet')"
-        block
-        @click.prevent="toggleWalletSelectModal"
-      />
-      <template v-else>
-        <BalBtn
-          type="submit"
-          :loading-label="loading ? 'Loading' : $t('confirming')"
-          color="gradient"
-          :disabled="!validInput || amount === '0' || amount === ''"
-          :loading="coolingdown || loading"
-          block
+    <div class="mt-4">
+      <span><p>Withdraw Fee </p></span>
+    </div>
+    <div class="mt-2" v-if="amount !== '0' && amount !== ''">
+      <span><p> {{ fNum(calcPaperHandsFeePercent().div(100).toString(), 'percent') }}</p><p>{{ fNum(calcPaperHandsFeeValue().toString(), 'token') }} EMBR</p></span>
+    </div>
+  </div>
+  <div class="ml-4">
+    <BalForm ref="cooldownForm" @on-submit="submit">
+      <div>
+        <BalTextInput
+          name="Cooldown"
+          v-model="amount"
+          v-model:isValid="validInput"
+          :disabled="coolingdown"
+          type="number"
+          min="0"
+          step="any"
+          placeholder="0"
+          :decimal-limit="18"
+          validate-on="input"
+          prepend-border
+          append-shadow
         >
-          Cooldown for withdraw
-        </BalBtn>
-      </template>
-    </div>
-  </BalForm>
+          <template v-slot:info>
+            <div
+              class="cursor-pointer flex"
+              @click.prevent="amount = userStakedEmbrBalance"
+            >
+              {{ $t('balance') }}:
+              <BalLoadingBlock v-if="loading" class="h-4 w-24 ml-1" white />
+              <span v-else>&nbsp;{{ userStakedEmbrBalance }}</span>
+            </div>
+          </template>
+          <template v-slot:append>
+            <div class="p-2">
+              <BalBtn
+                size="xs"
+                color="white"
+                @click.prevent="amount = userStakedEmbrBalance"
+              >
+                {{ $t('max') }}
+              </BalBtn>
+            </div>
+          </template>
+        </BalTextInput>
+      </div>
+
+      <div class="pt-4">
+        <BalBtn
+          v-if="!isWalletReady"
+          :label="$t('connectWallet')"
+          block
+          @click.prevent="toggleWalletSelectModal"
+        />
+        <template v-else>
+          <BalBtn
+            type="submit"
+            :loading-label="loading ? 'Loading' : $t('confirming')"
+            color="gradient"
+            :disabled="!validInput || amount === '0' || amount === ''"
+            :loading="coolingdown || loading"
+            block
+          >
+            Cooldown for withdraw
+          </BalBtn>
+        </template>
+      </div>
+    </BalForm>
+  </div>
 </template>
 
 <script lang="ts">
@@ -85,6 +98,7 @@ import useFathom from '@/composables/useFathom';
 import { TOKENS } from '@/constants/tokens';
 import useWeb3 from '@/services/web3/useWeb3';
 import useTokens from '@/composables/useTokens';
+import useNumbers from '@/composables/useNumbers';
 import { BigNumber } from 'bignumber.js';
 import useEthers from '@/composables/useEthers';
 import { useXEmbr } from '@/embr/composables/stake/useXEmbr';
@@ -120,12 +134,14 @@ export default defineComponent({
 
     const {
       userUnstakedEmbrBalance,
-      userXembrBalance,
+      weightedTimestamp,
+      userStakedEmbrBalance,
       cooldown,
       XEmbrQuery
     } = useXEmbr();
 
     const { txListener } = useEthers();
+    const { fNum } = useNumbers();
     const {
       isWalletReady,
       account,
@@ -173,6 +189,26 @@ export default defineComponent({
       }
     }
 
+
+    function calcPaperHandsFeePercent() { 
+      const currentTimestamp = new BigNumber(Math.floor(Date.now() / 1000))
+      const weeksStaked = currentTimestamp.minus(weightedTimestamp.value).times(1e18).div(604800)
+      let feeRate: BigNumber
+      if (weeksStaked.gt(3e18)) {
+        feeRate = new BigNumber(300e36).div(weeksStaked).sqrt().times(1e7)
+        feeRate = feeRate.lt(25e15) ? new BigNumber(0) : feeRate.minus(25e15);
+      } else { 
+        feeRate = new BigNumber(75e15);
+      }
+      return feeRate.div(1e16)
+    }
+
+
+    function calcPaperHandsFeeValue() { 
+      const amt = new BigNumber(data.amount).gt(0) ? new BigNumber(data.amount) : userStakedEmbrBalance.value
+      return amt.times(calcPaperHandsFeePercent().div(100))
+    }
+
     watch(isWalletReady, isAuth => {
       if (!isAuth) {
         data.amount = '0';
@@ -200,11 +236,20 @@ export default defineComponent({
       isWalletReady,
       toggleWalletSelectModal,
       isRequired,
+      fNum,
+      calcPaperHandsFeePercent,
+      calcPaperHandsFeeValue,
       // methods
       submit,
       trackGoal,
-      userXembrBalance
+      userStakedEmbrBalance
     };
   }
 });
 </script>
+
+<style scoped>
+.center-text-container {
+  text-align: center;
+}
+</style>

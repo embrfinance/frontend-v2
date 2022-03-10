@@ -1,40 +1,21 @@
 <template>
-  <div class="ml-2 flex-1 mt-4 center-text-container">
-    <div class="mb-2">
-      <span class="text-sm font-bold md:text-lg"><p>Finish withdrawing</p></span>
+  <div class="ml-4 flex-1 mt-4 center-text-container">
+    <div class="">
+      <span><p><span class="text-sm font-bold md:text-lg">Currently cooling</span><br/> {{ cooldownUnits }} EMBR</p></span>
     </div>
     <div class="mt-4">
-      <span><p><span class="text-sm font-bold md:text-lg">Withdraw window</span><br/> {{ withdrawWindowRemaining.toFixed(0) }} minutes</p></span>
-    </div>
-    <div class="p-2 ml-4 mr-4">
-      <div>
-        <BalBtn
-          size="xs"
-          color="white"
-          @click.prevent="endWithdrawCooldown"
-        >
-          {{ $t('endcooldown') }}
-        </BalBtn>
-      </div>
-      <div>
-        <BalTooltip>
-          <template v-slot:activator>
-            <BalIcon name="info" size="sm" class="text-gray-400 -mb-px" />
-          </template>
-          <div v-html="$t('endcooldownDetails')" class="w-52" />
-        </BalTooltip>
-      </div>
+      <span><p><span class="text-sm font-bold md:text-lg">Wait Remaining</span><br/>  {{ timeRemaining }} minutes</p></span>
     </div>
   </div>
   <div class="ml-4">
-    <BalForm ref="withdrawForm" @on-submit="submit">
+    <BalForm ref="cooldownForm" @on-submit="submit">
       <div>
         <BalTextInput
-          name="Withdraw"
+          name="Cooldown"
           v-model="amount"
           v-model:isValid="validInput"
-          :disabled="withdrawing"
           :rules="amountRules()"
+          :disabled="coolingdown"
           type="number"
           min="0"
           step="any"
@@ -47,11 +28,11 @@
           <template v-slot:info>
             <div
               class="cursor-pointer flex"
-              @click.prevent="amount = cooldownUnits.toString()"
+              @click.prevent="amount = userStakedEmbrBalance"
             >
               {{ $t('balance') }}:
               <BalLoadingBlock v-if="loading" class="h-4 w-24 ml-1" white />
-              <span v-else>&nbsp;{{ cooldownUnits }}</span>
+              <span v-else>&nbsp;{{ userStakedEmbrBalance }}</span>
             </div>
           </template>
           <template v-slot:append>
@@ -59,7 +40,7 @@
               <BalBtn
                 size="xs"
                 color="white"
-                @click.prevent="amount = cooldownUnits.toString()"
+                @click.prevent="amount = userStakedEmbrBalance"
               >
                 {{ $t('max') }}
               </BalBtn>
@@ -81,20 +62,11 @@
             :loading-label="loading ? 'Loading' : $t('confirming')"
             color="gradient"
             :disabled="!validInput || amount === '0' || amount === ''"
-            :loading="withdrawing || loading"
+            :loading="coolingdown || loading"
             block
           >
-            Withdraw EMBR
+            Increase cooldown amount
           </BalBtn>
-          <div class="ml-4 pl-4">
-            <BalCheckbox
-              v-if="!isMaxWithdraw"
-              v-model="endWDCooldown"
-              name="endCooldown"
-              size="sm"
-              :label="$t('endcooldownToggle')"
-            />
-          </div>
         </template>
       </div>
     </BalForm>
@@ -124,21 +96,21 @@ import useFathom from '@/composables/useFathom';
 import { TOKENS } from '@/constants/tokens';
 import useWeb3 from '@/services/web3/useWeb3';
 import useTokens from '@/composables/useTokens';
+import useNumbers from '@/composables/useNumbers';
 import { BigNumber } from 'bignumber.js';
 import useEthers from '@/composables/useEthers';
 import { useXEmbr } from '@/embr/composables/stake/useXEmbr';
 import BalLoadingBlock from '@/components/_global/BalLoadingBlock/BalLoadingBlock.vue';
 
 type DataProps = {
-  withdrawForm: FormRef;
+  cooldownForm: FormRef;
   amount: string;
-  endWDCooldown: boolean;
   propMax: string[];
   validInput: boolean;
   propToken: number;
 };
 export default defineComponent({
-  name: 'XEmbrWithdrawForm',
+  name: 'XEmbrCooldownForm',
   components: {},
   emits: ['success'],
 
@@ -151,76 +123,62 @@ export default defineComponent({
 
   setup(props, { emit }) {
     const data = reactive<DataProps>({
-      withdrawForm: {} as FormRef,
+      cooldownForm: {} as FormRef,
       amount: '',
       propMax: [],
-      endWDCooldown: false,
       validInput: true,
       propToken: 0
     });
 
     const {
       userUnstakedEmbrBalance,
-      userXembrBalance,
-      withdraw,
-      XEmbrQuery,
+      weightedTimestamp,
+      userStakedEmbrBalance,
       cooldownUnits,
       cooldownTimestamp,
-      unstakeWindow,
-      cooldownPeriod,
-      endCooldown
+      cooldown,
+      XEmbrQuery
     } = useXEmbr();
 
     const { txListener } = useEthers();
+    const { fNum } = useNumbers();
     const {
       isWalletReady,
       account,
       toggleWalletSelectModal,
       appNetworkConfig
     } = useWeb3();
-    const withdrawing = ref(false);
+    const coolingdown = ref(false);
     const { t } = useI18n();
     const { tokens } = useTokens();
     const { trackGoal, Goals } = useFathom();
-    const { amount, endWDCooldown } = toRefs(data);
+    const { amount } = toRefs(data);
     const { refetchBalances } = useTokens();
 
     function amountRules() {
       return isWalletReady.value
         ? [
             isPositive(),
-            isLessThanOrEqualTo(cooldownUnits.value.toString(), t('exceedsBalance'))
+            isLessThanOrEqualTo(userStakedEmbrBalance.value.toString(), t('exceedsBalance'))
           ]
         : [isPositive()];
     }
 
-    const isMaxWithdraw = computed(() => { 
-        const amt = new BigNumber(data.amount)
-        if (amt.eq(cooldownUnits.value)) { 
-          return true
-        }
-        return false
-    })
+    const embrDeposited = computed(() => {
+      return userUnstakedEmbrBalance.value.toString();
+    });
 
-    const withdrawWindowRemaining = computed(() => {
+    async function submit(): Promise<void> {
+      if (!data.cooldownForm.validate()) return;
 
-        const currentTime = new BigNumber(Date.now()/ 1000)
-        const totalTime = cooldownTimestamp.value.plus(cooldownPeriod.value).plus(unstakeWindow.value)
-        if (currentTime.gt(totalTime)) { 
-          return new BigNumber(0)
-        }
-
-        return totalTime.minus(currentTime).div(60)
-    })
-
-    async function endWithdrawCooldown(): Promise<void> { 
       try {
-        withdrawing.value = true;
+        coolingdown.value = true;
 
-        const tx = await endCooldown();
+        const amountScaled = scale(new BigNumber(amount.value).plus(cooldownUnits.value), 18);
+        const tx = await cooldown(amountScaled.toString());
+
         if (!tx) {
-          withdrawing.value = false;
-          data.endWDCooldown = false
+          coolingdown.value = false;
           return;
         }
 
@@ -229,61 +187,46 @@ export default defineComponent({
             emit('success', tx);
             amount.value = '';
             await XEmbrQuery.refetch.value();
-            withdrawing.value = false;
-            data.endWDCooldown = false
+            coolingdown.value = false;
           },
           onTxFailed: () => {
-            withdrawing.value = false;
-            data.endWDCooldown = false
+            coolingdown.value = false;
           }
         });
       } catch {
-        withdrawing.value = false;
-        data.endWDCooldown = false
+        coolingdown.value = false;
       }
     }
 
-    async function submit(): Promise<void> {
-      if (!data.withdrawForm.validate()) return;
 
-      try {
-        withdrawing.value = true;
-
-        const amt = new BigNumber(amount.value)
-        const amountScaled = scale(amt, 18);
-        const endCool = amt.eq(cooldownUnits.value) ? true : endWDCooldown.value
-        const tx = await withdraw(amountScaled.toString(), account.value, endCool);
-
-        if (!tx) {
-          withdrawing.value = false;
-          data.endWDCooldown = false
-          return;
-        }
-
-        txListener(tx, {
-          onTxConfirmed: async () => {
-            emit('success', tx);
-            amount.value = '';
-            await XEmbrQuery.refetch.value();
-            withdrawing.value = false;
-            data.endWDCooldown = false
-          },
-          onTxFailed: () => {
-            withdrawing.value = false;
-            data.endWDCooldown = false
-          }
-        });
-      } catch {
-        withdrawing.value = false;
-        data.endWDCooldown = false
+    function calcPaperHandsFeePercent() { 
+      const currentTimestamp = new BigNumber(Math.floor(Date.now() / 1000))
+      const weeksStaked = currentTimestamp.minus(weightedTimestamp.value).times(1e18).div(604800)
+      let feeRate: BigNumber
+      if (weeksStaked.gt(3e18)) {
+        feeRate = new BigNumber(300e36).div(weeksStaked).sqrt().times(1e7)
+        feeRate = feeRate.lt(25e15) ? new BigNumber(0) : feeRate.minus(25e15);
+      } else { 
+        feeRate = new BigNumber(75e15);
       }
+      return feeRate.div(1e16)
+    }
+
+    const timeRemaining = computed(() => {
+        const currentTime = new BigNumber(Date.now()/ 1000)
+       return cooldownTimestamp.value.plus(7200).minus(currentTime).div(60).toFixed(0)
+    });
+
+
+    function calcPaperHandsFeeValue() { 
+      const amt = new BigNumber(data.amount).gt(0) ? new BigNumber(data.amount) : userStakedEmbrBalance.value
+      return amt.times(calcPaperHandsFeePercent().div(100))
     }
 
     watch(isWalletReady, isAuth => {
       if (!isAuth) {
         data.amount = '0';
         data.propMax = [];
-        data.endWDCooldown = false;
       }
     });
 
@@ -298,29 +241,30 @@ export default defineComponent({
     return {
       // data
       ...toRefs(data),
-      withdrawing,
+      coolingdown,
+      cooldownUnits,
+      timeRemaining,
 
       Goals,
       TOKENS,
       // computed
-      withdrawWindowRemaining,
       tokens,
       isWalletReady,
       toggleWalletSelectModal,
       isRequired,
-      isMaxWithdraw,
-      endWithdrawCooldown,
+      fNum,
+      calcPaperHandsFeePercent,
+      calcPaperHandsFeeValue,
+      amountRules,
       // methods
-      
       submit,
       trackGoal,
-      amountRules,
-      cooldownUnits,
-      userXembrBalance
+      userStakedEmbrBalance
     };
   }
 });
 </script>
+
 <style scoped>
 .center-text-container {
   text-align: center;

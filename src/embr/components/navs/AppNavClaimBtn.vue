@@ -78,7 +78,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, ref } from 'vue';
 import useNumbers from '@/composables/useNumbers';
-import { sumBy } from 'lodash';
+import { sumBy, groupBy, map } from 'lodash';
 import numeral from 'numeral';
 import usePools from '@/composables/pools/usePools';
 import useEthers from '@/composables/useEthers';
@@ -113,6 +113,8 @@ export default defineComponent({
       const farms = onlyPoolsWithFarms.value.map(pool => pool.decoratedFarm);
       const pendingEmbrValue = sumBy(farms, farm => farm.pendingEmbrValue);
 
+
+      console.log("get data about farms", farms, pendingEmbrValue)
       const averageApr =
         sumBy(farms, farm => farm.apr * (farm.stake || 0)) /
         sumBy(farms, farm => farm.stake || 0);
@@ -121,6 +123,10 @@ export default defineComponent({
         numFarms: farms.filter(farm => farm.stake > 0).length,
         totalBalance: fNum(
           sumBy(farms, farm => farm.stake || 0),
+          'usd'
+        ),
+        pendingRewardValue: fNum(
+          pendingEmbrValue,
           'usd'
         ),
         pendingEmbr:

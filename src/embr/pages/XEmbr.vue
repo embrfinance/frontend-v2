@@ -135,7 +135,6 @@ const hasWithdrawableEmbr = computed(() => {
 
 onMounted(() => {
   injectTokens([
-    appNetworkConfig.xEmbr.poolAddress,
     appNetworkConfig.xEmbr.address
   ]);
 });

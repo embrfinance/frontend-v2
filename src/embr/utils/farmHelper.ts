@@ -37,7 +37,7 @@ export function calculateTvl(farm: Farm, pool: DecoratedPool) {
 export function calculateRewardsPerDay(farm: Farm, blocksPerDay: number) {
   const totalEmbrPerDay = new BigNumber(
     farm.masterChef.embrPerSec
-  ).multipliedBy(blocksPerDay);
+  ).multipliedBy(86400);
 
   return totalEmbrPerDay
     .multipliedBy(farm.allocPoint / farm.masterChef.totalAllocPoint)
@@ -50,14 +50,13 @@ export function calculateApr(
   tvl: number,
   blocksPerYear: number,
   embrPrice: number
-) {
+  ) {
   if (tvl === 0) {
     return 0;
   }
 
-  const embrPerSec =
-    Number(parseInt(farm.masterChef.embrPerSec) / 1e18) * 0.872;
-  const embrPerYear = embrPerSec * blocksPerYear;
+  const embrPerSec = Number(parseInt(farm.masterChef.embrPerSec) / 1e18) * 0.9;
+  const embrPerYear = embrPerSec * 31540000; //31540000;
   const farmEmbrPerYear =
     (farm.allocPoint / farm.masterChef.totalAllocPoint) * embrPerYear;
 

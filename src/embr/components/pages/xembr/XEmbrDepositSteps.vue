@@ -146,7 +146,7 @@ const isLoadingSnapshots = computed(
         </div>
       </div>
     </BalCard>
-    <BalCard class="mb-4" v-if="props.hasUnstakedEmbr">
+    <BalCard class="mb-4">
       <div class="step-card-container">
         <div class="ml-3 flex-1 mt-4 text-sm font-bold md:text-lg" style="text-align: center">
           <div class="mt-4">

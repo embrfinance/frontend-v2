@@ -57,6 +57,8 @@ export default function useXEmbrQuery() {
     }
     const allowance = await governanceContractsService.xembr.allowance(account.value);
 
+
+    console.log("xploited, got here", data, xembrData)
     return {
       totalXembrSupply: new BigNumber(xembrData.totalXembr.toString()),
       embrBalance: new BigNumber(data.embrBalance.toString()),

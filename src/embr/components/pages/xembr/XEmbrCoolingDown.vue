@@ -4,7 +4,7 @@
       <span><p><span class="text-sm font-bold md:text-lg">Currently cooling</span><br/> {{ cooldownUnits }} EMBR</p></span>
     </div>
     <div class="mt-4">
-      <span><p><span class="text-sm font-bold md:text-lg">Wait Remaining</span><br/>  {{ timeRemaining }} minutes</p></span>
+      <span><p><span class="text-sm font-bold md:text-lg">Wait Remaining</span><br/>  {{ timeRemaining }}</p></span>
     </div>
   </div>
   <div class="ml-4">
@@ -214,13 +214,34 @@ export default defineComponent({
 
     const timeRemaining = computed(() => {
         const currentTime = new BigNumber(Date.now()/ 1000)
-       return cooldownTimestamp.value.plus(7200).minus(currentTime).div(60).toFixed(0)
+       return timeConversion(cooldownTimestamp.value.plus(604800).minus(currentTime).times(1000))
     });
 
 
     function calcPaperHandsFeeValue() { 
       const amt = new BigNumber(data.amount).gt(0) ? new BigNumber(data.amount) : userStakedEmbrBalance.value
       return amt.times(calcPaperHandsFeePercent().div(100))
+    }
+
+    function timeConversion(millisec) {
+
+        var seconds = (millisec / 1000).toFixed(1);
+
+        var minutes = (millisec / (1000 * 60)).toFixed(1);
+
+        var hours = (millisec / (1000 * 60 * 60)).toFixed(1);
+
+        var days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
+
+        if (parseInt(seconds) < 60) {
+            return seconds + " Sec";
+        } else if (parseInt(minutes) < 60) {
+            return minutes + " Min";
+        } else if (parseInt(hours) < 24) {
+            return hours + " Hrs";
+        } else {
+            return days + " Days"
+        }
     }
 
     watch(isWalletReady, isAuth => {

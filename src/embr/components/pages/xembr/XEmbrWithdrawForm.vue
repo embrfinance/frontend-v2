@@ -4,7 +4,7 @@
       <span class="text-sm font-bold md:text-lg"><p>Finish withdrawing</p></span>
     </div>
     <div class="mt-4">
-      <span><p><span class="text-sm font-bold md:text-lg">Withdraw window</span><br/> {{ withdrawWindowRemaining.toFixed(0) }} minutes</p></span>
+      <span><p><span class="text-sm font-bold md:text-lg">Withdraw window</span><br/> {{ withdrawWindowRemaining }} </p></span>
     </div>
     <div class="p-2 ml-4 mr-4">
       <div>
@@ -205,13 +205,34 @@ export default defineComponent({
     const withdrawWindowRemaining = computed(() => {
 
         const currentTime = new BigNumber(Date.now()/ 1000)
-        const totalTime = cooldownTimestamp.value.plus(cooldownPeriod.value).plus(unstakeWindow.value)
+        const totalTime = cooldownTimestamp.value.plus(cooldownPeriod.value)
         if (currentTime.gt(totalTime)) { 
           return new BigNumber(0)
         }
 
-        return totalTime.minus(currentTime).div(60)
+        return timeConversion(totalTime.minus(currentTime).times(1000))
     })
+    
+    function timeConversion(millisec) {
+
+        var seconds = (millisec / 1000).toFixed(1);
+
+        var minutes = (millisec / (1000 * 60)).toFixed(1);
+
+        var hours = (millisec / (1000 * 60 * 60)).toFixed(1);
+
+        var days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
+
+        if (parseInt(seconds) < 60) {
+            return seconds + " Sec";
+        } else if (parseInt(minutes) < 60) {
+            return minutes + " Min";
+        } else if (parseInt(hours) < 24) {
+            return hours + " Hrs";
+        } else {
+            return days + " Days"
+        }
+    }
 
     async function endWithdrawCooldown(): Promise<void> { 
       try {

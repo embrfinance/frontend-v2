@@ -44,6 +44,7 @@ const defaultAttrs = {
   isNewPool: true,
   apr: {
     total: true,
+    hasRewardApr: true,
     swapApr: true,
     embrApr: true,
     thirdPartyApr: true,

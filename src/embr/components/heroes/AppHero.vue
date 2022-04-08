@@ -29,7 +29,7 @@
           </BalBtn>
           <BalBtn
             tag="a"
-            href="https://docs.embr.finance/"
+            href="https://avaware-network.gitbook.io/embr.finance/"
             target="_blank"
             rel="noreferrer"
             color="white"

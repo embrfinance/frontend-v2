@@ -26,7 +26,7 @@ const { network } = configService;
 const { explorerLinks: explorer, appNetworkConfig } = useWeb3();
 const route = useRoute();
 
-const { loading, injectTokens, dynamicDataLoading } = useTokens();
+const { tokens, loading, injectTokens, dynamicDataLoading } = useTokens();
 
 const farmInvestmentSuccess = ref(false);
 const farmWithdrawalSuccess = ref(false);
@@ -64,7 +64,7 @@ const activeTab = ref(tabs[0].value);
     <BalLoadingBlock v-if="loading || dynamicDataLoading" class="h-96" />
     <BalCard v-else>
       <div class="text-gray-200 text-sm">
-        Stake your EPTs to earn Embr
+        Stake your {{ tokens[props.tokenAddress].symbol }} to earn Embr
       </div>
       <h5 class="mb-1">Farm</h5>
 

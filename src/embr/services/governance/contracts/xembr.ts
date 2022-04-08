@@ -129,7 +129,6 @@ export default class XEmbr {
   } 
 
   public async reviewTimestamp(provider: Web3Provider, account: string) {
-    console.log("xploited reviewTimestamp222")
     return sendTransaction(
       provider,
       this.xembrAddress,

@@ -22,6 +22,7 @@ const {
   //currentExchangeRate,
   //embrPerShare,
   //avaxPerShare,
+  timeMultiplier,
   xEmbrLoading
 } = useXEmbr();
 
@@ -57,12 +58,16 @@ const {
     <div class="flex flex-col flex-grow">
       <div class="flex items-center space-x-4">
         <img src="~@/embr/assets/images/embrE.png" width="52" />
-        <div class="flex flex-col justify-center">
+        <div class="flex-1 flex-col justify-center">
           <BalLoadingBlock v-if="props.loading" class="h-6 w-24 mb-1" white />
           <p v-else class="text-sm font-bold md:text-lg">
-            {{ fNum(xEmbrBalance.toString(), 'token') }}
+            {{ fNum(userXembrBalance.toString(), 'token') }}
           </p>
           <p class="text-sm md:text-base text-primary">xEMBR</p>
+        </div>
+        <div class="flex-1 space-x-4 ml-4" v-if="timeMultiplier.gt(1)">
+          <p class="text-sm md:text-base text-primary">Multiplier</p>
+           <p class="text-sm md:text-base text-primary"> {{ timeMultiplier.plus(100).div(100).toFixed(1) }}x </p>
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@
       </div>
     </template>
     <div class="w-48">
-      <a class="app-nav-other-item" href="https://docs.embr.finance">
+      <a class="app-nav-other-item" href="https://avaware-network.gitbook.io/embr.finance/">
         Docs & Help
       </a>
       <a class="app-nav-other-item" href="https://github.com/embrfinance">

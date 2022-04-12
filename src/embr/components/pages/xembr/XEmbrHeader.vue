@@ -7,11 +7,18 @@
         Maximize your Yield
       </h2>
       <h2 class="text-lg font-light mb-4">
-        Stake your EMBR and earn xEMBR to vote in Governance
+        Stake your EMBR for xEMBR and earn!
       </h2>
-      <p>
-        100% of collected Embr protocol fees for up to 10 tokens are rewarded to xEMBR holders. When you
-        stake your EMBR, you receive xEMBR in return.
+      <p class="mb-2">
+        All collected Embr protocol fees for up to 10 tokens are rewarded to all xEMBR holders. When you
+        stake your EMBR you receive xEMBR, a non transferable token, in return which represents your share of the rewards.
+      </p>
+       <p class="mb-2">
+        Once a week protocol fees are collected and distrubted over the proceeding week.  
+      </p>
+      <p class="mb-2">
+        Withdrawing your EMBR requires a cooldown period of 1 week, as well as a paper hands fee 
+        if you withdraw your EMBR based on <a href="#">this</a> schedule 
       </p>
       <ol class="list-decimal list-inside ml-2 mt-2">
         <li>100% of Protocol Revenue</li>

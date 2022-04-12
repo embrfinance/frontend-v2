@@ -17,6 +17,7 @@
   "backendUrl": "https://backend.embr-embr-node.com/graphql",
   "poolsUrlV1": "https://storageapi.fleek.co/balancer-bucket/balancer-exchange-rinkeby/pools",
   "poolsUrlV2": "https://storageapi.fleek.co/johngrantuk-team-bucket/poolsRc02.json",
+  "xembrSubgraph": "https://api.thegraph.com/subgraphs/name/embrfinance/xembr-fuji",
   "nativeAsset": {
     "name": "Ether",
     "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",

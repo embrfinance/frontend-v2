@@ -14,6 +14,7 @@
   "subgraph": "https://api.thegraph.com/subgraphs/name/embrfinance/subgraph-fuji-v2",
   "farmSubgraph": "https://api.thegraph.com/subgraphs/name/embrfinance/embr-masterchef-fuji",
   "blockSubgraph": "https://api.thegraph.com/subgraphs/name/embrfinance/fuji-blocks",
+  "xembrSubgraph": "https://api.thegraph.com/subgraphs/name/embrfinance/xembr-fuji",
   "poolsUrlV1": "",
   "poolsUrlV2": "https://graph.official.finance/graphql",
   "backendUrl": "https://graph.official.finance/graphql",
@@ -95,7 +96,7 @@
   "tokenListSanityUrl": "https://raw.githubusercontent.com/l0rdicon/offical-token-lists/main/tokens.fuji.json",
   "configSanityUrl": "https://raw.githubusercontent.com/l0rdicon/offical-token-lists/main/pools.fuji.json",
   "xEmbr": {
-    "address": "0x277230592cf3C552cEfb7138a0d247079524B734",
+    "address": "0xd91cb6c5b14C2308541b9147130eCeb1F6d60682",
     "poolAddress": "0x931c39ca51ffa5c5391e346350db0fb8b8893d0d",
     "poolId": "0x931c39ca51ffa5c5391e346350db0fb8b8893d0d000200000000000000000005"
   },

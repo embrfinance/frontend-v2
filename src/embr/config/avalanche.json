@@ -14,9 +14,10 @@
     "subgraph": "https://node-us.embr.finance/subgraphs/name/embrfinance/embr-avalanche-v2",
     "farmSubgraph": "https://api.thegraph.com/subgraphs/name/embrfinance/embr-token-v2",
     "blockSubgraph": "https://node-us.embr.finance/subgraphs/name/embrfinance/avalanche-blocks",
+    "xembrSubgraph": "https://api.thegraph.com/subgraphs/name/embrfinance/xembr",
     "poolsUrlV1": "",
-    "poolsUrlV2": "",
-    "backendUrl": "https://graph.embr.finance/graphql",
+    "poolsUrlV2": "https://graph.official.finance/graphql",
+    "backendUrl": "https://graph.official.finance/graphql",
     "etherscan": {
       "apiKey": "",
       "apiUrl": "https://api.snowtrace.io/api"
@@ -60,8 +61,8 @@
       "earlyLudwigNft": "",
       "hnd": "",
       "hndRewarder": "",
-      "batchRelayer": "0xf318a53495341351128D74781145a02Ec33923a1",
-      "copperProxy": "0xb04239a4a7ece9f1a7346b6d7549688071b91ffb"
+      "batchRelayer": "0xb3a387b1F496e705564C7E2486eB5eF6ed4c68dC",
+      "copperProxy": "0x47e93267700C8b9b12e9a4C9890f216d6C8BFC85"
     },
     "strategies": {
       "0": {
@@ -97,7 +98,7 @@
     "tokenListSanityUrl": "https://raw.githubusercontent.com/embrfinance/tokenlist/main/tokens.avalanche.json",
     "configSanityUrl": "https://raw.githubusercontent.com/embrfinance/tokenlist/main/pools.avalanche.json",
     "xEmbr": {
-      "address": "",
+      "address": "0xDE0bd8243A24aE83dB18525243ABF5f4FC3E64cD",
       "poolAddress": "",
       "poolId": ""
     },

@@ -72,6 +72,33 @@ export default function useXEmbrRewardQuery() {
         rewardsPaid: new BigNumber(u.rewardsPaid.toString())
       })
     }
+
+
+    const index = new BigNumber("115792089237316195423570985008687907853269984665640564039457584007913129639935")
+    const e = await governanceContractsService.xembr.earned(account.value, index.toString());
+    earned.push({
+      amount: new BigNumber(e.toString()), 
+      index: index
+    })
+
+    const g = await governanceContractsService.xembr.getGlobalData(index.toString());
+    global.push({
+      index: index, 
+      periodFinish: new BigNumber(g.periodFinish.toString()),
+      lastUpdateTime: new BigNumber(g.lastUpdateTime.toString()),
+      rewardRate: new BigNumber(g.rewardRate.toString()),
+      rewardPerTokenStored: new BigNumber(g.rewardPerTokenStored.toString())
+    })
+
+
+    const u = await governanceContractsService.xembr.userData(index.toString(), account.value);
+    user.push({
+      index: index,
+      rewardPerTokenPaid: new BigNumber(u.rewardPerTokenPaid.toString()),
+      rewards: new BigNumber(u.rewards.toString()),
+      rewardsPaid: new BigNumber(u.rewardsPaid.toString())
+    })
+
     return {
       earned: earned,
       global: global,

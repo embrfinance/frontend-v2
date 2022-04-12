@@ -50,13 +50,13 @@
       </template>
       <template v-slot:poolNameCell="pool">
         <div v-if="!isLoading" class="px-6 py-4 flex items-center">
-          <!--          <TokenPills
+          <TokenPills
             :tokens="orderedPoolTokens(pool)"
             :isStablePool="isStableLike(pool.poolType)"
             :selectedTokens="selectedTokens"
-          />-->
+          />
 
-          <h5 class="text-left font-normal">
+          &nbsp;<h5 class="text-left font-normal">
             {{ pool.name }}
           </h5>
           <BalChip
@@ -112,12 +112,12 @@ import { isStableLike, isStablePhantom } from '@/composables/usePool';
 import useWeb3 from '@/services/web3/useWeb3';
 import { sortBy } from 'lodash';
 
-const POOLS_PER_PAGE = 10;
+const POOLS_PER_PAGE = 15;
 
 export default defineComponent({
   components: {
-    LiquidityAPRTooltip
-    //TokenPills
+    LiquidityAPRTooltip,
+    TokenPills
   },
 
   emits: ['loadMore'],

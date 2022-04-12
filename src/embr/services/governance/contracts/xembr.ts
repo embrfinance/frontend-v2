@@ -46,13 +46,9 @@ export default class XEmbr {
   public async getData(
     account: string
   ): Promise<{
-    totalXembrSupply: BigNumber;
-    totalEmbrStaking: BigNumber;
     embrBalance: BigNumber;
     userStaking: Balance;
-    activeTokenCount: BigNumber;
-    //rewardTokens: string[];
-    //activeRewardInfo: RewardInfo[];
+    xEmbrBalance: BigNumber;
   }> {
     const multicaller = new Multicaller(
       this.configService.network.key,
@@ -60,13 +56,11 @@ export default class XEmbr {
       XEmbrAbi
     );
 
-    multicaller.call('totalXembrSupply', this.xembrAddress, 'totalSupply', []);
-    multicaller.call('totalEmbrStaking', this.embrAddress, 'balanceOf', [this.xembrAddress]);
     multicaller.call('embrBalance', this.embrAddress, 'balanceOf', [account]);
+    multicaller.call('xEmbrBalance', this.xembrAddress, 'balanceOf', [account]);
     multicaller.call('userStaking', this.xembrAddress, 'balanceData', [
       account
     ]);
-    multicaller.call('activeTokenCount', this.xembrAddress, 'activeTokenCount', []);
 
     return multicaller.execute();
   }
@@ -132,6 +126,16 @@ export default class XEmbr {
       'activeTokenCount',
       []
     ]);
+  } 
+
+  public async reviewTimestamp(provider: Web3Provider, account: string) {
+    return sendTransaction(
+      provider,
+      this.xembrAddress,
+      XEmbrAbi,
+      'reviewTimestamp',
+      [account]
+    );
   } 
 
   public async embrBalanceOf(account: string): Promise<BigNumber> {
@@ -217,8 +221,18 @@ export default class XEmbr {
       provider,
       this.xembrAddress,
       XEmbrAbi,
-      'claimReward',
+      'claimReward(uint256)',
       [BigNumber.from(pid)]
+    );
+  }
+
+  public async claimRedemption(provider: Web3Provider) {
+    return sendTransaction(
+      provider,
+      this.xembrAddress,
+      XEmbrAbi,
+      'claimRedemptionReward',
+      []
     );
   }
 

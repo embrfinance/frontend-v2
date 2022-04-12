@@ -24,18 +24,20 @@ const { fNum } = useNumbers();
 const hasThirdPartyAPR = computed(() =>
   bnum(props.pool.apr.thirdPartyApr).gt(0)
 );
+
+console.log("xploited", props.pool.apr)
 </script>
 
 <template v-slot:aprCell="pool">
   <BalTooltip width="auto" noPad>
     <template v-slot:activator>
       <div class="ml-1">
-        <StarsIcon
-          v-if="pool.apr.hasRewardApr || hasThirdPartyAPR"
-          class="h-5 text-yellow-300"
-          v-bind="$attrs"
+        <img
+          src="~@/embr/assets/images/farmAPR.png"
+          width="28"
+          v-if="pool.apr.hasRewardApr"
         />
-        <BalIcon
+          <BalIcon
           v-else
           name="info"
           size="sm"

@@ -43,6 +43,7 @@ export type TransactionAction =
   | 'endCooldown'
   | 'withdraw'
   | 'deposit'
+  | 'reviewTimestamp'
   | 'createPool'
   | 'fundPool'
   | 'create';

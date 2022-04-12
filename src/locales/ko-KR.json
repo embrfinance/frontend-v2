@@ -271,7 +271,7 @@
     "tradeSuccess": "토큰을 성공적으로 거래했습니다",
     "tradeSummary": {"exactIn":{"title":"{0} 세부정보에서 거래", "tradeFees":"거래 수수료", "totalBeforeFees":"수수료 전 받을 총액", "totalAfterFees":"수수료 후 예상 총계", "totalWithSlippage":"{0} 미끄러짐에서 얻을 수 있는 최소"}, "exactOut":{"title":"거래 세부정보 {0}", "tradeFees":"거래 수수료", "totalBeforeFees":"수수료 전 거래 총액", "totalAfterFees":"수수료 후 거래 예상 총계", "totalWithSlippage":"{0} 슬리피지에서 보낼 수 있는 최대 금액"}, "wrapETH":{"title":"요약", "tradeFees":"랩 수수료", "totalBeforeFees":"수수료 전 금액", "totalAfterFees":"받을 합계", "totalWithSlippage":"ETH를 감싸기 위한 제로 슬리피지"}, "unwrapETH":{"title":"요약", "tradeFees":"수수료 풀기", "totalBeforeFees":"수수료 전 금액", "totalAfterFees":"받을 합계", "totalWithSlippage":"ETH를 감싸기 위한 제로 슬리피지"}, "gasCosts":"가스 비용"},
     "tradesThroughWeth": "ETH 경로에서 Balancer 유동성 풀을 통해 거래하고 가스 요금이 발생합니다.",
-    "transactionAction": {"create":"무역", "trade":"무역", "approve":"승인하다", "claim":"청구하다", "invest":"투자하기", "withdraw":"철회하다"},
+    "transactionAction": {"create":"무역", "trade":"무역", "approve":"승인하다", "claim":"청구하다", "invest":"투자하기", "withdraw":"철회하다", "cooldown": "쿨다운", "deposit": "보증금", "endCool": "재사용 대기시간 종료"},
     "transactionDeadline": "거래 기한",
     "transactionDeadlineTooltip": "스왑은 만료되며 선택한 기간보다 오래 보류중인 경우 실행되지 않습니다. 실행 된 스왑에만 수수료가 발생합니다.",
     "transactionPending": "보류중인 거래 없음 | {n} 거래 보류 | {n} 거래 보류 중",

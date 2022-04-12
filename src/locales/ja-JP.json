@@ -271,7 +271,7 @@
     "tradeSuccess": "トークンの取引に成功しました",
     "tradeSummary": {"exactIn":{"title":"{0}の詳細から取引", "tradeFees":"取引手数料", "totalBeforeFees":"手数料前に受け取る合計", "totalAfterFees":"手数料後に予想される合計", "totalWithSlippage":"少なくとも{0}のずれが発生します"}, "exactOut":{"title":"{0}の詳細にトレード", "tradeFees":"取引手数料", "totalBeforeFees":"手数料前に取引する合計", "totalAfterFees":"手数料の後に取引されると予想される合計", "totalWithSlippage":"{0}スリッページで最も多く送信します"}, "wrapETH":{"title":"概要", "tradeFees":"ラップ料金", "totalBeforeFees":"手数料前の金額", "totalAfterFees":"受け取る合計", "totalWithSlippage":"ETHを包むためのゼロスリッページ"}, "unwrapETH":{"title":"概要", "tradeFees":"アンラップ料金", "totalBeforeFees":"手数料前の金額", "totalAfterFees":"受け取る合計", "totalWithSlippage":"ETHを包むためのゼロスリッページ"}, "gasCosts":"ガス代"},
     "tradesThroughWeth": "ETHルートからバランサー流動性プールを経由して取引すると、ガス料金が発生します。",
-    "transactionAction": {"create":"取引する", "trade":"取引する", "approve":"承認するために", "claim":"申し立てる", "invest":"注ぎ込む", "withdraw":"撤退する"},
+    "transactionAction": {"create":"取引する", "trade":"取引する", "approve":"承認するために", "claim":"申し立てる", "invest":"注ぎ込む", "withdraw":"撤退する","cooldown": "クールダウン","deposit": "預り金","endCool": "クールダウン終了"},
     "transactionDeadline": "取引期限",
     "transactionDeadlineTooltip": "スワップは期限切れになり、選択した期間より長く保留されている場合は実行されません。実行されたスワップのみが手数料を負担します。",
     "transactionPending": "保留中のトランザクションはありません| {n}トランザクション保留中| {n}保留中のトランザクション",

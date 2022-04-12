@@ -271,7 +271,7 @@
     "tradeSuccess": "成功交易您的代币",
     "tradeSummary": {"exactIn":{"title":"从 {0} 个详细信息进行交易", "tradeFees":"交易费用", "totalBeforeFees":"收取费用前的总额", "totalAfterFees":"扣除费用后的预期总额", "totalWithSlippage":"至少你会得到 {0} 的滑点"}, "exactOut":{"title":"交易到 {0} 详细信息", "tradeFees":"交易费用", "totalBeforeFees":"费用前交易总额", "totalAfterFees":"扣除费用后预计交易总额", "totalWithSlippage":"您将在 {0} 滑点发送的最多"}, "wrapETH":{"title":"概括", "tradeFees":"包装费", "totalBeforeFees":"费用前金额", "totalAfterFees":"接收总数", "totalWithSlippage":"零滑点包裹 ETH"}, "unwrapETH":{"title":"概括", "tradeFees":"拆包费", "totalBeforeFees":"费用前金额", "totalAfterFees":"接收总数", "totalWithSlippage":"零滑点包裹 ETH"}, "gasCosts":"燃气成本"},
     "tradesThroughWeth": "从 ETH 路线通过 Balancer 流动性池进行交易并产生 gas 费用。",
-    "transactionAction": {"create":"贸易", "trade":"贸易", "approve":"批准", "claim":"索赔", "invest":"投资", "withdraw":"提取"},
+    "transactionAction": {"create":"贸易", "trade":"贸易", "approve":"批准", "claim":"索赔", "invest":"投资", "withdraw":"提取", "cooldown": "冷却",  "deposit": "订金","endCool": "结束冷却"},
     "transactionDeadline": "交易截止日期",
     "transactionDeadlineTooltip": "如果交换的等待时间超过选定的持续时间，则您的交换将过期并且不会执行。只有执行掉期才会产生费用。",
     "transactionPending": "没有待处理的交易| {n}个交易待处理| {n}个交易待处理",

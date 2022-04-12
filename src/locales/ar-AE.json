@@ -271,7 +271,7 @@
     "tradeSuccess": "تداولت بنجاح الرموز الخاصة بك",
     "tradeSummary": {"exactIn":{"title":"تداول من {0} التفاصيل", "tradeFees":"رسوم التجارة", "totalBeforeFees":"المجموع للاستلام قبل الرسوم", "totalAfterFees":"الإجمالي المتوقع بعد الرسوم", "totalWithSlippage":"أقل ما ستحصل عليه عند انزلاق سعر بمقدار {0}"}, "exactOut":{"title":"التجارة إلى {0} التفاصيل", "tradeFees":"رسوم التجارة", "totalBeforeFees":"إجمالي المتاجرة قبل الرسوم", "totalAfterFees":"من المتوقع أن يتداول توتال بعد الرسوم", "totalWithSlippage":"أقصى مبلغ سترسله عند {0} انزلاق سعر"}, "wrapETH":{"title":"ملخص", "tradeFees":"رسوم الالتفاف", "totalBeforeFees":"المبلغ قبل الرسوم", "totalAfterFees":"إجمالي لتلقي", "totalWithSlippage":"لا يوجد انزلاق للالتفاف على ETH"}, "unwrapETH":{"title":"ملخص", "tradeFees":"رسوم إلغاء", "totalBeforeFees":"المبلغ قبل الرسوم", "totalAfterFees":"إجمالي لتلقي", "totalWithSlippage":"لا يوجد انزلاق للالتفاف على ETH"}, "gasCosts":"تكاليف الغاز"},
     "tradesThroughWeth": "التداولات من مسار ETH عبر مجمعات السيولة Balancer وتحمل رسوم الغاز.",
-    "transactionAction": {"create":"تجارة", "trade":"تجارة", "approve":"يوافق", "claim":"مطالبة", "invest":"استثمار", "withdraw":"ينسحب"},
+    "transactionAction": {"create":"تجارة", "trade":"تجارة", "approve":"يوافق", "claim":"مطالبة", "invest":"استثمار", "withdraw":"ينسحب", "cooldown": "التبريد", "deposit": "أودع", "endCool": "نهاية التبريد"},
     "transactionDeadline": "الموعد النهائي للصفقة",
     "transactionDeadlineTooltip": "تنتهي صلاحية المبادلة الخاصة بك ولن يتم تنفيذها إذا كانت معلقة لفترة أطول من المدة المحددة. فقط المقايضات المنفذة تتحمل رسوم.",
     "transactionPending": "لا توجد معاملات معلقة | {ن} معاملة معلقة | {ن} من المعاملات معلقة",

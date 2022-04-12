@@ -531,15 +531,19 @@
     },
     "transactionAction": {
         "create": "Create",
-	"approve": "Approve",
+	      "approve": "Approve",
         "claim": "Claim",
         "createPool": "Create pool",
         "fundPool": "Fund pool",
         "invest": "Invest",
         "trade": "Trade",
         "unwrap": "Unwrap",
+        "deposit": "Deposit",
         "withdraw": "Withdraw",
-        "wrap": "Wrap"
+        "wrap": "Wrap",
+        "cooldown": "Cooldown",
+        "deposit": "Deposit",
+        "endCool": "End Cooldown"
     },
     "transactionDeadline": "Transaction deadline",
     "transactionDeadlineTooltip": "Your swap will expire and not execute if it is pending for more than the selected duration. Only executed swaps incur fees for trades between ERC-20 tokens.",
